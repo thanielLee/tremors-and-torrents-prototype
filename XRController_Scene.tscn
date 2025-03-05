@@ -1,20 +1,33 @@
-[gd_scene load_steps=3 format=3 uid="uid://4woq8sawmtfw"]
+[gd_scene load_steps=7 format=3 uid="uid://4woq8sawmtfw"]
 
-[ext_resource type="PackedScene" uid="uid://bq86r4yll8po" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_fullglove_low.tscn" id="1_s0pmt"]
-[ext_resource type="PackedScene" uid="uid://xqimcf20s2jp" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_fullglove_low.tscn" id="2_xqjjn"]
+[ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="1_twerj"]
+[ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_lrghb"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="2_owqiw"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="3_7qwvu"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="3_66qvq"]
+[ext_resource type="PackedScene" uid="uid://fiul51tsyoop" path="res://addons/godot-xr-tools/functions/function_teleport.tscn" id="4_ix1gc"]
 
-[node name="Node3D" type="Node3D"]
+[node name="XRController" type="XROrigin3D"]
 
-[node name="XROrigin3D" type="XROrigin3D" parent="."]
+[node name="XRCamera3D" type="XRCamera3D" parent="."]
+current = true
 
-[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
-
-[node name="XRController3D_left" type="XRController3D" parent="XROrigin3D"]
-tracker = &"left_hand"
-
-[node name="LeftHand" parent="XROrigin3D/XRController3D_left" instance=ExtResource("1_s0pmt")]
-
-[node name="XRController3D_right" type="XRController3D" parent="XROrigin3D"]
+[node name="XRController3D_right" type="XRController3D" parent="."]
 tracker = &"right_hand"
 
-[node name="RightHand" parent="XROrigin3D/XRController3D_right" instance=ExtResource("2_xqjjn")]
+[node name="RightHand" parent="XRController3D_right" instance=ExtResource("1_twerj")]
+
+[node name="MovementDirect" parent="XRController3D_right" instance=ExtResource("2_owqiw")]
+
+[node name="FunctionPickup" parent="XRController3D_right" instance=ExtResource("3_7qwvu")]
+
+[node name="XRController3D_left" type="XRController3D" parent="."]
+tracker = &"left_hand"
+
+[node name="LeftHand" parent="XRController3D_left" instance=ExtResource("2_lrghb")]
+
+[node name="FunctionTeleport" parent="XRController3D_left" instance=ExtResource("4_ix1gc")]
+
+[node name="FunctionPickup" parent="XRController3D_left" instance=ExtResource("3_7qwvu")]
+
+[node name="PlayerBody" parent="." instance=ExtResource("3_66qvq")]
