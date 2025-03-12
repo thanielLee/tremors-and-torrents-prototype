@@ -37,6 +37,4 @@ tracker = &"left_hand"
 
 [node name="FunctionPickup" parent="XRController3D_left" instance=ExtResource("3_7qwvu")]
 
-[node name="MovementJump" parent="XRController3D_left" instance=ExtResource("4_rioxo")]
-
 [node name="PlayerBody" parent="." instance=ExtResource("3_66qvq")]
