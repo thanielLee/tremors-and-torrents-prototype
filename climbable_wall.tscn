@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctgn8pn5j1oxq"]
+
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/climbable.gd" id="1_m3rlg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7reqd"]
+size = Vector3(5, 8, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yd26h"]
+size = Vector3(5, 8, 0.5)
+
+[node name="climbable_wall" type="Node3D"]
+script = ExtResource("1_m3rlg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_7reqd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_yd26h")

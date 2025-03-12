@@ -1,0 +1,88 @@
+[gd_scene load_steps=15 format=3 uid="uid://btw7tecrcaihx"]
+
+[ext_resource type="Script" path="res://main_start.gd" id="1_322hl"]
+[ext_resource type="PackedScene" uid="uid://bq86r4yll8po" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_fullglove_low.tscn" id="4_c7ni8"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/pickable.gd" id="4_pmmug"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="5_lr2p4"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="6_b65ok"]
+[ext_resource type="PackedScene" uid="uid://xqimcf20s2jp" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_fullglove_low.tscn" id="7_gtgii"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="8_irm5r"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="9_txr1x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gs7jp"]
+size = Vector3(1000, 0.1, 1000)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wjq6q"]
+size = Vector3(1000, 0.1, 1000)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gtgag"]
+
+[sub_resource type="Environment" id="Environment_yc0bp"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_vwdlj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p11uu"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_322hl")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.05, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_gs7jp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+mesh = SubResource("BoxMesh_wjq6q")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+shape = SubResource("BoxShape3D_gtgag")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yc0bp")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.396477, 0.883349, -0.25, -0.0943394, 0.231674, 0.968208, 0.913185, 0.407457, -0.00851858, -2.81085, 3.4406, 0)
+
+[node name="XRToolsPickable" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+script = ExtResource("4_pmmug")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsPickable"]
+mesh = SubResource("BoxMesh_vwdlj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XRToolsPickable"]
+shape = SubResource("BoxShape3D_p11uu")
+
+[node name="Node3D" type="Node3D" parent="."]
+script = ExtResource("1_322hl")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="Node3D"]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="Node3D/XROrigin3D"]
+transform = Transform3D(-0.000340204, 0.000315941, -1, -8.08015e-05, 1, 0.000315971, 1, 8.09169e-05, -0.000340177, 0, 0, 0)
+
+[node name="XRController3D_left" type="XRController3D" parent="Node3D/XROrigin3D"]
+tracker = &"left_hand"
+
+[node name="LeftHand" parent="Node3D/XROrigin3D/XRController3D_left" instance=ExtResource("4_c7ni8")]
+
+[node name="FunctionPickup" parent="Node3D/XROrigin3D/XRController3D_left" instance=ExtResource("5_lr2p4")]
+
+[node name="MovementDirect" parent="Node3D/XROrigin3D/XRController3D_left" instance=ExtResource("6_b65ok")]
+strafe = true
+
+[node name="XRController3D_right" type="XRController3D" parent="Node3D/XROrigin3D"]
+tracker = &"right_hand"
+
+[node name="RightHand" parent="Node3D/XROrigin3D/XRController3D_right" instance=ExtResource("7_gtgii")]
+
+[node name="FunctionPickup" parent="Node3D/XROrigin3D/XRController3D_right" instance=ExtResource("5_lr2p4")]
+
+[node name="MovementTurn" parent="Node3D/XROrigin3D/XRController3D_right" instance=ExtResource("8_irm5r")]
+
+[node name="PlayerBody" parent="Node3D/XROrigin3D" instance=ExtResource("9_txr1x")]

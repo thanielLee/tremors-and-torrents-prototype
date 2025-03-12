@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://btw7tecrcaihx"]
+[gd_scene load_steps=8 format=3 uid="uid://btw7tecrcaihx"]
 
 [ext_resource type="Script" path="res://main_start.gd" id="1_322hl"]
 [ext_resource type="PackedScene" uid="uid://4woq8sawmtfw" path="res://XRController_Scene.tscn" id="2_jb8nx"]
 [ext_resource type="Material" path="res://assets/wahooney.itch.io/green_grid_triplanar.tres" id="3_6hmxb"]
 [ext_resource type="PackedScene" uid="uid://clta811tt773x" path="res://scenes/pickable_demo/objects/grab_ball.tscn" id="4_e766b"]
+[ext_resource type="PackedScene" uid="uid://q3pa72xp41cq" path="res://scenes/climbing_gliding_demo/objects/ladder.tscn" id="5_1xheg"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_wjq6q"]
 material = ExtResource("3_6hmxb")
@@ -38,3 +39,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.031, 1.33195, -3.1698)
 
 [node name="GrabBall2" parent="." instance=ExtResource("4_e766b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84778, 0.663909, 1.16751)
+
+[node name="Ladder" parent="." instance=ExtResource("5_1xheg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, 0)
