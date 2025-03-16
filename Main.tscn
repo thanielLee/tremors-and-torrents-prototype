@@ -1,14 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://btw7tecrcaihx"]
+[gd_scene load_steps=11 format=3 uid="uid://btw7tecrcaihx"]
 
 [ext_resource type="Script" path="res://main_start.gd" id="1_322hl"]
-[ext_resource type="PackedScene" uid="uid://dgya7syy32d8d" path="res://floor.tscn" id="2_cw6rx"]
-[ext_resource type="PackedScene" uid="uid://4woq8sawmtfw" path="res://XRController_Scene.tscn" id="2_jb8nx"]
-[ext_resource type="PackedScene" uid="uid://c0w4nlvbfg1ny" path="res://platform.tscn" id="3_qxyby"]
+[ext_resource type="PackedScene" uid="uid://dgya7syy32d8d" path="res://custom_scenes/floor.tscn" id="2_cw6rx"]
+[ext_resource type="PackedScene" uid="uid://4woq8sawmtfw" path="res://custom_scenes/XRController_Scene.tscn" id="2_jb8nx"]
+[ext_resource type="PackedScene" uid="uid://c0w4nlvbfg1ny" path="res://custom_scenes/platform.tscn" id="3_qxyby"]
 [ext_resource type="PackedScene" uid="uid://clta811tt773x" path="res://scenes/pickable_demo/objects/grab_ball.tscn" id="4_e766b"]
 [ext_resource type="PackedScene" uid="uid://q3pa72xp41cq" path="res://scenes/climbing_gliding_demo/objects/ladder.tscn" id="5_1xheg"]
 [ext_resource type="PackedScene" uid="uid://bwcpq6cuejbiy" path="res://assets/meshes/table/table.tscn" id="7_0okxt"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="8_pb0mt"]
 [ext_resource type="PackedScene" uid="uid://bxk2dud5pq1uf" path="res://scenes/pickable_demo/objects/knife.tscn" id="9_2doav"]
+[ext_resource type="PackedScene" uid="uid://t1c3f7r18mwn" path="res://custom_scenes/break_cube.tscn" id="10_pfbii"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_322hl")
@@ -46,3 +47,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.57287, 1, 0.340021)
 
 [node name="Knife" parent="Grabbing" instance=ExtResource("9_2doav")]
 transform = Transform3D(1.91069e-15, 1, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1, 0, -4.37114e-08, -8.09595, 0.847395, 0.301978)
+
+[node name="Break Cube" parent="." instance=ExtResource("10_pfbii")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4138, 0.739671, 0.612016)
