@@ -1,18 +1,20 @@
 @tool
 class_name Breakable
-extends RigidBody3D
+extends StaticBody3D
 
 ## Breakable Object (Requires [Area3D])
 ##
-## This script allows a [RigidBody3D] with an [Area3D] to be 
+## This script allows a [StaticBody3D] with an [Area3D] to be 
 ## broken by objects that belong to the "can_break" group. 
 ## 
 ## Default layer of held tools is on Layer 17
 
 @export var health: int = 3
+@export var damage_cooldown: float = 1.0 # Damage cooldown
 
 # Area3D to detect collisions
 var area: Area3D
+var can_take_damage: bool = true
 
 var hit_sound: AudioStreamPlayer3D
 
@@ -34,11 +36,26 @@ func _ready():
 		area.body_entered.connect(_on_area_3d_body_entered)
 
 func apply_damage():
+	# Only apply damage if cooldown has passed 
+	if not can_take_damage:
+		return
+
 	if hit_sound:
 		hit_sound.play()
+
+	can_take_damage = false
 	health -= 1
 	if health <= 0:
+		# Ensures sound plays before destroying
+		var sfx_length: float = 0.0
+		if hit_sound and hit_sound.stream:
+			sfx_length = hit_sound.stream.get_length()
+		await get_tree().create_timer(sfx_length).timeout
+		
 		break_object()
+	else:
+		await get_tree().create_timer(damage_cooldown).timeout
+		can_take_damage = true
 
 # This is where destruction animation logic can be placed
 # For now, just delete object from tree

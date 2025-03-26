@@ -37,9 +37,6 @@ tracker = &"left_hand"
 
 [node name="MovementDirect" parent="LeftHand/XRToolsCollisionHand" instance=ExtResource("2_owqiw")]
 
-[node name="MovementTurn" parent="LeftHand/XRToolsCollisionHand" instance=ExtResource("8_r3c63")]
-turn_mode = 2
-
 [node name="FunctionPickup" parent="LeftHand/XRToolsCollisionHand" instance=ExtResource("3_7qwvu")]
 
 [node name="GhostHand" parent="LeftHand" instance=ExtResource("2_le327")]
@@ -52,9 +49,6 @@ tracker = &"right_hand"
 [node name="XRToolsCollisionHand" parent="RightHand" instance=ExtResource("1_qjg8v")]
 
 [node name="RightHand" parent="RightHand/XRToolsCollisionHand" instance=ExtResource("5_mq6cd")]
-
-[node name="MovementDirect" parent="RightHand/XRToolsCollisionHand" instance=ExtResource("2_owqiw")]
-strafe = true
 
 [node name="MovementTurn" parent="RightHand/XRToolsCollisionHand" instance=ExtResource("8_r3c63")]
 turn_mode = 2

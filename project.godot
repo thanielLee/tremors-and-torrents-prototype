@@ -37,6 +37,11 @@ import/blender/enabled=false
 
 can_break="Objects that interact with objects that have the Breakable script"
 
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+
 [xr]
 
 openxr/enabled=true

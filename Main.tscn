@@ -31,22 +31,37 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.00006, 4.279, 2.00719)
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4, 2, 0)
 
 [node name="Grabbing" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.19509, 0, 0)
 
 [node name="Table" parent="Grabbing" instance=ExtResource("7_0okxt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.32067, 0, 0)
+
+[node name="Hammer" parent="Grabbing/Table" instance=ExtResource("8_pb0mt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.42713, 1, 0.340021)
+
+[node name="Knife" parent="Grabbing/Table" instance=ExtResource("9_2doav")]
+transform = Transform3D(1.91069e-15, 1, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1, 0, -4.37114e-08, 1.90405, 0.847395, 0.301978)
 
 [node name="GrabBall" parent="Grabbing" instance=ExtResource("4_e766b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.031, 0.238304, 0.8302)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.54385, 0.238304, 0.8302)
 
 [node name="GrabBall2" parent="Grabbing" instance=ExtResource("4_e766b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.84737, 0.204377, 0.895275)
-mass = 50.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.727476, 0.204377, 0.895275)
+mass = 30.0
 
-[node name="Hammer" parent="Grabbing" instance=ExtResource("8_pb0mt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.57287, 1, 0.340021)
+[node name="Breaking" type="Node3D" parent="."]
 
-[node name="Knife" parent="Grabbing" instance=ExtResource("9_2doav")]
-transform = Transform3D(1.91069e-15, 1, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1, 0, -4.37114e-08, -8.09595, 0.847395, 0.301978)
+[node name="Break Cube" parent="Breaking" instance=ExtResource("10_pfbii")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4138, 0.473177, 0.612016)
 
-[node name="Break Cube" parent="." instance=ExtResource("10_pfbii")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4138, 0.739671, 0.612016)
+[node name="Break Cube2" parent="Breaking" instance=ExtResource("10_pfbii")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.4138, 0.473177, 0.612016)
+health = 5
+
+[node name="Break Cube3" parent="Breaking" instance=ExtResource("10_pfbii")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.4138, 1.47318, 0.612016)
+health = 5
+
+[node name="Break Cube4" parent="Breaking" instance=ExtResource("10_pfbii")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4138, 0.473177, 0.612016)
+health = 10
