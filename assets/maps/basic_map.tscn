@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://rypqa6qcv0st"]
 
-[ext_resource type="Environment" uid="uid://c75hc5t2ml5re" path="res://demo_env.tres" id="1_d6n2l"]
+[ext_resource type="Environment" path="res://demo_env.tres" id="1_d6n2l"]
 [ext_resource type="Material" path="res://assets/wahooney.itch.io/green_grid_triplanar.tres" id="2"]
 
 [sub_resource type="QuadMesh" id="7"]

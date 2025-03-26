@@ -3,13 +3,12 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cxx7618gmf0oe"
-path="res://.godot/imported/Sledge_Hammer.glb-c70b13027609fc7221ed3d3122a95b71.scn"
+uid="uid://bl6vct3tpuwx4"
+valid=false
 
 [deps]
 
-source_file="res://Sledge_Hammer.glb"
-dest_files=["res://.godot/imported/Sledge_Hammer.glb-c70b13027609fc7221ed3d3122a95b71.scn"]
+source_file="res://assets/scene.gltf"
 
 [params]
 
