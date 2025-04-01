@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://btw7tecrcaihx"]
+[gd_scene load_steps=12 format=3 uid="uid://btw7tecrcaihx"]
 
 [ext_resource type="Script" path="res://main_start.gd" id="1_322hl"]
 [ext_resource type="PackedScene" uid="uid://dgya7syy32d8d" path="res://custom_scenes/floor.tscn" id="2_cw6rx"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bwcpq6cuejbiy" path="res://assets/meshes/table/table.tscn" id="7_0okxt"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="8_pb0mt"]
 [ext_resource type="PackedScene" uid="uid://bxk2dud5pq1uf" path="res://scenes/pickable_demo/objects/knife.tscn" id="9_2doav"]
+[ext_resource type="PackedScene" uid="uid://cpnn3w4ts0rks" path="res://custom_scenes/sledgehammer.tscn" id="9_eav35"]
 [ext_resource type="PackedScene" uid="uid://t1c3f7r18mwn" path="res://custom_scenes/break_cube.tscn" id="10_pfbii"]
 
 [node name="Main" type="Node3D"]
@@ -17,7 +18,7 @@ script = ExtResource("1_322hl")
 [node name="Floor" parent="." instance=ExtResource("2_cw6rx")]
 
 [node name="XRController" parent="." instance=ExtResource("2_jb8nx")]
-transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 0, 1, -4)
+transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, -8.24852, 1, -4)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.182661, 0.581768, -0.792579, 0.130652, 0.813355, 0.566908, 0.974456, 0, -0.224577, -13.9411, 11.1445, -11.2885)
@@ -38,9 +39,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.32067, 0, 0)
 
 [node name="Hammer" parent="Grabbing/Table" instance=ExtResource("8_pb0mt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.42713, 1, 0.340021)
+mass = 1.0
+ranged_grab_method = 2
 
 [node name="Knife" parent="Grabbing/Table" instance=ExtResource("9_2doav")]
 transform = Transform3D(1.91069e-15, 1, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1, 0, -4.37114e-08, 1.90405, 0.847395, 0.301978)
+mass = 0.2
+
+[node name="Sledgehammer" parent="Grabbing/Table" instance=ExtResource("9_eav35")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.750607, 1.61886, 0.339447)
 
 [node name="GrabBall" parent="Grabbing" instance=ExtResource("4_e766b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.54385, 0.238304, 0.8302)

@@ -236,7 +236,6 @@ func request_highlight(from : Node, on : bool = true) -> void:
 	if _highlighted != old_highlighted:
 		highlight_updated.emit(self, _highlighted)
 
-
 func drop():
 	# Skip if not picked up
 	if not is_picked_up():
