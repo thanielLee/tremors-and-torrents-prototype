@@ -47,7 +47,7 @@ transform = Transform3D(1.91069e-15, 1, 4.37114e-08, 4.37114e-08, -4.37114e-08, 
 mass = 0.2
 
 [node name="Sledgehammer" parent="Grabbing/Table" instance=ExtResource("9_eav35")]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.750607, 1.61886, 0.339447)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.987164, 1.61886, 0.117842)
 
 [node name="GrabBall" parent="Grabbing" instance=ExtResource("4_e766b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.54385, 0.238304, 0.8302)

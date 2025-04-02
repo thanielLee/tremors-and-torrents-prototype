@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://4woq8sawmtfw"]
+[gd_scene load_steps=13 format=3 uid="uid://4woq8sawmtfw"]
 
 [ext_resource type="Script" path="res://scripts/xr_controller_scene.gd" id="1_3f6f6"]
 [ext_resource type="PackedScene" uid="uid://yrg5yt0yvc1q" path="res://addons/godot-xr-tools/hands/scenes/collision/collision_hand.tscn" id="1_qjg8v"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="5_mq6cd"]
 [ext_resource type="PackedScene" uid="uid://bxm1ply47vaan" path="res://addons/godot-xr-tools/functions/movement_climb.tscn" id="5_x4lt2"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="8_r3c63"]
+[ext_resource type="PackedScene" uid="uid://1mb16xioom74" path="res://scenes/pickable_demo/objects/belt_snap_zone.tscn" id="10_0oien"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dmd0s"]
 transparency = 1
@@ -36,6 +37,7 @@ tracker = &"left_hand"
 [node name="LeftHand" parent="LeftHand/XRToolsCollisionHand" instance=ExtResource("2_le327")]
 
 [node name="MovementDirect" parent="LeftHand/XRToolsCollisionHand" instance=ExtResource("2_owqiw")]
+strafe = true
 
 [node name="FunctionPickup" parent="LeftHand/XRToolsCollisionHand" instance=ExtResource("3_7qwvu")]
 
@@ -62,3 +64,13 @@ visible = false
 hand_material_override = SubResource("StandardMaterial3D_v76d2")
 
 [node name="PlayerBody" parent="." instance=ExtResource("3_66qvq")]
+player_height_max = 1.7
+
+[node name="BeltSnapZone" parent="PlayerBody" instance=ExtResource("10_0oien")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.177, 1, -0.177)
+
+[node name="BeltSnapZone3" parent="PlayerBody" instance=ExtResource("10_0oien")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.25)
+
+[node name="BeltSnapZone5" parent="PlayerBody" instance=ExtResource("10_0oien")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0.177, 1, -0.177)
