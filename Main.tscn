@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://btw7tecrcaihx"]
+[gd_scene load_steps=15 format=3 uid="uid://btw7tecrcaihx"]
 
 [ext_resource type="Script" path="res://main_start.gd" id="1_322hl"]
 [ext_resource type="PackedScene" uid="uid://dgya7syy32d8d" path="res://custom_scenes/floor.tscn" id="2_cw6rx"]
@@ -9,8 +9,17 @@
 [ext_resource type="PackedScene" uid="uid://bwcpq6cuejbiy" path="res://assets/meshes/table/table.tscn" id="7_0okxt"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="8_pb0mt"]
 [ext_resource type="PackedScene" uid="uid://bxk2dud5pq1uf" path="res://scenes/pickable_demo/objects/knife.tscn" id="9_2doav"]
-[ext_resource type="PackedScene" uid="uid://cpnn3w4ts0rks" path="res://custom_scenes/sledgehammer.tscn" id="9_eav35"]
 [ext_resource type="PackedScene" uid="uid://t1c3f7r18mwn" path="res://custom_scenes/break_cube.tscn" id="10_pfbii"]
+[ext_resource type="PackedScene" uid="uid://djkjuy7wct10q" path="res://scenes/pickable_demo/objects/grab_cube.tscn" id="10_y4na3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6nf43"]
+
+[sub_resource type="Sky" id="Sky_ff7d2"]
+sky_material = SubResource("ProceduralSkyMaterial_6nf43")
+
+[sub_resource type="Environment" id="Environment_rsjtl"]
+background_mode = 2
+sky = SubResource("Sky_ff7d2")
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_322hl")
@@ -21,9 +30,14 @@ script = ExtResource("1_322hl")
 transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, -8.24852, 1, -4)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.182661, 0.581768, -0.792579, 0.130652, 0.813355, 0.566908, 0.974456, 0, -0.224577, -13.9411, 11.1445, -11.2885)
+transform = Transform3D(0.172856, 0.918606, -0.355363, 0.284139, 0.298949, 0.910986, 0.943073, -0.258442, -0.209337, -13.9411, 25.5031, -11.6588)
+light_energy = 2.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rsjtl")
 
 [node name="Climbing" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0, 0)
 
 [node name="Platform" parent="Climbing" instance=ExtResource("3_qxyby")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.00006, 4.279, 2.00719)
@@ -37,23 +51,61 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.19509, 0, 0)
 [node name="Table" parent="Grabbing" instance=ExtResource("7_0okxt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.32067, 0, 0)
 
-[node name="Hammer" parent="Grabbing/Table" instance=ExtResource("8_pb0mt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.42713, 1, 0.340021)
-mass = 1.0
-ranged_grab_method = 2
-
 [node name="Knife" parent="Grabbing/Table" instance=ExtResource("9_2doav")]
 transform = Transform3D(1.91069e-15, 1, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1, 0, -4.37114e-08, 1.90405, 0.847395, 0.301978)
 mass = 0.2
 
-[node name="Sledgehammer" parent="Grabbing/Table" instance=ExtResource("9_eav35")]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.987164, 1.61886, 0.117842)
+[node name="Knife2" parent="Grabbing/Table" instance=ExtResource("9_2doav")]
+transform = Transform3D(1.91069e-15, 1, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1, 0, -4.37114e-08, 2.00405, 0.847395, 0.301978)
+mass = 0.2
+
+[node name="Knife3" parent="Grabbing/Table" instance=ExtResource("9_2doav")]
+transform = Transform3D(1.91069e-15, 1, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1, 0, -4.37114e-08, 1.80405, 0.847395, 0.301978)
+mass = 0.2
+
+[node name="Hammer" parent="Grabbing/Table" instance=ExtResource("8_pb0mt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40328, 1, 0.243652)
+mass = 1.0
+ranged_grab_method = 2
+
+[node name="Hammer2" parent="Grabbing/Table" instance=ExtResource("8_pb0mt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.20328, 1, 0.243652)
+mass = 1.0
+ranged_grab_method = 2
+
+[node name="Hammer3" parent="Grabbing/Table" instance=ExtResource("8_pb0mt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.00328, 1, 0.243652)
+mass = 1.0
+ranged_grab_method = 2
+
+[node name="GrabCube" parent="Grabbing/Table" instance=ExtResource("10_y4na3")]
+transform = Transform3D(0.805059, 0, 0.593194, 0, 1, 0, -0.593194, 0, 0.805059, 0.489301, 0.9, 0.241961)
+ranged_grab_method = 1
+second_hand_grab = 1
+
+[node name="GrabCube2" parent="Grabbing/Table" instance=ExtResource("10_y4na3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.359982, 0.9, 0.241961)
+ranged_grab_method = 1
+second_hand_grab = 1
+
+[node name="GrabCube3" parent="Grabbing/Table" instance=ExtResource("10_y4na3")]
+transform = Transform3D(0.885969, 0, 0.463745, 0, 1, 0, -0.463745, 0, 0.885969, 0.425349, 1, 0.241961)
+ranged_grab_method = 1
+second_hand_grab = 1
 
 [node name="GrabBall" parent="Grabbing" instance=ExtResource("4_e766b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.54385, 0.238304, 0.8302)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14385, 0.238304, 0.5302)
+mass = 2.0
 
 [node name="GrabBall2" parent="Grabbing" instance=ExtResource("4_e766b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.727476, 0.204377, 0.895275)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.64385, 0.238304, 0.5302)
+mass = 5.0
+
+[node name="GrabBall3" parent="Grabbing" instance=ExtResource("4_e766b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14385, 0.238304, 0.5302)
+
+[node name="GrabBall4" parent="Grabbing" instance=ExtResource("4_e766b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.64385, 0.238304, 0.5302)
 mass = 30.0
 
 [node name="Breaking" type="Node3D" parent="."]

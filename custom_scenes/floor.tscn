@@ -1,13 +1,15 @@
 [gd_scene load_steps=4 format=3 uid="uid://dgya7syy32d8d"]
 
-[ext_resource type="Material" path="res://assets/wahooney.itch.io/green_grid_triplanar.tres" id="1_hu2d3"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lmgth"]
+albedo_color = Color(0.340339, 0.340339, 0.340339, 1)
+metallic = 0.21
 
 [sub_resource type="BoxMesh" id="BoxMesh_wjq6q"]
-material = ExtResource("1_hu2d3")
-size = Vector3(500, 0.1, 500)
+material = SubResource("StandardMaterial3D_lmgth")
+size = Vector3(1000, 0.1, 1000)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gs7jp"]
-size = Vector3(500, 1, 500)
+size = Vector3(1000, 1, 1000)
 
 [node name="Floor" type="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
