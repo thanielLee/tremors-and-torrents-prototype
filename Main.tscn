@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://btw7tecrcaihx"]
+[gd_scene load_steps=17 format=3 uid="uid://btw7tecrcaihx"]
 
 [ext_resource type="Script" path="res://main_start.gd" id="1_322hl"]
 [ext_resource type="PackedScene" uid="uid://dgya7syy32d8d" path="res://custom_scenes/floor.tscn" id="2_cw6rx"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://bxk2dud5pq1uf" path="res://scenes/pickable_demo/objects/knife.tscn" id="9_2doav"]
 [ext_resource type="PackedScene" uid="uid://t1c3f7r18mwn" path="res://custom_scenes/break_cube.tscn" id="10_pfbii"]
 [ext_resource type="PackedScene" uid="uid://djkjuy7wct10q" path="res://scenes/pickable_demo/objects/grab_cube.tscn" id="10_y4na3"]
+[ext_resource type="PackedScene" uid="uid://bdc23valbh8gf" path="res://assets/meshes/ramps/ramps.tscn" id="12_46x6f"]
+[ext_resource type="PackedScene" uid="uid://dpjfart2qg8k7" path="res://assets/meshes/mound/mound.tscn" id="13_de8gu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6nf43"]
 
@@ -27,7 +29,7 @@ script = ExtResource("1_322hl")
 [node name="Floor" parent="." instance=ExtResource("2_cw6rx")]
 
 [node name="XRController" parent="." instance=ExtResource("2_jb8nx")]
-transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, -8.24852, 1, -4)
+transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 0, 1, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.172856, 0.918606, -0.355363, 0.284139, 0.298949, 0.910986, 0.943073, -0.258442, -0.209337, -13.9411, 25.5031, -11.6588)
@@ -37,7 +39,7 @@ light_energy = 2.0
 environment = SubResource("Environment_rsjtl")
 
 [node name="Climbing" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.4588, 0, 3.61446)
 
 [node name="Platform" parent="Climbing" instance=ExtResource("3_qxyby")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.00006, 4.279, 2.00719)
@@ -46,7 +48,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.00006, 4.279, 2.00719)
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4, 2, 0)
 
 [node name="Grabbing" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.19509, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.46371, 0, 3.61446)
 
 [node name="Table" parent="Grabbing" instance=ExtResource("7_0okxt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.32067, 0, 0)
@@ -109,6 +111,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.64385, 0.238304, 0.5302)
 mass = 30.0
 
 [node name="Breaking" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.6588, 0, 3.61446)
 
 [node name="Break Cube" parent="Breaking" instance=ExtResource("10_pfbii")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4138, 0.473177, 0.612016)
@@ -124,3 +127,15 @@ health = 5
 [node name="Break Cube4" parent="Breaking" instance=ExtResource("10_pfbii")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4138, 0.473177, 0.612016)
 health = 10
+
+[node name="Movement" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.614, 0, -20.328)
+
+[node name="Ramps" parent="Movement" instance=ExtResource("12_46x6f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2646, -0.0501391, 9.64705)
+
+[node name="Mound" parent="Movement" instance=ExtResource("13_de8gu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.2097, -0.0501393, 8.99584)
+
+[node name="Floating Ramp" parent="Movement" instance=ExtResource("3_qxyby")]
+transform = Transform3D(0.960152, -0.279477, 0, 0.279477, 0.960152, 0, 0, 0, 1, -1.58881, 1.63182, 9.79151)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://4woq8sawmtfw"]
+[gd_scene load_steps=17 format=3 uid="uid://4woq8sawmtfw"]
 
 [ext_resource type="Script" path="res://scripts/xr_controller_scene.gd" id="1_3f6f6"]
 [ext_resource type="PackedScene" uid="uid://yrg5yt0yvc1q" path="res://addons/godot-xr-tools/hands/scenes/collision/collision_hand.tscn" id="1_qjg8v"]
@@ -11,7 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://bxm1ply47vaan" path="res://addons/godot-xr-tools/functions/movement_climb.tscn" id="5_x4lt2"]
 [ext_resource type="PackedScene" uid="uid://clt88d5d1dje4" path="res://addons/godot-xr-tools/functions/movement_crouch.tscn" id="7_krw25"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="8_r3c63"]
+[ext_resource type="PackedScene" uid="uid://bwr0eqi231lf0" path="res://assets/meshes/control_pad/control_pad_location_left.tscn" id="8_ub52d"]
 [ext_resource type="PackedScene" uid="uid://1mb16xioom74" path="res://scenes/pickable_demo/objects/belt_snap_zone.tscn" id="10_0oien"]
+[ext_resource type="PackedScene" uid="uid://deyk5frilshws" path="res://assets/meshes/control_pad/control_pad_location_right.tscn" id="12_8ksf1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dmd0s"]
 transparency = 1
@@ -50,6 +52,8 @@ crouch_button_action = "by_button"
 
 [node name="FunctionPickup" parent="LeftHand/XRToolsCollisionHand" instance=ExtResource("3_7qwvu")]
 
+[node name="ControlPadLocationLeft" parent="LeftHand/XRToolsCollisionHand" instance=ExtResource("8_ub52d")]
+
 [node name="GhostHand" parent="LeftHand" instance=ExtResource("2_le327")]
 visible = false
 hand_material_override = SubResource("StandardMaterial3D_dmd0s")
@@ -66,9 +70,17 @@ tracker = &"right_hand"
 [node name="MovementTurn" parent="RightHand/XRToolsCollisionHand" instance=ExtResource("8_r3c63")]
 turn_mode = 2
 
-[node name="FunctionPickup" parent="RightHand/XRToolsCollisionHand" instance=ExtResource("3_7qwvu")]
+[node name="MovementJump" parent="RightHand/XRToolsCollisionHand" instance=ExtResource("5_g8riv")]
+jump_button_action = "ax_button"
+
+[node name="MovementCrouch" parent="RightHand/XRToolsCollisionHand" instance=ExtResource("7_krw25")]
+crouch_button_action = "by_button"
 
 [node name="MovementClimb" parent="RightHand/XRToolsCollisionHand" instance=ExtResource("5_x4lt2")]
+
+[node name="FunctionPickup" parent="RightHand/XRToolsCollisionHand" instance=ExtResource("3_7qwvu")]
+
+[node name="ControlPadLocationRight" parent="RightHand/XRToolsCollisionHand" instance=ExtResource("12_8ksf1")]
 
 [node name="GhostHand" parent="RightHand" instance=ExtResource("5_mq6cd")]
 visible = false

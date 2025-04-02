@@ -10,7 +10,7 @@ extends StaticBody3D
 ## Default layer of held tools is on Layer 17
 
 @export var health: int = 3
-@export var damage_cooldown: float = 1.0 # Damage cooldown
+@export var damage_cooldown: float = 0.001 # Damage cooldown
 
 # Area3D to detect collisions
 var area: Area3D
