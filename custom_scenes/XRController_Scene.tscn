@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://4woq8sawmtfw"]
+[gd_scene load_steps=18 format=3 uid="uid://4woq8sawmtfw"]
 
 [ext_resource type="Script" path="res://scripts/xr_controller_scene.gd" id="1_3f6f6"]
 [ext_resource type="PackedScene" uid="uid://yrg5yt0yvc1q" path="res://addons/godot-xr-tools/hands/scenes/collision/collision_hand.tscn" id="1_qjg8v"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://clt88d5d1dje4" path="res://addons/godot-xr-tools/functions/movement_crouch.tscn" id="7_krw25"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="8_r3c63"]
 [ext_resource type="PackedScene" uid="uid://bwr0eqi231lf0" path="res://assets/meshes/control_pad/control_pad_location_left.tscn" id="8_ub52d"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="9_0bdxp"]
 [ext_resource type="PackedScene" uid="uid://1mb16xioom74" path="res://scenes/pickable_demo/objects/belt_snap_zone.tscn" id="10_0oien"]
 [ext_resource type="PackedScene" uid="uid://deyk5frilshws" path="res://assets/meshes/control_pad/control_pad_location_right.tscn" id="12_8ksf1"]
 
@@ -58,6 +59,10 @@ crouch_button_action = "by_button"
 visible = false
 hand_material_override = SubResource("StandardMaterial3D_dmd0s")
 
+[node name="FunctionPointer" parent="LeftHand" instance=ExtResource("9_0bdxp")]
+show_laser = 2
+laser_length = 1
+
 [node name="RightHand" type="XRController3D" parent="."]
 tracker = &"right_hand"
 
@@ -85,6 +90,11 @@ crouch_button_action = "by_button"
 [node name="GhostHand" parent="RightHand" instance=ExtResource("5_mq6cd")]
 visible = false
 hand_material_override = SubResource("StandardMaterial3D_v76d2")
+
+[node name="FunctionPointer" parent="RightHand" instance=ExtResource("9_0bdxp")]
+show_laser = 2
+laser_length = 1
+suppress_mask = 5242880
 
 [node name="PlayerBody" parent="." instance=ExtResource("3_66qvq")]
 player_height_max = 1.7
