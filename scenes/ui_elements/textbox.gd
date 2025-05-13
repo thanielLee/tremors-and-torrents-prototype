@@ -20,7 +20,7 @@ func _ready():
 	
 	
 	hide_textbox()
-	add_text("New text is being added!")
+	add_text("New text I need help!")
 	pass # Replace with function body.
 	
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://btw7tecrcaihx"]
+[gd_scene load_steps=21 format=3 uid="uid://btw7tecrcaihx"]
 
 [ext_resource type="Script" path="res://main_start.gd" id="1_322hl"]
 [ext_resource type="PackedScene" uid="uid://dgya7syy32d8d" path="res://custom_scenes/floor.tscn" id="2_cw6rx"]
@@ -26,6 +26,8 @@ background_mode = 2
 sky = SubResource("Sky_ff7d2")
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_1gdne"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0b2co"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_322hl")
@@ -147,14 +149,21 @@ transform = Transform3D(0.960152, -0.279477, 0, 0.279477, 0.960152, 0, 0, 0, 1, 
 [node name="NPC" type="Node3D" parent="."]
 transform = Transform3D(0.626998, 0, -0.779021, 0, 1, 0, 0.779021, 0, 0.626998, -8.26154, 1.03215, 1.56175)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NPC"]
-mesh = SubResource("CapsuleMesh_1gdne")
-skeleton = NodePath("../..")
+[node name="StaticBody3D" type="StaticBody3D" parent="NPC"]
 
-[node name="Viewport2Din3D" parent="NPC/MeshInstance3D" instance=ExtResource("14_71dao")]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NPC/StaticBody3D"]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_1gdne")
+skeleton = NodePath("../../..")
+
+[node name="Viewport2Din3D" parent="NPC/StaticBody3D/MeshInstance3D" instance=ExtResource("14_71dao")]
 transform = Transform3D(-0.001, 0, -1.74623e-10, 0, 0.001, 0, 1.74623e-10, 0, -0.001, -0.0342965, 0.127478, -0.642997)
-screen_size = Vector2(1280, 768)
+screen_size = Vector2(1600, 900)
 scene = ExtResource("15_lvsjh")
 viewport_size = Vector2(640, 360)
 unshaded = true
 scene_properties_keys = PackedStringArray("textbox.gd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NPC/StaticBody3D"]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_0b2co")
