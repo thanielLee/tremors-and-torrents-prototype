@@ -16,12 +16,12 @@
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6nf43"]
 
-[sub_resource type="Sky" id="Sky_ff7d2"]
+[sub_resource type="Sky" id="Sky_8xk7q"]
 sky_material = SubResource("ProceduralSkyMaterial_6nf43")
 
 [sub_resource type="Environment" id="Environment_rsjtl"]
 background_mode = 2
-sky = SubResource("Sky_ff7d2")
+sky = SubResource("Sky_8xk7q")
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_322hl")
