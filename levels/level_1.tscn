@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=8 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://deafult_scene_base.tscn" id="1_lmdqw"]
+[ext_resource type="Script" path="res://scripts/level_1.gd" id="2_1gikq"]
 [ext_resource type="PackedScene" uid="uid://13lrpeq0j3lk" path="res://maps/map_1.tscn" id="2_rduek"]
+[ext_resource type="PackedScene" uid="uid://dts3qx1g7762" path="res://hazards/hazard_base.tscn" id="3_jru8f"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x70s4"]
 
@@ -13,17 +15,36 @@ background_mode = 2
 sky = SubResource("Sky_ff7d2")
 
 [node name="Level1" instance=ExtResource("1_lmdqw")]
+script = ExtResource("2_1gikq")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="1"]
+[node name="Environment" type="Node3D" parent="." index="1"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" index="0"]
 transform = Transform3D(0.172856, 0.918606, -0.355364, 0.284139, 0.298949, 0.910986, 0.943073, -0.258442, -0.209337, -13.9411, 25.5031, -11.6588)
 light_energy = 2.0
 
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." index="2"]
-transform = Transform3D(0.518685, -0.847035, 0.116184, 0.284139, 0.298949, 0.910986, -0.806369, -0.439502, 0.395736, 17.6631, 25.5031, 12.542)
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Environment" index="1"]
+transform = Transform3D(0.518685, -0.847034, 0.116183, 0.284139, 0.298949, 0.910986, -0.806369, -0.439502, 0.395736, 17.6631, 25.5031, 12.542)
 light_energy = 2.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="3"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" index="2"]
 environment = SubResource("Environment_4jcj5")
 
-[node name="Map1" parent="." index="4" instance=ExtResource("2_rduek")]
+[node name="Map1" parent="." index="2" instance=ExtResource("2_rduek")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11)
+
+[node name="Hazards" type="Node3D" parent="." index="3"]
+
+[node name="LivingRoom" parent="Hazards" index="0" instance=ExtResource("3_jru8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -6)
+hazard_name = "Living Room"
+penalty_points = 0
+resolved_points = 0
+damage_points = 0
+
+[node name="Room3" parent="Hazards" index="1" instance=ExtResource("3_jru8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -12)
+hazard_name = "Room 3"
+penalty_points = 0
+resolved_points = 0
+damage_points = 0
