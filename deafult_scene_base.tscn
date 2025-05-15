@@ -1,20 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://cpnfo7hdx0oxg"]
+[gd_scene load_steps=9 format=3 uid="uid://cpnfo7hdx0oxg"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1_kp682"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_lpr0g"]
-[ext_resource type="Script" path="res://scripts/trauma_area_3d.gd" id="2_rdia6"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="3_fbi2f"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="4_tiw88"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="5_i4neq"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="6_bbwd4"]
 [ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="7_c24kp"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="8_iu10m"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_80tud"]
-fractal_octaves = 4
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_q7eti"]
-radius = 2.0
 
 [node name="DeafultSceneBase" instance=ExtResource("1_kp682")]
 
@@ -38,12 +31,3 @@ turn_mode = 2
 jump_button_action = "ax_button"
 
 [node name="PlayerBody" parent="XROrigin3D" index="3" instance=ExtResource("8_iu10m")]
-
-[node name="Area3D" type="Area3D" parent="XROrigin3D" index="4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
-collision_layer = 524288
-script = ExtResource("2_rdia6")
-noise = SubResource("FastNoiseLite_80tud")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/Area3D" index="0"]
-shape = SubResource("SphereShape3D_q7eti")

@@ -29,7 +29,7 @@ mesh = SubResource("QuadMesh_1mtqy")
 
 [node name="Trauma Causer" parent="." index="2" instance=ExtResource("2_1okvy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.561434, -4.4747)
-trauma_amount = 1.0
+trauma_amount = 0.25
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Trauma Causer" index="0"]
 shape = SubResource("BoxShape3D_y45ph")

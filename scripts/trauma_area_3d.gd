@@ -1,4 +1,4 @@
-extends Area3D
+extends Node3D
 
 @export var trauma_reduction_rate = 1.0
 @export var noise: FastNoiseLite
@@ -12,8 +12,7 @@ var trauma = 0.0
 
 var time = 0.0
 
-@onready var camera = $".."
-
+@onready var camera = $"../../Map1"
 var initial_rotation: Vector3
 
 # Called when the node enters the scene tree for the first time.
@@ -29,7 +28,7 @@ func _process(delta):
 	camera.rotation_degrees.y += max_y * get_shake_intensity() * get_noise_from_seed(1)
 	camera.rotation_degrees.z += max_z * get_shake_intensity() * get_noise_from_seed(2)
 	
-	print(camera.rotation_degrees.x, camera.rotation_degrees.y, camera.rotation_degrees.z)
+	#print(camera.rotation_degrees.x, camera.rotation_degrees.y, camera.rotation_degrees.z)
 	
 
 func add_trauma(trauma_amount: float):
@@ -42,3 +41,9 @@ func get_shake_intensity():
 func get_noise_from_seed(_seed: int) -> float:
 	noise.seed = _seed
 	return noise.get_noise_1d(time * noise_speed)
+
+
+func _on_trauma_hazard_triggered(name: String):
+	print("triggeriing shake")
+	add_trauma(0.5)
+	
