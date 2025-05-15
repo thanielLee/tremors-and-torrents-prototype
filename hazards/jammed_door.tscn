@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://btdhphd4edn4s"]
+
+[ext_resource type="Script" path="res://scripts/breakable.gd" id="1_bnyk4"]
+[ext_resource type="AudioStream" uid="uid://868abxtawv22" path="res://assets/hammer_hit.ogg" id="2_0t6l1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5rjvt"]
+size = Vector3(0.15, 2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ahqp4"]
+albedo_color = Color(0.635294, 0, 0.172549, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wcves"]
+material = SubResource("StandardMaterial3D_ahqp4")
+size = Vector3(0.15, 2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dtjct"]
+size = Vector3(0.15, 2, 1)
+
+[node name="JammedDoor" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 65536
+script = ExtResource("1_bnyk4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_5rjvt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_wcves")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_dtjct")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_0t6l1")
+pitch_scale = 0.969249

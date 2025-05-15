@@ -81,7 +81,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
 scene = "res://levels/level_1.tscn"
 active_beam_color = Color(0.154876, 0.154876, 0.154876, 1)
 inactive_beam_color = Color(1, 0.918009, 0.903595, 1)
-
-[node name="Trauma Scene" parent="Levels" index="1" instance=ExtResource("11_62yrx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.74121, 0, 0)
-scene = "res://levels/trauma_causer_test.tscn"

@@ -22,6 +22,5 @@ func _process(delta):
 func shake_world():
 	time_left = shake_duration
 
-func _on_shake_hazard_triggered(name: String):
-	print("shaking world")
+func on_shake_hazard_triggered(name: String):
 	shake_world()

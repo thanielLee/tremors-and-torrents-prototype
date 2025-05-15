@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5jkbtv57haa3"]
+
+[ext_resource type="PackedScene" uid="uid://dts3qx1g7762" path="res://hazards/hazard_base.tscn" id="1_o7m3x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ml4q5"]
+size = Vector3(1, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y8vrh"]
+transparency = 1
+albedo_color = Color(0.847475, 0.847474, 0.847475, 0.345098)
+
+[sub_resource type="BoxMesh" id="BoxMesh_i1a1c"]
+material = SubResource("StandardMaterial3D_y8vrh")
+size = Vector3(1, 0.2, 1)
+
+[node name="BrokenGlass" instance=ExtResource("1_o7m3x")]
+hazard_name = "Broken Glass"
+penalty_points = -3
+resolved_points = 2
+damage_points = -1
+
+[node name="DetectionArea" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("BoxShape3D_ml4q5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DetectionArea" index="1"]
+mesh = SubResource("BoxMesh_i1a1c")

@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://c83bvn3hvunbw"]
+
+[ext_resource type="PackedScene" uid="uid://dts3qx1g7762" path="res://hazards/hazard_base.tscn" id="1_u6ud7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j5wyh"]
+size = Vector3(2, 0.5, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jsnxg"]
+transparency = 1
+albedo_color = Color(1, 0.513726, 0.980392, 0.294118)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ncx3j"]
+material = SubResource("StandardMaterial3D_jsnxg")
+size = Vector3(2, 0.5, 2)
+
+[node name="Shaker" instance=ExtResource("1_u6ud7")]
+hazard_name = "Shaker"
+
+[node name="DetectionArea" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("BoxShape3D_j5wyh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DetectionArea" index="1"]
+mesh = SubResource("BoxMesh_ncx3j")
