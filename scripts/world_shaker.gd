@@ -15,7 +15,7 @@ func _process(delta):
 			randf_range(-1, 1)
 		) * shake_intensity
 		global_position = shake_offset
-		print(shake_offset)
+		#print(shake_offset)
 	else:
 		global_position = Vector3.ZERO
 

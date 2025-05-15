@@ -4,10 +4,6 @@
 
 [node name="HazardBase" type="Node3D"]
 script = ExtResource("1_qgs2p")
-hazard_name = null
-penalty_points = null
-resolved_points = null
-damage_points = null
 
 [node name="DetectionArea" type="Area3D" parent="."]
 collision_mask = 524288

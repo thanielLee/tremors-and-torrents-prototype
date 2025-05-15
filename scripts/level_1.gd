@@ -26,5 +26,5 @@ func _ready():
 		shaker.hazard_triggered.connect(world_shaker.on_shake_hazard_triggered)
 
 # Temporary function
-func _on_hazard_triggered(name: String):
-	print("Hazard: " + name + " has been triggered!")
+func _on_hazard_triggered(hazard_name: String):
+	print("Hazard: " + hazard_name + " has been triggered!")
