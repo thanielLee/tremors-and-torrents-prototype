@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cpnfo7hdx0oxg"]
+[gd_scene load_steps=10 format=3 uid="uid://cpnfo7hdx0oxg"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1_kp682"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_lpr0g"]
+[ext_resource type="Script" path="res://trauma_xr_camera_3d.gd" id="2_rdia6"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="3_fbi2f"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="4_tiw88"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="5_i4neq"]
@@ -10,6 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="8_iu10m"]
 
 [node name="DeafultSceneBase" instance=ExtResource("1_kp682")]
+
+[node name="XRCamera3D" parent="XROrigin3D" index="0"]
+script = ExtResource("2_rdia6")
 
 [node name="LeftHand" parent="XROrigin3D/LeftHand" index="0" instance=ExtResource("2_lpr0g")]
 
