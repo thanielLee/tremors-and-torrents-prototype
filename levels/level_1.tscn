@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=10 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://deafult_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="2_1gikq"]
 [ext_resource type="PackedScene" uid="uid://13lrpeq0j3lk" path="res://maps/map_1.tscn" id="2_rduek"]
 [ext_resource type="PackedScene" uid="uid://dts3qx1g7762" path="res://hazards/hazard_base.tscn" id="3_jru8f"]
 [ext_resource type="Script" path="res://scripts/world_shaker.gd" id="3_sstds"]
+[ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="6_1sveg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x70s4"]
 
@@ -34,7 +35,6 @@ environment = SubResource("Environment_4jcj5")
 [node name="WorldShaker" type="Node3D" parent="." index="1"]
 script = ExtResource("3_sstds")
 shake_duration = 2.0
-shake_intensity = 0.2
 
 [node name="Map1" parent="WorldShaker" index="0" instance=ExtResource("2_rduek")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11)
@@ -60,5 +60,8 @@ damage_points = 0
 [node name="Shake" parent="Shakers" index="0" instance=ExtResource("3_jru8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -13)
 hazard_name = "Shake"
+
+[node name="Hammer" parent="." index="4" instance=ExtResource("6_1sveg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -3)
 
 [connection signal="hazard_triggered" from="Shakers/Shake" to="WorldShaker" method="_on_shake_hazard_triggered"]
