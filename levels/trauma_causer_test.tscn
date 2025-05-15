@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://drui6rvtkv4m"]
+
+[ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://deafult_scene_base.tscn" id="1_vqo22"]
+[ext_resource type="PackedScene" uid="uid://6onehhulg5l6" path="res://scenes/trauma_scenes/trauma_causer.tscn" id="2_1okvy"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4mfq4"]
+size = Vector3(100, 2, 100)
+
+[sub_resource type="QuadMesh" id="QuadMesh_1mtqy"]
+size = Vector2(96, 96)
+orientation = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y45ph"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2g1gb"]
+
+[sub_resource type="Environment" id="Environment_vgu2v"]
+
+[node name="DeafultSceneBase" instance=ExtResource("1_vqo22")]
+
+[node name="Ground" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("BoxShape3D_4mfq4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" index="1"]
+mesh = SubResource("QuadMesh_1mtqy")
+
+[node name="Trauma Causer" parent="." index="2" instance=ExtResource("2_1okvy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.561434, -4.4747)
+trauma_amount = 0.25
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trauma Causer" index="0"]
+shape = SubResource("BoxShape3D_y45ph")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Trauma Causer" index="1"]
+mesh = SubResource("BoxMesh_2g1gb")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="3"]
+environment = SubResource("Environment_vgu2v")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.77308, 0)
