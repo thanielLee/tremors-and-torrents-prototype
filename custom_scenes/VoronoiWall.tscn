@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bwnmll8iufuke"]
 
-[ext_resource type="Script" path="res://scripts/voronoi_wall.gd" id="1_gju4b"]
+[ext_resource type="Script" uid="uid://csyuitv8p7uty" path="res://scripts/voronoi_wall.gd" id="1_gju4b"]
 
 [node name="VoronoiWall" type="Node3D"]
 script = ExtResource("1_gju4b")

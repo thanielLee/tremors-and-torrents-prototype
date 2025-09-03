@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://btdhphd4edn4s"]
 
-[ext_resource type="Script" path="res://scripts/breakable.gd" id="1_bnyk4"]
+[ext_resource type="Script" uid="uid://dfjalq2lbfgg1" path="res://scripts/breakable.gd" id="1_bnyk4"]
 [ext_resource type="AudioStream" uid="uid://868abxtawv22" path="res://assets/hammer_hit.ogg" id="2_0t6l1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5rjvt"]

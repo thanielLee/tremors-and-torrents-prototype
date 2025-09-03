@@ -1,7 +1,6 @@
 [gd_scene load_steps=39 format=3 uid="uid://bbcamgruwhrq4"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1"]
-[ext_resource type="Script" path="res://scenes/demo_scene_base.gd" id="2_5ptmo"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_54yy3"]
 [ext_resource type="PackedScene" uid="uid://b228p8k6sonve" path="res://addons/godot-xr-tools/player/fade/fade_collision.tscn" id="3_bvrj7"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="4"]
@@ -16,13 +15,15 @@
 [ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="10"]
 [ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="11"]
 [ext_resource type="PackedScene" uid="uid://deyk5frilshws" path="res://assets/meshes/control_pad/control_pad_location_right.tscn" id="11_k0f5x"]
-[ext_resource type="Texture2D" path="res://scenes/main_menu/return to main menu.png" id="12"]
 [ext_resource type="PackedScene" uid="uid://dipg8euybm3f1" path="res://scenes/basic_movement_demo/objects/instructions.tscn" id="12_qasi6"]
 [ext_resource type="PackedScene" uid="uid://ct3p5sgwvkmva" path="res://assets/meshes/control_pad/control_pad.tscn" id="13_51xax"]
 [ext_resource type="PackedScene" uid="uid://ca6c2h3xsflxf" path="res://assets/maps/holodeck_map.tscn" id="16_v54dt"]
 [ext_resource type="Texture2D" uid="uid://bskwc0drdadnd" path="res://assets/wahooney.itch.io/brown_grid.png" id="20_k5co8"]
 [ext_resource type="PackedScene" uid="uid://bt08qiog5e1ct" path="res://scenes/basic_movement_demo/objects/fade_instructions.tscn" id="21_g78p4"]
 [ext_resource type="PackedScene" uid="uid://bintvchia5op" path="res://scenes/basic_movement_demo/objects/damage_area.tscn" id="23_cr5qc"]
+
+[sub_resource type="Resource" id="Resource_tdl00"]
+metadata/__load_path__ = "res://scenes/demo_scene_base.gd"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_37foi"]
 animation = &"Grip"
@@ -86,6 +87,9 @@ nodes/Trigger/node = SubResource("AnimationNodeBlend2_ud3j8")
 nodes/Trigger/position = Vector2(-360, 40)
 node_connections = [&"Grip", 0, &"Trigger", &"Grip", 1, &"ClosedHand2", &"Trigger", 0, &"OpenHand", &"Trigger", 1, &"ClosedHand1", &"output", 0, &"Grip"]
 
+[sub_resource type="Resource" id="Resource_nk5cw"]
+metadata/__load_path__ = "res://scenes/main_menu/return to main menu.png"
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hw50d"]
 albedo_texture = ExtResource("20_k5co8")
 uv1_scale = Vector3(0.5, 0.5, 0.5)
@@ -99,7 +103,7 @@ size = Vector3(2, 0.5, 8)
 size = Vector3(2, 0.5, 8)
 
 [node name="BasicMovementDemo" instance=ExtResource("1")]
-script = ExtResource("2_5ptmo")
+script = SubResource("Resource_tdl00")
 
 [node name="FadeCollision" parent="XROrigin3D/XRCamera3D" index="0" instance=ExtResource("3_bvrj7")]
 
@@ -221,7 +225,7 @@ collision_layer = 3
 
 [node name="MainMenuTeleport" parent="." index="2" instance=ExtResource("11")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
-title = ExtResource("12")
+title = SubResource("Resource_nk5cw")
 spawn_point_name = ""
 spawn_point_position = Vector3(0, 0, 0)
 spawn_point_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bt8kw5a34upwm"]
 
 [ext_resource type="PackedScene" uid="uid://cjyilbm4ucc7s" path="res://addons/godot-xr-tools/objects/climbable.tscn" id="1"]
-[ext_resource type="Material" path="res://assets/wahooney.itch.io/brown_grid_triplanar.tres" id="2"]
+[ext_resource type="Material" uid="uid://b4igebpq215he" path="res://assets/wahooney.itch.io/brown_grid_triplanar.tres" id="2"]
 
 [sub_resource type="ConvexPolygonShape3D" id="2"]
 points = PackedVector3Array(0, -10, 10, -8.66025, -10, 4.99804, 8.66025, -10, 5, 0, 10, 7.99922, -6.92922, 10, 3.99961, -8.66025, -10, -5, 8.65856, -10, -5.00196, 6.92753, 10, -4.00157, 6.92753, 10, 3.99961, -6.92922, 10, -4.00157, 0, -10, -10, 0, 10, -8.00117)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://4woq8sawmtfw"]
 
-[ext_resource type="Script" path="res://scripts/xr_controller_scene.gd" id="1_3f6f6"]
+[ext_resource type="Script" uid="uid://brdu4o0145usm" path="res://scripts/xr_controller_scene.gd" id="1_3f6f6"]
 [ext_resource type="PackedScene" uid="uid://yrg5yt0yvc1q" path="res://addons/godot-xr-tools/hands/scenes/collision/collision_hand.tscn" id="1_qjg8v"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_le327"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="2_owqiw"]

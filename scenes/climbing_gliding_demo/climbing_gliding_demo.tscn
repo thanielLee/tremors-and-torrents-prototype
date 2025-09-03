@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bxm1ply47vaan" path="res://addons/godot-xr-tools/functions/movement_climb.tscn" id="8"]
 [ext_resource type="Material" uid="uid://p0q2df2dmy62" path="res://addons/godot-xr-tools/hands/materials/ghost_hand.tres" id="8_cr7b0"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="9"]
-[ext_resource type="Material" path="res://assets/wahooney.itch.io/green_grid_triplanar.tres" id="10"]
+[ext_resource type="Material" uid="uid://cx6o24ld50oj2" path="res://assets/wahooney.itch.io/green_grid_triplanar.tres" id="10"]
 [ext_resource type="PackedScene" uid="uid://bwr0eqi231lf0" path="res://assets/meshes/control_pad/control_pad_location_left.tscn" id="10_3kap6"]
 [ext_resource type="PackedScene" uid="uid://bt8kw5a34upwm" path="res://scenes/climbing_gliding_demo/objects/cliff.tscn" id="11"]
 [ext_resource type="PackedScene" uid="uid://bt2i205mlq1q0" path="res://scenes/climbing_gliding_demo/objects/wind_area.tscn" id="12"]

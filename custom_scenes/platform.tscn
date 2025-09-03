@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c0w4nlvbfg1ny"]
 
-[ext_resource type="Material" path="res://assets/wahooney.itch.io/brown_grid_triplanar.tres" id="1_fd1ta"]
+[ext_resource type="Material" uid="uid://b4igebpq215he" path="res://assets/wahooney.itch.io/brown_grid_triplanar.tres" id="1_fd1ta"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dae80"]
 size = Vector3(4, 0.1, 4)

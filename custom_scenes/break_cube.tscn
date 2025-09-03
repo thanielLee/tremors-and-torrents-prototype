@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://t1c3f7r18mwn"]
 
-[ext_resource type="Script" path="res://scripts/breakable.gd" id="1_b421v"]
+[ext_resource type="Script" uid="uid://dfjalq2lbfgg1" path="res://scripts/breakable.gd" id="1_b421v"]
 [ext_resource type="Texture2D" uid="uid://l8veg5s02oeb" path="res://assets/wahooney.itch.io/blue_grid.png" id="2_fd3rr"]
 [ext_resource type="Material" uid="uid://dijliyhv3ld8o" path="res://assets/wahooney.itch.io/blue_grid.tres" id="3_k4qip"]
 [ext_resource type="AudioStream" uid="uid://868abxtawv22" path="res://assets/hammer_hit.ogg" id="4_wafcx"]
