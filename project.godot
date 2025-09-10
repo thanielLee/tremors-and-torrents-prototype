@@ -31,7 +31,7 @@ project/assembly_name="Tremors and Torrents Prototype"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
+enabled=PackedStringArray("res://addons/ateneo-virtual-reality-escape/plugin.cfg", "res://addons/godot-xr-tools/plugin.cfg")
 
 [filesystem]
 
