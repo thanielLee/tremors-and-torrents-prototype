@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bcsf6fktx606t"]
+[gd_scene load_steps=17 format=3 uid="uid://bcsf6fktx606t"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1_vnclu"]
 [ext_resource type="PackedScene" uid="uid://bx1xdisoqo1f6" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_tac_glove_low.tscn" id="2_82wxd"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="7_ybovi"]
 [ext_resource type="PackedScene" uid="uid://deyk5frilshws" path="res://assets/meshes/control_pad/control_pad_location_right.tscn" id="9_rbl0w"]
 [ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="11_62yrx"]
+[ext_resource type="PackedScene" uid="uid://c8v28upinm8k8" path="res://levels/instructions.tscn" id="12_2u6xd"]
 
 [sub_resource type="Sky" id="Sky_skv8u"]
 
@@ -74,10 +75,11 @@ shape = SubResource("BoxShape3D_j4tkq")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Ground" index="1"]
 mesh = SubResource("QuadMesh_j88c8")
 
-[node name="Levels" type="Node3D" parent="." index="2"]
-
-[node name="ToLevel1" parent="Levels" index="0" instance=ExtResource("11_62yrx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+[node name="ToLevel1" parent="." index="2" instance=ExtResource("11_62yrx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -3)
 scene = "res://levels/level_1.tscn"
 active_beam_color = Color(0.154876, 0.154876, 0.154876, 1)
 inactive_beam_color = Color(1, 0.918009, 0.903595, 1)
+
+[node name="Instructions" parent="." index="3" instance=ExtResource("12_2u6xd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -4)

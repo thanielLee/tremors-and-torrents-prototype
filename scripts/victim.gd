@@ -12,6 +12,13 @@ extends RigidBody3D
 var following: bool
 var target_node
 
+# Dialogue
+@onready var interactable_area = $XRToolsInteractableArea
+@onready var instructions: Node3D = $Instructions
+
+#func _ready():
+	#interactable_area.pointer_event.connect(_on_pointer_event)
+
 func _physics_process(delta: float) -> void:
 	if not active:
 		return
@@ -42,3 +49,18 @@ func set_capsule_color(color: Color):
 		mesh_instance_3d.set_surface_override_material(0, material)
 	
 	material.albedo_color = color
+
+
+### DIALOGUE ###
+
+func _on_pointer_event(event):
+	print("Event triggered: %s" % event)
+	if event.event_type == "pressed":
+		start_dialogue()
+	elif event.event_type == "entered":
+		print("Pointer entered")
+	elif event.event_type == "exit":
+		print("Pointer exited")
+
+func start_dialogue():
+	instructions.visible = true
