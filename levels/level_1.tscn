@@ -1,14 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=13 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://deafult_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
 [ext_resource type="PackedScene" uid="uid://13lrpeq0j3lk" path="res://maps/map_1.tscn" id="2_rduek"]
-[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_5ot28"]
 [ext_resource type="Script" uid="uid://dmqkt2sk2x8wx" path="res://scripts/world_shaker.gd" id="3_sstds"]
 [ext_resource type="PackedScene" uid="uid://crte44g8idacl" path="res://hazards/electrical_fire.tscn" id="5_o7v6b"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="6_1sveg"]
 [ext_resource type="PackedScene" uid="uid://c5jkbtv57haa3" path="res://hazards/broken_glass.tscn" id="6_43hcc"]
-[ext_resource type="PackedScene" uid="uid://btdhphd4edn4s" path="res://hazards/jammed_door.tscn" id="7_e0xjf"]
 [ext_resource type="PackedScene" uid="uid://c83bvn3hvunbw" path="res://hazards/shaker.tscn" id="8_f3u63"]
 [ext_resource type="PackedScene" uid="uid://dsjo8twceel63" path="res://objectives/victim.tscn" id="10_8tolq"]
 
@@ -24,7 +22,8 @@ sky = SubResource("Sky_ff7d2")
 [node name="Level1" instance=ExtResource("1_lmdqw")]
 script = ExtResource("2_1gikq")
 
-[node name="FunctionPointer" parent="XROrigin3D/RightHand" index="5" instance=ExtResource("3_5ot28")]
+[node name="XROrigin3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.97387, 0, 4.48085)
 
 [node name="Environment" type="Node3D" parent="." index="1"]
 
@@ -44,7 +43,7 @@ script = ExtResource("3_sstds")
 shake_duration = 2.0
 
 [node name="Map1" parent="WorldShaker" index="0" instance=ExtResource("2_rduek")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, -11)
 
 [node name="Hazards" type="Node3D" parent="." index="3"]
 
@@ -66,22 +65,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.29372, 2.66731e-06, -13.051
 [node name="Shaker2" parent="Hazards" index="5" instance=ExtResource("8_f3u63")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.88733, -0.000170901, -2.85888)
 
-[node name="Obstructions" type="Node3D" parent="." index="4"]
+[node name="Shakers" type="Node3D" parent="." index="4"]
 visible = false
 
-[node name="JammedDoor" parent="Obstructions" index="0" instance=ExtResource("7_e0xjf")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2, 0, -8.6)
-
-[node name="JammedDoor2" parent="Obstructions" index="1" instance=ExtResource("7_e0xjf")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6, 0, -8.6)
-
-[node name="Shakers" type="Node3D" parent="." index="5"]
-visible = false
-
-[node name="Hammer" parent="." index="6" instance=ExtResource("6_1sveg")]
+[node name="Hammer" parent="." index="5" instance=ExtResource("6_1sveg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -3)
 
-[node name="Objectives" type="Node3D" parent="." index="7"]
+[node name="Objectives" type="Node3D" parent="." index="6"]
 
 [node name="Victim" parent="Objectives" index="0" instance=ExtResource("10_8tolq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.24219, -1.14739e-06, -13.6973)
