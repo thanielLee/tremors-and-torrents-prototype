@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 	var distance = direction.length()
 	
 	if distance > 0.1:
-		var force = direction.normalized() * follow_strength * distance
+		var force = direction.normalized() * follow_strength
 		apply_central_force(force)
 
 func _on_detection_area_body_entered(body: Node3D) -> void:

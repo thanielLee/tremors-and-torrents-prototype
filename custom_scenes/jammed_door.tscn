@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://briidrsj8atop"]
+
+[ext_resource type="Script" uid="uid://cci3xkvnplit7" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/ois-receiver/ois_strike_receiver.gd" id="1_cvxef"]
+[ext_resource type="Script" uid="uid://bncqx1dnbni5" path="res://scripts/jammed_door.gd" id="1_tdery"]
+[ext_resource type="AudioStream" uid="uid://868abxtawv22" path="res://assets/hammer_hit.ogg" id="3_y4oq6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mt18o"]
+albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wqk2x"]
+material = SubResource("StandardMaterial3D_mt18o")
+size = Vector3(0.15, 2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tpfau"]
+size = Vector3(1, 2, 1)
+
+[node name="JammedDoor" type="Node3D"]
+script = ExtResource("1_tdery")
+
+[node name="Mesh" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
+mesh = SubResource("BoxMesh_wqk2x")
+skeleton = NodePath("../..")
+
+[node name="OISStrikeReceiver" type="Node3D" parent="."]
+script = ExtResource("1_cvxef")
+strike_range = 10.0
+group = "hammer"
+requirement = 1.0
+metadata/_custom_type_script = "uid://cci3xkvnplit7"
+
+[node name="Area3D" type="Area3D" parent="OISStrikeReceiver"]
+collision_layer = 536870912
+collision_mask = 536870912
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OISStrikeReceiver/Area3D"]
+shape = SubResource("BoxShape3D_tpfau")
+
+[node name="Marker3D" type="Marker3D" parent="OISStrikeReceiver"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="BreakSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_y4oq6")
+
+[connection signal="action_completed" from="OISStrikeReceiver" to="." method="_on_ois_strike_receiver_action_completed"]
+[connection signal="action_started" from="OISStrikeReceiver" to="." method="_on_ois_strike_receiver_action_started"]
+[connection signal="finished" from="BreakSound" to="." method="_on_break_sound_finished"]

@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
 [ext_resource type="PackedScene" uid="uid://13lrpeq0j3lk" path="res://maps/map_1.tscn" id="2_rduek"]
 [ext_resource type="Script" uid="uid://dmqkt2sk2x8wx" path="res://scripts/world_shaker.gd" id="3_sstds"]
-[ext_resource type="PackedScene" uid="uid://briidrsj8atop" path="res://custom_scenes/breakable_wall.tscn" id="5_08mmt"]
+[ext_resource type="PackedScene" uid="uid://briidrsj8atop" path="res://custom_scenes/jammed_door.tscn" id="5_08mmt"]
 [ext_resource type="PackedScene" uid="uid://crte44g8idacl" path="res://hazards/electrical_fire.tscn" id="5_o7v6b"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="6_1sveg"]
 [ext_resource type="PackedScene" uid="uid://c5jkbtv57haa3" path="res://hazards/broken_glass.tscn" id="6_43hcc"]
@@ -46,14 +46,14 @@ shake_duration = 2.0
 [node name="Map1" parent="WorldShaker" index="0" instance=ExtResource("2_rduek")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, -11)
 
-[node name="BreakableWall" parent="WorldShaker/Map1" index="14" instance=ExtResource("5_08mmt")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2, 0, 2.41869)
+[node name="JammedDoor" parent="WorldShaker/Map1" index="14" instance=ExtResource("5_08mmt")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2, 1, 2.403)
 
-[node name="BreakableWall2" parent="WorldShaker/Map1" index="15" instance=ExtResource("5_08mmt")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2, 0, 2.41869)
+[node name="JammedDoor2" parent="WorldShaker/Map1" index="15" instance=ExtResource("5_08mmt")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2, 1, 2.403)
 
-[node name="BreakableWall3" parent="WorldShaker/Map1" index="16" instance=ExtResource("5_08mmt")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6, 0, 2.41869)
+[node name="JammedDoor3" parent="WorldShaker/Map1" index="16" instance=ExtResource("5_08mmt")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6, 1, 2.403)
 
 [node name="Hazards" type="Node3D" parent="." index="3"]
 
