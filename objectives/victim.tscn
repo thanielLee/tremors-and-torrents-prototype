@@ -37,6 +37,7 @@ skeleton = NodePath("../DetectionArea")
 
 [node name="Instructions" parent="." instance=ExtResource("3_mchqb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 0)
+visible = false
 
 [node name="InteractableArea" type="Area3D" parent="."]
 collision_layer = 6291457
