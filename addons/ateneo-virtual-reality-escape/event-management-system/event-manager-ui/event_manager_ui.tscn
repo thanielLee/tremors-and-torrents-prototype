@@ -1,0 +1,602 @@
+[gd_scene load_steps=2 format=3 uid="uid://dviv60srcxpb8"]
+
+[ext_resource type="Script" uid="uid://w6r21172dt1i" path="res://addons/ateneo-virtual-reality-escape/event-management-system/event-manager-ui/event_manager_ui.gd" id="1_m2s0j"]
+
+[node name="EventManagerUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("1_m2s0j")
+
+[node name="ExportGroupToJSON" type="FileDialog" parent="."]
+initial_position = 2
+size = Vector2i(500, 400)
+
+[node name="AddParameterDB" type="ConfirmationDialog" parent="."]
+title = "Add Parameter"
+initial_position = 2
+size = Vector2i(200, 177)
+ok_button_text = "Add"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AddParameterDB"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 192.0
+offset_bottom = 128.0
+
+[node name="Label" type="Label" parent="AddParameterDB/VBoxContainer"]
+layout_mode = 2
+text = "Parameter Name"
+
+[node name="LineEdit" type="LineEdit" parent="AddParameterDB/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="AddParameterDB/VBoxContainer"]
+layout_mode = 2
+text = "Parameter Type"
+
+[node name="OptionButton" type="OptionButton" parent="AddParameterDB/VBoxContainer"]
+layout_mode = 2
+item_count = 6
+popup/item_0/text = "Integer"
+popup/item_0/id = 0
+popup/item_1/text = "Float"
+popup/item_1/id = 1
+popup/item_2/text = "Boolean"
+popup/item_2/id = 5
+popup/item_3/text = "String"
+popup/item_3/id = 2
+popup/item_4/text = "Array"
+popup/item_4/id = 3
+popup/item_5/text = "Dictionary"
+popup/item_5/id = 4
+
+[node name="AddEventDB" type="ConfirmationDialog" parent="."]
+title = "Add Event"
+initial_position = 2
+size = Vector2i(200, 115)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AddEventDB"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 192.0
+offset_bottom = 66.0
+
+[node name="Label" type="Label" parent="AddEventDB/VBoxContainer"]
+layout_mode = 2
+text = "Event Name"
+
+[node name="LineEdit" type="LineEdit" parent="AddEventDB/VBoxContainer"]
+layout_mode = 2
+
+[node name="AddQuestDB" type="ConfirmationDialog" parent="."]
+title = "Add Quest"
+initial_position = 2
+size = Vector2i(200, 115)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AddQuestDB"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 192.0
+offset_bottom = 66.0
+
+[node name="Label" type="Label" parent="AddQuestDB/VBoxContainer"]
+layout_mode = 2
+text = "Quest Name"
+
+[node name="LineEdit" type="LineEdit" parent="AddQuestDB/VBoxContainer"]
+layout_mode = 2
+
+[node name="EventPrerequisiteViewerDB" type="ConfirmationDialog" parent="."]
+title = "Event Prerequisites"
+initial_position = 2
+size = Vector2i(245, 369)
+exclusive = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EventPrerequisiteViewerDB"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 237.0
+offset_bottom = 320.0
+
+[node name="EventName" type="Label" parent="EventPrerequisiteViewerDB/VBoxContainer"]
+layout_mode = 2
+text = "Event:"
+
+[node name="Prerequisites" type="Label" parent="EventPrerequisiteViewerDB/VBoxContainer"]
+layout_mode = 2
+text = "Prerequisites:
+"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="EventPrerequisiteViewerDB/VBoxContainer"]
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+bbcode_enabled = true
+
+[node name="AddEventPrerequisites" type="Label" parent="EventPrerequisiteViewerDB/VBoxContainer"]
+layout_mode = 2
+text = "Add Event Prerequisites:"
+
+[node name="AddAdditionalPrerequisites" type="OptionButton" parent="EventPrerequisiteViewerDB/VBoxContainer"]
+layout_mode = 2
+
+[node name="AddPrerequisite" type="Button" parent="EventPrerequisiteViewerDB/VBoxContainer"]
+layout_mode = 2
+text = "Add Prerequisite"
+
+[node name="RemoveEventPrerequisites" type="Label" parent="EventPrerequisiteViewerDB/VBoxContainer"]
+layout_mode = 2
+text = "Remove Event Prerequisites:"
+
+[node name="PrerequisiteList" type="OptionButton" parent="EventPrerequisiteViewerDB/VBoxContainer"]
+layout_mode = 2
+
+[node name="RemovePrerequisite" type="Button" parent="EventPrerequisiteViewerDB/VBoxContainer"]
+layout_mode = 2
+text = "Remove Prerequisite"
+
+[node name="EventCompletionViewerDB" type="ConfirmationDialog" parent="."]
+title = "Event Completion Flags"
+initial_position = 2
+size = Vector2i(420, 356)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EventCompletionViewerDB"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 412.0
+offset_bottom = 307.0
+
+[node name="EventName" type="Label" parent="EventCompletionViewerDB/VBoxContainer"]
+layout_mode = 2
+text = "Event:"
+
+[node name="CompletionFlags" type="Label" parent="EventCompletionViewerDB/VBoxContainer"]
+layout_mode = 2
+text = "Completion Flags:
+"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="EventCompletionViewerDB/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+bbcode_enabled = true
+
+[node name="AddCompletionFlags" type="Label" parent="EventCompletionViewerDB/VBoxContainer"]
+layout_mode = 2
+text = "Add Completion Flags:"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="EventCompletionViewerDB/VBoxContainer"]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="EventCompletionViewerDB/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="EventCompletionViewerDB/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EventCompletionViewerDB/VBoxContainer"]
+layout_mode = 2
+
+[node name="AddExisting" type="Button" parent="EventCompletionViewerDB/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Add Existing"
+
+[node name="AddCustom" type="Button" parent="EventCompletionViewerDB/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Add Custom"
+
+[node name="RemoveCompletionFlags" type="Label" parent="EventCompletionViewerDB/VBoxContainer"]
+layout_mode = 2
+text = "Remove Completion Flags:"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="EventCompletionViewerDB/VBoxContainer"]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="EventCompletionViewerDB/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="RemoveCompletion" type="Button" parent="EventCompletionViewerDB/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Remove Flag"
+
+[node name="QuestDescriptionViewerDB" type="ConfirmationDialog" parent="."]
+title = "Quest Description"
+initial_position = 2
+size = Vector2i(216, 246)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuestDescriptionViewerDB"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 208.0
+offset_bottom = 197.0
+
+[node name="QuestName" type="Label" parent="QuestDescriptionViewerDB/VBoxContainer"]
+layout_mode = 2
+text = "Quest Name:"
+
+[node name="QuestNameEdit" type="LineEdit" parent="QuestDescriptionViewerDB/VBoxContainer"]
+layout_mode = 2
+
+[node name="QuestDescription" type="Label" parent="QuestDescriptionViewerDB/VBoxContainer"]
+layout_mode = 2
+text = "Quest Description:"
+
+[node name="TextEdit" type="TextEdit" parent="QuestDescriptionViewerDB/VBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+wrap_mode = 1
+
+[node name="QuestTrackerViewerDB" type="ConfirmationDialog" parent="."]
+title = "Quest Completion Tracker"
+initial_position = 2
+size = Vector2i(600, 296)
+content_scale_aspect = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="QuestTrackerViewerDB"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 592.0
+offset_bottom = 247.0
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuestTrackerViewerDB/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Requirement" type="Label" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Requirement:"
+
+[node name="RequirementList" type="OptionButton" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="EditRequirement" type="Label" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Edit Requirement:"
+
+[node name="EditRequirementText" type="LineEdit" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AddNewRequirement" type="Label" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Add New Requirement:"
+
+[node name="NewRequirementText" type="LineEdit" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+
+[node name="AddRequirement" type="Button" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+text = "Add Requirement"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="QuestTrackerViewerDB/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="RequiredEvents" type="Label" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Required Event/s:"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(200, 105)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Add/Remove Required Event/s:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="EventList" type="OptionButton" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer2/HBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(180, 30)
+layout_mode = 2
+fit_to_longest_item = false
+
+[node name="RequiredEventList" type="OptionButton" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer2/HBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(180, 30)
+layout_mode = 2
+fit_to_longest_item = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="AddRequiredEvent" type="Button" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(180, 30)
+layout_mode = 2
+text = "Add Event"
+
+[node name="RemoveRequiredEvent" type="Button" parent="QuestTrackerViewerDB/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(180, 30)
+layout_mode = 2
+text = "Remove Event"
+
+[node name="AddEventCategoryDB" type="ConfirmationDialog" parent="."]
+auto_translate_mode = 1
+title = "Add Event Category"
+initial_position = 2
+size = Vector2i(200, 115)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AddEventCategoryDB"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 192.0
+offset_bottom = 66.0
+
+[node name="Label" type="Label" parent="AddEventCategoryDB/VBoxContainer"]
+layout_mode = 2
+text = "Category Name"
+
+[node name="LineEdit" type="LineEdit" parent="AddEventCategoryDB/VBoxContainer"]
+layout_mode = 2
+
+[node name="QuestCompletionViewerDB" type="ConfirmationDialog" parent="."]
+title = "Quest Completion Flags"
+initial_position = 2
+size = Vector2i(420, 356)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuestCompletionViewerDB"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 412.0
+offset_bottom = 307.0
+
+[node name="QuestName" type="Label" parent="QuestCompletionViewerDB/VBoxContainer"]
+layout_mode = 2
+text = "Quest Name"
+
+[node name="CompletionFlags" type="Label" parent="QuestCompletionViewerDB/VBoxContainer"]
+layout_mode = 2
+text = "Completion Flags:
+"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="QuestCompletionViewerDB/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+bbcode_enabled = true
+
+[node name="AddCompletionFlags" type="Label" parent="QuestCompletionViewerDB/VBoxContainer"]
+layout_mode = 2
+text = "Add Completion Flags:"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="QuestCompletionViewerDB/VBoxContainer"]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="QuestCompletionViewerDB/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="QuestCompletionViewerDB/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="QuestCompletionViewerDB/VBoxContainer"]
+layout_mode = 2
+
+[node name="AddExisting" type="Button" parent="QuestCompletionViewerDB/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Add Existing"
+
+[node name="AddCustom" type="Button" parent="QuestCompletionViewerDB/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Add Custom"
+
+[node name="RemoveCompletionFlags" type="Label" parent="QuestCompletionViewerDB/VBoxContainer"]
+layout_mode = 2
+text = "Remove Completion Flags:"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="QuestCompletionViewerDB/VBoxContainer"]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="QuestCompletionViewerDB/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="RemoveCompletion" type="Button" parent="QuestCompletionViewerDB/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Remove Flag"
+
+[node name="CustomArrayDictionaryViewerDB" type="ConfirmationDialog" parent="."]
+initial_position = 2
+size = Vector2i(316, 392)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CustomArrayDictionaryViewerDB"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 308.0
+offset_bottom = 343.0
+
+[node name="CodeEdit" type="CodeEdit" parent="CustomArrayDictionaryViewerDB/VBoxContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+wrap_mode = 1
+indent_wrapped_lines = true
+line_folding = true
+auto_brace_completion_enabled = true
+
+[node name="SaveEdits" type="Button" parent="CustomArrayDictionaryViewerDB/VBoxContainer"]
+layout_mode = 2
+text = "Save Edits"
+
+[node name="RemoveDB" type="ConfirmationDialog" parent="."]
+initial_position = 1
+size = Vector2i(200, 104)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RemoveDB"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 192.0
+offset_bottom = 55.0
+
+[node name="Label" type="Label" parent="RemoveDB/VBoxContainer"]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="RemoveDB/VBoxContainer"]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 618.0
+grow_horizontal = 2
+current_tab = 1
+
+[node name="EventEditor" type="MarginContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 10
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/EventEditor"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/EventEditor/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/EventEditor/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AddEvent" type="Button" parent="TabContainer/EventEditor/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Add Event"
+
+[node name="AddEventCategory" type="Button" parent="TabContainer/EventEditor/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Add Event Category"
+
+[node name="AddEventParameter" type="Button" parent="TabContainer/EventEditor/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Add Event Parameter"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/EventEditor/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RemoveEvent" type="Button" parent="TabContainer/EventEditor/VBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Remove Event"
+
+[node name="RemoveEventCategory" type="Button" parent="TabContainer/EventEditor/VBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Remove Event Category"
+
+[node name="RemoveEventParameter" type="Button" parent="TabContainer/EventEditor/VBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Remove Event Parameter"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/EventEditor/VBoxContainer"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/EventEditor/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="Parameters" type="HBoxContainer" parent="TabContainer/EventEditor/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="QuestEditor" type="MarginContainer" parent="TabContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/QuestEditor"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/QuestEditor/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/QuestEditor/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AddQuest" type="Button" parent="TabContainer/QuestEditor/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Add Quest"
+
+[node name="RemoveQuest" type="Button" parent="TabContainer/QuestEditor/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+text = "Remove Quest"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/QuestEditor/VBoxContainer"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/QuestEditor/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="QuestParameters" type="HBoxContainer" parent="TabContainer/QuestEditor/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[connection signal="confirmed" from="AddParameterDB" to="." method="_on_add_parameter_db_confirmed"]
+[connection signal="confirmed" from="AddEventDB" to="." method="_on_add_event_db_confirmed"]
+[connection signal="confirmed" from="AddQuestDB" to="." method="_on_add_quest_db_confirmed"]
+[connection signal="close_requested" from="EventPrerequisiteViewerDB" to="." method="_on_event_prerequisite_viewer_db_close_requested"]
+[connection signal="confirmed" from="EventPrerequisiteViewerDB" to="." method="_on_event_prerequisite_viewer_db_confirmed"]
+[connection signal="close_requested" from="EventCompletionViewerDB" to="." method="_on_event_completion_viewer_db_close_requested"]
+[connection signal="confirmed" from="EventCompletionViewerDB" to="." method="_on_event_completion_viewer_db_confirmed"]
+[connection signal="confirmed" from="QuestDescriptionViewerDB" to="." method="_on_quest_description_viewer_db_confirmed"]
+[connection signal="item_selected" from="QuestTrackerViewerDB/HBoxContainer/VBoxContainer/VBoxContainer/RequirementList" to="." method="_on_requirement_list_item_selected"]
+[connection signal="focus_entered" from="QuestTrackerViewerDB/HBoxContainer/VBoxContainer/VBoxContainer2/EditRequirementText" to="." method="_on_edit_requirement_text_focus_entered"]
+[connection signal="focus_exited" from="QuestTrackerViewerDB/HBoxContainer/VBoxContainer/VBoxContainer2/EditRequirementText" to="." method="_on_edit_requirement_text_focus_exited"]
+[connection signal="text_changed" from="QuestTrackerViewerDB/HBoxContainer/VBoxContainer/VBoxContainer2/EditRequirementText" to="." method="_on_edit_requirement_text_text_changed"]
+[connection signal="pressed" from="QuestTrackerViewerDB/HBoxContainer/VBoxContainer/VBoxContainer3/AddRequirement" to="." method="_on_add_requirement_pressed"]
+[connection signal="confirmed" from="AddEventCategoryDB" to="." method="_on_add_event_category_db_confirmed"]
+[connection signal="close_requested" from="CustomArrayDictionaryViewerDB" to="." method="_on_custom_array_dictionary_viewer_db_close_requested"]
+[connection signal="confirmed" from="CustomArrayDictionaryViewerDB" to="." method="_on_custom_array_dictionary_viewer_db_confirmed"]
+[connection signal="confirmed" from="RemoveDB" to="." method="_on_remove_db_confirmed"]
+[connection signal="pressed" from="TabContainer/EventEditor/VBoxContainer/VBoxContainer/HBoxContainer/AddEvent" to="." method="_on_add_event_pressed"]
+[connection signal="pressed" from="TabContainer/EventEditor/VBoxContainer/VBoxContainer/HBoxContainer/AddEventCategory" to="." method="_on_add_event_category_pressed"]
+[connection signal="pressed" from="TabContainer/EventEditor/VBoxContainer/VBoxContainer/HBoxContainer/AddEventParameter" to="." method="_on_add_event_parameter_pressed"]
+[connection signal="pressed" from="TabContainer/EventEditor/VBoxContainer/VBoxContainer/HBoxContainer2/RemoveEvent" to="." method="_on_remove_event_pressed"]
+[connection signal="pressed" from="TabContainer/EventEditor/VBoxContainer/VBoxContainer/HBoxContainer2/RemoveEventCategory" to="." method="_on_remove_event_category_pressed"]
+[connection signal="pressed" from="TabContainer/EventEditor/VBoxContainer/VBoxContainer/HBoxContainer2/RemoveEventParameter" to="." method="_on_remove_event_parameter_pressed"]
+[connection signal="pressed" from="TabContainer/QuestEditor/VBoxContainer/VBoxContainer/HBoxContainer/AddQuest" to="." method="_on_add_quest_pressed"]
+[connection signal="pressed" from="TabContainer/QuestEditor/VBoxContainer/VBoxContainer/HBoxContainer/RemoveQuest" to="." method="_on_remove_quest_pressed"]

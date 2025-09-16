@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0jtxjx5cose5"]
+
+[ext_resource type="PackedScene" uid="uid://rypqa6qcv0st" path="res://assets/maps/basic_map.tscn" id="1_my81t"]
+[ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://deafult_scene_base.tscn" id="2_p5k1b"]
+[ext_resource type="PackedScene" uid="uid://ddafnd6xqdlw0" path="res://custom_scenes/static_body_3d.tscn" id="3_6qtkb"]
+
+[node name="dialogue_test" type="Node3D"]
+
+[node name="BasicMap" parent="." instance=ExtResource("1_my81t")]
+
+[node name="DeafultSceneBase" parent="." instance=ExtResource("2_p5k1b")]
+
+[node name="staticBody_3D" parent="." instance=ExtResource("3_6qtkb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -4)

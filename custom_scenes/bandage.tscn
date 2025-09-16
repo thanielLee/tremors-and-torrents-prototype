@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8e7ji87fhgwt"]
+
+[ext_resource type="Script" uid="uid://du8lqg1n83dlf" path="res://addons/godot-xr-tools/objects/pickable.gd" id="1_nrpvg"]
+[ext_resource type="Script" uid="uid://dq86gvhe6d20d" path="res://addons/ateneo-virtual-reality-escape/inventory-system/inventory_item.gd" id="2_6ov6c"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_l41en"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_nrpvg"]
+
+[node name="Bandage" type="RigidBody3D"]
+script = ExtResource("1_nrpvg")
+picked_by_require = "medkit"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_l41en")
+
+[node name="InventoryItem" type="Node3D" parent="." node_paths=PackedStringArray("defined_mesh", "defined_collision_shape")]
+script = ExtResource("2_6ov6c")
+defined_mesh = NodePath("../MeshInstance3D")
+defined_collision_shape = NodePath("../CollisionShape3D")
+metadata/_custom_type_script = "uid://dq86gvhe6d20d"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_nrpvg")

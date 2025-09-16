@@ -1,0 +1,274 @@
+{
+  "fire_chief": {
+	"default": {
+	  "start_node": "greeting",
+	  "nodes": {
+		"greeting": {
+		  "speaker": "Fire Chief",
+		  "text": "Thank goodness you're here! We have multiple emergency situations that need immediate attention.",
+		  "choices": [
+			{
+			  "id": "ask_about_survivors",
+			  "text": "Are there any survivors that need rescue?",
+			  "next_node": "survivor_info"
+			},
+			{
+			  "id": "ask_about_supplies",
+			  "text": "What supplies do we need?",
+			  "next_node": "supply_info"
+			},
+			{
+			  "id": "ready_to_help",
+			  "text": "I'm ready to help. What should I do first?",
+			  "next_node": "assign_first_mission"
+			}
+		  ]
+		},
+		"survivor_info": {
+		  "speaker": "Fire Chief",
+		  "text": "Yes, we have reports of survivors trapped in the collapsed section of Building A. They need immediate rescue.",
+		  "choices": [
+			{
+			  "id": "accept_rescue_mission",
+			  "text": "I'll head there right away.",
+			  "actions": [
+				{
+				  "type": "start_quest",
+				  "quest_id": "rescue_survivor_001"
+				}
+			  ],
+			  "next_node": "mission_accepted"
+			},
+			{
+			  "id": "ask_more_questions",
+			  "text": "Tell me more about the situation.",
+			  "next_node": "detailed_briefing"
+			}
+		  ]
+		},
+		"supply_info": {
+		  "speaker": "Fire Chief",
+		  "text": "Our medical supplies are running dangerously low. We need bandages, morphine, and other medical equipment from the supply depot.",
+		  "choices": [
+			{
+			  "id": "accept_supply_mission",
+			  "text": "I can handle the supply run.",
+			  "actions": [
+				{
+				  "type": "start_quest",
+				  "quest_id": "find_medical_supplies"
+				}
+			  ],
+			  "next_node": "supply_mission_accepted"
+			},
+			{
+			  "id": "back_to_main",
+			  "text": "Let me think about other options first.",
+			  "next_node": "greeting"
+			}
+		  ]
+		},
+		"assign_first_mission": {
+		  "speaker": "Fire Chief",
+		  "text": "The most urgent task is rescuing the trapped survivors. Every second counts!",
+		  "choices": [
+			{
+			  "id": "accept_urgent_mission",
+			  "text": "Understood. I'm on it!",
+			  "actions": [
+				{
+				  "type": "start_quest",
+				  "quest_id": "rescue_survivor_001"
+				}
+			  ],
+			  "next_node": "mission_accepted"
+			}
+		  ]
+		},
+		"mission_accepted": {
+		  "speaker": "Fire Chief",
+		  "text": "Good luck out there. Radio in if you need backup. Lives depend on you!",
+		  "choices": [
+			{
+			  "id": "end_conversation",
+			  "text": "Roger that, Chief."
+			}
+		  ]
+		},
+		"supply_mission_accepted": {
+		  "speaker": "Fire Chief",
+		  "text": "The supply depot is two blocks north. Be careful, some areas are still unstable.",
+		  "choices": [
+			{
+			  "id": "end_conversation",
+			  "text": "I'll be careful. See you soon."
+			}
+		  ]
+		},
+		"detailed_briefing": {
+		  "speaker": "Fire Chief",
+		  "text": "The building collapsed during the earthquake. We have thermal readings showing at least one person in the basement level. The main stairway is blocked.",
+		  "choices": [
+			{
+			  "id": "accept_after_briefing",
+			  "text": "I understand. I'll find another way in.",
+			  "actions": [
+				{
+				  "type": "start_quest",
+				  "quest_id": "rescue_survivor_001"
+				}
+			  ],
+			  "next_node": "mission_accepted"
+			},
+			{
+			  "id": "need_equipment",
+			  "text": "What equipment should I bring?",
+			  "next_node": "equipment_advice"
+			}
+		  ]
+		},
+		"equipment_advice": {
+		  "speaker": "Fire Chief",
+		  "text": "Take the cutting torch, rope, and a medical kit. You'll need them to clear debris and treat any injuries.",
+		  "choices": [
+			{
+			  "id": "accept_with_equipment",
+			  "text": "Got it. I'm ready to go.",
+			  "actions": [
+				{
+				  "type": "start_quest",
+				  "quest_id": "rescue_survivor_001"
+				}
+			  ],
+			  "next_node": "mission_accepted"
+			}
+		  ]
+		}
+	  }
+	},
+	"quest_complete": {
+	  "start_node": "congratulations",
+	  "nodes": {
+		"congratulations": {
+		  "speaker": "Fire Chief",
+		  "text": "Outstanding work! You've saved lives today. The survivor is being treated and will make a full recovery.",
+		  "choices": [
+			{
+			  "id": "thank_you",
+			  "text": "Just doing my job, Chief.",
+			  "next_node": "next_mission_offer"
+			},
+			{
+			  "id": "ask_about_survivor",
+			  "text": "How is the survivor doing?",
+			  "next_node": "survivor_update"
+			}
+		  ]
+		},
+		"next_mission_offer": {
+		  "speaker": "Fire Chief",
+		  "text": "Well, if you're up for it, we still need those medical supplies. Think you can handle another mission?",
+		  "choices": [
+			{
+			  "id": "accept_next_mission",
+			  "text": "Absolutely. Point me in the right direction.",
+			  "actions": [
+				{
+				  "type": "start_quest",
+				  "quest_id": "find_medical_supplies"
+				}
+			  ],
+			  "next_node": "supply_mission_accepted"
+			},
+			{
+			  "id": "need_break",
+			  "text": "I need to take a short break first.",
+			  "next_node": "break_acknowledged"
+			}
+		  ]
+		},
+		"survivor_update": {
+		  "speaker": "Fire Chief",
+		  "text": "She's stable. Broken leg and some cuts, but she'll be fine thanks to your quick thinking.",
+		  "choices": [
+			{
+			  "id": "glad_to_hear",
+			  "text": "I'm glad she's okay.",
+			  "next_node": "next_mission_offer"
+			}
+		  ]
+		},
+		"break_acknowledged": {
+		  "speaker": "Fire Chief",
+		  "text": "Of course. Take all the time you need. Come find me when you're ready for the next assignment.",
+		  "choices": [
+			{
+			  "id": "end_conversation",
+			  "text": "Will do, Chief."
+			}
+		  ]
+		}
+	  }
+	}
+  },
+  "medical_officer": {
+	"default": {
+	  "start_node": "urgent_request",
+	  "nodes": {
+		"urgent_request": {
+		  "speaker": "Medical Officer",
+		  "text": "We're running critically low on medical supplies! Can you help us restock?",
+		  "choices": [
+			{
+			  "id": "offer_help",
+			  "text": "What do you need?",
+			  "next_node": "supply_list"
+			},
+			{
+			  "id": "busy_now",
+			  "text": "I'm handling another emergency right now.",
+			  "next_node": "understanding"
+			}
+		  ]
+		},
+		"supply_list": {
+		  "speaker": "Medical Officer",
+		  "text": "We need bandages, morphine, and antiseptic. The supply depot should have everything we need.",
+		  "choices": [
+			{
+			  "id": "accept_supply_quest",
+			  "text": "I'll get those supplies for you.",
+			  "actions": [
+				{
+				  "type": "start_quest",
+				  "quest_id": "find_medical_supplies"
+				}
+			  ],
+			  "next_node": "grateful"
+			}
+		  ]
+		},
+		"understanding": {
+		  "speaker": "Medical Officer",
+		  "text": "I understand. Every emergency is critical. Come back when you can - we'll still need those supplies.",
+		  "choices": [
+			{
+			  "id": "end_conversation",
+			  "text": "I'll be back as soon as I can."
+			}
+		  ]
+		},
+		"grateful": {
+		  "speaker": "Medical Officer",
+		  "text": "Thank you so much! Time is of the essence - patients are depending on these supplies.",
+		  "choices": [
+			{
+			  "id": "end_conversation",
+			  "text": "I'm on my way."
+			}
+		  ]
+		}
+	  }
+	}
+  }
+}

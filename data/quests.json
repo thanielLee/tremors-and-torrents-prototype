@@ -1,0 +1,56 @@
+{  
+"rescue_survivor_001": {
+	"id": "rescue_survivor_001",
+	"title": "Rescue the Trapped Survivor",
+	"description": "A survivor is trapped in the collapsed building. Find and rescue them safely.",
+	"prerequisites": [],
+	"objectives": [
+	  {
+		"id": "find_survivor",
+		"description": "Locate the trapped survivor",
+		"target_count": 1
+	  },
+	  {
+		"id": "clear_debris",
+		"description": "Clear the debris blocking the path",
+		"target_count": 3
+	  },
+	  {
+		"id": "extract_survivor",
+		"description": "Safely extract the survivor",
+		"target_count": 1
+	  }
+	],
+	"rewards": {
+	  "experience": 100,
+	  "items": ["medical_kit", "rope"]
+	}
+  },
+  "find_medical_supplies": {
+	"id": "find_medical_supplies",
+	"title": "Emergency Medical Supply Run",
+	"description": "The medical team needs supplies urgently. Find and deliver medical supplies to the field hospital.",
+	"prerequisites": ["rescue_survivor_001"],
+	"objectives": [
+	  {
+		"id": "find_bandages",
+		"description": "Find bandages",
+		"target_count": 5
+	  },
+	  {
+		"id": "find_morphine",
+		"description": "Find morphine vials",
+		"target_count": 2
+	  },
+	  {
+		"id": "deliver_supplies",
+		"description": "Deliver supplies to field hospital",
+		"target_count": 1
+	  }
+	],
+	"rewards": {
+	  "experience": 150,
+	  "reputation": 25
+	}
+  }
+}
