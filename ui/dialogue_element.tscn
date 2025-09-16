@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://duu4043awyc4s"]
+
+[ext_resource type="Script" uid="uid://bfrdnaarj0veu" path="res://ui/dialogue_element.gd" id="1_cccuj"]
+[ext_resource type="PackedScene" uid="uid://w7vf8d823hlu" path="res://ui/dialogue_viewport.tscn" id="2_u4ji6"]
+
+[node name="DialogueElement" type="Node3D"]
+script = ExtResource("1_cccuj")
+animation_speed = 10.0
+
+[node name="Viewport2Din3D" parent="." instance=ExtResource("2_u4ji6")]
