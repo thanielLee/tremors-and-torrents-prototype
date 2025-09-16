@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7ewnt0t8ctao"]
+
+[ext_resource type="Script" uid="uid://du8lqg1n83dlf" path="res://addons/godot-xr-tools/objects/pickable.gd" id="1_yg3fw"]
+[ext_resource type="Script" uid="uid://dq86gvhe6d20d" path="res://addons/ateneo-virtual-reality-escape/inventory-system/inventory_item.gd" id="2_f60oc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ul77n"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xpnk6"]
+
+[node name="anti-septic-wipes" type="RigidBody3D"]
+script = ExtResource("1_yg3fw")
+picked_by_require = "medkit"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.39, 0, 0, 0, 0.05, 0, 0, 0, 0.4, 0, 0, 0)
+shape = SubResource("BoxShape3D_ul77n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("PlaneMesh_xpnk6")
+
+[node name="InventoryItem" type="Node3D" parent="." node_paths=PackedStringArray("defined_mesh", "defined_collision_shape")]
+script = ExtResource("2_f60oc")
+defined_mesh = NodePath("../MeshInstance3D")
+defined_collision_shape = NodePath("../CollisionShape3D")
+metadata/_custom_type_script = "uid://dq86gvhe6d20d"

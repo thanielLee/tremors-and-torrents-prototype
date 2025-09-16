@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://wc1ixfw3laue"]
+[gd_scene load_steps=8 format=3 uid="uid://wc1ixfw3laue"]
 
 [ext_resource type="PackedScene" uid="uid://befegucsn3114" path="res://assets/custom_meshes/medical_kit1.fbx" id="1_occin"]
 [ext_resource type="Script" uid="uid://d2j64x8gnsuue" path="res://addons/ateneo-virtual-reality-escape/inventory-system/inventory_slot.gd" id="2_qd7i8"]
 [ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="3_ui6qd"]
 [ext_resource type="Material" uid="uid://dy43ogh4jhnpk" path="res://addons/ateneo-virtual-reality-escape/inventory-system/misc-resources/inventory_slot_shader_a.tres" id="4_08kqb"]
+[ext_resource type="PackedScene" uid="uid://c8e7ji87fhgwt" path="res://custom_scenes/bandage.tscn" id="5_qd7i8"]
+[ext_resource type="PackedScene" uid="uid://b7ewnt0t8ctao" path="res://scenes/anit-sepctic wipes.tscn" id="6_ui6qd"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_eoeqw"]
 radius = 0.2
@@ -13,9 +15,10 @@ height = 0.4
 
 [node name="medical_kit1" parent="." instance=ExtResource("1_occin")]
 
-[node name="InventorySlot" type="Node3D" parent="."]
+[node name="InventorySlot" type="Node3D" parent="." node_paths=PackedStringArray("default_object")]
 transform = Transform3D(0.375, 0, 0, 0, 0.375, 0, 0, 0, 0.375, 0.111538, -0.0077115, -0.0916836)
 script = ExtResource("2_qd7i8")
+default_object = NodePath("Bandage")
 group_required = "medkit"
 metadata/_custom_type_script = "uid://d2j64x8gnsuue"
 
@@ -26,9 +29,12 @@ grab_distance = 0.2
 mesh = SubResource("SphereMesh_eoeqw")
 surface_material_override/0 = ExtResource("4_08kqb")
 
-[node name="InventorySlot2" type="Node3D" parent="."]
+[node name="Bandage" parent="InventorySlot" instance=ExtResource("5_qd7i8")]
+
+[node name="InventorySlot2" type="Node3D" parent="." node_paths=PackedStringArray("default_object")]
 transform = Transform3D(0.375, 0, 0, 0, 0.375, 0, 0, 0, 0.375, 0.111538, -0.0077115, 0.0711397)
 script = ExtResource("2_qd7i8")
+default_object = NodePath("XRToolsPickable")
 group_required = "medkit"
 metadata/_custom_type_script = "uid://d2j64x8gnsuue"
 
@@ -38,6 +44,8 @@ grab_distance = 0.2
 [node name="MeshInstance3D" type="MeshInstance3D" parent="InventorySlot2"]
 mesh = SubResource("SphereMesh_eoeqw")
 surface_material_override/0 = ExtResource("4_08kqb")
+
+[node name="XRToolsPickable" parent="InventorySlot2" instance=ExtResource("6_ui6qd")]
 
 [node name="InventorySlot3" type="Node3D" parent="."]
 transform = Transform3D(0.375, 0, 0, 0, 0.375, 0, 0, 0, 0.375, -0.0891623, -0.0077115, 0.0711397)
