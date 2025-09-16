@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://briidrsj8atop"]
+[gd_scene load_steps=8 format=3 uid="uid://briidrsj8atop"]
 
 [ext_resource type="Script" uid="uid://cci3xkvnplit7" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/ois-receiver/ois_strike_receiver.gd" id="1_cvxef"]
 [ext_resource type="Script" uid="uid://bncqx1dnbni5" path="res://scripts/jammed_door.gd" id="1_tdery"]
 [ext_resource type="AudioStream" uid="uid://868abxtawv22" path="res://assets/hammer_hit.ogg" id="3_y4oq6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y4oq6"]
+size = Vector3(0.15, 2, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mt18o"]
 albedo_color = Color(1, 0, 1, 1)
@@ -12,10 +15,15 @@ material = SubResource("StandardMaterial3D_mt18o")
 size = Vector3(0.15, 2, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tpfau"]
-size = Vector3(1, 2, 1)
+size = Vector3(0.169922, 2, 1)
 
 [node name="JammedDoor" type="Node3D"]
 script = ExtResource("1_tdery")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_y4oq6")
 
 [node name="Mesh" type="Node3D" parent="."]
 
@@ -35,6 +43,7 @@ collision_layer = 536870912
 collision_mask = 536870912
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="OISStrikeReceiver/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00488281, 0, 0)
 shape = SubResource("BoxShape3D_tpfau")
 
 [node name="Marker3D" type="Marker3D" parent="OISStrikeReceiver"]
