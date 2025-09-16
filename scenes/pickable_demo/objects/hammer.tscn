@@ -89,6 +89,7 @@ visible = false
 [node name="OISActorComponent" type="Node3D" parent="." index="9"]
 script = ExtResource("8_bac2i")
 receiver_group = "hammer"
+actor_rate = 10.0
 metadata/_custom_type_script = "uid://cg1lorgur84yy"
 
 [node name="OISOneHandToolASM" type="Node3D" parent="OISActorComponent" index="0"]

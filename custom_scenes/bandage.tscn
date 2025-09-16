@@ -1,0 +1,62 @@
+[gd_scene load_steps=13 format=3 uid="uid://4a3xx8xcbdob"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_pnrd6"]
+[ext_resource type="Script" uid="uid://cg1lorgur84yy" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/ois-actor/ois_actor_component.gd" id="3_86ctq"]
+[ext_resource type="Script" uid="uid://cgettxdui2mmi" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/ois-state-machine/ois_one_hand_tool_asm.gd" id="4_52ngh"]
+[ext_resource type="Script" uid="uid://b4ao0gdf7khuq" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/ois-colliders/ois_collider_area3d.gd" id="5_jysx5"]
+[ext_resource type="Resource" uid="uid://c5nxxsga5kesd" path="res://assets/meshes/interactables/pose_grab_ball_left.tres" id="6_52ngh"]
+[ext_resource type="PackedScene" uid="uid://da2qgxxwwitl6" path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.tscn" id="6_hycix"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="7_bimcw"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="9_e68vr"]
+[ext_resource type="Resource" uid="uid://c7lps5l5dj652" path="res://scenes/pickable_demo/poses/pose_hammer_right.tres" id="10_hwn4s"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nrpvg"]
+height = 0.1
+radius = 0.05
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6ov6c"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jysx5"]
+radius = 0.15
+
+[node name="Bandage" instance=ExtResource("1_pnrd6")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("CylinderShape3D_nrpvg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+mesh = SubResource("CylinderMesh_6ov6c")
+
+[node name="OISActorComponent" type="Node3D" parent="." index="2"]
+script = ExtResource("3_86ctq")
+receiver_group = "bandage"
+actor_rate = 0.5
+metadata/_custom_type_script = "uid://cg1lorgur84yy"
+
+[node name="OISOneHandToolASM" type="Node3D" parent="OISActorComponent" index="0"]
+script = ExtResource("4_52ngh")
+metadata/_custom_type_script = "uid://cgettxdui2mmi"
+
+[node name="OISColliderArea3D" type="Node3D" parent="OISActorComponent" index="1"]
+script = ExtResource("5_jysx5")
+metadata/_custom_type_script = "uid://b4ao0gdf7khuq"
+
+[node name="Area3D" type="Area3D" parent="OISActorComponent/OISColliderArea3D" index="0"]
+collision_layer = 536870912
+collision_mask = 536870912
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OISActorComponent/OISColliderArea3D/Area3D" index="0"]
+shape = SubResource("SphereShape3D_jysx5")
+
+[node name="GrabPointHandLeft" parent="." index="3" instance=ExtResource("7_bimcw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0137703, 0.0520773, -0.0905386)
+hand_pose = ExtResource("6_52ngh")
+
+[node name="GrabPointHandRight" parent="." index="4" instance=ExtResource("9_e68vr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.014, 0.052, -0.091)
+hand_pose = ExtResource("10_hwn4s")
+
+[node name="HighlightRing" parent="." index="5" instance=ExtResource("6_hycix")]
