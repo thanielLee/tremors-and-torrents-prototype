@@ -1,21 +1,29 @@
-[gd_scene load_steps=8 format=3 uid="uid://briidrsj8atop"]
+[gd_scene load_steps=11 format=3 uid="uid://briidrsj8atop"]
 
 [ext_resource type="Script" uid="uid://cci3xkvnplit7" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/ois-receiver/ois_strike_receiver.gd" id="1_cvxef"]
 [ext_resource type="Script" uid="uid://bncqx1dnbni5" path="res://scripts/jammed_door.gd" id="1_tdery"]
+[ext_resource type="AudioStream" uid="uid://dnc4e28cyp0ba" path="res://assets/door_break_sound.mp3" id="2_b27y7"]
 [ext_resource type="AudioStream" uid="uid://868abxtawv22" path="res://assets/hammer_hit.ogg" id="3_y4oq6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y4oq6"]
 size = Vector3(0.15, 2, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mt18o"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y4oq6"]
 albedo_color = Color(1, 0, 1, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_wqk2x"]
-material = SubResource("StandardMaterial3D_mt18o")
-size = Vector3(0.15, 2, 1)
+material = SubResource("StandardMaterial3D_y4oq6")
+size = Vector3(0.1, 2, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_tpfau"]
-size = Vector3(0.169922, 2, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b27y7"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tlv6m"]
+material = SubResource("StandardMaterial3D_b27y7")
+size = Vector3(0.15, 0.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cyhyk"]
+size = Vector3(0.15, 0.2, 0.2)
 
 [node name="JammedDoor" type="Node3D"]
 script = ExtResource("1_tdery")
@@ -31,27 +39,85 @@ shape = SubResource("BoxShape3D_y4oq6")
 mesh = SubResource("BoxMesh_wqk2x")
 skeleton = NodePath("../..")
 
-[node name="OISStrikeReceiver" type="Node3D" parent="."]
+[node name="BreakSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_b27y7")
+
+[node name="BreakDoorSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_b27y7")
+
+[node name="HitSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_y4oq6")
+
+[node name="HitPoints" type="Node3D" parent="."]
+
+[node name="HitPoint" type="Node3D" parent="HitPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.747302, -0.287517)
+
+[node name="Mesh" type="Node3D" parent="HitPoints/HitPoint"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HitPoints/HitPoint/Mesh"]
+mesh = SubResource("BoxMesh_tlv6m")
+skeleton = NodePath("../..")
+
+[node name="OISStrikeReceiver" type="Node3D" parent="HitPoints/HitPoint"]
 script = ExtResource("1_cvxef")
 strike_range = 10.0
 group = "hammer"
 requirement = 1.0
 metadata/_custom_type_script = "uid://cci3xkvnplit7"
 
-[node name="Area3D" type="Area3D" parent="OISStrikeReceiver"]
+[node name="Area3D" type="Area3D" parent="HitPoints/HitPoint/OISStrikeReceiver"]
 collision_layer = 536870912
 collision_mask = 536870912
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="OISStrikeReceiver/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00488281, 0, 0)
-shape = SubResource("BoxShape3D_tpfau")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitPoints/HitPoint/OISStrikeReceiver/Area3D"]
+shape = SubResource("BoxShape3D_cyhyk")
 
-[node name="Marker3D" type="Marker3D" parent="OISStrikeReceiver"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+[node name="HitPoint2" type="Node3D" parent="HitPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00421143, 0.310928)
 
-[node name="BreakSound" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("3_y4oq6")
+[node name="Mesh" type="Node3D" parent="HitPoints/HitPoint2"]
 
-[connection signal="action_completed" from="OISStrikeReceiver" to="." method="_on_ois_strike_receiver_action_completed"]
-[connection signal="action_started" from="OISStrikeReceiver" to="." method="_on_ois_strike_receiver_action_started"]
-[connection signal="finished" from="BreakSound" to="." method="_on_break_sound_finished"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HitPoints/HitPoint2/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.132495, -0.0160562)
+mesh = SubResource("BoxMesh_tlv6m")
+skeleton = NodePath("../..")
+
+[node name="OISStrikeReceiver" type="Node3D" parent="HitPoints/HitPoint2"]
+script = ExtResource("1_cvxef")
+strike_range = 10.0
+group = "hammer"
+requirement = 1.0
+metadata/_custom_type_script = "uid://cci3xkvnplit7"
+
+[node name="Area3D" type="Area3D" parent="HitPoints/HitPoint2/OISStrikeReceiver"]
+collision_layer = 536870912
+collision_mask = 536870912
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitPoints/HitPoint2/OISStrikeReceiver/Area3D"]
+shape = SubResource("BoxShape3D_cyhyk")
+
+[node name="HitPoint3" type="Node3D" parent="HitPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.543758, -0.288703)
+
+[node name="Mesh" type="Node3D" parent="HitPoints/HitPoint3"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HitPoints/HitPoint3/Mesh"]
+mesh = SubResource("BoxMesh_tlv6m")
+skeleton = NodePath("../..")
+
+[node name="OISStrikeReceiver" type="Node3D" parent="HitPoints/HitPoint3"]
+script = ExtResource("1_cvxef")
+strike_range = 10.0
+group = "hammer"
+requirement = 1.0
+metadata/_custom_type_script = "uid://cci3xkvnplit7"
+
+[node name="Area3D" type="Area3D" parent="HitPoints/HitPoint3/OISStrikeReceiver"]
+collision_layer = 536870912
+collision_mask = 536870912
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitPoints/HitPoint3/OISStrikeReceiver/Area3D"]
+shape = SubResource("BoxShape3D_cyhyk")
+
+[connection signal="finished" from="BreakDoorSound" to="." method="_on_break_door_sound_finished"]
