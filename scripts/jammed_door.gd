@@ -7,6 +7,8 @@ signal door_cleared()
 @onready var break_sound: AudioStreamPlayer3D = $BreakSound
 @onready var hit_points: Node3D = $HitPoints
 @onready var hit_sound: AudioStreamPlayer3D = $HitSound
+@onready var break_particles: GPUParticles3D = $BreakParticles
+
 
 var hit_point_count : int
 
@@ -35,6 +37,9 @@ func _on_hit_point_started(requirement: Variant, total_progress: Variant) -> voi
 
 func _on_hit_point_completed(requirement: Variant, total_progress: Variant, hit_point: Node) -> void:
 	print("HitPoint cleared: ", hit_point.name)
+	
+	break_particles.position = hit_point.position
+	break_particles.emitting = true
 	
 	hit_point.queue_free()
 	hit_point_count -= 1
