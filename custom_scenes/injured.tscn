@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bp4qsothxd80g"]
+[gd_scene load_steps=15 format=3 uid="uid://bp4qsothxd80g"]
 
 [ext_resource type="Script" uid="uid://bbncc441ssy0o" path="res://injured.gd" id="1_heuca"]
 [ext_resource type="Script" uid="uid://3bi02tndcxdg" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/ois-receiver/ois_twist_receiver.gd" id="2_as5ff"]
@@ -20,7 +20,7 @@ radius = 0.05
 height = 0.4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nfua4"]
-albedo_color = Color(1, 0, 0, 1)
+albedo_color = Color(1, 1, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_j33ko"]
 material = SubResource("StandardMaterial3D_nfua4")
@@ -37,6 +37,21 @@ height = 0.25
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_awwxl"]
 radius = 0.136728
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_heuca"]
+top_radius = 0.105
+bottom_radius = 0.105
+height = 0.2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_as5ff"]
+top_radius = 0.11
+bottom_radius = 0.11
+height = 0.2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_f8pag"]
+top_radius = 0.12
+bottom_radius = 0.12
+height = 0.2
 
 [node name="Injured" type="Node3D"]
 script = ExtResource("1_heuca")
@@ -69,6 +84,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.283861, 0)
 mesh = SubResource("SphereMesh_sp84e")
 
 [node name="OISTwistReceiver" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.513576, 0, 0.0389669)
 script = ExtResource("2_as5ff")
 single_direction = true
 group = "bandage"
@@ -76,13 +92,26 @@ requirement = 1.0
 metadata/_custom_type_script = "uid://3bi02tndcxdg"
 
 [node name="Area3D" type="Area3D" parent="OISTwistReceiver"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.220224, 0, -0.0172956)
 collision_layer = 536870912
 collision_mask = 536870912
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="OISTwistReceiver/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.290985, 0, 0.0425801)
 shape = SubResource("SphereShape3D_awwxl")
+
+[node name="BandageStage0" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.724172, -0.68962, 0, -3.01442e-08, -3.16546e-08, 1, -0.68962, -0.724172, -4.37114e-08, 0.455539, 0.000764482, -0.00810447)
+visible = false
+mesh = SubResource("CylinderMesh_heuca")
+
+[node name="BandageStage1" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.724172, -0.68962, 0, -3.01442e-08, -3.16546e-08, 1, -0.68962, -0.724172, -4.37114e-08, 0.455539, 0.000764482, -0.00810447)
+visible = false
+mesh = SubResource("CylinderMesh_as5ff")
+
+[node name="BandageStage2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.724172, -0.68962, 0, -3.01442e-08, -3.16546e-08, 1, -0.68962, -0.724172, -4.37114e-08, 0.455539, 0.000764482, -0.00810447)
+visible = false
+mesh = SubResource("CylinderMesh_f8pag")
 
 [connection signal="action_completed" from="OISTwistReceiver" to="." method="_on_ois_twist_receiver_action_completed"]
 [connection signal="action_ended" from="OISTwistReceiver" to="." method="_on_ois_twist_receiver_action_ended"]

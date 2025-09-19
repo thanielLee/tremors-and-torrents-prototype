@@ -86,7 +86,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.24219, -1.14739e-06, -13.69
 active = true
 
 [node name="Injured" parent="Objectives" index="1" instance=ExtResource("11_betor")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.35872, 1.18063, 2.31523)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.35872, 1.76549, 2.31523)
 
 [node name="OISHammer" parent="." index="7" instance=ExtResource("11_aerfg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3465, 1.2508, -2.00495)
