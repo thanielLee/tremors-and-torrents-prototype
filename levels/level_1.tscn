@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=19 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://deafult_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://bp4qsothxd80g" path="res://custom_scenes/injured.tscn" id="11_betor"]
 [ext_resource type="PackedScene" uid="uid://bwcpq6cuejbiy" path="res://assets/meshes/table/table.tscn" id="12_nmsli"]
 [ext_resource type="PackedScene" uid="uid://4a3xx8xcbdob" path="res://custom_scenes/bandage.tscn" id="14_vjtdm"]
+[ext_resource type="PackedScene" uid="uid://c0t05cbfjxnpy" path="res://custom_scenes/inventory_medkit.tscn" id="15_vjtdm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x70s4"]
 
@@ -99,3 +100,13 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.529
 
 [node name="Bandage" parent="." index="9" instance=ExtResource("14_vjtdm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40137, 1.30703, -1.10054)
+
+[node name="InventoryMedkit" parent="." index="10" node_paths=PackedStringArray("xr_anchor_to_object", "xr_camera_anchor", "inventory_toggler_hand") instance=ExtResource("15_vjtdm")]
+transform = Transform3D(1, 0, 0, 0, 0.928861, 0.370428, 0, -0.370428, 0.928861, 0, 0, 8)
+visible = false
+xr_anchor_to_object = NodePath("../XROrigin3D")
+xr_camera_anchor = NodePath("../XROrigin3D/XRCamera3D")
+inventory_toggler_hand = NodePath("../XROrigin3D/RightHand")
+local_transform_adjustment = Vector3(-1, 0, 10)
+slots_distance_to_player = 1.5
+height_adjustment = 0.45
