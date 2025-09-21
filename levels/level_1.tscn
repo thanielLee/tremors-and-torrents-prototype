@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=19 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://deafult_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://df8ckf7krjyl3" path="res://custom_scenes/ois_hammer.tscn" id="11_aerfg"]
 [ext_resource type="PackedScene" uid="uid://bp4qsothxd80g" path="res://custom_scenes/injured.tscn" id="11_betor"]
 [ext_resource type="PackedScene" uid="uid://bwcpq6cuejbiy" path="res://assets/meshes/table/table.tscn" id="12_nmsli"]
+[ext_resource type="PackedScene" uid="uid://c1h7hskdmxvvc" path="res://scenes/custom_scenes/medkit.tscn" id="12_vjtdm"]
 [ext_resource type="PackedScene" uid="uid://4a3xx8xcbdob" path="res://custom_scenes/bandage.tscn" id="14_vjtdm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x70s4"]
@@ -93,6 +94,9 @@ active = true
 
 [node name="Injured" parent="Objectives" index="1" instance=ExtResource("11_betor")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.35872, 1.18063, 2.31523)
+
+[node name="medkit" parent="Objectives" index="2" instance=ExtResource("12_vjtdm")]
+transform = Transform3D(-0.354666, 0, -0.934993, 0, 1, 0, 0.934993, 0, -0.354666, -0.877766, 0.903675, -0.828063)
 
 [node name="OISHammer" parent="." index="7" instance=ExtResource("11_aerfg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3465, 1.2508, -2.00495)
