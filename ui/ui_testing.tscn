@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dlpus6lvv0apn"]
+[gd_scene load_steps=10 format=3 uid="uid://dlpus6lvv0apn"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://deafult_scene_base.tscn" id="1_rckxi"]
 [ext_resource type="PackedScene" uid="uid://duu4043awyc4s" path="res://ui/dialogue_element.tscn" id="2_i1ltd"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="2_ijyf3"]
+[ext_resource type="Script" uid="uid://burw7xd2wdk36" path="res://scripts/ui_testing.gd" id="2_ybsgf"]
 
 [sub_resource type="Sky" id="Sky_skv8u"]
 
@@ -22,7 +23,8 @@ orientation = 1
 
 [sub_resource type="BoxMesh" id="BoxMesh_ijyf3"]
 
-[node name="DeafultSceneBase" instance=ExtResource("1_rckxi")]
+[node name="UITesting" instance=ExtResource("1_rckxi")]
+script = ExtResource("2_ybsgf")
 
 [node name="XROrigin3D" parent="." index="0"]
 current = true
@@ -51,6 +53,7 @@ mesh = SubResource("QuadMesh_70b62")
 
 [node name="DialogueElement" parent="." index="2" instance=ExtResource("2_i1ltd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1804, -2.98433)
+is_tooltip = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.597693, -5.0664)
