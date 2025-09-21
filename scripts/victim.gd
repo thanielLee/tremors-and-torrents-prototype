@@ -16,6 +16,8 @@ var target_node
 @onready var interactable_area = $XRToolsInteractableArea
 @onready var instructions: Node3D = $Instructions
 
+signal victim_triggered_hazard
+signal victim_safe
 #func _ready():
 	#interactable_area.pointer_event.connect(_on_pointer_event)
 
@@ -36,9 +38,18 @@ func _physics_process(delta: float) -> void:
 func _on_detection_area_body_entered(body: Node3D) -> void:
 	if not active:
 		return
+	
 	target_node = body
 	following = true
 	set_capsule_color(Color.GREEN)
+	
+func _on_detection_area_area_entered(area: Area3D) -> void:
+	print(area)
+	if area.get_parent().get_script() == Hazard:
+		emit_signal("victim_triggered_hazard")
+	else:
+		emit_signal("victim_safe")
+		following = false
 
 func set_capsule_color(color: Color):
 	var material := mesh_instance_3d.get_surface_override_material(0)
@@ -49,18 +60,3 @@ func set_capsule_color(color: Color):
 		mesh_instance_3d.set_surface_override_material(0, material)
 	
 	material.albedo_color = color
-
-
-### DIALOGUE ###
-
-func _on_pointer_event(event):
-	print("Event triggered: %s" % event)
-	if event.event_type == "pressed":
-		start_dialogue()
-	elif event.event_type == "entered":
-		print("Pointer entered")
-	elif event.event_type == "exit":
-		print("Pointer exited")
-
-func start_dialogue():
-	instructions.visible = true

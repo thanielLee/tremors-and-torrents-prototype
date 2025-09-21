@@ -6,6 +6,7 @@
 script = ExtResource("1_qgs2p")
 
 [node name="DetectionArea" type="Area3D" parent="."]
+collision_layer = 33
 collision_mask = 524288
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]

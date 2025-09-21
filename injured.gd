@@ -1,6 +1,6 @@
 extends Node3D
 
-signal injured_cleared()
+signal injured_cleared
 @onready var mesh: Node3D = $Mesh
 @onready var bandage_stages := [
 	$BandageStage0,

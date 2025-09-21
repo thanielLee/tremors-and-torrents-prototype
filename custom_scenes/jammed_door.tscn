@@ -49,6 +49,7 @@ skeleton = NodePath("../..")
 
 [node name="BreakSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_b27y7")
+volume_db = -0.5
 
 [node name="BreakDoorSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_b27y7")

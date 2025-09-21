@@ -28,6 +28,7 @@ func check_finished():
 		print("Door cleared")
 		emit_signal("door_cleared")
 		mesh.visible = false
+		break_door_sound.play()
 		# TODO: implement break door sound and particles
 
 func _on_hit_point_started(requirement: Variant, total_progress: Variant) -> void:
