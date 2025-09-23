@@ -10,3 +10,4 @@ script = ExtResource("1_cccuj")
 screen_size = Vector2(3.2, 1.8)
 collision_layer = 1342177280
 viewport_size = Vector2(320, 180)
+unshaded = true

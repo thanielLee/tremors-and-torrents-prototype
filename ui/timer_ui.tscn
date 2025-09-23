@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvop5g8klstys"]
+
+[ext_resource type="PackedScene" uid="uid://duu4043awyc4s" path="res://ui/dialogue_element.tscn" id="1_esdhd"]
+[ext_resource type="Script" uid="uid://c36ydkn5robvr" path="res://ui/timer_ui.gd" id="2_d2hym"]
+
+[node name="DialogueElement" instance=ExtResource("1_esdhd")]
+script = ExtResource("2_d2hym")

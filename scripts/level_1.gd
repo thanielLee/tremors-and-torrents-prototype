@@ -21,6 +21,8 @@ var score : int = 0 # Temporary basic scoring system
 
 var triggered_hazards: Array[String] = []
 var completed_objectives: Array[String] = []
+var UI_node
+var tooltip_node : DialogueElement
 
 # Conditions
 const HAZARD_LIMIT := 2
@@ -28,6 +30,8 @@ const REQUIRED_OBJECTIVES := ["Victim"]
 
 func _ready():
 	start_level()
+	UI_node = $UI
+	tooltip_node = UI_node.get_child(0)
 
 ### LEVEL LIFECYCLE ###
 
@@ -77,6 +81,8 @@ func disable_hazards():
 func _on_hazard_triggered(hazard: Variant):
 	var hazard_name = hazard.name
 	print("Hazard: %s triggered!" % hazard_name)
+	
+	tooltip_node._appear_text("Hazard: %s triggered!" % hazard_name, true)
 	
 	if hazard_name not in triggered_hazards:
 		triggered_hazards.append(hazard_name)

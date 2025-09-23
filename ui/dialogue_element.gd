@@ -1,9 +1,11 @@
 extends Node3D
+class_name DialogueElement
 
 @export var animation_speed : float = 20.0
 @onready var viewport_scene: XRToolsViewport2DIn3D = $Viewport2Din3D
 @onready var text_box : RichTextLabel
-@onready var xr_origin : XROrigin3D = $"../XROrigin3D"
+@onready var xr_origin : XROrigin3D = $"../../XROrigin3D"
+@onready var player_body : XRToolsPlayerBody = $"../../XROrigin3D/PlayerBody"
 @export var is_tooltip : bool = false
 @export var tooltip_uv : Vector2 = Vector2(0.55, 0.50)
 @export var dialogue_z : float = 0.9
@@ -15,21 +17,26 @@ var xr_cam : XRCamera3D
 var plane : Plane = Plane(Vector3(0, 1, 0), 0.65)
 var cooldown = 0.0
 var collision_shape : CollisionShape3D
-
 var tooltip_middle : Vector3
 var tooltip_lookat : Vector3
+
 
 func _ready() -> void:
 	if viewport_scene == null:
 		viewport_scene = $Viewport2Din3D
 	
-		
 	collision_shape = get_child(0).get_child(2).get_child(0)
 	
-	if xr_origin == null:
-		xr_origin = $"../XROrigin3D"
+	visible = false
+	collision_shape.disabled = true
 	
-	var xr_origin = get_parent().get_node("XROrigin3D")
+	var screen_mesh : MeshInstance3D  = viewport_scene.get_child(1)
+
+	
+	if xr_origin == null:
+		xr_origin = $"../../XROrigin3D"
+	
+	var xr_origin = get_parent().get_parent().get_node("XROrigin3D")
 	xr_cam = get_viewport().get_camera_3d()
 	
 	_calculate_new_tooltip_middle(tooltip_uv)
@@ -81,22 +88,18 @@ func _process(delta: float) -> void:
 		
 		text_box.visible_characters = floor(current_characters)
 
-	var forward_direction = -xr_cam.global_transform.basis.z.normalized()
+	var forward_direction = -xr_cam.get_frustum()[0].normal
 	var right_eye_transform = XRServer.primary_interface.get_transform_for_view(1, xr_origin.global_transform)
+	var test_frustum = xr_cam.get_frustum()
 	
 	if not is_tooltip:
-		#print(forward_direction)
-		var projected_vector = forward_direction
-		var plane_projected_origin = plane.project(xr_cam.global_position)
-		var xz_offset = xr_cam.global_position
-		xz_offset.y = 0
-		viewport_scene.global_position = xz_offset + plane.project((plane.project(xr_cam.global_position + projected_vector)-plane_projected_origin).normalized() * 2)
-		viewport_scene.look_at(xr_cam.global_position, Vector3.UP, true)
+		viewport_scene.global_position = plane.project(xr_origin.transform * (plane.project(forward_direction).normalized() * 2.5))
+		#print(str(xz_offset) + " " + str(xr_cam.global_position) + " " + str($"../../XROrigin3D/PlayerBody".global_position))
+		viewport_scene.look_at(xr_origin.transform * xr_cam.global_position, Vector3.UP, true)
 	else:
 		cooldown += delta
-		
 		viewport_scene.global_position = right_eye_transform * tooltip_middle
-		
+		#print(viewport_scene.global_position)
 		if cooldown >= 1.0:
 			cooldown -= 1.0
 			#print(xr_cam.project_position(tooltip_middle, 3)-xr_cam.global_position)
@@ -106,6 +109,7 @@ func _process(delta: float) -> void:
 			var test_plane_2 = Plane(Vector3(0, 1, 0))
 			#print("HERE: " + str(near_plane))
 			var temp = _plane_to_plane_intersection(test_plane_1, test_plane_2)
+			#print(forward_direction)
 			
 			#print(left_plane)
 			#print(top_plane)
@@ -155,23 +159,34 @@ func _calculate_new_tooltip_middle(uvs: Vector2):
 	tooltip_middle.z -= 0.02
 	
 func _make_tooltip() -> void:
-	viewport_scene.set_screen_size(Vector2(0.32, 0.18))
-	viewport_scene.set_viewport_size(Vector2(320, 180))
+	_modify_sizes(Vector2(0.32, 0.18), Vector2(320, 180))
 	is_tooltip = true
 
+func _modify_sizes(screen_size : Vector2, viewport_size : Vector2):
+	viewport_scene.set_screen_size(screen_size)
+	viewport_scene.set_viewport_size(viewport_size)
+
 func _make_text_dialogue() -> void:
-	viewport_scene.set_screen_size(Vector2(1.6, 0.9))
-	viewport_scene.set_viewport_size(Vector2(640, 360))
+	_modify_sizes(Vector2(1.6, 0.9), Vector2(640, 360))
 	is_tooltip = false
+	
+func _set_text(new_text : String, size : int):
+	text_box.text = "[font_size=" + str(size) + "][b]" + new_text + "[/b][/font_size]"
 	
 func _change_text_animated(new_text: String):
 	in_animation = true
 	text_box.visible_characters = 0
-	text_box.text = "[font_size=32][b]" + new_text + "[/b][/font_size]"
+	_set_text(new_text, 32)
 	
 func _change_text_non_animated(new_text: String):
+	in_animation = false
 	text_box.visible_characters = new_text.length()
-	text_box.text = "[font_size=16][b]" + new_text + "[/b][/font_size]"
+	_set_text(new_text, 16)
+
+func _change_text_custom(new_text : String, size : int, is_animation : bool, visible_chars : int):
+	in_animation = is_animation
+	text_box.visible_characters = visible_chars
+	_set_text(new_text, size)
 	
 func _appear_text(new_text: String, will_be_tooltip: bool):
 	collision_shape.disabled = false
@@ -185,7 +200,7 @@ func _appear_text(new_text: String, will_be_tooltip: bool):
 		_change_text_animated(new_text)
 
 # Function to remove tooltip
-func _resolve_tooltip():
+func _remove_dialogue():
 	visible = false
 	collision_shape.disabled = true
 
@@ -207,6 +222,4 @@ func _ui_interaction(event : XRToolsPointerEvent):
 			text_box.visible_characters = text_box.text.length()
 		else:
 			visible = false
-			text_box.text = ""
-	
-	
+			_remove_dialogue()

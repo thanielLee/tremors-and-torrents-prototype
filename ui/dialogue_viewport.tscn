@@ -30,6 +30,7 @@ canvas_item_default_texture_filter = 0
 size = Vector2i(320, 200)
 
 [node name="Screen" parent="." index="1"]
+gi_mode = 0
 mesh = SubResource("QuadMesh_n2ibp")
 surface_material_override/0 = SubResource("StandardMaterial3D_n2ibp")
 

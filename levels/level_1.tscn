@@ -1,10 +1,11 @@
-[gd_scene load_steps=38 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=41 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
 [ext_resource type="PackedScene" uid="uid://13lrpeq0j3lk" path="res://maps/map_1.tscn" id="2_rduek"]
 [ext_resource type="Script" uid="uid://bcpy4a75rao8y" path="res://addons/godot-xr-tools/rumble/rumbler.gd" id="3_7nvrk"]
 [ext_resource type="Script" uid="uid://dmqkt2sk2x8wx" path="res://scripts/world_shaker.gd" id="3_sstds"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_udfhf"]
 [ext_resource type="PackedScene" uid="uid://briidrsj8atop" path="res://custom_scenes/jammed_door.tscn" id="5_08mmt"]
 [ext_resource type="PackedScene" uid="uid://crte44g8idacl" path="res://hazards/electrical_fire.tscn" id="5_o7v6b"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="6_1sveg"]
@@ -19,6 +20,8 @@
 [ext_resource type="Script" uid="uid://d2j64x8gnsuue" path="res://addons/ateneo-virtual-reality-escape/inventory-system/inventory_slot.gd" id="16_7nvrk"]
 [ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="17_jkxa6"]
 [ext_resource type="Material" uid="uid://dy43ogh4jhnpk" path="res://addons/ateneo-virtual-reality-escape/inventory-system/misc-resources/inventory_slot_shader_a.tres" id="18_w75he"]
+[ext_resource type="PackedScene" uid="uid://duu4043awyc4s" path="res://ui/dialogue_element.tscn" id="20_jkxa6"]
+[ext_resource type="PackedScene" uid="uid://dvop5g8klstys" path="res://ui/timer_ui.tscn" id="21_w75he"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x70s4"]
 
@@ -97,6 +100,10 @@ script = ExtResource("2_1gikq")
 
 [node name="XROrigin3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+
+[node name="FunctionPointer" parent="XROrigin3D/LeftHand" index="3" instance=ExtResource("3_udfhf")]
+show_laser = 2
+collision_mask = 1342177280
 
 [node name="PlayerBody" parent="XROrigin3D" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
@@ -361,5 +368,13 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 0.437979, -0.898985, 0, 0.898985, 0.437979, 0, 1.02616, 0.651415)
 mesh = SubResource("BoxMesh_ohjdc")
 skeleton = NodePath("../..")
+
+[node name="UI" type="Node3D" parent="." index="9"]
+
+[node name="DialogueElement" parent="UI" index="0" instance=ExtResource("20_jkxa6")]
+
+[node name="TimerUI" parent="UI" index="1" instance=ExtResource("21_w75he")]
+is_tooltip = true
+tooltip_uv = Vector2(0.65, 0.65)
 
 [connection signal="shake_world" from="." to="WorldShaker" method="_on_level_1_shake_world"]
