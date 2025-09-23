@@ -131,7 +131,7 @@ func _process(delta: float) -> void:
 	if level_active:
 		level_timer += delta
 		
-		if not earthquake_triggered and level_timer > 60.0:
+		if not earthquake_triggered and level_timer > 10.0:
 			emit_signal("shake_world")
 			earthquake_triggered = true
 		

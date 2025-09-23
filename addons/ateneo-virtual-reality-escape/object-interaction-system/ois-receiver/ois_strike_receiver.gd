@@ -28,6 +28,16 @@ func action_ongoing(delta: float) -> void:
 		total_progress += current_progress * rate
 		hit_already = true
 		
+		## RUMBLE
+		var pickable := interacting_object as XRToolsPickable
+		if pickable:
+			var controller := pickable.get_picked_up_by_controller()
+			if controller:
+				XRToolsRumbleManager.start_rumble(controller, {
+					"amplitude": 0.7, # from 0.0 to 1.0
+					"duration": 0.2 # seconds
+				})
+		
 		print("=======================")
 		print("Strike Speed: " + str(current_progress) + "m/s") # test value, delete in future
 		print("Total progress: " + str(total_progress))

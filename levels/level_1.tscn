@@ -1,10 +1,9 @@
-[gd_scene load_steps=38 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=39 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
 [ext_resource type="PackedScene" uid="uid://13lrpeq0j3lk" path="res://maps/map_1.tscn" id="2_rduek"]
 [ext_resource type="Script" uid="uid://bcpy4a75rao8y" path="res://addons/godot-xr-tools/rumble/rumbler.gd" id="3_7nvrk"]
-[ext_resource type="Script" uid="uid://gcemlb8451jq" path="res://addons/godot-xr-tools/rumble/rumble_manager.gd" id="3_jkxa6"]
 [ext_resource type="Script" uid="uid://dmqkt2sk2x8wx" path="res://scripts/world_shaker.gd" id="3_sstds"]
 [ext_resource type="Resource" uid="uid://dr0e0rubyea1s" path="res://custom_scenes/rumble_hammer_hit.tres" id="4_jkxa6"]
 [ext_resource type="PackedScene" uid="uid://briidrsj8atop" path="res://custom_scenes/jammed_door.tscn" id="5_08mmt"]
@@ -12,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="6_1sveg"]
 [ext_resource type="PackedScene" uid="uid://c5jkbtv57haa3" path="res://hazards/broken_glass.tscn" id="6_43hcc"]
 [ext_resource type="PackedScene" uid="uid://c83bvn3hvunbw" path="res://hazards/shaker.tscn" id="8_f3u63"]
+[ext_resource type="Script" uid="uid://dn0rhw5ql5k7m" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="8_jkxa6"]
 [ext_resource type="PackedScene" uid="uid://dsjo8twceel63" path="res://objectives/victim.tscn" id="10_8tolq"]
 [ext_resource type="PackedScene" uid="uid://df8ckf7krjyl3" path="res://custom_scenes/ois_hammer.tscn" id="11_aerfg"]
 [ext_resource type="PackedScene" uid="uid://bp4qsothxd80g" path="res://custom_scenes/injured.tscn" id="11_betor"]
@@ -29,6 +29,14 @@ sky_material = SubResource("ProceduralSkyMaterial_x70s4")
 [sub_resource type="Environment" id="Environment_4jcj5"]
 background_mode = 2
 sky = SubResource("Sky_ff7d2")
+
+[sub_resource type="Resource" id="Resource_w75he"]
+script = ExtResource("8_jkxa6")
+magnitude = 0.8
+active_during_pause = false
+indefinite = false
+duration_ms = 1500
+metadata/_custom_type_script = "uid://dn0rhw5ql5k7m"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lrvbd"]
 size = Vector3(7.44635, 1, 2)
@@ -91,9 +99,6 @@ script = ExtResource("2_1gikq")
 [node name="XROrigin3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 
-[node name="RumbleManager" type="Node" parent="XROrigin3D" index="1"]
-script = ExtResource("3_jkxa6")
-
 [node name="XRToolsRumbler" type="Node" parent="XROrigin3D/LeftHand" index="3" node_paths=PackedStringArray("target")]
 script = ExtResource("3_7nvrk")
 event = ExtResource("4_jkxa6")
@@ -106,7 +111,7 @@ event = ExtResource("4_jkxa6")
 target = NodePath("..")
 metadata/_custom_type_script = "uid://bcpy4a75rao8y"
 
-[node name="PlayerBody" parent="XROrigin3D" index="4"]
+[node name="PlayerBody" parent="XROrigin3D" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 
 [node name="Environment" type="Node3D" parent="." index="1"]
@@ -138,6 +143,18 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.998,
 
 [node name="JammedDoor3" parent="WorldShaker/Map1" index="16" instance=ExtResource("5_08mmt")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.015, 1, 2.38)
+
+[node name="XRToolsRumbler" type="Node" parent="WorldShaker" index="1" node_paths=PackedStringArray("target")]
+script = ExtResource("3_7nvrk")
+event = SubResource("Resource_w75he")
+target = NodePath("../../XROrigin3D/LeftHand")
+metadata/_custom_type_script = "uid://bcpy4a75rao8y"
+
+[node name="XRToolsRumbler2" type="Node" parent="WorldShaker" index="2" node_paths=PackedStringArray("target")]
+script = ExtResource("3_7nvrk")
+event = SubResource("Resource_w75he")
+target = NodePath("../../XROrigin3D/RightHand")
+metadata/_custom_type_script = "uid://bcpy4a75rao8y"
 
 [node name="Hazards" type="Node3D" parent="." index="3"]
 
