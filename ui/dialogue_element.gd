@@ -5,7 +5,7 @@ extends Node3D
 @onready var text_box : RichTextLabel
 @onready var xr_origin : XROrigin3D = $"../XROrigin3D"
 @export var is_tooltip : bool = false
-@export var tooltip_uv : Vector2 = Vector2(0.60, 0.40)
+@export var tooltip_uv : Vector2 = Vector2(0.50, 0.50)
 
 var in_animation: bool = false
 var current_characters: float = 0.0
@@ -13,6 +13,9 @@ var animation_rate: float = 0.0
 var xr_cam : XRCamera3D
 var plane : Plane = Plane(Vector3(0, 1, 0))
 var cooldown = 0.0
+
+var tooltip_middle : Vector3
+var tooltip_lookat : Vector3
 
 func _ready() -> void:
 	if viewport_scene == null:
@@ -26,6 +29,8 @@ func _ready() -> void:
 	
 	var xr_origin = get_parent().get_node("XROrigin3D")
 	xr_cam = get_viewport().get_camera_3d()
+	
+	_calculate_new_tooltip_middle(tooltip_uv)
 	
 	var canvas_scene = viewport_scene.scene_node
 	var margin_child
@@ -55,16 +60,13 @@ func _plane_to_plane_intersection(a:Plane, b: Plane):
 			return b
 	
 	var normal_direction = a.normal.cross(b.normal).normalized()
-	
 	var mat = Transform2D()
 	mat.x = Vector2(a.normal.x, a.normal.y)
 	mat.y = Vector2(b.normal.x, b.normal.y)
-	
 	var mat_inv = mat.affine_inverse()
-	
 	var dist_vec = Vector2(-a.d, -b.d)
-	
 	var ans = mat_inv.basis_xform(dist_vec)
+	
 	return [Vector3(ans.x, ans.y, 0), normal_direction]
 	
 func _process(delta: float) -> void:
@@ -78,45 +80,15 @@ func _process(delta: float) -> void:
 		text_box.visible_characters = floor(current_characters)
 
 	var forward_direction = -xr_cam.global_transform.basis.z.normalized()
-	
+	var right_eye_transform = XRServer.primary_interface.get_transform_for_view(1, xr_origin.global_transform)
 	
 	if not is_tooltip:
 		var projected_vector = plane.project(forward_direction).normalized() * 3
 		viewport_scene.global_position = xr_cam.global_position + projected_vector
 		
 	else:
-		var viewport = xr_cam.get_viewport()
-		var viewport_size = xr_cam.get_viewport().size
-		
-		var right_eye_transform = XRServer.primary_interface.get_transform_for_view(1, xr_origin.global_transform)
-		var right_eye_view_matrix = right_eye_transform.affine_inverse()
-		
-		var right_eye_projection = XRServer.primary_interface.get_projection_for_view(1, viewport_size.x/viewport_size.y, xr_cam.near, xr_cam.far)
-		#print("TEST: " + str(right_eye_projection.get_viewport_half_extents()))
-		var test_line = right_eye_transform * Vector3(0, 0, 1)
-		var near_plane = right_eye_projection.get_projection_plane(0)
-		var left_plane = right_eye_projection.get_projection_plane(2)
-		var top_plane = right_eye_projection.get_projection_plane(3)
-		var right_plane = right_eye_projection.get_projection_plane(4)
-		var bot_plane = right_eye_projection.get_projection_plane(5)
-		
-		
-		var intersect_1 = _plane_to_plane_intersection(top_plane, left_plane)
-		var intersect_2 = _plane_to_plane_intersection(right_plane, top_plane)
-		var intersect_3 = _plane_to_plane_intersection(bot_plane, right_plane)
-		var intersect_4 = _plane_to_plane_intersection(left_plane, bot_plane)
-		
-		#print(near_plane)
-		
-		near_plane.d = 0.5
-		
-		var top_left = -near_plane.intersects_ray(intersect_1[0], intersect_1[1])
-		var right_vec = -near_plane.intersects_ray(intersect_2[0], intersect_2[1])-top_left
-		var bot_vec = -near_plane.intersects_ray(intersect_4[0], intersect_4[1])-top_left
-		
-		var tooltip_middle = top_left + right_vec*tooltip_uv.x + bot_vec*tooltip_uv.y
-		
 		cooldown += delta
+		
 		viewport_scene.global_position = right_eye_transform * tooltip_middle
 		
 		if cooldown >= 1.0:
@@ -142,9 +114,41 @@ func _process(delta: float) -> void:
 			#print(tooltip_middle)
 			#print(_plane_to_plane_intersection(right_eye_projection.get_projection_plane(2), right_eye_projection.get_projection_plane(3)))
 		#viewport_scene.global_position = xr_cam.global_position + Vector3(1.5, 1.5, -3)
-			print(viewport_scene.global_position)
+			#print(viewport_scene.global_position)
 		
-	viewport_scene.look_at(xr_cam.global_position, Vector3.UP, true)
+		viewport_scene.look_at(right_eye_transform * tooltip_lookat, Vector3.UP, true)
+
+
+func _calculate_new_tooltip_middle(uvs: Vector2):
+	var viewport = xr_cam.get_viewport()
+	var viewport_size = xr_cam.get_viewport().size
+	
+	var right_eye_transform = XRServer.primary_interface.get_transform_for_view(1, xr_origin.global_transform)
+	var right_eye_projection = XRServer.primary_interface.get_projection_for_view(1, viewport_size.x/viewport_size.y, xr_cam.near, xr_cam.far)
+	#print("TEST: " + str(right_eye_projection.get_viewport_half_extents()))
+	var near_plane = right_eye_projection.get_projection_plane(0)
+	var left_plane = right_eye_projection.get_projection_plane(2)
+	var top_plane = right_eye_projection.get_projection_plane(3)
+	var right_plane = right_eye_projection.get_projection_plane(4)
+	var bot_plane = right_eye_projection.get_projection_plane(5)
+	
+	var intersect_1 = _plane_to_plane_intersection(top_plane, left_plane)
+	var intersect_2 = _plane_to_plane_intersection(right_plane, top_plane)
+	var intersect_3 = _plane_to_plane_intersection(bot_plane, right_plane)
+	var intersect_4 = _plane_to_plane_intersection(left_plane, bot_plane)
+	
+	#print(near_plane)
+	
+	near_plane.d = 0.65
+	
+	var top_left = -near_plane.intersects_ray(intersect_1[0], intersect_1[1])
+	var right_vec = -near_plane.intersects_ray(intersect_2[0], intersect_2[1])-top_left
+	var bot_vec = -near_plane.intersects_ray(intersect_4[0], intersect_4[1])-top_left
+	
+	tooltip_middle = top_left + right_vec*uvs.x + bot_vec*uvs.y
+	tooltip_lookat = tooltip_middle
+	tooltip_middle.z -= 0.02
+	
 func _make_tooltip() -> void:
 	viewport_scene.set_screen_size(Vector2(0.5, 0.5))
 	is_tooltip = true
