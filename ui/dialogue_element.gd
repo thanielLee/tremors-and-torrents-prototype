@@ -5,13 +5,14 @@ extends Node3D
 @onready var text_box : RichTextLabel
 @onready var xr_origin : XROrigin3D = $"../XROrigin3D"
 @export var is_tooltip : bool = false
-@export var tooltip_uv : Vector2 = Vector2(0.50, 0.50)
+@export var tooltip_uv : Vector2 = Vector2(0.55, 0.45)
+@export var dialogue_z : float = 0.85
 
 var in_animation: bool = false
 var current_characters: float = 0.0
 var animation_rate: float = 0.0
 var xr_cam : XRCamera3D
-var plane : Plane = Plane(Vector3(0, 1, 0))
+var plane : Plane = Plane(Vector3(0, 1, 0), 0.3)
 var cooldown = 0.0
 
 var tooltip_middle : Vector3
@@ -22,7 +23,9 @@ func _ready() -> void:
 		viewport_scene = $Viewport2Din3D
 	
 	if is_tooltip:
-		viewport_scene.set_screen_size(Vector2(0.1, 0.1))
+		_make_tooltip()
+	else:
+		_make_text_dialogue()
 	
 	if xr_origin == null:
 		xr_origin = $"../XROrigin3D"
@@ -51,7 +54,6 @@ func _ready() -> void:
 	
 	_change_text_animated("What do you want?\nWhat do you want?\nWhat do you want?\nWhat do you want?\nWhat do you want?\n")
 	
-
 func _plane_to_plane_intersection(a:Plane, b: Plane):
 	if a.normal == b.normal:
 		if a.d == b.d:
@@ -83,9 +85,10 @@ func _process(delta: float) -> void:
 	var right_eye_transform = XRServer.primary_interface.get_transform_for_view(1, xr_origin.global_transform)
 	
 	if not is_tooltip:
-		var projected_vector = plane.project(forward_direction).normalized() * 3
-		viewport_scene.global_position = xr_cam.global_position + projected_vector
-		
+		print(forward_direction)
+		var projected_vector = forward_direction * 3
+		viewport_scene.global_position = plane.project(xr_cam.global_position + projected_vector)
+		viewport_scene.look_at(xr_cam.global_position, Vector3.UP, true)
 	else:
 		cooldown += delta
 		
@@ -115,7 +118,6 @@ func _process(delta: float) -> void:
 			#print(_plane_to_plane_intersection(right_eye_projection.get_projection_plane(2), right_eye_projection.get_projection_plane(3)))
 		#viewport_scene.global_position = xr_cam.global_position + Vector3(1.5, 1.5, -3)
 			#print(viewport_scene.global_position)
-		
 		viewport_scene.look_at(right_eye_transform * tooltip_lookat, Vector3.UP, true)
 
 
@@ -139,7 +141,7 @@ func _calculate_new_tooltip_middle(uvs: Vector2):
 	
 	#print(near_plane)
 	
-	near_plane.d = 0.65
+	near_plane.d = dialogue_z
 	
 	var top_left = -near_plane.intersects_ray(intersect_1[0], intersect_1[1])
 	var right_vec = -near_plane.intersects_ray(intersect_2[0], intersect_2[1])-top_left
@@ -150,11 +152,13 @@ func _calculate_new_tooltip_middle(uvs: Vector2):
 	tooltip_middle.z -= 0.02
 	
 func _make_tooltip() -> void:
-	viewport_scene.set_screen_size(Vector2(0.5, 0.5))
+	viewport_scene.set_screen_size(Vector2(0.32, 0.18))
+	viewport_scene.set_viewport_size(Vector2(320, 180))
 	is_tooltip = true
 
 func _make_text_dialogue() -> void:
-	viewport_scene.set_screen_size(Vector2(4.0, 2.5))
+	viewport_scene.set_screen_size(Vector2(1.6, 0.9))
+	viewport_scene.set_viewport_size(Vector2(160, 90))
 	is_tooltip = false
 	
 func _change_text_animated(new_text: String):
@@ -163,6 +167,9 @@ func _change_text_animated(new_text: String):
 	text_box.visible_characters = 0
 	text_box.text = new_text
 
+func _appear_text(new_text: String):
+	_change_text_animated(new_text)
+	visible = true
 
 func _ui_interaction(event):
 	if event.event_type == XRToolsPointerEvent.Type.PRESSED:
@@ -171,5 +178,6 @@ func _ui_interaction(event):
 			text_box.visible_characters = text_box.text.length()
 		else:
 			visible = false
+			text_box.text = ""
 	
 	

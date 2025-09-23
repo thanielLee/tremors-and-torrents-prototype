@@ -5,6 +5,8 @@
 
 [node name="DialogueElement" type="Node3D"]
 script = ExtResource("1_cccuj")
-animation_speed = 10.0
 
 [node name="Viewport2Din3D" parent="." instance=ExtResource("2_u4ji6")]
+screen_size = Vector2(3.2, 1.8)
+collision_layer = 1342177280
+viewport_size = Vector2(320, 180)
