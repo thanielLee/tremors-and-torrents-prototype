@@ -27,11 +27,11 @@ func _on_ois_twist_receiver_action_in_progress(requirement: Variant, total_progr
 	var progress_ratio = clamp(total_progress / float(requirement), 0.0, 1.0)
 	
 	var new_stage := -1
-	if progress_ratio >= 0.66:
+	if progress_ratio >= 1.0:
 		new_stage = 2
-	elif progress_ratio >= 0.33:
+	elif progress_ratio >= 0.5:
 		new_stage = 1
-	elif progress_ratio >= 0.0:
+	elif progress_ratio >= 0.1:
 		new_stage = 0
 	
 	if new_stage != current_stage:

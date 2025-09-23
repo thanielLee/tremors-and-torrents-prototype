@@ -1,9 +1,12 @@
-[gd_scene load_steps=35 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=38 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
 [ext_resource type="PackedScene" uid="uid://13lrpeq0j3lk" path="res://maps/map_1.tscn" id="2_rduek"]
+[ext_resource type="Script" uid="uid://bcpy4a75rao8y" path="res://addons/godot-xr-tools/rumble/rumbler.gd" id="3_7nvrk"]
+[ext_resource type="Script" uid="uid://gcemlb8451jq" path="res://addons/godot-xr-tools/rumble/rumble_manager.gd" id="3_jkxa6"]
 [ext_resource type="Script" uid="uid://dmqkt2sk2x8wx" path="res://scripts/world_shaker.gd" id="3_sstds"]
+[ext_resource type="Resource" uid="uid://dr0e0rubyea1s" path="res://custom_scenes/rumble_hammer_hit.tres" id="4_jkxa6"]
 [ext_resource type="PackedScene" uid="uid://briidrsj8atop" path="res://custom_scenes/jammed_door.tscn" id="5_08mmt"]
 [ext_resource type="PackedScene" uid="uid://crte44g8idacl" path="res://hazards/electrical_fire.tscn" id="5_o7v6b"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="6_1sveg"]
@@ -88,7 +91,22 @@ script = ExtResource("2_1gikq")
 [node name="XROrigin3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 
-[node name="PlayerBody" parent="XROrigin3D" index="3"]
+[node name="RumbleManager" type="Node" parent="XROrigin3D" index="1"]
+script = ExtResource("3_jkxa6")
+
+[node name="XRToolsRumbler" type="Node" parent="XROrigin3D/LeftHand" index="3" node_paths=PackedStringArray("target")]
+script = ExtResource("3_7nvrk")
+event = ExtResource("4_jkxa6")
+target = NodePath("..")
+metadata/_custom_type_script = "uid://bcpy4a75rao8y"
+
+[node name="XRToolsRumbler" type="Node" parent="XROrigin3D/RightHand" index="4" node_paths=PackedStringArray("target")]
+script = ExtResource("3_7nvrk")
+event = ExtResource("4_jkxa6")
+target = NodePath("..")
+metadata/_custom_type_script = "uid://bcpy4a75rao8y"
+
+[node name="PlayerBody" parent="XROrigin3D" index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 
 [node name="Environment" type="Node3D" parent="." index="1"]
@@ -130,7 +148,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.10122, -1.93715e-07, -7.25
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.42694, 7.59959e-07, -4.30547)
 
 [node name="BrokenGlass2" parent="Hazards" index="2" instance=ExtResource("6_43hcc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.83779, -1.93715e-07, -4.26206)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6663, -1.93715e-07, -4.70948)
 
 [node name="BrokenGlass3" parent="Hazards" index="3" instance=ExtResource("6_43hcc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.47997, -1.93715e-07, -12.2074)
@@ -141,10 +159,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.29372, 2.66731e-06, -13.051
 [node name="Shaker2" parent="Hazards" index="5" instance=ExtResource("8_f3u63")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.88733, -0.000170901, -2.85888)
 
-[node name="Hammer" parent="." index="4" instance=ExtResource("6_1sveg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19813, 1.10592, -1.62293)
-
-[node name="Objectives" type="Node3D" parent="." index="5"]
+[node name="Objectives" type="Node3D" parent="." index="4"]
 
 [node name="Victim" parent="Objectives" index="0" instance=ExtResource("10_8tolq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.24219, -1.14739e-06, -13.6973)
@@ -152,7 +167,7 @@ active = true
 follow_strength = 10.0
 
 [node name="Injured" parent="Objectives" index="1" instance=ExtResource("11_betor")]
-transform = Transform3D(-6.09774e-08, 0, -1.395, 0, 1.395, 0, 1.395, 0, -6.09774e-08, -4.53875, 0.449258, -15.5619)
+transform = Transform3D(-6.09774e-08, 0, -1.395, 0, 1.395, 0, 1.395, 0, -6.09774e-08, -4.53875, 1.66935, -15.5619)
 
 [node name="SafeArea" type="Area3D" parent="Objectives" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.15094, 0, 7.07465)
@@ -162,6 +177,9 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Objectives/SafeArea" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.787689, 0, 0)
 shape = SubResource("BoxShape3D_lrvbd")
+
+[node name="Hammer" parent="." index="5" instance=ExtResource("6_1sveg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19813, 1.10592, -1.62293)
 
 [node name="OISHammer" parent="." index="6" instance=ExtResource("11_aerfg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3465, 1.2508, -2.00495)

@@ -105,7 +105,7 @@ func enable_objectives():
 func _on_objective_completed(objective_name: String):
 	if objective_name not in completed_objectives:
 		completed_objectives.append(objective_name)
-		print("Objective Complete:", objective_name)
+		print("Objective Complete: ", objective_name)
 		score += 50
 		
 		check_level_end()
