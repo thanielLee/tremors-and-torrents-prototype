@@ -1,11 +1,10 @@
-[gd_scene load_steps=39 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=38 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
 [ext_resource type="PackedScene" uid="uid://13lrpeq0j3lk" path="res://maps/map_1.tscn" id="2_rduek"]
 [ext_resource type="Script" uid="uid://bcpy4a75rao8y" path="res://addons/godot-xr-tools/rumble/rumbler.gd" id="3_7nvrk"]
 [ext_resource type="Script" uid="uid://dmqkt2sk2x8wx" path="res://scripts/world_shaker.gd" id="3_sstds"]
-[ext_resource type="Resource" uid="uid://dr0e0rubyea1s" path="res://custom_scenes/rumble_hammer_hit.tres" id="4_jkxa6"]
 [ext_resource type="PackedScene" uid="uid://briidrsj8atop" path="res://custom_scenes/jammed_door.tscn" id="5_08mmt"]
 [ext_resource type="PackedScene" uid="uid://crte44g8idacl" path="res://hazards/electrical_fire.tscn" id="5_o7v6b"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="6_1sveg"]
@@ -32,7 +31,7 @@ sky = SubResource("Sky_ff7d2")
 
 [sub_resource type="Resource" id="Resource_w75he"]
 script = ExtResource("8_jkxa6")
-magnitude = 0.8
+magnitude = 1.0
 active_during_pause = false
 indefinite = false
 duration_ms = 1500
@@ -98,18 +97,6 @@ script = ExtResource("2_1gikq")
 
 [node name="XROrigin3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
-
-[node name="XRToolsRumbler" type="Node" parent="XROrigin3D/LeftHand" index="3" node_paths=PackedStringArray("target")]
-script = ExtResource("3_7nvrk")
-event = ExtResource("4_jkxa6")
-target = NodePath("..")
-metadata/_custom_type_script = "uid://bcpy4a75rao8y"
-
-[node name="XRToolsRumbler" type="Node" parent="XROrigin3D/RightHand" index="4" node_paths=PackedStringArray("target")]
-script = ExtResource("3_7nvrk")
-event = ExtResource("4_jkxa6")
-target = NodePath("..")
-metadata/_custom_type_script = "uid://bcpy4a75rao8y"
 
 [node name="PlayerBody" parent="XROrigin3D" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)

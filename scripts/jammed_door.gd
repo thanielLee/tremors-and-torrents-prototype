@@ -61,7 +61,9 @@ func _on_hit_point_completed(requirement: Variant, total_progress: Variant, hit_
 ## gets reference to controller first
 func _on_rumble_hand(controller: XRController3D):
 	last_controller = controller
+	print("controller: ", controller)
 	if strike_rumble_event:
+		print("rumbling")
 		XRToolsRumbleManager.add("door_strike", strike_rumble_event, [last_controller])
 
 func _on_break_door_sound_finished() -> void:

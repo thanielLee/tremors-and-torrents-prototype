@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://briidrsj8atop"]
+[gd_scene load_steps=15 format=3 uid="uid://briidrsj8atop"]
 
 [ext_resource type="Script" uid="uid://cci3xkvnplit7" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/ois-receiver/ois_strike_receiver.gd" id="1_cvxef"]
 [ext_resource type="Script" uid="uid://bncqx1dnbni5" path="res://scripts/jammed_door.gd" id="1_tdery"]
 [ext_resource type="AudioStream" uid="uid://dnc4e28cyp0ba" path="res://assets/door_break_sound.mp3" id="2_b27y7"]
+[ext_resource type="Resource" uid="uid://dr0e0rubyea1s" path="res://custom_scenes/rumble_hammer_hit.tres" id="2_cyhyk"]
+[ext_resource type="Resource" uid="uid://bd6naymyuk7d" path="res://custom_scenes/rumble_door_break.tres" id="3_munqj"]
 [ext_resource type="AudioStream" uid="uid://868abxtawv22" path="res://assets/hammer_hit.ogg" id="3_y4oq6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y4oq6"]
@@ -35,6 +37,8 @@ size = Vector3(0.05, 0.05, 0.05)
 
 [node name="JammedDoor" type="Node3D"]
 script = ExtResource("1_tdery")
+strike_rumble_event = ExtResource("2_cyhyk")
+break_rumble_event = ExtResource("3_munqj")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 

@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_v6cjo")
-magnitude = 0.1
+magnitude = 0.4
 active_during_pause = false
 indefinite = false
-duration_ms = 10
+duration_ms = 40
 metadata/_custom_type_script = "uid://dn0rhw5ql5k7m"
