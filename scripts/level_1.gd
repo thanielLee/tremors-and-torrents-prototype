@@ -38,8 +38,8 @@ func start_level():
 	
 	# Cache references
 	hazards = get_node("Hazards")
-	world_shaker = get_node("WorldShaker")
 	objectives = get_node("Objectives")
+	world_shaker = get_node("WorldShaker")
 
 	enable_hazards()
 	enable_objectives()
@@ -55,7 +55,7 @@ func end_level(success: bool):
 		print("Level failed! Score: %s" % score)
 		exit_to_main_menu()
 	
-	# TODO: trigger scene switch or results UI
+	# TODO: trigger results UI
 
 
 ### HAZARDS ###
@@ -65,7 +65,7 @@ func enable_hazards():
 	if not hazards: return
 	for hazard in hazards.get_children():
 		if hazard.has_signal("hazard_triggered"):
-			hazard.hazard_triggered.connect(_on_hazard_triggered.bind(hazard.name))
+			hazard.hazard_triggered.connect(_on_hazard_triggered.bind(hazard))
 
 func disable_hazards():
 	if not hazards: return
@@ -74,18 +74,20 @@ func disable_hazards():
 			if hazard.hazard_triggered.is_connected(_on_hazard_triggered):
 				hazard.hazard_triggered.disconnect(_on_hazard_triggered)
 
-# Temporary function
-func _on_hazard_triggered(hazard_name: String):
+func _on_hazard_triggered(hazard: Variant):
+	var hazard_name = hazard.name
 	print("Hazard: %s triggered!" % hazard_name)
-	#reset_scene()
 	
 	if hazard_name not in triggered_hazards:
 		triggered_hazards.append(hazard_name)
 		
+		score += hazard.penalty_points
+		print(score)
+		
 		if triggered_hazards.size() >= HAZARD_LIMIT:
 			end_level(false)
 	
-	# TODO: log hazard for feedback
+	# TODO: display logged hazards for results
 
 
 ### OBJECTIVES ###
@@ -110,7 +112,7 @@ func _on_objective_completed(objective_name: String):
 
 func _on_objective_failed(objective_name: String):
 	print("Objective %s failed!" % objective_name)
-	exit_to_main_menu()
+	end_level(false)
 
 
 ### LEVEL END CHECK ###
