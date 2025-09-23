@@ -54,6 +54,7 @@ mesh = SubResource("QuadMesh_70b62")
 
 [node name="DialogueElement" parent="." index="2" instance=ExtResource("2_i1ltd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1804, -2.98433)
+is_tooltip = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.597693, -5.0664)

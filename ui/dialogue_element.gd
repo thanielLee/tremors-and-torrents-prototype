@@ -12,7 +12,7 @@ var in_animation: bool = false
 var current_characters: float = 0.0
 var animation_rate: float = 0.0
 var xr_cam : XRCamera3D
-var plane : Plane = Plane(Vector3(0, 1, 0), 0.3)
+var plane : Plane = Plane(Vector3(0, 1, 0), 0.65)
 var cooldown = 0.0
 
 var tooltip_middle : Vector3
@@ -51,6 +51,7 @@ func _ready() -> void:
 			text_box = vbox_children
 	
 	viewport_scene.pointer_event.connect(_ui_interaction)
+	#text_box.texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_LINEAR
 	
 	_change_text_animated("What do you want?\nWhat do you want?\nWhat do you want?\nWhat do you want?\nWhat do you want?\n")
 	
@@ -85,9 +86,10 @@ func _process(delta: float) -> void:
 	var right_eye_transform = XRServer.primary_interface.get_transform_for_view(1, xr_origin.global_transform)
 	
 	if not is_tooltip:
-		print(forward_direction)
-		var projected_vector = forward_direction * 3
-		viewport_scene.global_position = plane.project(xr_cam.global_position + projected_vector)
+		#print(forward_direction)
+		var projected_vector = forward_direction
+		var plane_projected_origin = plane.project(xr_cam.global_position)
+		viewport_scene.global_position = plane.project((plane.project(xr_cam.global_position + projected_vector)-plane_projected_origin).normalized() * 2)
 		viewport_scene.look_at(xr_cam.global_position, Vector3.UP, true)
 	else:
 		cooldown += delta
@@ -158,14 +160,14 @@ func _make_tooltip() -> void:
 
 func _make_text_dialogue() -> void:
 	viewport_scene.set_screen_size(Vector2(1.6, 0.9))
-	viewport_scene.set_viewport_size(Vector2(160, 90))
+	viewport_scene.set_viewport_size(Vector2(640, 360))
 	is_tooltip = false
 	
 func _change_text_animated(new_text: String):
 	in_animation = true
 	animation_rate = animation_speed / new_text.length()
 	text_box.visible_characters = 0
-	text_box.text = new_text
+	text_box.text = "[font_size=32][b]" + new_text + "[/b][/font_size]"
 
 func _appear_text(new_text: String):
 	_change_text_animated(new_text)
