@@ -8,9 +8,13 @@ signal door_cleared()
 @onready var hit_points: Node3D = $HitPoints
 @onready var hit_sound: AudioStreamPlayer3D = $HitSound
 @onready var break_particles: GPUParticles3D = $BreakParticles
-
-
 var hit_point_count : int
+
+
+# For rumble
+@export var strike_rumble_event: XRToolsRumbleEvent
+@export var break_rumble_event: XRToolsRumbleEvent
+var last_controller: XRController3D = null
 
 
 func _ready() -> void:
@@ -21,6 +25,7 @@ func _ready() -> void:
 			if child is OISStrikeReceiver:
 				child.action_completed.connect(_on_hit_point_completed.bind(hit_point)) # for hit point desrtoyed
 				child.action_started.connect(_on_hit_point_started)
+				child.rumble_hand.connect(_on_rumble_hand)
 		
 
 func check_finished():
@@ -48,8 +53,16 @@ func _on_hit_point_completed(requirement: Variant, total_progress: Variant, hit_
 	if break_sound:
 		break_sound.play()
 	
+	if last_controller:
+		XRToolsRumbleManager.add("door_break", break_rumble_event, [last_controller])
+	
 	check_finished()
 
+## gets reference to controller first
+func _on_rumble_hand(controller: XRController3D):
+	last_controller = controller
+	if strike_rumble_event:
+		XRToolsRumbleManager.add("door_strike", strike_rumble_event, [last_controller])
 
 func _on_break_door_sound_finished() -> void:
 	queue_free()
