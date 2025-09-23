@@ -5,15 +5,16 @@ extends Node3D
 @onready var text_box : RichTextLabel
 @onready var xr_origin : XROrigin3D = $"../XROrigin3D"
 @export var is_tooltip : bool = false
-@export var tooltip_uv : Vector2 = Vector2(0.55, 0.45)
-@export var dialogue_z : float = 0.85
+@export var tooltip_uv : Vector2 = Vector2(0.55, 0.50)
+@export var dialogue_z : float = 0.9
+
 
 var in_animation: bool = false
 var current_characters: float = 0.0
-var animation_rate: float = 0.0
 var xr_cam : XRCamera3D
 var plane : Plane = Plane(Vector3(0, 1, 0), 0.65)
 var cooldown = 0.0
+var collision_shape : CollisionShape3D
 
 var tooltip_middle : Vector3
 var tooltip_lookat : Vector3
@@ -22,10 +23,8 @@ func _ready() -> void:
 	if viewport_scene == null:
 		viewport_scene = $Viewport2Din3D
 	
-	if is_tooltip:
-		_make_tooltip()
-	else:
-		_make_text_dialogue()
+		
+	collision_shape = get_child(0).get_child(2).get_child(0)
 	
 	if xr_origin == null:
 		xr_origin = $"../XROrigin3D"
@@ -53,7 +52,7 @@ func _ready() -> void:
 	viewport_scene.pointer_event.connect(_ui_interaction)
 	#text_box.texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_LINEAR
 	
-	_change_text_animated("What do you want?\nWhat do you want?\nWhat do you want?\nWhat do you want?\nWhat do you want?\n")
+	_appear_text("What do you want?\nWhat do you want?\nWhat do you want?\nWhat do you want?\nWhat do you want?\n", is_tooltip)
 	
 func _plane_to_plane_intersection(a:Plane, b: Plane):
 	if a.normal == b.normal:
@@ -89,7 +88,9 @@ func _process(delta: float) -> void:
 		#print(forward_direction)
 		var projected_vector = forward_direction
 		var plane_projected_origin = plane.project(xr_cam.global_position)
-		viewport_scene.global_position = plane.project((plane.project(xr_cam.global_position + projected_vector)-plane_projected_origin).normalized() * 2)
+		var xz_offset = xr_cam.global_position
+		xz_offset.y = 0
+		viewport_scene.global_position = xz_offset + plane.project((plane.project(xr_cam.global_position + projected_vector)-plane_projected_origin).normalized() * 2)
 		viewport_scene.look_at(xr_cam.global_position, Vector3.UP, true)
 	else:
 		cooldown += delta
@@ -165,16 +166,42 @@ func _make_text_dialogue() -> void:
 	
 func _change_text_animated(new_text: String):
 	in_animation = true
-	animation_rate = animation_speed / new_text.length()
 	text_box.visible_characters = 0
 	text_box.text = "[font_size=32][b]" + new_text + "[/b][/font_size]"
-
-func _appear_text(new_text: String):
-	_change_text_animated(new_text)
+	
+func _change_text_non_animated(new_text: String):
+	text_box.visible_characters = new_text.length()
+	text_box.text = "[font_size=16][b]" + new_text + "[/b][/font_size]"
+	
+func _appear_text(new_text: String, will_be_tooltip: bool):
+	collision_shape.disabled = false
 	visible = true
+	
+	if will_be_tooltip:
+		_make_tooltip()
+		_change_text_non_animated(new_text)
+	else:
+		_make_text_dialogue()
+		_change_text_animated(new_text)
 
-func _ui_interaction(event):
-	if event.event_type == XRToolsPointerEvent.Type.PRESSED:
+# Function to remove tooltip
+func _resolve_tooltip():
+	visible = false
+	collision_shape.disabled = true
+
+# Removes dialogue when pointer detects
+func _ui_interaction(event : XRToolsPointerEvent):
+	
+	if event.event_type == XRToolsPointerEvent.Type.ENTERED and not is_tooltip:
+		var pointer_test : XRToolsFunctionPointer = event.pointer
+		pointer_test.show_laser = XRToolsFunctionPointer.LaserShow.SHOW
+	
+	if event.event_type == XRToolsPointerEvent.Type.EXITED and not is_tooltip:
+		var pointer_test : XRToolsFunctionPointer = event.pointer
+		pointer_test.show_laser = XRToolsFunctionPointer.LaserShow.HIDE
+	
+	
+	if event.event_type == XRToolsPointerEvent.Type.PRESSED and not is_tooltip:
 		if in_animation:
 			in_animation = false
 			text_box.visible_characters = text_box.text.length()
