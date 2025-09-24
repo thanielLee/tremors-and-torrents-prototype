@@ -8,14 +8,21 @@ signal injured_cleared
 	$BandageStage2
 ]
 var current_stage : int
+@onready var bandage_sound_1: AudioStreamPlayer3D = $BandageSound1
+@onready var bandage_sound_2: AudioStreamPlayer3D = $BandageSound2
+var sounds
+
 
 func _ready() -> void:
 	for stage in bandage_stages:
 		stage.visible = false
 	current_stage = -1
 	
+	sounds = [bandage_sound_1, bandage_sound_2]
+	
 func _on_ois_twist_receiver_action_started(requirement: Variant, total_progress: Variant) -> void:
 	print("twist started")
+	play_bandage_sound()
 	#var progress_ratio = clamp(total_progress / float(requirement), 0.0, 1.0)
 	#
 	##bandage.scale = Vector3(1, lerp(0.01, 1.0, progress_ratio), 1)
@@ -45,3 +52,12 @@ func _on_ois_twist_receiver_action_ended(requirement: Variant, total_progress: V
 func _on_ois_twist_receiver_action_completed(requirement: Variant, total_progress: Variant) -> void:
 	emit_signal("injured_cleared")
 	print("bandage complete")
+
+func play_bandage_sound():
+	var sound = sounds[randi() % sounds.size()]
+	
+	sound.pitch_scale = randf_range(0.9, 1.1)
+	sound.volume_db = randf_range(-2.0, 0.0)
+	
+	if not sound.playing:
+		sound.play()

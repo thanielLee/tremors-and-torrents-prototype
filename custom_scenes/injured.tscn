@@ -1,7 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://bp4qsothxd80g"]
+[gd_scene load_steps=17 format=3 uid="uid://bp4qsothxd80g"]
 
 [ext_resource type="Script" uid="uid://bbncc441ssy0o" path="res://injured.gd" id="1_heuca"]
 [ext_resource type="Script" uid="uid://3bi02tndcxdg" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/ois-receiver/ois_twist_receiver.gd" id="2_as5ff"]
+[ext_resource type="AudioStream" uid="uid://dbgvfjvxpx0am" path="res://assets/freesound/bandage_sound_1.mp3" id="3_f8pag"]
+[ext_resource type="AudioStream" uid="uid://gtrjdh5pp8oi" path="res://assets/freesound/bandage_sound_2.mp3" id="4_k55h8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f8pag"]
 albedo_color = Color(1, 1, 0, 1)
@@ -112,6 +114,12 @@ mesh = SubResource("CylinderMesh_as5ff")
 transform = Transform3D(0.724172, -0.68962, 0, -3.01442e-08, -3.16546e-08, 1, -0.68962, -0.724172, -4.37114e-08, 0.455539, 0.000764482, -0.00810447)
 visible = false
 mesh = SubResource("CylinderMesh_f8pag")
+
+[node name="BandageSound1" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_f8pag")
+
+[node name="BandageSound2" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_k55h8")
 
 [connection signal="action_completed" from="OISTwistReceiver" to="." method="_on_ois_twist_receiver_action_completed"]
 [connection signal="action_ended" from="OISTwistReceiver" to="." method="_on_ois_twist_receiver_action_ended"]
