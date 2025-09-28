@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsjo8twceel63"]
+[gd_scene load_steps=6 format=3 uid="uid://dsjo8twceel63"]
 
 [ext_resource type="Script" uid="uid://co4uarxeb3gn3" path="res://scripts/victim.gd" id="1_5u583"]
-[ext_resource type="PackedScene" uid="uid://c8v28upinm8k8" path="res://levels/instructions.tscn" id="3_mchqb"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_d2bkb"]
 radius = 1.0
@@ -34,10 +33,6 @@ shape = SubResource("CapsuleShape3D_vxpdu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_lllhl")
 skeleton = NodePath("../DetectionArea")
-
-[node name="Instructions" parent="." instance=ExtResource("3_mchqb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 0)
-visible = false
 
 [connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]

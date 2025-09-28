@@ -8,6 +8,8 @@ extends XRToolsSceneBase
 ## This could serve as a guide/reference for future level creation  
 ##
 ## Handles initialization, hazards, objectives, and level flow.
+@onready var xr_origin_3d = $XROrigin3D
+var level_ended: bool = false
 
 var hazards : Node
 var objectives : Node
@@ -17,6 +19,7 @@ signal shake_world
 
 var level_active = false
 var level_timer : float = 0.0
+var time_elapsed : float = 0.0
 var score : int = 0 # Temporary basic scoring system 
 
 var triggered_hazards: Array[String] = []
@@ -50,14 +53,23 @@ func start_level():
 
 func end_level(success: bool):
 	level_active = false
+	level_ended = true
+	level_timer = 0
 	disable_hazards()
 	
+	
 	if success:
-		print("Level complete! Score: %s" % score)
-		exit_to_main_menu()
+		var output = "Level complete! Score: %s" % score
+		print(output)
+		tooltip_node._change_text_timelimited(output, 24, false, output.length(), 5)
+		#exit_to_main_menu()
 	else:
-		print("Level failed! Score: %s" % score)
-		exit_to_main_menu()
+		var output = "Level failed! Score: %s" % score
+		print(output)
+		tooltip_node._change_text_timelimited(output, 24, false, output.length(), 5)
+		#exit_to_main_menu()
+	
+	xr_origin_3d.position = Vector3(0, -11, 0)
 	
 	# TODO: trigger results UI
 
@@ -144,4 +156,10 @@ func _process(delta: float) -> void:
 		# Time ran out
 		if level_timer > 120.0:
 			end_level(false)
+	
+	if level_ended:
+		time_elapsed += delta
+		if time_elapsed > 5.0:
+			exit_to_main_menu()
+		
 	

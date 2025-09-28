@@ -1,8 +1,7 @@
-[gd_scene load_steps=41 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=46 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
-[ext_resource type="PackedScene" uid="uid://13lrpeq0j3lk" path="res://maps/map_1.tscn" id="2_rduek"]
 [ext_resource type="Script" uid="uid://bcpy4a75rao8y" path="res://addons/godot-xr-tools/rumble/rumbler.gd" id="3_7nvrk"]
 [ext_resource type="Script" uid="uid://dmqkt2sk2x8wx" path="res://scripts/world_shaker.gd" id="3_sstds"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_udfhf"]
@@ -12,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://c5jkbtv57haa3" path="res://hazards/broken_glass.tscn" id="6_43hcc"]
 [ext_resource type="PackedScene" uid="uid://c83bvn3hvunbw" path="res://hazards/shaker.tscn" id="8_f3u63"]
 [ext_resource type="Script" uid="uid://dn0rhw5ql5k7m" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="8_jkxa6"]
+[ext_resource type="PackedScene" uid="uid://fd0fq5lehw5g" path="res://assets/house_no_floor.glb" id="8_ntdhj"]
+[ext_resource type="PackedScene" uid="uid://dgya7syy32d8d" path="res://custom_scenes/floor.tscn" id="9_0fu15"]
 [ext_resource type="PackedScene" uid="uid://dsjo8twceel63" path="res://objectives/victim.tscn" id="10_8tolq"]
 [ext_resource type="PackedScene" uid="uid://df8ckf7krjyl3" path="res://custom_scenes/ois_hammer.tscn" id="11_aerfg"]
 [ext_resource type="PackedScene" uid="uid://bp4qsothxd80g" path="res://custom_scenes/injured.tscn" id="11_betor"]
@@ -20,8 +21,11 @@
 [ext_resource type="Script" uid="uid://d2j64x8gnsuue" path="res://addons/ateneo-virtual-reality-escape/inventory-system/inventory_slot.gd" id="16_7nvrk"]
 [ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="17_jkxa6"]
 [ext_resource type="Material" uid="uid://dy43ogh4jhnpk" path="res://addons/ateneo-virtual-reality-escape/inventory-system/misc-resources/inventory_slot_shader_a.tres" id="18_w75he"]
-[ext_resource type="PackedScene" uid="uid://duu4043awyc4s" path="res://ui/dialogue_element.tscn" id="20_jkxa6"]
+[ext_resource type="Script" uid="uid://bour4026odpwv" path="res://scripts/medkit_sound_manager.gd" id="21_ntdhj"]
 [ext_resource type="PackedScene" uid="uid://dvop5g8klstys" path="res://ui/timer_ui.tscn" id="21_w75he"]
+[ext_resource type="AudioStream" uid="uid://bbe283racxu5y" path="res://assets/freesound/63529__florian_reinke__button_on.wav" id="22_0fu15"]
+[ext_resource type="AudioStream" uid="uid://bu0n47pxg0f0k" path="res://assets/freesound/344548__dster777__button.wav" id="23_4knja"]
+[ext_resource type="Script" uid="uid://bfrdnaarj0veu" path="res://ui/dialogue_element.gd" id="26_0fu15"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x70s4"]
 
@@ -95,11 +99,11 @@ albedo_color = Color(0.937255, 0, 0.27451, 0.580392)
 material = SubResource("StandardMaterial3D_eyrqu")
 size = Vector3(1.5, 1.5, 0.155)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0fu15"]
+albedo_color = Color(0, 0, 0, 1)
+
 [node name="Level1" instance=ExtResource("1_lmdqw")]
 script = ExtResource("2_1gikq")
-
-[node name="XROrigin3D" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 
 [node name="FunctionPointer" parent="XROrigin3D/LeftHand" index="3" instance=ExtResource("3_udfhf")]
 show_laser = 2
@@ -126,29 +130,28 @@ script = ExtResource("3_sstds")
 shake_duration = 1.5
 shake_intensity = 0.05
 
-[node name="Map1" parent="WorldShaker" index="0" instance=ExtResource("2_rduek")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, -11)
-
-[node name="JammedDoor" parent="WorldShaker/Map1" index="14" instance=ExtResource("5_08mmt")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2, 1, 2.403)
-
-[node name="JammedDoor2" parent="WorldShaker/Map1" index="15" instance=ExtResource("5_08mmt")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.998, 1, 2.399)
-
-[node name="JammedDoor3" parent="WorldShaker/Map1" index="16" instance=ExtResource("5_08mmt")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.015, 1, 2.38)
-
-[node name="XRToolsRumbler" type="Node" parent="WorldShaker" index="1" node_paths=PackedStringArray("target")]
+[node name="XRToolsRumbler" type="Node" parent="WorldShaker" index="0" node_paths=PackedStringArray("target")]
 script = ExtResource("3_7nvrk")
 event = SubResource("Resource_w75he")
 target = NodePath("../../XROrigin3D/LeftHand")
 metadata/_custom_type_script = "uid://bcpy4a75rao8y"
 
-[node name="XRToolsRumbler2" type="Node" parent="WorldShaker" index="2" node_paths=PackedStringArray("target")]
+[node name="XRToolsRumbler2" type="Node" parent="WorldShaker" index="1" node_paths=PackedStringArray("target")]
 script = ExtResource("3_7nvrk")
 event = SubResource("Resource_w75he")
 target = NodePath("../../XROrigin3D/RightHand")
 metadata/_custom_type_script = "uid://bcpy4a75rao8y"
+
+[node name="Floor" parent="WorldShaker" index="2" instance=ExtResource("9_0fu15")]
+
+[node name="house_no_floor" parent="WorldShaker" index="3" instance=ExtResource("8_ntdhj")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, -9)
+
+[node name="JammedDoor" parent="WorldShaker/house_no_floor" index="10" instance=ExtResource("5_08mmt")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.29539, 1.00221, 0.411251)
+
+[node name="JammedDoor2" parent="WorldShaker/house_no_floor" index="11" instance=ExtResource("5_08mmt")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.07924, 1, 0.413716)
 
 [node name="Hazards" type="Node3D" parent="." index="3"]
 
@@ -165,7 +168,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6663, -1.93715e-07, -4.7094
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.47997, -1.93715e-07, -12.2074)
 
 [node name="Shaker" parent="Hazards" index="4" instance=ExtResource("8_f3u63")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.29372, 2.66731e-06, -13.0515)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72634, 2.66731e-06, -15.744)
 
 [node name="Shaker2" parent="Hazards" index="5" instance=ExtResource("8_f3u63")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.88733, -0.000170901, -2.85888)
@@ -173,12 +176,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.88733, -0.000170901, -2.85
 [node name="Objectives" type="Node3D" parent="." index="4"]
 
 [node name="Victim" parent="Objectives" index="0" instance=ExtResource("10_8tolq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.24219, -1.14739e-06, -13.6973)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.06657, -1.14739e-06, -13.6973)
 active = true
 follow_strength = 10.0
 
 [node name="Injured" parent="Objectives" index="1" instance=ExtResource("11_betor")]
-transform = Transform3D(-6.09774e-08, 0, -1.395, 0, 1.395, 0, 1.395, 0, -6.09774e-08, -4.53875, 1.66935, -15.5619)
+transform = Transform3D(-6.09774e-08, 0, -1.395, 0, 1.395, 0, 1.395, 0, -6.09774e-08, -3.58182, 0.401893, -14.6704)
 
 [node name="SafeArea" type="Area3D" parent="Objectives" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.15094, 0, 7.07465)
@@ -369,12 +372,63 @@ transform = Transform3D(1, 0, 0, 0, 0.437979, -0.898985, 0, 0.898985, 0.437979, 
 mesh = SubResource("BoxMesh_ohjdc")
 skeleton = NodePath("../..")
 
+[node name="MedkitSoundManager" type="Node" parent="InventorySystem" index="10"]
+script = ExtResource("21_ntdhj")
+
+[node name="MedkitOpenSound" type="AudioStreamPlayer3D" parent="InventorySystem/MedkitSoundManager" index="0"]
+stream = ExtResource("22_0fu15")
+
+[node name="MedkitCloseSound" type="AudioStreamPlayer3D" parent="InventorySystem/MedkitSoundManager" index="1"]
+stream = ExtResource("23_4knja")
+
 [node name="UI" type="Node3D" parent="." index="9"]
 
-[node name="DialogueElement" parent="UI" index="0" instance=ExtResource("20_jkxa6")]
+[node name="TooltipNode" parent="UI" index="0" instance=ExtResource("21_w75he")]
+script = ExtResource("26_0fu15")
+is_tooltip = true
+tooltip_uv = Vector2(0.65, 0.4)
+enabled = false
 
 [node name="TimerUI" parent="UI" index="1" instance=ExtResource("21_w75he")]
 is_tooltip = true
 tooltip_uv = Vector2(0.65, 0.65)
 
+[node name="Box" type="Node3D" parent="." index="10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.248791, -13.3008, -1.55318)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Box" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0953507, -0.386964, 1.68816)
+use_collision = true
+collision_mask = 0
+size = Vector3(6.90231, 0.226074, 6.30225)
+material = SubResource("StandardMaterial3D_0fu15")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Box" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0948029, 3.57855, 1.67944)
+size = Vector3(6.90231, 0.226074, 6.30225)
+material = SubResource("StandardMaterial3D_0fu15")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Box" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.23963, 1.59931, 1.67944)
+size = Vector3(0.233452, 4.19862, 6.30225)
+material = SubResource("StandardMaterial3D_0fu15")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Box" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.45866, 1.59931, 1.67944)
+size = Vector3(0.233452, 4.19862, 6.30225)
+material = SubResource("StandardMaterial3D_0fu15")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Box" index="4"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.129919, 1.59931, -1.35468)
+size = Vector3(0.233452, 4.19862, 6.90649)
+material = SubResource("StandardMaterial3D_0fu15")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Box" index="5"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.120799, 1.59931, 4.6393)
+size = Vector3(0.233452, 4.19862, 6.90649)
+material = SubResource("StandardMaterial3D_0fu15")
+
+[node name="Timer" type="Timer" parent="." index="11"]
+
 [connection signal="shake_world" from="." to="WorldShaker" method="_on_level_1_shake_world"]
+[connection signal="visibility_changed" from="InventorySystem" to="InventorySystem/MedkitSoundManager" method="_on_inventory_system_visibility_changed"]

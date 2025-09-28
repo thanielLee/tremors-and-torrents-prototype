@@ -9,6 +9,7 @@ class_name DialogueElement
 @export var is_tooltip : bool = false
 @export var tooltip_uv : Vector2 = Vector2(0.55, 0.50)
 @export var dialogue_z : float = 0.9
+@export var enabled : bool = true
 
 
 var in_animation: bool = false
@@ -19,6 +20,9 @@ var cooldown = 0.0
 var collision_shape : CollisionShape3D
 var tooltip_middle : Vector3
 var tooltip_lookat : Vector3
+var on_timer : bool = false
+var current_time : float = 0
+
 
 
 func _ready() -> void:
@@ -31,6 +35,7 @@ func _ready() -> void:
 	collision_shape.disabled = true
 	
 	var screen_mesh : MeshInstance3D  = viewport_scene.get_child(1)
+	
 
 	
 	if xr_origin == null:
@@ -79,6 +84,9 @@ func _plane_to_plane_intersection(a:Plane, b: Plane):
 	return [Vector3(ans.x, ans.y, 0), normal_direction]
 	
 func _process(delta: float) -> void:
+	if not enabled:
+		return
+	
 	if in_animation:
 		if current_characters + delta * animation_speed >= text_box.text.length():
 			current_characters = text_box.text.length()
@@ -92,40 +100,20 @@ func _process(delta: float) -> void:
 	var right_eye_transform = XRServer.primary_interface.get_transform_for_view(1, xr_origin.global_transform)
 	var test_frustum = xr_cam.get_frustum()
 	
+	if on_timer:
+		cooldown += delta
 	if not is_tooltip:
 		viewport_scene.global_position = plane.project(xr_origin.transform * (plane.project(forward_direction).normalized() * 2.5))
 		#print(str(xz_offset) + " " + str(xr_cam.global_position) + " " + str($"../../XROrigin3D/PlayerBody".global_position))
 		viewport_scene.look_at(xr_origin.transform * xr_cam.global_position, Vector3.UP, true)
 	else:
-		cooldown += delta
 		viewport_scene.global_position = right_eye_transform * tooltip_middle
-		#print(viewport_scene.global_position)
-		if cooldown >= 1.0:
-			cooldown -= 1.0
-			#print(xr_cam.project_position(tooltip_middle, 3)-xr_cam.global_position)
-			#print(tooltip_middle)
-			#print(xr_cam.unproject_position(projected_point))
-			var test_plane_1 = Plane(Vector3(1, 0, 0))
-			var test_plane_2 = Plane(Vector3(0, 1, 0))
-			#print("HERE: " + str(near_plane))
-			var temp = _plane_to_plane_intersection(test_plane_1, test_plane_2)
-			#print(forward_direction)
-			
-			#print(left_plane)
-			#print(top_plane)
-			#print(right_plane)
-			#print(bot_plane)
-			#print(near_plane)
-			#print(intersect_1)
-			#print(intersect_2)
-			#print(intersect_3)
-			#print(intersect_4)
-			#print(test_line)
-			#print(tooltip_middle)
-			#print(_plane_to_plane_intersection(right_eye_projection.get_projection_plane(2), right_eye_projection.get_projection_plane(3)))
-		#viewport_scene.global_position = xr_cam.global_position + Vector3(1.5, 1.5, -3)
-			#print(viewport_scene.global_position)
 		viewport_scene.look_at(right_eye_transform * tooltip_lookat, Vector3.UP, true)
+	
+	if on_timer and cooldown >= current_time:
+		_remove_dialogue()
+		on_timer = true
+		cooldown = 0.0
 
 
 func _calculate_new_tooltip_middle(uvs: Vector2):
@@ -187,6 +175,14 @@ func _change_text_custom(new_text : String, size : int, is_animation : bool, vis
 	in_animation = is_animation
 	text_box.visible_characters = visible_chars
 	_set_text(new_text, size)
+
+func _change_text_timelimited(new_text : String, size : int, is_animation : bool, visible_chars : int, total_time : float):
+	_change_text_custom(new_text, size, is_animation, visible_chars)
+	cooldown = 0.0
+	on_timer = true
+	enabled = true
+	current_time = total_time
+	
 	
 func _appear_text(new_text: String, will_be_tooltip: bool):
 	collision_shape.disabled = false
