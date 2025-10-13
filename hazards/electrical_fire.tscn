@@ -8,9 +8,14 @@ radius = 1.2
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q3kls"]
 transparency = 1
 albedo_color = Color(0.811765, 0.32549, 0, 0.619608)
+emission_enabled = true
+emission = Color(0.811765, 0.32549, 0, 1)
+emission_energy_multiplier = 14.11
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_80vta"]
+lightmap_size_hint = Vector2i(39, 26)
 material = SubResource("StandardMaterial3D_q3kls")
+add_uv2 = true
 bottom_radius = 1.2
 
 [node name="ElectricalFire" instance=ExtResource("1_hbj3d")]

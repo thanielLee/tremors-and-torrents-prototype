@@ -1,10 +1,11 @@
-[gd_scene load_steps=46 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=47 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
 [ext_resource type="Script" uid="uid://bcpy4a75rao8y" path="res://addons/godot-xr-tools/rumble/rumbler.gd" id="3_7nvrk"]
 [ext_resource type="Script" uid="uid://dmqkt2sk2x8wx" path="res://scripts/world_shaker.gd" id="3_sstds"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_udfhf"]
+[ext_resource type="Texture2D" uid="uid://b3gq1qnf34ml1" path="res://textures/sky/belfast_sunset_puresky_4k.hdr" id="4_4knja"]
 [ext_resource type="PackedScene" uid="uid://briidrsj8atop" path="res://custom_scenes/jammed_door.tscn" id="5_08mmt"]
 [ext_resource type="PackedScene" uid="uid://crte44g8idacl" path="res://hazards/electrical_fire.tscn" id="5_o7v6b"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="6_1sveg"]
@@ -27,14 +28,18 @@
 [ext_resource type="AudioStream" uid="uid://bu0n47pxg0f0k" path="res://assets/freesound/344548__dster777__button.wav" id="23_4knja"]
 [ext_resource type="Script" uid="uid://bfrdnaarj0veu" path="res://ui/dialogue_element.gd" id="26_0fu15"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x70s4"]
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4knja"]
+panorama = ExtResource("4_4knja")
+energy_multiplier = 0.15
 
 [sub_resource type="Sky" id="Sky_ff7d2"]
-sky_material = SubResource("ProceduralSkyMaterial_x70s4")
+sky_material = SubResource("PanoramaSkyMaterial_4knja")
 
 [sub_resource type="Environment" id="Environment_4jcj5"]
 background_mode = 2
 sky = SubResource("Sky_ff7d2")
+ambient_light_sky_contribution = 0.0
+sdfgi_enabled = true
 
 [sub_resource type="Resource" id="Resource_w75he"]
 script = ExtResource("8_jkxa6")
@@ -156,7 +161,13 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.0792
 [node name="Hazards" type="Node3D" parent="." index="3"]
 
 [node name="ElectricalFire" parent="Hazards" index="0" instance=ExtResource("5_o7v6b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.10122, -1.93715e-07, -7.25794)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.00228, 0.0394803, -6.79034)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Hazards/ElectricalFire" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00544453, 1.93204, -0.0236087)
+light_color = Color(0.811765, 0.32549, 0, 1)
+light_energy = 16.0
+shadow_enabled = true
 
 [node name="BrokenGlass" parent="Hazards" index="1" instance=ExtResource("6_43hcc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.42694, 7.59959e-07, -4.30547)
