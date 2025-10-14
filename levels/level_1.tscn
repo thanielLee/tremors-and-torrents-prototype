@@ -176,7 +176,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.88733, -0.000170901, -2.85
 [node name="Objectives" type="Node3D" parent="." index="4"]
 
 [node name="Victim" parent="Objectives" index="0" instance=ExtResource("10_8tolq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.06657, -1.14739e-06, -13.6973)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.94766, -1.14739e-06, 1.95955)
 active = true
 follow_strength = 10.0
 
