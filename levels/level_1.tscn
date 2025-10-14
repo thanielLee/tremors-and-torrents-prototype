@@ -163,7 +163,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.0792
 [node name="ElectricalFire" parent="Hazards" index="0" instance=ExtResource("5_o7v6b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.00228, 0.0394803, -6.79034)
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="Hazards/ElectricalFire" index="2"]
+[node name="OmniLight3D2" type="OmniLight3D" parent="Hazards/ElectricalFire" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00544453, 1.93204, -0.0236087)
 light_color = Color(0.811765, 0.32549, 0, 1)
 light_energy = 16.0
