@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://crte44g8idacl"]
+[gd_scene load_steps=6 format=3 uid="uid://crte44g8idacl"]
 
 [ext_resource type="PackedScene" uid="uid://dts3qx1g7762" path="res://hazards/hazard_base.tscn" id="1_hbj3d"]
+[ext_resource type="PackedScene" uid="uid://d13r8x5p01itr" path="res://vfx/vfx_fire02_red.tscn" id="2_s8lli"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ec7lv"]
-radius = 1.2
+height = 3.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q3kls"]
 transparency = 1
@@ -28,7 +29,11 @@ damage_points = -2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.612949, 0)
 shape = SubResource("CylinderShape3D_ec7lv")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="DetectionArea" index="1"]
+visible = false
 mesh = SubResource("CylinderMesh_80vta")
+
+[node name="VfxFire02Red" parent="." index="1" instance=ExtResource("2_s8lli")]
