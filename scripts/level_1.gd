@@ -163,3 +163,7 @@ func _process(delta: float) -> void:
 			exit_to_main_menu()
 		
 	
+
+
+func _on_duck_cover_hold_qte_shake_world() -> void:
+	pass # Replace with function body.

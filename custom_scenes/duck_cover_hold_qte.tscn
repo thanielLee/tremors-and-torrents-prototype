@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cexlre72hlkim"]
+
+[ext_resource type="Script" uid="uid://dsa3alwg4wqob" path="res://scripts/duck_cover_hold_qte.gd" id="1_qvro0"]
+
+[node name="DuckCoverHoldQTE" type="Node3D"]
+script = ExtResource("1_qvro0")
+
+[node name="Timer" type="Timer" parent="."]

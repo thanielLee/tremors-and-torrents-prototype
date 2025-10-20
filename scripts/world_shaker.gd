@@ -30,3 +30,7 @@ func shake_world():
 
 func _on_level_1_shake_world() -> void:
 	shake_world()
+
+
+func _on_duck_cover_hold_qte_shake_world() -> void:
+	pass # Replace with function body.
