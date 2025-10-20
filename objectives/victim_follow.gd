@@ -110,8 +110,6 @@ func _snap_to_player():
 	following = true
 	
 ### DETECTION EVENTS ###
-
-
 func _on_detection_area_area_entered(area: Area3D) -> void:
 	print(area)
 	if area.get_parent().get_script() == Hazard:
