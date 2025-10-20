@@ -14,6 +14,7 @@ var level_ended: bool = false
 var hazards : Node
 var objectives : Node
 var world_shaker : Node
+var qtes : Node
 var earthquake_triggered: bool = false
 signal shake_world
 
@@ -25,7 +26,7 @@ var score : int = 0 # Temporary basic scoring system
 var triggered_hazards: Array[String] = []
 var completed_objectives: Array[String] = []
 var UI_node
-var tooltip_node : DialogueElement
+#var tooltip_node : DialogueElement
 
 # Conditions
 const HAZARD_LIMIT := 2
@@ -34,7 +35,7 @@ const REQUIRED_OBJECTIVES := ["Victim"]
 func _ready():
 	start_level()
 	UI_node = $UI
-	tooltip_node = UI_node.get_child(0)
+	#tooltip_node = UI_node.get_child(0)
 
 ### LEVEL LIFECYCLE ###
 
@@ -47,9 +48,11 @@ func start_level():
 	hazards = get_node("Hazards")
 	objectives = get_node("Objectives")
 	world_shaker = get_node("WorldShaker")
+	qtes = get_node("QTEs")
 
 	enable_hazards()
 	enable_objectives()
+	enable_qtes()
 
 func end_level(success: bool):
 	level_active = false
@@ -61,12 +64,12 @@ func end_level(success: bool):
 	if success:
 		var output = "Level complete! Score: %s" % score
 		print(output)
-		tooltip_node._change_text_timelimited(output, 24, false, output.length(), 5)
+		#tooltip_node._change_text_timelimited(output, 24, false, output.length(), 5)
 		#exit_to_main_menu()
 	else:
 		var output = "Level failed! Score: %s" % score
 		print(output)
-		tooltip_node._change_text_timelimited(output, 24, false, output.length(), 5)
+		#tooltip_node._change_text_timelimited(output, 24, false, output.length(), 5)
 		#exit_to_main_menu()
 	
 	xr_origin_3d.position = Vector3(0, -11, 0)
@@ -92,11 +95,10 @@ func disable_hazards():
 
 func _on_hazard_triggered(hazard: Variant):
 	var hazard_name = hazard.name
-	print("Hazard: %s triggered!" % hazard_name)
-	
-	tooltip_node._appear_text("Hazard: %s triggered!" % hazard_name, true)
 	
 	if hazard_name not in triggered_hazards:
+		#tooltip_node._appear_text("Hazard: %s triggered!" % hazard_name, true)
+		print("Hazard: %s triggered!" % hazard_name)
 		triggered_hazards.append(hazard_name)
 		
 		score += hazard.penalty_points
@@ -132,6 +134,27 @@ func _on_objective_failed(objective_name: String):
 	print("Objective %s failed!" % objective_name)
 	end_level(false)
 
+### QTEs ###
+
+func enable_qtes():
+	if not qtes: return
+	for qte in qtes.get_children():
+		print(qte)
+		if qte.has_signal("qte_completed"):
+			qte.qte_completed.connect(_on_qte_completed.bind(qte))
+		if qte.has_signal("qte_failed"):
+			qte.qte_failed.connect(_on_qte_failed.bind(qte))
+
+func _on_qte_completed(qte: Variant):
+	var qte_name = qte.name
+	print("QTE: %s completed!" % qte_name)
+	
+	score += qte.completed_points
+	print(score)
+
+func _on_qte_failed(qte: Variant):
+	var qte_name = qte.name
+	print("QTE: %s failed!" % qte_name)
 
 ### LEVEL END CHECK ###
 
@@ -163,7 +186,3 @@ func _process(delta: float) -> void:
 			exit_to_main_menu()
 		
 	
-
-
-func _on_duck_cover_hold_qte_shake_world() -> void:
-	pass # Replace with function body.

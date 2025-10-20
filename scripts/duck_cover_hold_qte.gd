@@ -4,24 +4,23 @@ extends QuickTimeEvent
 @export var hand_distance_threshold := 0.4
 @export var hold_duration := 5.0
 
-@onready var xr_origin = get_node("XROrigin3D")
+@onready var xr_origin = get_parent().get_parent().get_node("XROrigin3D")
 @onready var camera = xr_origin.get_node("XRCamera3D")
 @onready var left_hand = xr_origin.get_node("LeftHand")
 @onready var right_hand = xr_origin.get_node("RightHand")
-@onready var hold_timer = $Timer
 
+var hold_timer: float = 0.0
 var is_holding_pose := false
+
+signal shake_world
 
 func _ready():
 	super._ready()
-	hold_timer.wait_time = hold_duration
-	hold_timer.one_shot = true
-	hold_timer.timeout.connect(_on_hold_success)
 	set_process(false)
 
 func start_qte():
 	super.start_qte()
-	set_process(true)
+	emit_signal("shake_world", duration)
 	print("Duck and hold QTE started")
 
 func _process(delta):
@@ -34,24 +33,27 @@ func _process(delta):
 	var is_ducked = head_y < head_threshold_y
 	var is_holding = hand_distance < hand_distance_threshold
 	
-	print("is_ducked:", is_ducked)
-	print("is_holding:", is_holding)
+	#print("head_y: ", head_y)
+	#print("hand_distance: ", hand_distance)
+	#print("is_ducked: ", is_ducked)
+	#print("is_holding: ", is_holding)
+	#print("hand_distance_threshold: ", hand_distance_threshold)
 	
 	if is_ducked and is_holding:
+		#print("is_holding_pose: ", is_holding_pose)
 		if not is_holding_pose:
 			is_holding_pose = true
-			hold_timer.start()
 			print("Holding posture detected")
+		add_progress(delta / hold_duration)
 	else:
 		if is_holding_pose:
 			is_holding_pose = false
-			hold_timer.stop()
 			print("Lost holding posture")
+		#reset_progress()
+		add_progress(-delta * 0.5 / hold_duration) # optional gradual decay
 	
 	super._process(delta)
 
-func _on_hold_success():
-	if not active:
-		return
-	print("Duck and hold QTE completed")
-	complete_qte()
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if enabled and not active:
+		start_qte()
