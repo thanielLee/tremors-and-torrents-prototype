@@ -25,47 +25,47 @@ var current_time : float = 0
 
 
 
-func _ready() -> void:
-	if viewport_scene == null:
-		viewport_scene = $Viewport2Din3D
-	
-	collision_shape = get_child(0).get_child(2).get_child(0)
-	
-	visible = false
-	collision_shape.disabled = true
-	
-	var screen_mesh : MeshInstance3D  = viewport_scene.get_child(1)
-	
-
-	
-	if xr_origin == null:
-		xr_origin = $"../../XROrigin3D"
-	
-	var xr_origin = get_parent().get_parent().get_node("XROrigin3D")
-	xr_cam = get_viewport().get_camera_3d()
-	
-	_calculate_new_tooltip_middle(tooltip_uv)
-	
-	var canvas_scene = viewport_scene.scene_node
-	var margin_child
-	var vbox_child
-	for canvas_child in canvas_scene.get_children():
-		if canvas_child is MarginContainer:
-			margin_child = canvas_child
-	
-	for margin_children in margin_child.get_children():
-		if margin_children is VBoxContainer:
-			vbox_child = margin_children
-	
-	for vbox_children in vbox_child.get_children():
-		if vbox_children is RichTextLabel:
-			text_box = vbox_children
-	
-	viewport_scene.pointer_event.connect(_ui_interaction)
-	#text_box.texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_LINEAR
-	
-	_appear_text("What do you want?\nWhat do you want?\nWhat do you want?\nWhat do you want?\nWhat do you want?\n", is_tooltip)
-	
+#func _ready() -> void:
+	#if viewport_scene == null:
+		#viewport_scene = $Viewport2Din3D
+	#
+	#collision_shape = get_child(0).get_child(2).get_child(0)
+	#
+	#visible = false
+	#collision_shape.disabled = true
+	#
+	#var screen_mesh : MeshInstance3D  = viewport_scene.get_child(1)
+	#
+#
+	#
+	#if xr_origin == null:
+		#xr_origin = $"../../XROrigin3D"
+	#
+	#var xr_origin = get_parent().get_parent().get_node("XROrigin3D")
+	#xr_cam = get_viewport().get_camera_3d()
+	#
+	#_calculate_new_tooltip_middle(tooltip_uv)
+	#
+	#var canvas_scene = viewport_scene.scene_node
+	#var margin_child
+	#var vbox_child
+	#for canvas_child in canvas_scene.get_children():
+		#if canvas_child is MarginContainer:
+			#margin_child = canvas_child
+	#
+	#for margin_children in margin_child.get_children():
+		#if margin_children is VBoxContainer:
+			#vbox_child = margin_children
+	#
+	#for vbox_children in vbox_child.get_children():
+		#if vbox_children is RichTextLabel:
+			#text_box = vbox_children
+	#
+	#viewport_scene.pointer_event.connect(_ui_interaction)
+	##text_box.texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_LINEAR
+	#
+	#_appear_text("What do you want?\nWhat do you want?\nWhat do you want?\nWhat do you want?\nWhat do you want?\n", is_tooltip)
+	#
 func _plane_to_plane_intersection(a:Plane, b: Plane):
 	if a.normal == b.normal:
 		if a.d == b.d:
