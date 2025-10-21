@@ -16,6 +16,9 @@ var objectives : Node
 var world_shaker : Node
 var qtes : Node
 var earthquake_triggered: bool = false
+var start_pos: Vector3
+var brief_pos: Vector3
+
 signal shake_world
 
 var level_active = false
@@ -33,13 +36,21 @@ const HAZARD_LIMIT := 2
 const REQUIRED_OBJECTIVES := ["Victim"]
 
 func _ready():
-	start_level()
-	UI_node = $UI
+	brief_player()
+	#UI_node = $UI
 	#tooltip_node = UI_node.get_child(0)
 
 ### LEVEL LIFECYCLE ###
 
+func brief_player():
+	print("brief player")
+	start_pos = $StartPos.position
+	brief_pos = xr_origin_3d.position
+	
+	# show ui
+
 func start_level():
+	xr_origin_3d.position = start_pos
 	print("Level started")
 	level_active = true
 	level_timer = 0
@@ -66,16 +77,15 @@ func end_level(success: bool):
 		print(output)
 		#tooltip_node._change_text_timelimited(output, 24, false, output.length(), 5)
 		#exit_to_main_menu()
+		xr_origin_3d.position = start_pos
 	else:
 		var output = "Level failed! Score: %s" % score
 		print(output)
 		#tooltip_node._change_text_timelimited(output, 24, false, output.length(), 5)
 		#exit_to_main_menu()
 	
-	xr_origin_3d.position = Vector3(0, -11, 0)
 	
 	# TODO: trigger results UI
-
 
 ### HAZARDS ###
 
@@ -179,6 +189,12 @@ func _process(delta: float) -> void:
 		# Time ran out
 		if level_timer > 120.0:
 			end_level(false)
+	# brief player
+	else:
+		time_elapsed += delta
+		if time_elapsed > 10:
+			start_level()
+		
 	
 	if level_ended:
 		time_elapsed += delta

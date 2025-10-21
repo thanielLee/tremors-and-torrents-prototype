@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=47 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
@@ -26,6 +26,7 @@
 [ext_resource type="AudioStream" uid="uid://bbe283racxu5y" path="res://assets/freesound/63529__florian_reinke__button_on.wav" id="22_0fu15"]
 [ext_resource type="AudioStream" uid="uid://bu0n47pxg0f0k" path="res://assets/freesound/344548__dster777__button.wav" id="23_4knja"]
 [ext_resource type="PackedScene" uid="uid://cexlre72hlkim" path="res://custom_scenes/duck_cover_hold_qte.tscn" id="26_0fu15"]
+[ext_resource type="PackedScene" uid="uid://beyogvof4pdmg" path="res://custom_scenes/level_1_briefer.tscn" id="26_4knja"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x70s4"]
 
@@ -105,12 +106,15 @@ albedo_color = Color(0, 0, 0, 1)
 [node name="Level1" instance=ExtResource("1_lmdqw")]
 script = ExtResource("2_1gikq")
 
+[node name="XROrigin3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.21, 0.588074, 0.010605)
+
 [node name="FunctionPointer" parent="XROrigin3D/LeftHand" index="3" instance=ExtResource("3_udfhf")]
 show_laser = 2
 collision_mask = 1342177280
 
 [node name="PlayerBody" parent="XROrigin3D" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.21, 0.588074, 0.010605)
 
 [node name="Environment" type="Node3D" parent="." index="1"]
 
@@ -389,44 +393,50 @@ script = null
 [node name="TimerUI" parent="UI" index="1" instance=ExtResource("21_w75he")]
 script = null
 
-[node name="Box" type="Node3D" parent="." index="10"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.248791, -13.3008, -1.55318)
+[node name="StartPos" type="Node3D" parent="." index="10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.1501)
+
+[node name="Box" type="Node3D" parent="." index="11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.474, 0.116433, -1.55318)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Box" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0953507, -0.386964, 1.68816)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.387, 0)
 use_collision = true
 collision_mask = 0
 size = Vector3(6.90231, 0.226074, 6.30225)
 material = SubResource("StandardMaterial3D_0fu15")
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="Box" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0948029, 3.57855, 1.67944)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.095, 3.579, 0)
 size = Vector3(6.90231, 0.226074, 6.30225)
 material = SubResource("StandardMaterial3D_0fu15")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Box" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.23963, 1.59931, 1.67944)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.24, 1.599, 0)
 size = Vector3(0.233452, 4.19862, 6.30225)
 material = SubResource("StandardMaterial3D_0fu15")
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="Box" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.45866, 1.59931, 1.67944)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.459, 1.599, 0)
 size = Vector3(0.233452, 4.19862, 6.30225)
 material = SubResource("StandardMaterial3D_0fu15")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="Box" index="4"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.129919, 1.59931, -1.35468)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.129921, 1.59931, -3.06547)
 size = Vector3(0.233452, 4.19862, 6.90649)
 material = SubResource("StandardMaterial3D_0fu15")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="Box" index="5"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.120799, 1.59931, 4.6393)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.120796, 1.59931, 3.0889)
 size = Vector3(0.233452, 4.19862, 6.90649)
 material = SubResource("StandardMaterial3D_0fu15")
 
-[node name="Timer" type="Timer" parent="." index="11"]
+[node name="Level1Briefer" parent="Box" index="6" instance=ExtResource("26_4knja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54303, -1.43442)
 
-[node name="QTEs" type="Node3D" parent="." index="12"]
+[node name="Timer" type="Timer" parent="." index="12"]
+
+[node name="QTEs" type="Node3D" parent="." index="13"]
 
 [node name="DuckCoverHoldQTE" parent="QTEs" index="0" instance=ExtResource("26_0fu15")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.54264, 0.25, -6.52233)
