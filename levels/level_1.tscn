@@ -1,12 +1,14 @@
-[gd_scene load_steps=47 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=49 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
 [ext_resource type="Script" uid="uid://bcpy4a75rao8y" path="res://addons/godot-xr-tools/rumble/rumbler.gd" id="3_7nvrk"]
 [ext_resource type="Script" uid="uid://dmqkt2sk2x8wx" path="res://scripts/world_shaker.gd" id="3_sstds"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_udfhf"]
+[ext_resource type="PackedScene" uid="uid://cy03d57iyrci" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_physics_hand.tscn" id="4_0x1rk"]
 [ext_resource type="PackedScene" uid="uid://briidrsj8atop" path="res://custom_scenes/jammed_door.tscn" id="5_08mmt"]
 [ext_resource type="PackedScene" uid="uid://crte44g8idacl" path="res://hazards/electrical_fire.tscn" id="5_o7v6b"]
+[ext_resource type="PackedScene" uid="uid://kcqomcjq52np" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_physics_hand.tscn" id="5_pnpm1"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="6_1sveg"]
 [ext_resource type="PackedScene" uid="uid://c5jkbtv57haa3" path="res://hazards/broken_glass.tscn" id="6_43hcc"]
 [ext_resource type="PackedScene" uid="uid://c83bvn3hvunbw" path="res://hazards/shaker.tscn" id="8_f3u63"]
@@ -113,6 +115,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.21, 0.588074, 0.010605)
 show_laser = 2
 collision_mask = 1342177280
 
+[node name="LeftPhysicsHand" parent="XROrigin3D/LeftHand" index="4" instance=ExtResource("4_0x1rk")]
+
+[node name="RightPhysicsHand" parent="XROrigin3D/RightHand" index="4" instance=ExtResource("5_pnpm1")]
+
 [node name="PlayerBody" parent="XROrigin3D" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.21, 0.588074, 0.010605)
 
@@ -181,7 +187,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.88733, -0.000170901, -2.85
 
 [node name="Victim" parent="Objectives" index="0" instance=ExtResource("10_8tolq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.94766, -1.14739e-06, 1.95955)
-active = true
 follow_strength = 10.0
 
 [node name="Injured" parent="Objectives" index="1" instance=ExtResource("11_betor")]

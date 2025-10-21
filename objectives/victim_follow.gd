@@ -1,8 +1,8 @@
 extends RigidBody3D
 
 ### CONFIGURABLES ###
-@export var active: bool = false
-@export var assist_required: bool = false
+@export var active: bool = true
+@export var assist_required: bool = true
 @export var assist_duration: float = 1.5  # seconds both hands must be held
 @export var follow_strength: float = 5.0
 @export var assist_grace_period: float = 5.0  # seconds before assist action fails
@@ -35,10 +35,12 @@ func _ready() -> void:
 	if left_assist_area:
 		left_assist_area.body_entered.connect(_on_left_hand_entered)
 		left_assist_area.body_exited.connect(_on_left_hand_exited)
+		print("left assist connected")
 	
 	if right_assist_area:
 		right_assist_area.body_entered.connect(_on_right_hand_entered)
 		right_assist_area.body_exited.connect(_on_right_hand_exited)
+		print("right assist connected")
 
 func _physics_process(delta) -> void:
 	if not active:
@@ -119,6 +121,7 @@ func _on_detection_area_area_entered(area: Area3D) -> void:
 		following = false
 
 func _on_detection_area_body_entered(body: Node3D) -> void:
+	print("body entered detection area")
 	if not active:
 		return
 	if assist_complete:
@@ -126,10 +129,13 @@ func _on_detection_area_body_entered(body: Node3D) -> void:
 		print("following player")
 
 ### HAND EVENTS ###
+
 func _on_left_hand_entered(body: Node3D):
+	print("body entered left assist")
+	print(body)
 	if body is not XRController3D:
 		return
-	print("left body entered")
+	print("body is XRController3D")
 	if body.get_tracker_hand() == XRPositionalTracker.TrackerHand.TRACKER_HAND_LEFT:
 		left_hand_ready = true
 		#emit_signal("assist_started")
@@ -143,9 +149,11 @@ func _on_left_hand_exited(body: Node3D):
 		print("left hand exited")
 		
 func _on_right_hand_entered(body: Node3D):
+	print("body entered right assist")
+	print(body)
 	if body is not XRController3D:
 		return
-	print("right body entered")
+	print("body is XRController3D")
 	if body.get_tracker_hand() == XRPositionalTracker.TrackerHand.TRACKER_HAND_RIGHT:
 		right_hand_ready = true
 		#emit_signal("assist_started")

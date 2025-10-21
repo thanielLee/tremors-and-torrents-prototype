@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dsjo8twceel63"]
+[gd_scene load_steps=17 format=3 uid="uid://dsjo8twceel63"]
 
 [ext_resource type="Script" uid="uid://b370tlsulgqln" path="res://objectives/victim_follow.gd" id="1_vdien"]
 
@@ -9,6 +9,10 @@ radius = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hv10g"]
 radius = 0.18646
+
+[sub_resource type="SphereMesh" id="SphereMesh_vdien"]
+radius = 0.186
+height = 0.33
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_k4pp2"]
 radius = 0.186
@@ -70,16 +74,28 @@ shape = SubResource("CapsuleShape3D_vxpdu")
 [node name="AssistAreas" type="Node3D" parent="."]
 
 [node name="RightAssistArea" type="Area3D" parent="AssistAreas"]
+collision_layer = 0
+collision_mask = 131072
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AssistAreas/RightAssistArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.620351, 1.35072, 0)
 shape = SubResource("SphereShape3D_hv10g")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AssistAreas/RightAssistArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.620351, 1.35072, 0)
+mesh = SubResource("SphereMesh_vdien")
+
 [node name="LeftAssistArea" type="Area3D" parent="AssistAreas"]
+collision_layer = 0
+collision_mask = 131072
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AssistAreas/LeftAssistArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.257493, 0.816876, 0)
 shape = SubResource("SphereShape3D_k4pp2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AssistAreas/LeftAssistArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.257493, 0.816876, 0)
+mesh = SubResource("SphereMesh_vdien")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

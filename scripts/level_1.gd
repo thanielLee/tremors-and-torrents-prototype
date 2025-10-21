@@ -149,7 +149,6 @@ func _on_objective_failed(objective_name: String):
 func enable_qtes():
 	if not qtes: return
 	for qte in qtes.get_children():
-		print(qte)
 		if qte.has_signal("qte_completed"):
 			qte.qte_completed.connect(_on_qte_completed.bind(qte))
 		if qte.has_signal("qte_failed"):

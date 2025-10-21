@@ -24,8 +24,8 @@ func _process(delta):
 
 func shake_world(duration):
 	time_left = duration
-	#xr_tools_rumbler.rumble()
-	#xr_tools_rumbler_2.rumble()
+	xr_tools_rumbler.rumble()
+	xr_tools_rumbler_2.rumble()
 	print("shaking world")
 	
 
