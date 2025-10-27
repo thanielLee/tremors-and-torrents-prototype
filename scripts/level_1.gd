@@ -35,6 +35,8 @@ var UI_node
 const HAZARD_LIMIT := 2
 const REQUIRED_OBJECTIVES := ["Victim"]
 
+@onready var dialogue_ui = $DialogueUI
+
 func _ready():
 	brief_player()
 	#UI_node = $UI
@@ -47,7 +49,8 @@ func brief_player():
 	start_pos = $StartPos.position
 	brief_pos = xr_origin_3d.position
 	
-	# show ui
+	dialogue_ui.xr_camera_path = xr_origin_3d.get_path_to(xr_origin_3d.get_node("XRCamera3D"))
+	dialogue_ui.start_dialogue()
 
 func start_level():
 	xr_origin_3d.position = start_pos
