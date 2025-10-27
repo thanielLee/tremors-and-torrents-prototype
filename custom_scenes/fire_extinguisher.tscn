@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bx753cjs4touu"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_6w6np"]
+[ext_resource type="PackedScene" uid="uid://dwejysi6l4ihr" path="res://assets/tools/fire_extinguisher/fire_extinguisher (1).glb" id="2_uekhy"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dycgs"]
+size = Vector3(0.17, 0.565, 0.245)
+
+[node name="PickableObject" instance=ExtResource("1_6w6np")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.055, 0)
+shape = SubResource("BoxShape3D_dycgs")
+
+[node name="fire_extinguisher (1)" parent="." index="1" instance=ExtResource("2_uekhy")]
