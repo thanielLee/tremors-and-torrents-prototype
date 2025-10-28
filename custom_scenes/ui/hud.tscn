@@ -13,24 +13,43 @@ offset_bottom = 40.0
 
 [node name="TimerLabel" type="Label" parent="Control"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 963.0
+offset_top = 37.0
+offset_right = 1078.0
+offset_bottom = 92.0
+theme_override_font_sizes/font_size = 40
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PromptLabel" type="Label" parent="Control"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 27.0
+offset_top = 16.0
+offset_right = 136.0
+offset_bottom = 58.0
+theme_override_font_sizes/font_size = 30
+text = "Prompt"
 
 [node name="QTEContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 378.0
+offset_top = 26.0
+offset_right = 737.0
+offset_bottom = 132.0
 
 [node name="QTENameLabel" type="Label" parent="Control/QTEContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Duck Cover and Hold!"
+horizontal_alignment = 1
 
 [node name="QTEProgress" type="TextureProgressBar" parent="Control/QTEContainer"]
 layout_mode = 2
 
 [node name="QTEFeedbackLabel" type="Label" parent="Control/QTEContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Hold that position!"
+horizontal_alignment = 1
+vertical_alignment = 1
