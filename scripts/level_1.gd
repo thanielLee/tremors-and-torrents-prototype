@@ -14,7 +14,11 @@ var level_ended: bool = false
 var hazards : Node
 var objectives : Node
 var world_shaker : Node
+var qtes : Node
 var earthquake_triggered: bool = false
+var start_pos: Vector3
+var brief_pos: Vector3
+
 signal shake_world
 
 var level_active = false
@@ -25,20 +29,31 @@ var score : int = 0 # Temporary basic scoring system
 var triggered_hazards: Array[String] = []
 var completed_objectives: Array[String] = []
 var UI_node
-var tooltip_node : DialogueElement
+#var tooltip_node : DialogueElement
 
 # Conditions
 const HAZARD_LIMIT := 2
 const REQUIRED_OBJECTIVES := ["Victim"]
 
+@onready var dialogue_ui = $DialogueUI
+
 func _ready():
-	start_level()
-	UI_node = $UI
-	tooltip_node = UI_node.get_child(0)
+	brief_player()
+	#UI_node = $UI
+	#tooltip_node = UI_node.get_child(0)
 
 ### LEVEL LIFECYCLE ###
 
+func brief_player():
+	print("brief player")
+	start_pos = $StartPos.position
+	brief_pos = xr_origin_3d.position
+	
+	dialogue_ui.xr_camera_path = xr_origin_3d.get_path_to(xr_origin_3d.get_node("XRCamera3D"))
+	dialogue_ui.start_dialogue()
+
 func start_level():
+	xr_origin_3d.position = start_pos
 	print("Level started")
 	level_active = true
 	level_timer = 0
@@ -47,9 +62,11 @@ func start_level():
 	hazards = get_node("Hazards")
 	objectives = get_node("Objectives")
 	world_shaker = get_node("WorldShaker")
+	qtes = get_node("QTEs")
 
 	enable_hazards()
 	enable_objectives()
+	enable_qtes()
 
 func end_level(success: bool):
 	level_active = false
@@ -61,18 +78,17 @@ func end_level(success: bool):
 	if success:
 		var output = "Level complete! Score: %s" % score
 		print(output)
-		tooltip_node._change_text_timelimited(output, 24, false, output.length(), 5)
+		#tooltip_node._change_text_timelimited(output, 24, false, output.length(), 5)
 		#exit_to_main_menu()
+		xr_origin_3d.position = start_pos
 	else:
 		var output = "Level failed! Score: %s" % score
 		print(output)
-		tooltip_node._change_text_timelimited(output, 24, false, output.length(), 5)
+		#tooltip_node._change_text_timelimited(output, 24, false, output.length(), 5)
 		#exit_to_main_menu()
 	
-	xr_origin_3d.position = Vector3(0, -11, 0)
 	
 	# TODO: trigger results UI
-
 
 ### HAZARDS ###
 
@@ -92,11 +108,10 @@ func disable_hazards():
 
 func _on_hazard_triggered(hazard: Variant):
 	var hazard_name = hazard.name
-	print("Hazard: %s triggered!" % hazard_name)
-	
-	tooltip_node._appear_text("Hazard: %s triggered!" % hazard_name, true)
 	
 	if hazard_name not in triggered_hazards:
+		#tooltip_node._appear_text("Hazard: %s triggered!" % hazard_name, true)
+		print("Hazard: %s triggered!" % hazard_name)
 		triggered_hazards.append(hazard_name)
 		
 		score += hazard.penalty_points
@@ -132,6 +147,26 @@ func _on_objective_failed(objective_name: String):
 	print("Objective %s failed!" % objective_name)
 	end_level(false)
 
+### QTEs ###
+
+func enable_qtes():
+	if not qtes: return
+	for qte in qtes.get_children():
+		if qte.has_signal("qte_completed"):
+			qte.qte_completed.connect(_on_qte_completed.bind(qte))
+		if qte.has_signal("qte_failed"):
+			qte.qte_failed.connect(_on_qte_failed.bind(qte))
+
+func _on_qte_completed(qte: Variant):
+	var qte_name = qte.name
+	print("QTE: %s completed!" % qte_name)
+	
+	score += qte.completed_points
+	print(score)
+
+func _on_qte_failed(qte: Variant):
+	var qte_name = qte.name
+	print("QTE: %s failed!" % qte_name)
 
 ### LEVEL END CHECK ###
 
@@ -156,6 +191,12 @@ func _process(delta: float) -> void:
 		# Time ran out
 		if level_timer > 120.0:
 			end_level(false)
+	# brief player
+	else:
+		time_elapsed += delta
+		if time_elapsed > 10:
+			start_level()
+		
 	
 	if level_ended:
 		time_elapsed += delta

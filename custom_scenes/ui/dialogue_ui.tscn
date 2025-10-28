@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwm7ntuxmdeu6"]
+
+[ext_resource type="Script" uid="uid://bl7ng0sw5bl4a" path="res://custom_scenes/ui/dialogue_ui.gd" id="1_krl7l"]
+
+[node name="DialogueUI" type="CanvasLayer"]
+script = ExtResource("1_krl7l")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1600.0
+offset_bottom = 900.0
+
+[node name="NPC_Name" type="RichTextLabel" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -737.0
+offset_top = -470.0
+offset_right = 263.0
+offset_bottom = -405.975
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/normal_font_size = 30
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NPC_Dialogue" type="RichTextLabel" parent="Control"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 488.0
+offset_right = 1150.0
+offset_bottom = 650.0
+theme_override_font_sizes/normal_font_size = 20
+text = "Hello! This is text dialogue
+"
+horizontal_alignment = 1
+
+[node name="Bar" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 493.0
+offset_right = 1149.0
+offset_bottom = 533.0
+
+[node name="ButtonPrompt" type="Label" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
