@@ -8,7 +8,7 @@ var canvas_node : CanvasLayer
 
 func _ready():
 	level_node = get_parent().get_parent()
-	super()
+	#super()
 	viewport_scene.set_screen_size(Vector2(0.16, 0.09))
 	viewport_scene.set_viewport_size(Vector2(160, 90))
 	
