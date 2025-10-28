@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://briidrsj8atop"]
+[gd_scene load_steps=18 format=3 uid="uid://briidrsj8atop"]
 
 [ext_resource type="Script" uid="uid://cci3xkvnplit7" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/ois-receiver/ois_strike_receiver.gd" id="1_cvxef"]
 [ext_resource type="Script" uid="uid://bncqx1dnbni5" path="res://scripts/jammed_door.gd" id="1_tdery"]
@@ -7,6 +7,8 @@
 [ext_resource type="Resource" uid="uid://bd6naymyuk7d" path="res://custom_scenes/rumble_door_break.tres" id="3_munqj"]
 [ext_resource type="AudioStream" uid="uid://868abxtawv22" path="res://assets/hammer_hit.ogg" id="3_y4oq6"]
 [ext_resource type="PackedScene" uid="uid://ctvlhcy5xcwta" path="res://assets/door_group.glb" id="4_munqj"]
+[ext_resource type="PackedScene" uid="uid://bg8y0ctfrg7mx" path="res://vfx/vfx_hammer_impact.tscn" id="8_vee3w"]
+[ext_resource type="Script" uid="uid://bcthi45shbpg5" path="res://custom_scenes/hit_point.gd" id="9_3011r"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y4oq6"]
 size = Vector3(0.15, 2, 1)
@@ -70,6 +72,7 @@ stream = ExtResource("3_y4oq6")
 
 [node name="HitPoint" type="Node3D" parent="HitPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.747302, -0.287517)
+script = ExtResource("9_3011r")
 
 [node name="Mesh" type="Node3D" parent="HitPoints/HitPoint"]
 
@@ -91,8 +94,11 @@ collision_mask = 536870912
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitPoints/HitPoint/OISStrikeReceiver/Area3D"]
 shape = SubResource("BoxShape3D_cyhyk")
 
+[node name="VfxHammerImpact" parent="HitPoints/HitPoint" instance=ExtResource("8_vee3w")]
+
 [node name="HitPoint2" type="Node3D" parent="HitPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00421143, 0.310928)
+script = ExtResource("9_3011r")
 
 [node name="Mesh" type="Node3D" parent="HitPoints/HitPoint2"]
 
@@ -115,8 +121,11 @@ collision_mask = 536870912
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitPoints/HitPoint2/OISStrikeReceiver/Area3D"]
 shape = SubResource("BoxShape3D_cyhyk")
 
+[node name="VfxHammerImpact" parent="HitPoints/HitPoint2" instance=ExtResource("8_vee3w")]
+
 [node name="HitPoint3" type="Node3D" parent="HitPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.543758, -0.288703)
+script = ExtResource("9_3011r")
 
 [node name="Mesh" type="Node3D" parent="HitPoints/HitPoint3"]
 
@@ -137,6 +146,8 @@ collision_mask = 536870912
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitPoints/HitPoint3/OISStrikeReceiver/Area3D"]
 shape = SubResource("BoxShape3D_cyhyk")
+
+[node name="VfxHammerImpact" parent="HitPoints/HitPoint3/OISStrikeReceiver" instance=ExtResource("8_vee3w")]
 
 [node name="BreakParticles" type="GPUParticles3D" parent="."]
 emitting = false
