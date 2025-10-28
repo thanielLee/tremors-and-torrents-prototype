@@ -1,10 +1,10 @@
 [gd_scene load_steps=49 format=3 uid="uid://bf88eeqpgtid3"]
-
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
 [ext_resource type="Script" uid="uid://bcpy4a75rao8y" path="res://addons/godot-xr-tools/rumble/rumbler.gd" id="3_7nvrk"]
 [ext_resource type="Script" uid="uid://dmqkt2sk2x8wx" path="res://scripts/world_shaker.gd" id="3_sstds"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_udfhf"]
+[ext_resource type="Texture2D" uid="uid://b3gq1qnf34ml1" path="res://textures/sky/belfast_sunset_puresky_4k.hdr" id="4_4knja"]
 [ext_resource type="PackedScene" uid="uid://briidrsj8atop" path="res://custom_scenes/jammed_door.tscn" id="5_08mmt"]
 [ext_resource type="PackedScene" uid="uid://crte44g8idacl" path="res://hazards/electrical_fire.tscn" id="5_o7v6b"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="6_1sveg"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://du4lpoac66rw" path="res://addons/ateneo-virtual-reality-escape/inventory-system/inventory_system.gd" id="15_oqlok"]
 [ext_resource type="Script" uid="uid://d2j64x8gnsuue" path="res://addons/ateneo-virtual-reality-escape/inventory-system/inventory_slot.gd" id="16_7nvrk"]
 [ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="17_jkxa6"]
+[ext_resource type="PackedScene" uid="uid://bx753cjs4touu" path="res://custom_scenes/fire_extinguisher.tscn" id="18_voubc"]
 [ext_resource type="Material" uid="uid://dy43ogh4jhnpk" path="res://addons/ateneo-virtual-reality-escape/inventory-system/misc-resources/inventory_slot_shader_a.tres" id="18_w75he"]
 [ext_resource type="Script" uid="uid://bour4026odpwv" path="res://scripts/medkit_sound_manager.gd" id="21_ntdhj"]
 [ext_resource type="PackedScene" uid="uid://dvop5g8klstys" path="res://ui/timer_ui.tscn" id="21_w75he"]
@@ -30,14 +31,20 @@
 [ext_resource type="PackedScene" uid="uid://cg3e6vl8r45gh" path="res://custom_scenes/ui/hud.tscn" id="29_0x1rk"]
 [ext_resource type="PackedScene" uid="uid://bwm7ntuxmdeu6" path="res://custom_scenes/ui/dialogue_ui.tscn" id="30_pnpm1"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x70s4"]
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4knja"]
+panorama = ExtResource("4_4knja")
+energy_multiplier = 0.15
 
 [sub_resource type="Sky" id="Sky_ff7d2"]
-sky_material = SubResource("ProceduralSkyMaterial_x70s4")
+sky_material = SubResource("PanoramaSkyMaterial_4knja")
 
 [sub_resource type="Environment" id="Environment_4jcj5"]
 background_mode = 2
 sky = SubResource("Sky_ff7d2")
+ambient_light_sky_contribution = 0.0
+sdfgi_enabled = true
+glow_enabled = true
+volumetric_fog_density = 0.0024
 
 [sub_resource type="Resource" id="Resource_w75he"]
 script = ExtResource("8_jkxa6")
@@ -117,6 +124,7 @@ collision_mask = 1342177280
 
 [node name="PlayerBody" parent="XROrigin3D" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.21, 0.588074, 0.010605)
+collision_mask = 1019
 
 [node name="Environment" type="Node3D" parent="." index="1"]
 
@@ -154,7 +162,7 @@ metadata/_custom_type_script = "uid://bcpy4a75rao8y"
 transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, -9)
 
 [node name="JammedDoor" parent="WorldShaker/house_no_floor" index="10" instance=ExtResource("5_08mmt")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.29539, 1.00221, 0.411251)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.29535, 1.00429, 0.411374)
 
 [node name="JammedDoor2" parent="WorldShaker/house_no_floor" index="11" instance=ExtResource("5_08mmt")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.07924, 1, 0.413716)
@@ -162,7 +170,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.0792
 [node name="Hazards" type="Node3D" parent="." index="3"]
 
 [node name="ElectricalFire" parent="Hazards" index="0" instance=ExtResource("5_o7v6b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.10122, -1.93715e-07, -7.25794)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2154, 0, -6.77083)
 
 [node name="BrokenGlass" parent="Hazards" index="1" instance=ExtResource("6_43hcc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.42694, 7.59959e-07, -4.30547)
@@ -203,10 +211,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19813, 1.10592, -1.62293)
 [node name="OISHammer" parent="." index="6" instance=ExtResource("11_aerfg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3465, 1.2508, -2.00495)
 
-[node name="Bandage" parent="." index="7" instance=ExtResource("14_vjtdm")]
+[node name="FireExtinguisher" parent="." index="7" instance=ExtResource("18_voubc")]
+
+[node name="Bandage" parent="." index="8" instance=ExtResource("14_vjtdm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40137, 1.30703, -1.10054)
 
-[node name="InventorySystem" type="Node3D" parent="." index="8" node_paths=PackedStringArray("xr_anchor_to_object", "xr_camera_anchor", "inventory_toggler_hand")]
+[node name="InventorySystem" type="Node3D" parent="." index="9" node_paths=PackedStringArray("xr_anchor_to_object", "xr_camera_anchor", "inventory_toggler_hand")]
 transform = Transform3D(1, 0, 0, 0, 0.929133, 0.369747, 0, -0.369747, 0.929133, 0.366702, 0.537034, 1.91833)
 visible = false
 script = ExtResource("15_oqlok")
@@ -317,10 +327,11 @@ grab_distance = 0.16
 mesh = SubResource("SphereMesh_0fu15")
 surface_material_override/0 = ExtResource("18_w75he")
 
-[node name="Slot_1_2" type="Node3D" parent="InventorySystem" index="5"]
+[node name="Slot_1_2" type="Node3D" parent="InventorySystem" index="5" node_paths=PackedStringArray("default_object")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0.45, 0)
 script = ExtResource("16_7nvrk")
 snap_zone_radius = 0.16
+default_object = NodePath("../../FireExtinguisher")
 
 [node name="SnapZone" parent="InventorySystem/Slot_1_2" index="0" instance=ExtResource("17_jkxa6")]
 grab_distance = 0.16
@@ -386,7 +397,7 @@ stream = ExtResource("22_0fu15")
 [node name="MedkitCloseSound" type="AudioStreamPlayer3D" parent="InventorySystem/MedkitSoundManager" index="1"]
 stream = ExtResource("23_4knja")
 
-[node name="UI" type="Node3D" parent="." index="9"]
+[node name="UI" type="Node3D" parent="." index="10"]
 
 [node name="TooltipNode" parent="UI" index="0" instance=ExtResource("21_w75he")]
 script = null
