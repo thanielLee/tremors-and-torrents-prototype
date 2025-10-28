@@ -27,8 +27,8 @@ angle_min = -180.0
 angle_max = 180.0
 direction = Vector3(0, 1, 0)
 spread = 0.0
-initial_velocity_min = 1.8
-initial_velocity_max = 2.3
+initial_velocity_min = 6.0
+initial_velocity_max = 6.0
 angular_velocity_min = -50.0
 angular_velocity_max = 50.0
 gravity = Vector3(0, 0, 0)
@@ -44,10 +44,11 @@ anim_speed_max = 1.0
 [node name="VfxSmoke" type="Node3D"]
 
 [node name="VFX_Smoke_1" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00694437, 0.084425, -0.0315374)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007, -0.046, -0.032)
 material_override = SubResource("StandardMaterial3D_273ti")
-amount = 20
-lifetime = 2.0
+emitting = false
+amount = 7
+lifetime = 0.4
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_61ban")
 draw_pass_1 = SubResource("QuadMesh_47ao0")
