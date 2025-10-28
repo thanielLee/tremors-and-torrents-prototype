@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://care5r0t3w75t"]
+
+[ext_resource type="PackedScene" uid="uid://dwejysi6l4ihr" path="res://assets/tools/fire_extinguisher/fire_extinguisher (1).glb" id="1_2ls0x"]
+
+[node name="fire_extinguisher (1)" instance=ExtResource("1_2ls0x")]
+
+[node name="CollisionShape3D" parent="body" index="0"]
+disabled = true
