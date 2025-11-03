@@ -1,52 +1,45 @@
-[gd_scene format=3 uid="uid://bwm7ntuxmdeu6"]
+[gd_scene load_steps=8 format=3 uid="uid://dndk04wrgxl3c"]
 
-[node name="DialogueUI" type="CanvasLayer"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="1_khcm8"]
+[ext_resource type="PackedScene" uid="uid://bwm7ntuxmdeu6" path="res://custom_scenes/ui/dialogue_ui_2d.tscn" id="2_c0b4f"]
+[ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="3_3ohtd"]
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 1600.0
-offset_bottom = 900.0
+[sub_resource type="QuadMesh" id="QuadMesh_seq6v"]
+resource_local_to_scene = true
+size = Vector2(16, 9)
 
-[node name="NPC_Name" type="RichTextLabel" parent="Control"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -538.0
-offset_top = -246.0
-offset_right = 462.0
-offset_bottom = -181.975
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/normal_font_size = 60
-text = "Name"
-horizontal_alignment = 1
-vertical_alignment = 1
+[sub_resource type="ViewportTexture" id="ViewportTexture_2sylk"]
+viewport_path = NodePath("Viewport")
 
-[node name="NPC_Dialogue" type="RichTextLabel" parent="Control"]
-layout_mode = 0
-offset_left = 201.0
-offset_top = 729.0
-offset_right = 1352.0
-offset_bottom = 891.0
-theme_override_font_sizes/normal_font_size = 40
-text = "Hello! This is text dialogue
-"
-horizontal_alignment = 1
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ncfq5"]
+render_priority = 60
+transparency = 1
+no_depth_test = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_2sylk")
 
-[node name="Bar" type="TextureRect" parent="Control"]
-layout_mode = 0
-offset_left = 188.0
-offset_top = 760.0
-offset_right = 1336.0
-offset_bottom = 800.0
+[sub_resource type="BoxShape3D" id="BoxShape3D_ra3u2"]
+resource_local_to_scene = true
+size = Vector3(16, 9, 0.02)
 
-[node name="ButtonPrompt" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 199.0
-offset_top = 224.0
-offset_right = 239.0
-offset_bottom = 247.0
+[node name="DialogueUI" instance=ExtResource("1_khcm8")]
+screen_size = Vector2(16, 9)
+collision_layer = 5242880
+scene = ExtResource("2_c0b4f")
+viewport_size = Vector2(1600, 900)
+material = ExtResource("3_3ohtd")
+
+[node name="Viewport" parent="." index="0"]
+size = Vector2i(1600, 900)
+
+[node name="Screen" parent="." index="1"]
+mesh = SubResource("QuadMesh_seq6v")
+surface_material_override/0 = SubResource("StandardMaterial3D_ncfq5")
+
+[node name="StaticBody3D" parent="." index="2"]
+collision_layer = 5242880
+screen_size = Vector2(16, 9)
+viewport_size = Vector2(1600, 900)
+
+[node name="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_ra3u2")
