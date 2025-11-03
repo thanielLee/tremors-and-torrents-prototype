@@ -1,4 +1,5 @@
-[gd_scene load_steps=49 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=53 format=3 uid="uid://bf88eeqpgtid3"]
+
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
 [ext_resource type="Script" uid="uid://bcpy4a75rao8y" path="res://addons/godot-xr-tools/rumble/rumbler.gd" id="3_7nvrk"]
@@ -23,12 +24,13 @@
 [ext_resource type="PackedScene" uid="uid://bx753cjs4touu" path="res://custom_scenes/fire_extinguisher.tscn" id="18_voubc"]
 [ext_resource type="Material" uid="uid://dy43ogh4jhnpk" path="res://addons/ateneo-virtual-reality-escape/inventory-system/misc-resources/inventory_slot_shader_a.tres" id="18_w75he"]
 [ext_resource type="Script" uid="uid://bour4026odpwv" path="res://scripts/medkit_sound_manager.gd" id="21_ntdhj"]
-[ext_resource type="PackedScene" uid="uid://dvop5g8klstys" path="res://ui/timer_ui.tscn" id="21_w75he"]
 [ext_resource type="AudioStream" uid="uid://bbe283racxu5y" path="res://assets/freesound/63529__florian_reinke__button_on.wav" id="22_0fu15"]
 [ext_resource type="AudioStream" uid="uid://bu0n47pxg0f0k" path="res://assets/freesound/344548__dster777__button.wav" id="23_4knja"]
 [ext_resource type="PackedScene" uid="uid://cexlre72hlkim" path="res://custom_scenes/duck_cover_hold_qte.tscn" id="26_0fu15"]
 [ext_resource type="PackedScene" uid="uid://beyogvof4pdmg" path="res://custom_scenes/level_1_briefer.tscn" id="26_4knja"]
 [ext_resource type="PackedScene" uid="uid://cg3e6vl8r45gh" path="res://custom_scenes/ui/hud.tscn" id="29_0x1rk"]
+[ext_resource type="Script" uid="uid://bb3yehto5jbg7" path="res://custom_scenes/ui/game_hud.gd" id="29_06ecp"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="29_pnpm1"]
 [ext_resource type="PackedScene" uid="uid://bwm7ntuxmdeu6" path="res://custom_scenes/ui/dialogue_ui.tscn" id="30_pnpm1"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4knja"]
@@ -111,6 +113,12 @@ size = Vector3(1.5, 1.5, 0.155)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0fu15"]
 albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ohjdc"]
+render_priority = 60
+transparency = 1
+no_depth_test = true
+shading_mode = 0
 
 [node name="Level1" instance=ExtResource("1_lmdqw")]
 script = ExtResource("2_1gikq")
@@ -397,14 +405,6 @@ stream = ExtResource("22_0fu15")
 [node name="MedkitCloseSound" type="AudioStreamPlayer3D" parent="InventorySystem/MedkitSoundManager" index="1"]
 stream = ExtResource("23_4knja")
 
-[node name="UI" type="Node3D" parent="." index="10"]
-
-[node name="TooltipNode" parent="UI" index="0" instance=ExtResource("21_w75he")]
-script = null
-
-[node name="TimerUI" parent="UI" index="1" instance=ExtResource("21_w75he")]
-script = null
-
 [node name="StartPos" type="Node3D" parent="." index="10"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.1501)
 
@@ -420,26 +420,36 @@ material = SubResource("StandardMaterial3D_0fu15")
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="Box" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.095, 3.579, 0)
+use_collision = true
+collision_mask = 0
 size = Vector3(6.90231, 0.226074, 6.30225)
 material = SubResource("StandardMaterial3D_0fu15")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Box" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.24, 1.599, 0)
+use_collision = true
+collision_mask = 0
 size = Vector3(0.233452, 4.19862, 6.30225)
 material = SubResource("StandardMaterial3D_0fu15")
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="Box" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.459, 1.599, 0)
+use_collision = true
+collision_mask = 0
 size = Vector3(0.233452, 4.19862, 6.30225)
 material = SubResource("StandardMaterial3D_0fu15")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="Box" index="4"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.129921, 1.59931, -3.06547)
+use_collision = true
+collision_mask = 0
 size = Vector3(0.233452, 4.19862, 6.90649)
 material = SubResource("StandardMaterial3D_0fu15")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="Box" index="5"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.120796, 1.59931, 3.0889)
+use_collision = true
+collision_mask = 0
 size = Vector3(0.233452, 4.19862, 6.90649)
 material = SubResource("StandardMaterial3D_0fu15")
 
@@ -453,10 +463,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54303, -1.43442)
 [node name="DuckCoverHoldQTE" parent="QTEs" index="0" instance=ExtResource("26_0fu15")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.54264, 0.25, -6.52233)
 
-[node name="DialogueUI" parent="." index="14" instance=ExtResource("30_pnpm1")]
-xr_camera_path = NodePath("../XROrigin3D/XRCamera3D")
+[node name="GameHUD" type="Node3D" parent="." index="14" node_paths=PackedStringArray("xr_camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.54198, 1.57168, 4.82094)
+script = ExtResource("29_06ecp")
+xr_camera = NodePath("../XROrigin3D/XRCamera3D")
 
-[node name="HUD" parent="." index="15" instance=ExtResource("29_0x1rk")]
+[node name="DialogueUI" parent="GameHUD" index="0" instance=ExtResource("29_pnpm1")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+screen_size = Vector2(16, 9)
+collision_layer = 5242880
+scene = ExtResource("30_pnpm1")
+viewport_size = Vector2(1600, 900)
+material = SubResource("StandardMaterial3D_ohjdc")
+
+[node name="QTE_UI" parent="GameHUD" index="1" instance=ExtResource("29_pnpm1")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+screen_size = Vector2(16, 9)
+collision_layer = 5242880
+scene = ExtResource("29_0x1rk")
+viewport_size = Vector2(1600, 900)
+material = SubResource("StandardMaterial3D_ohjdc")
 
 [connection signal="visibility_changed" from="InventorySystem" to="InventorySystem/MedkitSoundManager" method="_on_inventory_system_visibility_changed"]
 [connection signal="shake_world" from="QTEs/DuckCoverHoldQTE" to="WorldShaker" method="_on_duck_cover_hold_qte_shake_world"]
