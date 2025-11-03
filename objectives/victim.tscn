@@ -17,11 +17,11 @@ height = 0.33
 [sub_resource type="SphereShape3D" id="SphereShape3D_k4pp2"]
 radius = 0.186
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mchqb"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vdien"]
 albedo_color = Color(1, 0.0509804, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_lllhl"]
-material = SubResource("StandardMaterial3D_mchqb")
+material = SubResource("StandardMaterial3D_vdien")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f8pag"]
 albedo_color = Color(1, 1, 0, 1)

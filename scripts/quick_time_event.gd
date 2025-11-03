@@ -1,25 +1,21 @@
-extends Node3D
+extends ObjectiveBase
 class_name QuickTimeEvent
 
 signal qte_started
-signal qte_completed
-signal qte_failed
+#signal qte_completed
+#signal qte_failed
 
-@export var enabled: bool = true
+#@export var enabled: bool = true
 @export var duration: float = 10.0 # optional timeout
 @export var required_progress: float = 1.0
-@export var completed_points: float = 5.0
+#@export var completed_points: float = 5.0
 
 var current_progress: float = 0.0
-var active: bool = false
+#var active: bool = false
 var timer: float = 0.0
 
-#@onready var area: Area3D = $Area3D
-#@onready var progress_bar: Node3D = $ProgressBar3D
-
 func _ready():
-	#area.body_entered.connect(_on_body_entered)
-	#area.body_exited.connect(_on_body_exited)
+	super._ready()
 	set_process(false)
 
 func _process(delta):
@@ -28,13 +24,13 @@ func _process(delta):
 	
 	timer += delta
 	if timer > duration:
-		fail_qte()
+		fail_objective()
 		return
 	
 	#update_progress_display()
 
-func start_qte():
-	active = true
+func start_objective():
+	super.start_objective()
 	timer = 0
 	current_progress = 0
 	set_process(true)
@@ -48,22 +44,33 @@ func add_progress(amount: float):
 	current_progress = clamp(current_progress + amount, 0, required_progress)
 	print("current_progress: ", current_progress)
 	if current_progress >= required_progress:
-		complete_qte()
+		complete_objective()
 
 func reset_progress():
 	current_progress = 0
 
-func complete_qte():
-	enabled = false
-	active = false
+#func complete_qte():
+	#if not enabled:
+		#return
+	#enabled = false
+	#active = false
+	#set_process(false)
+	#emit_signal("qte_completed")
+	#emit_signal("objective_completed")
+func complete_objective():
+	super.complete_objective()
 	set_process(false)
-	emit_signal("qte_completed")
 
-func fail_qte():
-	enabled = false
-	active = false
+func fail_objective():
+	super.fail_objective()
 	set_process(false)
-	emit_signal("qte_failed")
+
+#func fail_qte():
+	#enabled = false
+	#active = false
+	#set_process(false)
+	#emit_signal("qte_failed")
+	#emit_signal("objective_failed")
 
 #func update_progress_display():
 	#if progress_bar:

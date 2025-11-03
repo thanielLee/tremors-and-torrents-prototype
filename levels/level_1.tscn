@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=50 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
@@ -14,10 +14,10 @@
 [ext_resource type="Script" uid="uid://dn0rhw5ql5k7m" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="8_jkxa6"]
 [ext_resource type="PackedScene" uid="uid://fd0fq5lehw5g" path="res://assets/house_no_floor.glb" id="8_ntdhj"]
 [ext_resource type="PackedScene" uid="uid://dgya7syy32d8d" path="res://custom_scenes/floor.tscn" id="9_0fu15"]
-[ext_resource type="PackedScene" uid="uid://dsjo8twceel63" path="res://objectives/victim.tscn" id="10_8tolq"]
 [ext_resource type="PackedScene" uid="uid://df8ckf7krjyl3" path="res://custom_scenes/ois_hammer.tscn" id="11_aerfg"]
 [ext_resource type="PackedScene" uid="uid://bp4qsothxd80g" path="res://custom_scenes/injured.tscn" id="11_betor"]
 [ext_resource type="PackedScene" uid="uid://4a3xx8xcbdob" path="res://custom_scenes/bandage.tscn" id="14_vjtdm"]
+[ext_resource type="PackedScene" uid="uid://dsaovvehgewyy" path="res://objectives/victim_rescue.tscn" id="15_06ecp"]
 [ext_resource type="Script" uid="uid://du4lpoac66rw" path="res://addons/ateneo-virtual-reality-escape/inventory-system/inventory_system.gd" id="15_oqlok"]
 [ext_resource type="Script" uid="uid://d2j64x8gnsuue" path="res://addons/ateneo-virtual-reality-escape/inventory-system/inventory_slot.gd" id="16_7nvrk"]
 [ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="17_jkxa6"]
@@ -28,9 +28,6 @@
 [ext_resource type="AudioStream" uid="uid://bu0n47pxg0f0k" path="res://assets/freesound/344548__dster777__button.wav" id="23_4knja"]
 [ext_resource type="PackedScene" uid="uid://cexlre72hlkim" path="res://custom_scenes/duck_cover_hold_qte.tscn" id="26_0fu15"]
 [ext_resource type="PackedScene" uid="uid://beyogvof4pdmg" path="res://custom_scenes/level_1_briefer.tscn" id="26_4knja"]
-[ext_resource type="PackedScene" uid="uid://bpunjpmf5cvyy" path="res://custom_scenes/ui/hud.tscn" id="29_0x1rk"]
-[ext_resource type="Script" uid="uid://bb3yehto5jbg7" path="res://custom_scenes/ui/game_hud.gd" id="29_06ecp"]
-[ext_resource type="PackedScene" uid="uid://dndk04wrgxl3c" path="res://custom_scenes/ui/dialogue_ui.tscn" id="30_pnpm1"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4knja"]
 panorama = ExtResource("4_4knja")
@@ -56,7 +53,15 @@ duration_ms = 1500
 metadata/_custom_type_script = "uid://dn0rhw5ql5k7m"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lrvbd"]
-size = Vector3(7.44635, 1, 2)
+size = Vector3(15.8755, 1, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_voubc"]
+transparency = 1
+albedo_color = Color(0.164706, 0.992157, 0.992157, 0.188235)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0x1rk"]
+material = SubResource("StandardMaterial3D_voubc")
+size = Vector3(15.8755, 1, 2)
 
 [sub_resource type="SphereMesh" id="SphereMesh_udfhf"]
 radius = 0.16
@@ -188,36 +193,42 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72634, 2.66731e-06, -15.74
 [node name="Shaker2" parent="Hazards" index="5" instance=ExtResource("8_f3u63")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.88733, -0.000170901, -2.85888)
 
-[node name="Objectives" type="Node3D" parent="." index="4"]
-
-[node name="Victim" parent="Objectives" index="0" instance=ExtResource("10_8tolq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.94766, -1.14739e-06, 1.95955)
-follow_strength = 10.0
-
-[node name="Injured" parent="Objectives" index="1" instance=ExtResource("11_betor")]
-transform = Transform3D(-6.09774e-08, 0, -1.395, 0, 1.395, 0, 1.395, 0, -6.09774e-08, -3.58182, 0.401893, -14.6704)
-
-[node name="SafeArea" type="Area3D" parent="Objectives" index="2"]
+[node name="SafeArea" type="Area3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.15094, 0, 7.07465)
 collision_layer = 32
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Objectives/SafeArea" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.787689, 0, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SafeArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.00227, 0, 0)
 shape = SubResource("BoxShape3D_lrvbd")
 
-[node name="Hammer" parent="." index="5" instance=ExtResource("6_1sveg")]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SafeArea" index="1"]
+mesh = SubResource("BoxMesh_0x1rk")
+
+[node name="Objectives" type="Node3D" parent="." index="5"]
+
+[node name="VictimRescue" parent="Objectives" index="0" instance=ExtResource("15_06ecp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.945943, 0, 1.82855)
+is_required = true
+
+[node name="Injured" parent="Objectives" index="1" instance=ExtResource("11_betor")]
+transform = Transform3D(-6.09774e-08, 0, -1.395, 0, 1.395, 0, 1.395, 0, -6.09774e-08, -3.58182, 0.401893, -14.6704)
+
+[node name="DuckCoverHoldQTE" parent="Objectives" index="2" instance=ExtResource("26_0fu15")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.54264, 0.25, -6.52233)
+
+[node name="Hammer" parent="." index="6" instance=ExtResource("6_1sveg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19813, 1.10592, -1.62293)
 
-[node name="OISHammer" parent="." index="6" instance=ExtResource("11_aerfg")]
+[node name="OISHammer" parent="." index="7" instance=ExtResource("11_aerfg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3465, 1.2508, -2.00495)
 
-[node name="FireExtinguisher" parent="." index="7" instance=ExtResource("18_voubc")]
+[node name="FireExtinguisher" parent="." index="8" instance=ExtResource("18_voubc")]
 
-[node name="Bandage" parent="." index="8" instance=ExtResource("14_vjtdm")]
+[node name="Bandage" parent="." index="9" instance=ExtResource("14_vjtdm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40137, 1.30703, -1.10054)
 
-[node name="InventorySystem" type="Node3D" parent="." index="9" node_paths=PackedStringArray("xr_anchor_to_object", "xr_camera_anchor", "inventory_toggler_hand")]
+[node name="InventorySystem" type="Node3D" parent="." index="10" node_paths=PackedStringArray("xr_anchor_to_object", "xr_camera_anchor", "inventory_toggler_hand")]
 transform = Transform3D(1, 0, 0, 0, 0.929133, 0.369747, 0, -0.369747, 0.929133, 0.366702, 0.537034, 1.91833)
 visible = false
 script = ExtResource("15_oqlok")
@@ -398,10 +409,10 @@ stream = ExtResource("22_0fu15")
 [node name="MedkitCloseSound" type="AudioStreamPlayer3D" parent="InventorySystem/MedkitSoundManager" index="1"]
 stream = ExtResource("23_4knja")
 
-[node name="StartPos" type="Node3D" parent="." index="10"]
+[node name="StartPos" type="Node3D" parent="." index="11"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.1501)
 
-[node name="Box" type="Node3D" parent="." index="11"]
+[node name="Box" type="Node3D" parent="." index="12"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.474, 0.116433, -1.55318)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Box" index="0"]
@@ -449,19 +460,7 @@ material = SubResource("StandardMaterial3D_0fu15")
 [node name="Level1Briefer" parent="Box" index="6" instance=ExtResource("26_4knja")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54303, -1.43442)
 
-[node name="Timer" type="Timer" parent="." index="12"]
+[node name="Timer" type="Timer" parent="." index="13"]
 
-[node name="QTEs" type="Node3D" parent="." index="13"]
-
-[node name="DuckCoverHoldQTE" parent="QTEs" index="0" instance=ExtResource("26_0fu15")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.54264, 0.25, -6.52233)
-
-[node name="GameHUD" type="Node3D" parent="." index="14" node_paths=PackedStringArray("xr_origin", "xr_camera")]
-script = ExtResource("29_06ecp")
-xr_origin = NodePath("../XROrigin3D")
-xr_camera = NodePath("../XROrigin3D/XRCamera3D")
-dialogue_ui_scene = ExtResource("30_pnpm1")
-hud_scene = ExtResource("29_0x1rk")
-
+[connection signal="shake_world" from="Objectives/DuckCoverHoldQTE" to="WorldShaker" method="_on_duck_cover_hold_qte_shake_world"]
 [connection signal="visibility_changed" from="InventorySystem" to="InventorySystem/MedkitSoundManager" method="_on_inventory_system_visibility_changed"]
-[connection signal="shake_world" from="QTEs/DuckCoverHoldQTE" to="WorldShaker" method="_on_duck_cover_hold_qte_shake_world"]

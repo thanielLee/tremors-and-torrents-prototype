@@ -19,12 +19,13 @@ func _ready():
 	set_process(false)
 
 func start_qte():
-	super.start_qte()
+	super.start_objective()
+	set_process(true)
 	emit_signal("shake_world", duration)
 	print("Duck and hold QTE started")
 
 func _process(delta):
-	if not active:
+	if not active or not enabled:
 		return
 	
 	var head_y = camera.global_position.y
@@ -56,4 +57,4 @@ func _process(delta):
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if enabled and not active:
-		start_qte()
+		start_objective()

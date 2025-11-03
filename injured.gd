@@ -1,6 +1,6 @@
-extends Node3D
+extends ObjectiveBase
 
-signal injured_cleared
+#signal injured_cleared
 @onready var mesh: Node3D = $Mesh
 @onready var bandage_stages := [
 	$BandageStage0,
@@ -50,7 +50,8 @@ func _on_ois_twist_receiver_action_ended(requirement: Variant, total_progress: V
 	print("twist stopped")
 
 func _on_ois_twist_receiver_action_completed(requirement: Variant, total_progress: Variant) -> void:
-	emit_signal("injured_cleared")
+	#emit_signal("injured_cleared")
+	complete_objective()
 	print("bandage complete")
 
 func play_bandage_sound():

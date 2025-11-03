@@ -33,7 +33,7 @@ var UI_node
 
 # Conditions
 const HAZARD_LIMIT := 2
-const REQUIRED_OBJECTIVES := ["Victim"]
+#const REQUIRED_OBJECTIVES := ["Victim"]
 
 #@onready var dialogue_ui = $DialogueUI
 
@@ -66,7 +66,6 @@ func start_level():
 
 	enable_hazards()
 	enable_objectives()
-	enable_qtes()
 
 func end_level(success: bool):
 	level_active = false
@@ -126,57 +125,80 @@ func _on_hazard_triggered(hazard: Variant):
 ### OBJECTIVES ###
 
 func enable_objectives():
-	### VERY TEMPORARY
-	var victim: RigidBody3D = $Objectives/Victim
-	victim.victim_safe.connect(_on_objective_completed.bind(victim.name))
-	victim.victim_triggered_hazard.connect(_on_objective_failed.bind(victim.name))
-	
-	var injured: Node3D = $Objectives/Injured
-	injured.injured_cleared.connect(_on_objective_completed.bind(injured.name))
+	if not objectives:
+		return
 
-
-func _on_objective_completed(objective_name: String):
-	if objective_name not in completed_objectives:
-		completed_objectives.append(objective_name)
-		print("Objective Complete: ", objective_name)
-		score += 50
+	for obj in objectives.get_children():
+		if obj.has_signal("objective_completed"):
+			obj.objective_completed.connect(_on_objective_completed.bind(obj))
+		if obj.has_signal("objective_failed"):
+			obj.objective_failed.connect(_on_objective_failed.bind(obj))
+		#print(obj.name)
 		
+	# VERY TEMPORARY
+	#var victim: RigidBody3D = $Objectives/Victim
+	#victim.victim_safe.connect(_on_objective_completed.bind(victim.name))
+	#victim.victim_triggered_hazard.connect(_on_objective_failed.bind(victim.name))
+	#
+	#var injured: Node3D = $Objectives/Injured
+	#injured.injured_cleared.connect(_on_objective_completed.bind(injured.name))
+
+
+func _on_objective_completed(obj: Node):
+	var name = obj.name
+	if name not in completed_objectives:
+		completed_objectives.append(name)
+		print("Objective completed:", name)
+
+		var points = obj.completed_points
+		score += points
+		print("Score:", score)
+
 		check_level_end()
 
-func _on_objective_failed(objective_name: String):
-	print("Objective %s failed!" % objective_name)
+func _on_objective_failed(obj: Node):
+	print("Objective failed:", obj.name)
+	if obj.failed_points != 0:
+		score += obj.failed_points
 	end_level(false)
 
-### QTEs ###
-
-func enable_qtes():
-	if not qtes: return
-	for qte in qtes.get_children():
-		if qte.has_signal("qte_completed"):
-			qte.qte_completed.connect(_on_qte_completed.bind(qte))
-		if qte.has_signal("qte_failed"):
-			qte.qte_failed.connect(_on_qte_failed.bind(qte))
-
-func _on_qte_completed(qte: Variant):
-	var qte_name = qte.name
-	print("QTE: %s completed!" % qte_name)
-	
-	score += qte.completed_points
-	print(score)
-
-func _on_qte_failed(qte: Variant):
-	var qte_name = qte.name
-	print("QTE: %s failed!" % qte_name)
-
 ### LEVEL END CHECK ###
-
 func check_level_end():
-	var all_objectives_done := REQUIRED_OBJECTIVES.all(
-		func(req): return req in completed_objectives
-	)
+	if not objectives:
+		return
 	
-	if all_objectives_done and triggered_hazards.size() < HAZARD_LIMIT:
+	var all_required_done := true
+	
+	for obj in objectives.get_children():
+		if obj.is_required:
+			if obj.name not in completed_objectives:
+				all_required_done = false
+				break
+	
+	if all_required_done and triggered_hazards.size() < HAZARD_LIMIT:
 		end_level(true)
+
+### QTEs ###
+#
+#func enable_qtes():
+	#if not qtes: return
+	#for qte in qtes.get_children():
+		#if qte.has_signal("qte_completed"):
+			#qte.qte_completed.connect(_on_qte_completed.bind(qte))
+		#if qte.has_signal("qte_failed"):
+			#qte.qte_failed.connect(_on_qte_failed.bind(qte))
+#
+#func _on_qte_completed(qte: Variant):
+	#var qte_name = qte.name
+	#print("QTE: %s completed!" % qte_name)
+	#
+	#score += qte.completed_points
+	#print(score)
+#
+#func _on_qte_failed(qte: Variant):
+	#var qte_name = qte.name
+	#print("QTE: %s failed!" % qte_name)
+
 
 ### PROCESS LOOP ###
 
@@ -194,9 +216,8 @@ func _process(delta: float) -> void:
 	# brief player
 	else:
 		time_elapsed += delta
-		if time_elapsed > 10:
+		if time_elapsed > 1:
 			start_level()
-		
 	
 	if level_ended:
 		time_elapsed += delta
