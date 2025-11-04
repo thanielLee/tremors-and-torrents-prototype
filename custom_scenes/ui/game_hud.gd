@@ -82,7 +82,7 @@ func _update_ui_follow():
 	if is_instance_valid(dialogue_ui_instance):
 		print(dialogue_ui_instance.global_position)
 		var target_pos = xr_camera.global_transform.origin 
-		+ xr_camera.global_transform.basis.z * ui_distance
+		- xr_camera.global_transform.basis.z * ui_distance
 		+ Vector3(0, ui_height, 0)
 		print(target_pos)
 		dialogue_ui_instance.global_position = target_pos
