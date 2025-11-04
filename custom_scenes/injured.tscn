@@ -13,27 +13,27 @@ material = SubResource("StandardMaterial3D_f8pag")
 radius = 0.1
 height = 0.5
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rj7r8"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k55h8"]
 albedo_color = Color(1, 1, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8xfjp"]
+material = SubResource("StandardMaterial3D_k55h8")
+radius = 0.05
+height = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rj7r8"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_j33ko"]
 material = SubResource("StandardMaterial3D_rj7r8")
 radius = 0.05
 height = 0.4
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nfua4"]
-albedo_color = Color(1, 1, 0, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_j33ko"]
-material = SubResource("StandardMaterial3D_nfua4")
-radius = 0.05
-height = 0.4
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cb4hb"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8xfjp"]
 albedo_color = Color(1, 1, 0, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_sp84e"]
-material = SubResource("StandardMaterial3D_cb4hb")
+material = SubResource("StandardMaterial3D_8xfjp")
 radius = 0.1
 height = 0.25
 

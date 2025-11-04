@@ -1,0 +1,120 @@
+extends CanvasLayer
+class_name HUD
+
+signal timer_finished
+
+@export var prompt_duration := 3.0
+@onready var timer_label = $Control/TimerLabel
+@onready var prompt_label = $Control/PromptLabel
+@onready var qte_container = $Control/QTEContainer
+@onready var qte_name_label = $Control/QTEContainer/QTENameLabel
+@onready var qte_progress = $Control/QTEContainer/QTEProgress
+@onready var qte_feedback_label = $Control/QTEContainer/QTEFeedbackLabel
+@onready var prompt_timer = Timer.new()
+
+# Timer
+var time_remaining: float = 0.0
+var timer_active: bool = false
+
+# QTE
+var active_qte: Node = null
+
+func _ready():
+	add_child(prompt_timer)
+	prompt_timer.one_shot = true
+	prompt_timer.timeout.connect(_on_prompt_timeout)
+
+	prompt_label.visible = false
+	qte_container.visible = false
+	timer_label.text = "Time: 00:00"
+
+# -----------------------
+# LEVEL TIMER
+# -----------------------
+func set_timer(seconds: float):
+	time_remaining = seconds
+	timer_active = true
+	_update_timer_label()
+
+func update_timer(delta: float):
+	if not timer_active:
+		return
+	time_remaining = max(0.0, time_remaining - delta)
+	_update_timer_label()
+	if time_remaining <= 0.0:
+		timer_active = false
+		emit_signal("timer_finished")
+
+func _update_timer_label():
+	var minutes = int(time_remaining / 60)
+	var seconds = int(time_remaining) % 60
+	timer_label.text = "Time: %02d:%02d" % [minutes, seconds]
+
+# -----------------------
+# PROMPTS
+# -----------------------
+func show_prompt(text: String, duration: float = prompt_duration):
+	prompt_label.text = text
+	prompt_label.visible = true
+	prompt_timer.start(duration)
+
+func _on_prompt_timeout():
+	prompt_label.visible = false
+
+# -----------------------
+# QTE SYSTEM
+# -----------------------
+func connect_qte(qte_node: Node):
+	if not qte_node:
+		return
+
+	# Disconnect previous if any
+	if active_qte:
+		_disconnect_qte_signals(active_qte)
+
+	active_qte = qte_node
+
+	# Connect signals
+	qte_node.qte_started.connect(_on_qte_started)
+	qte_node.qte_completed.connect(_on_qte_completed)
+	qte_node.qte_failed.connect(_on_qte_failed)
+
+func _disconnect_qte_signals(qte_node: Node):
+	if not qte_node:
+		return
+	if qte_node.qte_started.is_connected(_on_qte_started):
+		qte_node.qte_started.disconnect(_on_qte_started)
+	if qte_node.qte_completed.is_connected(_on_qte_completed):
+		qte_node.qte_completed.disconnect(_on_qte_completed)
+	if qte_node.qte_failed.is_connected(_on_qte_failed):
+		qte_node.qte_failed.disconnect(_on_qte_failed)
+
+# Called when QTE begins
+func _on_qte_started():
+	qte_container.visible = true
+	qte_progress.value = 0
+	qte_feedback_label.text = ""
+	qte_name_label.text = "Quick Time Event!"
+	show_prompt("QTE Started!", 2.0)
+
+# Called every frame externally (optional)
+func update_qte_progress(progress: float, required: float):
+	qte_progress.value = clamp(progress / required * 100, 0, 100)
+
+func set_qte_feedback(text: String, color: Color = Color.WHITE):
+	qte_feedback_label.text = text
+	qte_feedback_label.add_theme_color_override("font_color", color)
+
+func _on_qte_completed():
+	qte_feedback_label.text = "QTE Completed!"
+	qte_feedback_label.add_theme_color_override("font_color", Color.GREEN)
+	show_prompt("Success!", 2.0)
+	await get_tree().create_timer(2.0).timeout
+	qte_container.visible = false
+
+func _on_qte_failed():
+	qte_feedback_label.text = "QTE Failed!"
+	qte_feedback_label.add_theme_color_override("font_color", Color.RED)
+	show_prompt("Failed!", 2.0)
+	await get_tree().create_timer(2.0).timeout
+	qte_container.visible = false

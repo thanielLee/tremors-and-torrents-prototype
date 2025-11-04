@@ -27,10 +27,12 @@ damage_points = -2
 
 [node name="DetectionArea" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_mask = 524321
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.612949, 0)
 shape = SubResource("CylinderShape3D_ec7lv")
+debug_color = Color(0, 0.595, 0.7, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="DetectionArea" index="1"]
 visible = false
