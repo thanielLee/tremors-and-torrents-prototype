@@ -27,12 +27,3 @@ func shake_world(duration):
 	xr_tools_rumbler.rumble()
 	xr_tools_rumbler_2.rumble()
 	print("shaking world")
-	
-
-func _on_level_1_shake_world() -> void:
-	#shake_world()
-	pass
-
-
-func _on_duck_cover_hold_qte_shake_world(duration) -> void:
-	shake_world(duration)

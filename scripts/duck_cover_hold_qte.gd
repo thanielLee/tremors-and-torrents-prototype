@@ -1,7 +1,7 @@
 extends QuickTimeEvent
 
 @export var head_threshold_y := 1.2
-@export var hand_distance_threshold := 0.4
+@export var hand_distance_threshold := 1.0
 @export var hold_duration := 5.0
 
 @onready var xr_origin = get_parent().get_parent().get_node("XROrigin3D")
@@ -30,8 +30,8 @@ func _process(delta):
 	
 	var head_y = camera.global_position.y
 	#var hand_distance = left_hand.global_position.distance_to(right_hand.global_position)
-	var left_hand_distance = camera.global_position.distance_to(left_hand)
-	var right_hand_distance = camera.global_position.distance_to(right_hand)
+	var left_hand_distance = camera.global_position.distance_to(left_hand.global_position)
+	var right_hand_distance = camera.global_position.distance_to(right_hand.global_position)
 	
 	var is_ducked = head_y < head_threshold_y
 	var is_holding = (left_hand_distance < hand_distance_threshold) and (right_hand_distance < hand_distance_threshold)

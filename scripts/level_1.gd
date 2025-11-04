@@ -37,6 +37,9 @@ const HAZARD_LIMIT := 2
 
 #@onready var dialogue_ui = $DialogueUI
 
+func is_xr_class(name : String) -> bool:
+	return name == "Level1"
+
 func _ready():
 	brief_pos = xr_origin_3d.position
 	brief_player()
@@ -215,7 +218,7 @@ func _process(delta: float) -> void:
 	# brief player
 	else:
 		time_elapsed += delta
-		if time_elapsed > 1:
+		if time_elapsed > 5:
 			start_level()
 	
 	if level_ended:

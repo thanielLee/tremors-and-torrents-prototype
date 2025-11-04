@@ -8,15 +8,15 @@
 resource_local_to_scene = true
 size = Vector2(16, 9)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_2sylk"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_khcm8"]
 viewport_path = NodePath("Viewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ncfq5"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c0b4f"]
 render_priority = 60
 transparency = 1
 no_depth_test = true
 shading_mode = 0
-albedo_texture = SubResource("ViewportTexture_2sylk")
+albedo_texture = SubResource("ViewportTexture_khcm8")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ra3u2"]
 resource_local_to_scene = true
@@ -34,7 +34,7 @@ size = Vector2i(1600, 900)
 
 [node name="Screen" parent="." index="1"]
 mesh = SubResource("QuadMesh_seq6v")
-surface_material_override/0 = SubResource("StandardMaterial3D_ncfq5")
+surface_material_override/0 = SubResource("StandardMaterial3D_c0b4f")
 
 [node name="StaticBody3D" parent="." index="2"]
 collision_layer = 5242880
