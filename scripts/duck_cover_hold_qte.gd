@@ -29,13 +29,16 @@ func _process(delta):
 		return
 	
 	var head_y = camera.global_position.y
-	var hand_distance = left_hand.global_position.distance_to(right_hand.global_position)
+	#var hand_distance = left_hand.global_position.distance_to(right_hand.global_position)
+	var left_hand_distance = camera.global_position.distance_to(left_hand)
+	var right_hand_distance = camera.global_position.distance_to(right_hand)
 	
 	var is_ducked = head_y < head_threshold_y
-	var is_holding = hand_distance < hand_distance_threshold
+	var is_holding = (left_hand_distance < hand_distance_threshold) and (right_hand_distance < hand_distance_threshold)
 	
 	print("head_y: ", head_y)
-	print("hand_distance: ", hand_distance)
+	print("left_hand_distance: ", left_hand_distance)
+	print("right_hand_distance: ", right_hand_distance)
 	#print("is_ducked: ", is_ducked)
 	#print("is_holding: ", is_holding)
 	#print("hand_distance_threshold: ", hand_distance_threshold)

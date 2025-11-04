@@ -38,6 +38,7 @@ const HAZARD_LIMIT := 2
 #@onready var dialogue_ui = $DialogueUI
 
 func _ready():
+	brief_pos = xr_origin_3d.position
 	brief_player()
 	#UI_node = $UI
 	#tooltip_node = UI_node.get_child(0)
@@ -47,7 +48,6 @@ func _ready():
 func brief_player():
 	print("brief player")
 	start_pos = $StartPos.position
-	brief_pos = xr_origin_3d.position
 	
 	#dialogue_ui.xr_camera_path = xr_origin_3d.get_path_to(xr_origin_3d.get_node("XRCamera3D"))
 	#dialogue_ui.start_dialogue()
@@ -79,7 +79,7 @@ func end_level(success: bool):
 		print(output)
 		#tooltip_node._change_text_timelimited(output, 24, false, output.length(), 5)
 		#exit_to_main_menu()
-		xr_origin_3d.position = start_pos
+		xr_origin_3d.position = brief_pos
 	else:
 		var output = "Level failed! Score: %s" % score
 		print(output)
@@ -148,7 +148,6 @@ func _on_objective_completed(obj: Node):
 	var name = obj.name
 	if name not in completed_objectives:
 		completed_objectives.append(name)
-		print("Objective completed:", name)
 
 		var points = obj.completed_points
 		score += points
