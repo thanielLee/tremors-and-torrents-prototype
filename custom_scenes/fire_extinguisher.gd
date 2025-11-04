@@ -65,7 +65,9 @@ func send_raycast():
 		var object_parent = object_hit.get_parent()
 		if object_parent is Hazard:
 			if object_parent.hazard_name == "Electrical Fire":
-				object_parent.queue_free()
+				var vfx_child = object_parent.get_child("VfxFire02Red")
+				
+				
 
 
 func end_action(pickable):
