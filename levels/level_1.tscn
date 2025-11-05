@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=57 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
@@ -7,9 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_udfhf"]
 [ext_resource type="Texture2D" uid="uid://b3gq1qnf34ml1" path="res://textures/sky/belfast_sunset_puresky_4k.hdr" id="4_4knja"]
 [ext_resource type="PackedScene" uid="uid://briidrsj8atop" path="res://custom_scenes/jammed_door.tscn" id="5_08mmt"]
+[ext_resource type="Script" uid="uid://cq36jmf2w6smn" path="res://levels/grass_manager.gd" id="5_e5brb"]
 [ext_resource type="PackedScene" uid="uid://crte44g8idacl" path="res://hazards/electrical_fire.tscn" id="5_o7v6b"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="6_1sveg"]
 [ext_resource type="PackedScene" uid="uid://c5jkbtv57haa3" path="res://hazards/broken_glass.tscn" id="6_43hcc"]
+[ext_resource type="Texture2D" uid="uid://dvo1q3ql25eox" path="res://textures/foliage/grass3.png" id="6_rf48r"]
 [ext_resource type="PackedScene" uid="uid://c83bvn3hvunbw" path="res://hazards/shaker.tscn" id="8_f3u63"]
 [ext_resource type="Script" uid="uid://dn0rhw5ql5k7m" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="8_jkxa6"]
 [ext_resource type="PackedScene" uid="uid://fd0fq5lehw5g" path="res://assets/house_no_floor.glb" id="8_ntdhj"]
@@ -46,6 +48,28 @@ ambient_light_sky_contribution = 0.0
 sdfgi_enabled = true
 glow_enabled = true
 volumetric_fog_density = 0.0024
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_e5brb"]
+noise_type = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_toluw"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("6_rf48r")
+texture_repeat = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_dp1ib"]
+material = SubResource("StandardMaterial3D_toluw")
+subdivide_width = 1
+subdivide_depth = 1
+
+[sub_resource type="MultiMesh" id="MultiMesh_5t0se"]
+transform_format = 1
+mesh = SubResource("QuadMesh_dp1ib")
 
 [sub_resource type="Resource" id="Resource_w75he"]
 script = ExtResource("8_jkxa6")
@@ -139,6 +163,14 @@ light_energy = 2.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" index="2"]
 environment = SubResource("Environment_4jcj5")
+
+[node name="GrassManager" type="Node3D" parent="Environment" index="3"]
+script = ExtResource("5_e5brb")
+density = 0.1
+noise_object = SubResource("FastNoiseLite_e5brb")
+
+[node name="GrassMeshInstance" type="MultiMeshInstance3D" parent="Environment/GrassManager" index="0"]
+multimesh = SubResource("MultiMesh_5t0se")
 
 [node name="WorldShaker" type="Node3D" parent="." index="2"]
 script = ExtResource("3_sstds")
