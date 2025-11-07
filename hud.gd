@@ -1,8 +1,6 @@
 extends CanvasLayer
 class_name HUD
 
-signal timer_finished
-
 @export var prompt_duration := 3.0
 @onready var timer_label = $Control/TimerLabel
 @onready var prompt_label = $Control/PromptLabel
@@ -31,24 +29,24 @@ func _ready():
 # -----------------------
 # LEVEL TIMER
 # -----------------------
-func set_timer(seconds: float):
-	time_remaining = seconds
-	timer_active = true
-	_update_timer_label()
-
-func update_timer(delta: float):
-	if not timer_active:
-		return
-	time_remaining = max(0.0, time_remaining - delta)
-	_update_timer_label()
-	if time_remaining <= 0.0:
-		timer_active = false
-		emit_signal("timer_finished")
-
-func _update_timer_label():
-	var minutes = int(time_remaining / 60)
-	var seconds = int(time_remaining) % 60
+func set_timer(time: float):
+	var minutes = int(time / 60)
+	var seconds = int(time) % 60
 	timer_label.text = "Time: %02d:%02d" % [minutes, seconds]
+
+#func update_timer(delta: float):
+	#if not timer_active:
+		#return
+	#time_remaining = max(0.0, time_remaining - delta)
+	#_update_timer_label()
+	#if time_remaining <= 0.0:
+		#timer_active = false
+		#emit_signal("timer_finished")
+#
+#func _update_timer_label():
+	#var minutes = int(time_remaining / 60)
+	#var seconds = int(time_remaining) % 60
+	#timer_label.text = "Time: %02d:%02d" % [minutes, seconds]
 
 # -----------------------
 # PROMPTS
@@ -64,55 +62,56 @@ func _on_prompt_timeout():
 # -----------------------
 # QTE SYSTEM
 # -----------------------
-func connect_qte(qte_node: Node):
-	if not qte_node:
-		return
-
-	# Disconnect previous if any
-	if active_qte:
-		_disconnect_qte_signals(active_qte)
-
-	active_qte = qte_node
-
-	# Connect signals
-	qte_node.qte_started.connect(_on_qte_started)
-	qte_node.qte_completed.connect(_on_qte_completed)
-	qte_node.qte_failed.connect(_on_qte_failed)
-
-func _disconnect_qte_signals(qte_node: Node):
-	if not qte_node:
-		return
-	if qte_node.qte_started.is_connected(_on_qte_started):
-		qte_node.qte_started.disconnect(_on_qte_started)
-	if qte_node.qte_completed.is_connected(_on_qte_completed):
-		qte_node.qte_completed.disconnect(_on_qte_completed)
-	if qte_node.qte_failed.is_connected(_on_qte_failed):
-		qte_node.qte_failed.disconnect(_on_qte_failed)
+#func connect_qte(qte_node: Node):
+	#if not qte_node:
+		#return
+#
+	## Disconnect previous if any
+	#if active_qte:
+		#_disconnect_qte_signals(active_qte)
+#
+	#active_qte = qte_node
+#
+	## Connect signals
+	#qte_node.qte_started.connect(_on_qte_started)
+	#qte_node.qte_completed.connect(_on_qte_completed)
+	#qte_node.qte_failed.connect(_on_qte_failed)
+#
+#func _disconnect_qte_signals(qte_node: Node):
+	#if not qte_node:
+		#return
+	#if qte_node.qte_started.is_connected(_on_qte_started):
+		#qte_node.qte_started.disconnect(_on_qte_started)
+	#if qte_node.qte_completed.is_connected(_on_qte_completed):
+		#qte_node.qte_completed.disconnect(_on_qte_completed)
+	#if qte_node.qte_failed.is_connected(_on_qte_failed):
+		#qte_node.qte_failed.disconnect(_on_qte_failed)
 
 # Called when QTE begins
-func _on_qte_started():
+func on_qte_started(obj: Node):
+	var name = obj.name
 	qte_container.visible = true
 	qte_progress.value = 0
 	qte_feedback_label.text = ""
-	qte_name_label.text = "Quick Time Event!"
+	qte_name_label.text = name
 	show_prompt("QTE Started!", 2.0)
 
 # Called every frame externally (optional)
-func update_qte_progress(progress: float, required: float):
-	qte_progress.value = clamp(progress / required * 100, 0, 100)
+#func update_qte_progress(progress: float, required: float):
+	#qte_progress.value = clamp(progress / required * 100, 0, 100)
+#
+#func set_qte_feedback(text: String, color: Color = Color.WHITE):
+	#qte_feedback_label.text = text
+	#qte_feedback_label.add_theme_color_override("font_color", color)
 
-func set_qte_feedback(text: String, color: Color = Color.WHITE):
-	qte_feedback_label.text = text
-	qte_feedback_label.add_theme_color_override("font_color", color)
-
-func _on_qte_completed():
+func on_qte_completed():
 	qte_feedback_label.text = "QTE Completed!"
 	qte_feedback_label.add_theme_color_override("font_color", Color.GREEN)
 	show_prompt("Success!", 2.0)
 	await get_tree().create_timer(2.0).timeout
 	qte_container.visible = false
 
-func _on_qte_failed():
+func on_qte_failed():
 	qte_feedback_label.text = "QTE Failed!"
 	qte_feedback_label.add_theme_color_override("font_color", Color.RED)
 	show_prompt("Failed!", 2.0)

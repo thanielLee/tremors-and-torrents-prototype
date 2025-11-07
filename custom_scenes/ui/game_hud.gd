@@ -37,22 +37,22 @@ func _process(delta):
 # ----------------------------------------------------------------------
 # 🧭 UI Initialization
 # ----------------------------------------------------------------------
-func _initialize_ui():
-	if not xr_camera:
-		push_error("XR Camera not assigned!")
-		return
-
-	# -- Dialogue UI
-	#dialogue_ui_instance = _create_viewport_ui(dialogue_ui_scene, "DialogueUI", Vector3(0, ui_height, -ui_distance))
-	dialogue_ui_instance = _instantiate_ui(dialogue_ui_scene, "DialogueUI", Vector3(0, ui_height, -ui_distance))
-	dialogue_ui_instance.scale = Vector3(ui_scale, ui_scale, ui_scale)
-	add_child(dialogue_ui_instance)
-
-	# -- HUD UI
-	#hud_instance = _create_viewport_ui(hud_scene, "HUD", Vector3(0.4, ui_height + 0.2, -ui_distance))
-	hud_instance = _instantiate_ui(hud_scene, "HUD", Vector3(0.4, ui_height + 0.2, -ui_distance))
-	hud_instance.scale = Vector3(ui_scale, ui_scale, ui_scale)
-	add_child(hud_instance)
+#func _initialize_ui():
+	#if not xr_camera:
+		#push_error("XR Camera not assigned!")
+		#return
+#
+	## -- Dialogue UI
+	##dialogue_ui_instance = _create_viewport_ui(dialogue_ui_scene, "DialogueUI", Vector3(0, ui_height, -ui_distance))
+	#dialogue_ui_instance = _instantiate_ui(dialogue_ui_scene, "DialogueUI", Vector3(0, ui_height, -ui_distance))
+	#dialogue_ui_instance.scale = Vector3(ui_scale, ui_scale, ui_scale)
+	#add_child(dialogue_ui_instance)
+#
+	## -- HUD UI
+	##hud_instance = _create_viewport_ui(hud_scene, "HUD", Vector3(0.4, ui_height + 0.2, -ui_distance))
+	#hud_instance = _instantiate_ui(hud_scene, "HUD", Vector3(0.4, ui_height + 0.2, -ui_distance))
+	#hud_instance.scale = Vector3(ui_scale, ui_scale, ui_scale)
+	#add_child(hud_instance)
 
 #func _create_viewport_ui(scene: PackedScene, name: String, local_offset: Vector3) -> Node3D:
 	#var viewport_in_3d = preload("res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn").instantiate()

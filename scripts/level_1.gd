@@ -34,6 +34,7 @@ var UI_node
 # Conditions
 const HAZARD_LIMIT := 2
 #const REQUIRED_OBJECTIVES := ["Victim"]
+@onready var hud_manager: Node3D = $HUDManager
 
 #@onready var dialogue_ui = $DialogueUI
 
@@ -112,12 +113,11 @@ func _on_hazard_triggered(hazard: Variant):
 	var hazard_name = hazard.name
 	
 	if hazard_name not in triggered_hazards:
-		#tooltip_node._appear_text("Hazard: %s triggered!" % hazard_name, true)
-		print("Hazard: %s triggered!" % hazard_name)
+		score += hazard.penalty_points
 		triggered_hazards.append(hazard_name)
 		
-		score += hazard.penalty_points
-		print(score)
+		var message = "Hazard: %s triggered! %d" % [hazard_name, score]
+		hud_manager.show_prompt(message, 3.0)
 		
 		if triggered_hazards.size() >= HAZARD_LIMIT:
 			end_level(false)
@@ -136,6 +136,9 @@ func enable_objectives():
 			obj.objective_completed.connect(_on_objective_completed.bind(obj))
 		if obj.has_signal("objective_failed"):
 			obj.objective_failed.connect(_on_objective_failed.bind(obj))
+		if obj.has_signal("qte_started"):
+			print(obj.name + " has qte started!")
+			obj.qte_started.connect(_on_qte_started.bind(obj))
 		#print(obj.name)
 		
 	# VERY TEMPORARY
@@ -151,18 +154,31 @@ func _on_objective_completed(obj: Node):
 	var name = obj.name
 	if name not in completed_objectives:
 		completed_objectives.append(name)
-
+		
 		var points = obj.completed_points
 		score += points
-		print("Score:", score)
+		
+		if obj.has_signal("qte_started"):
+			hud_manager.on_qte_completed()
+		else:
+			var message = "Objective: %s completed! +%d" % [name, score]
+			hud_manager.show_prompt(message, 3.0)
 
 		check_level_end()
 
 func _on_objective_failed(obj: Node):
-	print("Objective failed:", obj.name)
+	if obj.has_signal("qte_started"):
+		hud_manager.on_qte_failed()
+	else:
+		var message = "Objective: %s failed! %d" % [name, score]
+		hud_manager.show_prompt(message, 3.0)
+
 	if obj.failed_points != 0:
 		score += obj.failed_points
 	end_level(false)
+
+func _on_qte_started(obj: Node):
+	hud_manager.on_qte_started(obj)
 
 ### LEVEL END CHECK ###
 func check_level_end():
@@ -180,26 +196,6 @@ func check_level_end():
 	if all_required_done and triggered_hazards.size() < HAZARD_LIMIT:
 		end_level(true)
 
-### QTEs ###
-#
-#func enable_qtes():
-	#if not qtes: return
-	#for qte in qtes.get_children():
-		#if qte.has_signal("qte_completed"):
-			#qte.qte_completed.connect(_on_qte_completed.bind(qte))
-		#if qte.has_signal("qte_failed"):
-			#qte.qte_failed.connect(_on_qte_failed.bind(qte))
-#
-#func _on_qte_completed(qte: Variant):
-	#var qte_name = qte.name
-	#print("QTE: %s completed!" % qte_name)
-	#
-	#score += qte.completed_points
-	#print(score)
-#
-#func _on_qte_failed(qte: Variant):
-	#var qte_name = qte.name
-	#print("QTE: %s failed!" % qte_name)
 
 
 ### PROCESS LOOP ###
@@ -223,7 +219,7 @@ func _process(delta: float) -> void:
 	
 	if level_ended:
 		time_elapsed += delta
-		if time_elapsed > 5.0:
+		if time_elapsed > 10.0:
 			exit_to_main_menu()
 		
 	

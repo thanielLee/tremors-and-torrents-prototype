@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=54 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
@@ -28,9 +28,10 @@
 [ext_resource type="AudioStream" uid="uid://bu0n47pxg0f0k" path="res://assets/freesound/344548__dster777__button.wav" id="23_4knja"]
 [ext_resource type="PackedScene" uid="uid://cexlre72hlkim" path="res://custom_scenes/duck_cover_hold_qte.tscn" id="26_0fu15"]
 [ext_resource type="PackedScene" uid="uid://beyogvof4pdmg" path="res://custom_scenes/level_1_briefer.tscn" id="26_4knja"]
-[ext_resource type="Script" uid="uid://bb3yehto5jbg7" path="res://custom_scenes/ui/game_hud.gd" id="29_06ecp"]
-[ext_resource type="PackedScene" uid="uid://dndk04wrgxl3c" path="res://custom_scenes/ui/dialogue_ui.tscn" id="30_ohjdc"]
-[ext_resource type="PackedScene" uid="uid://bpunjpmf5cvyy" path="res://custom_scenes/ui/hud.tscn" id="31_e5brb"]
+[ext_resource type="Script" uid="uid://mwkmv5yaqd6g" path="res://custom_scenes/ui/hud_manager.gd" id="29_ohjdc"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="30_e5brb"]
+[ext_resource type="PackedScene" uid="uid://cg3e6vl8r45gh" path="res://custom_scenes/ui/hud_2d.tscn" id="31_rf48r"]
+[ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="32_toluw"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4knja"]
 panorama = ExtResource("4_4knja")
@@ -466,12 +467,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54303, -1.43442)
 
 [node name="Timer" type="Timer" parent="." index="13"]
 
-[node name="GameHUD" type="Node3D" parent="." index="14" node_paths=PackedStringArray("xr_origin", "xr_camera")]
-script = ExtResource("29_06ecp")
-xr_origin = NodePath("../XROrigin3D")
+[node name="HUDManager" type="Node3D" parent="." index="14" node_paths=PackedStringArray("xr_camera")]
+script = ExtResource("29_ohjdc")
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
-dialogue_ui_scene = ExtResource("30_ohjdc")
-hud_scene = ExtResource("31_e5brb")
+
+[node name="HUD" parent="HUDManager" index="0" instance=ExtResource("30_e5brb")]
+transform = Transform3D(0.002, 0, 0, 0, 0.002, 0, 0, 0, 0.002, 0, 0, 0)
+screen_size = Vector2(1600, 900)
+collision_layer = 0
+scene = ExtResource("31_rf48r")
+viewport_size = Vector2(1600, 900)
+material = ExtResource("32_toluw")
+scene_properties_keys = PackedStringArray("hud.gd", "prompt_duration")
+prompt_duration = 3.0
 
 [connection signal="shake_world" from="Objectives/DuckCoverHoldQTE" to="WorldShaker" method="_on_duck_cover_hold_qte_shake_world"]
 [connection signal="visibility_changed" from="InventorySystem" to="InventorySystem/MedkitSoundManager" method="_on_inventory_system_visibility_changed"]
