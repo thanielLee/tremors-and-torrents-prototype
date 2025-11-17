@@ -1,18 +1,12 @@
-[
-	{
-		"name": "Rescuer",
-		"line": "Are you hurt? Stay calm, we’ll get you to safety.",
-		"prompt": true
-	},
-	{
-		"name": "Victim",
-		"line": "My leg’s stuck... please help me move the debris.",
-		"prompt": true
-	},
-	{
-		"name": "Rescuer",
-		"line": "Hang on. I’ll lift this beam.",
-		"prompt": false,
-		"wait": 3.0
+{
+	"VictimRescue": {
+		"pre_rescue": [
+			"Help! I'm trapped under this rubble!",
+			"My leg’s stuck... please help me move the debris."
+		],
+		"post_rescue": [
+			"Thank you for rescuing me!",
+			"I couldn't have made it without your help."
+		]
 	}
-]
+}

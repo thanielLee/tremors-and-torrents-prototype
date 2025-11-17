@@ -1,0 +1,18 @@
+[
+	{
+		"VictimRescue": {
+			"before_rescue": "hello"
+		}
+	},
+	{
+		"name": "Victim",
+		"line": "My leg’s stuck... please help me move the debris.",
+		"prompt": true
+	},
+	{
+		"name": "Rescuer",
+		"line": "Hang on. I’ll lift this beam.",
+		"prompt": false,
+		"wait": 3.0
+	}
+]

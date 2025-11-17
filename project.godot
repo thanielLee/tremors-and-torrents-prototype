@@ -44,6 +44,7 @@ import/blender/enabled=false
 [global_group]
 
 can_break="Objects that interact with objects that have the Breakable script"
+dialogue_system=""
 
 [layer_names]
 

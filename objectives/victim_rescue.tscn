@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsaovvehgewyy"]
+[gd_scene load_steps=7 format=3 uid="uid://dsaovvehgewyy"]
 
 [ext_resource type="Script" uid="uid://ccjy1q4ckumut" path="res://objectives/victim_rescue.gd" id="1_0qijs"]
+[ext_resource type="Script" uid="uid://bs8upadcj5xge" path="res://addons/godot-xr-tools/objects/interactable_area.gd" id="2_q5yrj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q5yrj"]
 albedo_color = Color(1, 0, 0, 1)
@@ -33,5 +34,16 @@ collision_mask = 524320
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Area3D"]
 shape = SubResource("SphereShape3D_5xjs5")
 
+[node name="XRToolsInteractableArea" type="Area3D" parent="."]
+collision_layer = 1346371584
+collision_mask = 0
+script = ExtResource("2_q5yrj")
+metadata/_custom_type_script = "uid://bs8upadcj5xge"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XRToolsInteractableArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_12ehe")
+
 [connection signal="area_entered" from="RigidBody3D/Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="body_entered" from="RigidBody3D/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="pointer_event" from="XRToolsInteractableArea" to="." method="_on_xr_tools_interactable_area_pointer_event"]

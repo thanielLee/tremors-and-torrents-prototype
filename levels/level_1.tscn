@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=57 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
@@ -32,6 +32,11 @@
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="30_e5brb"]
 [ext_resource type="PackedScene" uid="uid://cg3e6vl8r45gh" path="res://custom_scenes/ui/hud_2d.tscn" id="31_rf48r"]
 [ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="32_toluw"]
+[ext_resource type="Script" uid="uid://b4seunyy8fkyl" path="res://custom_scenes/ui/dialogue_manager.gd" id="33_rf48r"]
+[ext_resource type="PackedScene" uid="uid://bwvp4b0em2nh4" path="res://custom_scenes/ui/dialogue_ui.tscn" id="34_toluw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rf48r"]
+albedo_color = Color(1, 0, 1, 1)
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4knja"]
 panorama = ExtResource("4_4knja")
@@ -129,8 +134,9 @@ script = ExtResource("2_1gikq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.21, 0.588074, 0.010605)
 
 [node name="FunctionPointer" parent="XROrigin3D/LeftHand" index="3" instance=ExtResource("3_udfhf")]
-show_laser = 2
+laser_material = SubResource("StandardMaterial3D_rf48r")
 collision_mask = 1342177280
+collide_with_areas = true
 
 [node name="PlayerBody" parent="XROrigin3D" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.21, 0.588074, 0.010605)
@@ -212,7 +218,7 @@ mesh = SubResource("BoxMesh_0x1rk")
 [node name="Objectives" type="Node3D" parent="." index="5"]
 
 [node name="VictimRescue" parent="Objectives" index="0" instance=ExtResource("15_06ecp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.945943, 0, 1.82855)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.75773, -2.38419e-07, 4.24498)
 follow_strength = 10.0
 is_required = true
 
@@ -472,14 +478,25 @@ script = ExtResource("29_ohjdc")
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
 
 [node name="HUD" parent="HUDManager" index="0" instance=ExtResource("30_e5brb")]
-transform = Transform3D(0.002, 0, 0, 0, 0.002, 0, 0, 0, 0.002, 0, 0, 0)
-screen_size = Vector2(1600, 900)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+screen_size = Vector2(16, 9)
 collision_layer = 0
 scene = ExtResource("31_rf48r")
 viewport_size = Vector2(1600, 900)
 material = ExtResource("32_toluw")
 scene_properties_keys = PackedStringArray("hud.gd", "prompt_duration")
 prompt_duration = 3.0
+
+[node name="DialogueManager" type="Node3D" parent="." index="15" node_paths=PackedStringArray("xr_camera", "dialogue_button_hand", "dialogue_toggler_hand") groups=["dialogue_system"]]
+script = ExtResource("33_rf48r")
+xr_camera = NodePath("../XROrigin3D/XRCamera3D")
+dialogue_button_hand = NodePath("../XROrigin3D/RightHand")
+dialogue_button = "ax_button"
+dialogue_toggler_hand = NodePath("../XROrigin3D/RightHand")
+dialogue_toggler_button = "ax_button"
+
+[node name="DialogueUI" parent="DialogueManager" index="0" instance=ExtResource("34_toluw")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 
 [connection signal="shake_world" from="Objectives/DuckCoverHoldQTE" to="WorldShaker" method="_on_duck_cover_hold_qte_shake_world"]
 [connection signal="visibility_changed" from="InventorySystem" to="InventorySystem/MedkitSoundManager" method="_on_inventory_system_visibility_changed"]

@@ -10,6 +10,8 @@ signal victim_triggered_hazard
 @onready var mesh_instance_3d: MeshInstance3D = $RigidBody3D/MeshInstance3D
 @onready var area_3d: Area3D = $Area3D
 
+var dialogue_sys
+
 var following: bool = false
 var target_node
 
@@ -18,6 +20,7 @@ func _ready():
 	active = true
 	victim_safe.connect(_on_victim_safe)
 	victim_triggered_hazard.connect(_on_victim_hazard)
+	
 
 func _on_victim_safe():
 	complete_objective()
@@ -66,3 +69,12 @@ func set_capsule_color(color: Color):
 		mesh_instance_3d.set_surface_override_material(0, material)
 	
 	material.albedo_color = color
+
+
+func _on_xr_tools_interactable_area_pointer_event(event: Variant) -> void:
+	if !dialogue_sys:
+		dialogue_sys = get_tree().get_first_node_in_group("dialogue_system")
+	
+	if (event.event_type == XRToolsPointerEvent.Type.PRESSED):
+		print("pressed on target!!!!")
+		dialogue_sys.start_dialogue(name, "pre_rescue")

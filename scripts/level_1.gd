@@ -8,6 +8,7 @@ extends XRToolsSceneBase
 ## This could serve as a guide/reference for future level creation  
 ##
 ## Handles initialization, hazards, objectives, and level flow.
+
 @onready var xr_origin_3d = $XROrigin3D
 var level_ended: bool = false
 
@@ -44,8 +45,7 @@ func is_xr_class(name : String) -> bool:
 func _ready():
 	brief_pos = xr_origin_3d.position
 	brief_player()
-	#UI_node = $UI
-	#tooltip_node = UI_node.get_child(0)
+
 
 ### LEVEL LIFECYCLE ###
 
@@ -53,9 +53,6 @@ func brief_player():
 	print("brief player")
 	start_pos = $StartPos.position
 	
-	#dialogue_ui.xr_camera_path = xr_origin_3d.get_path_to(xr_origin_3d.get_node("XRCamera3D"))
-	#dialogue_ui.start_dialogue()
-
 func start_level():
 	xr_origin_3d.position = start_pos
 	print("Level started")
