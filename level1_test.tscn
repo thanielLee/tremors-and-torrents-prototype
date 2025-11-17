@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhfkoun31ltm"]
+
+[ext_resource type="PackedScene" uid="uid://6msuikedsth4" path="res://maps/level_1.blend" id="1_0nhsn"]
+
+[node name="level1_test" type="Node3D"]
+
+[node name="level_1" parent="." instance=ExtResource("1_0nhsn")]
