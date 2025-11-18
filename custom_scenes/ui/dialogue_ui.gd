@@ -22,7 +22,6 @@ func _ready():
 
 func _load_json():
 	var file = FileAccess.open(json_path, FileAccess.READ)
-	#dialogue_data =  JSON.parse_string(file.get_as_text())
 	
 	if file == null:
 		push_error("Could not open dialogue registry: " + json_path)
@@ -82,7 +81,7 @@ func _on_proceed_timer_timeout() -> void:
 	if active:
 		_advance()
 
-func fore_advance():
+func force_advance():
 	if active:
 		proceed_timer.stop()
 		_advance()

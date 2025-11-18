@@ -490,10 +490,10 @@ prompt_duration = 3.0
 [node name="DialogueManager" type="Node3D" parent="." index="15" node_paths=PackedStringArray("xr_camera", "dialogue_button_hand", "dialogue_toggler_hand") groups=["dialogue_system"]]
 script = ExtResource("33_rf48r")
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
+ui_distance = 2.0
 dialogue_button_hand = NodePath("../XROrigin3D/RightHand")
 dialogue_button = "ax_button"
 dialogue_toggler_hand = NodePath("../XROrigin3D/RightHand")
-dialogue_toggler_button = "ax_button"
 
 [node name="DialogueUI" parent="DialogueManager" index="0" instance=ExtResource("34_toluw")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)

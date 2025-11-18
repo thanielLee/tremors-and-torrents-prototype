@@ -5,12 +5,15 @@ signal victim_triggered_hazard
 
 @export var follow_strength: float = 5.0
 @export var max_force: float = 50.0
+@export var dialogue_states: Array[String] = []
 
 @onready var rigid_body_3d: RigidBody3D = $RigidBody3D
 @onready var mesh_instance_3d: MeshInstance3D = $RigidBody3D/MeshInstance3D
 @onready var area_3d: Area3D = $Area3D
 
 var dialogue_sys
+var cur_state: String
+var state_index = 0
 
 var following: bool = false
 var target_node
@@ -21,6 +24,15 @@ func _ready():
 	victim_safe.connect(_on_victim_safe)
 	victim_triggered_hazard.connect(_on_victim_hazard)
 	
+	# dialogue
+	if dialogue_states.size() > 0:
+		cur_state = dialogue_states[state_index]
+
+func next_state_dialogue():
+	state_index += 1
+	
+	if dialogue_states.size() > state_index:
+		cur_state = dialogue_states[state_index]
 
 func _on_victim_safe():
 	complete_objective()
@@ -76,5 +88,4 @@ func _on_xr_tools_interactable_area_pointer_event(event: Variant) -> void:
 		dialogue_sys = get_tree().get_first_node_in_group("dialogue_system")
 	
 	if (event.event_type == XRToolsPointerEvent.Type.PRESSED):
-		print("pressed on target!!!!")
-		dialogue_sys.start_dialogue(name, "pre_rescue")
+		dialogue_sys.start_dialogue(name, cur_state)

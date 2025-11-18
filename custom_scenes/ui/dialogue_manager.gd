@@ -10,9 +10,6 @@ extends Node3D
 
 var dialogue_button_pressed : bool
 
-#signal button_pressed
-
-
 @onready var dialogue_ui: XRToolsViewport2DIn3D = $DialogueUI
 #@onready var hud: XRToolsViewport2DIn3D = $HUD
 var dialogue_script : DialogueUI
@@ -40,10 +37,9 @@ func _update_ui_position():
 	dialogue_ui.rotation = xr_camera.rotation
 
 func _dialogue_progress_pressed():
-	dialogue_script.fore_advance()
+	dialogue_script.force_advance()
 
 func start_dialogue(name: String, state: String):
-	print(name + " " + state)
 	dialogue_script.start_dialogue(name, state)
 
 #func show_prompt(message: String, duration: float = 2.0):
