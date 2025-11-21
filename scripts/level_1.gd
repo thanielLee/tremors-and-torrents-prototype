@@ -208,7 +208,7 @@ func _process(delta: float) -> void:
 	# brief player
 	else:
 		time_elapsed += delta
-		if time_elapsed > 5:
+		if time_elapsed > 20:
 			start_level()
 	
 	if level_ended:

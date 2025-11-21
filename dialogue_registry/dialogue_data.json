@@ -8,5 +8,23 @@
 			"Thank you for rescuing me!",
 			"I couldn't have made it without your help."
 		]
+	},
+		"TeamCaptain": {
+		"briefing": [
+			"We have a situation at the construction site.",
+			"[b]Multiple people[/b] are trapped under debris after the collapse.",
+			"We need to act quickly to rescue them.",
+			"Remember to stay safe and follow protocol.",
+			"[b]Avoid hazards[/b] like unstable structures and sharp objects.",
+			"[b]Guide rescuees[/b] to safety once they're free. Help them [b]avoid further injury[/b].",
+			"Let's move out and save as many as we can.",
+			"Good luck, team."
+		],		
+		"debriefing": [
+			"Great job out there, team.",
+			"We managed to rescue all the trapped individuals.",
+			"Your quick thinking and teamwork made all the difference.",
+			"Let's head back to base and prepare for the next mission."
+		]
 	}
 }

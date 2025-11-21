@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=58 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
@@ -30,6 +30,7 @@
 [ext_resource type="PackedScene" uid="uid://cexlre72hlkim" path="res://custom_scenes/duck_cover_hold_qte.tscn" id="26_0fu15"]
 [ext_resource type="PackedScene" uid="uid://beyogvof4pdmg" path="res://custom_scenes/level_1_briefer.tscn" id="26_4knja"]
 [ext_resource type="Script" uid="uid://mwkmv5yaqd6g" path="res://custom_scenes/ui/hud_manager.gd" id="29_ohjdc"]
+[ext_resource type="PackedScene" uid="uid://41fv2ptcljjp" path="res://custom_scenes/team_captain.tscn" id="30_dp1ib"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="30_e5brb"]
 [ext_resource type="PackedScene" uid="uid://cg3e6vl8r45gh" path="res://custom_scenes/ui/hud_2d.tscn" id="31_rf48r"]
 [ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="32_toluw"]
@@ -470,6 +471,10 @@ material = SubResource("StandardMaterial3D_0fu15")
 
 [node name="Level1Briefer" parent="Box" index="6" instance=ExtResource("26_4knja")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54303, -1.43442)
+visible = false
+
+[node name="TeamCaptain" parent="Box" index="7" instance=ExtResource("30_dp1ib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
 
 [node name="Timer" type="Timer" parent="." index="13"]
 

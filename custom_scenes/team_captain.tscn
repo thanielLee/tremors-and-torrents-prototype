@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://41fv2ptcljjp"]
+
+[ext_resource type="PackedScene" uid="uid://xfhu0tputojr" path="res://custom_scenes/interactable_npc.tscn" id="1_1visr"]
+
+[node name="TeamCaptain" instance=ExtResource("1_1visr")]
+dialogue_states = Array[String](["briefing", "debriefing"])

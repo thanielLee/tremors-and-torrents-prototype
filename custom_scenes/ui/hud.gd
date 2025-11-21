@@ -59,33 +59,6 @@ func show_prompt(text: String, duration: float = prompt_duration):
 func _on_prompt_timeout():
 	prompt_label.visible = false
 
-# -----------------------
-# QTE SYSTEM
-# -----------------------
-#func connect_qte(qte_node: Node):
-	#if not qte_node:
-		#return
-#
-	## Disconnect previous if any
-	#if active_qte:
-		#_disconnect_qte_signals(active_qte)
-#
-	#active_qte = qte_node
-#
-	## Connect signals
-	#qte_node.qte_started.connect(_on_qte_started)
-	#qte_node.qte_completed.connect(_on_qte_completed)
-	#qte_node.qte_failed.connect(_on_qte_failed)
-#
-#func _disconnect_qte_signals(qte_node: Node):
-	#if not qte_node:
-		#return
-	#if qte_node.qte_started.is_connected(_on_qte_started):
-		#qte_node.qte_started.disconnect(_on_qte_started)
-	#if qte_node.qte_completed.is_connected(_on_qte_completed):
-		#qte_node.qte_completed.disconnect(_on_qte_completed)
-	#if qte_node.qte_failed.is_connected(_on_qte_failed):
-		#qte_node.qte_failed.disconnect(_on_qte_failed)
 
 # Called when QTE begins
 func on_qte_started(obj: Node):
@@ -95,14 +68,6 @@ func on_qte_started(obj: Node):
 	qte_feedback_label.text = ""
 	qte_name_label.text = name
 	show_prompt("QTE Started!", 2.0)
-
-# Called every frame externally (optional)
-#func update_qte_progress(progress: float, required: float):
-	#qte_progress.value = clamp(progress / required * 100, 0, 100)
-#
-#func set_qte_feedback(text: String, color: Color = Color.WHITE):
-	#qte_feedback_label.text = text
-	#qte_feedback_label.add_theme_color_override("font_color", color)
 
 func on_qte_completed():
 	qte_feedback_label.text = "QTE Completed!"

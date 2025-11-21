@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://xfhu0tputojr"]
+
+[ext_resource type="Script" uid="uid://dm2wv83o2f33h" path="res://custom_scenes/interactable_npc.gd" id="1_k3k6r"]
+[ext_resource type="Script" uid="uid://bs8upadcj5xge" path="res://addons/godot-xr-tools/objects/interactable_area.gd" id="2_b7fnp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ysc5h"]
+albedo_color = Color(0.977032, 0.380558, 3.85046e-07, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_o0s6i"]
+material = SubResource("StandardMaterial3D_ysc5h")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jh5ft"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8fd54"]
+
+[node name="InteractableNPC" type="Node3D"]
+script = ExtResource("1_k3k6r")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("CapsuleMesh_o0s6i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("CapsuleShape3D_jh5ft")
+
+[node name="XRToolsInteractableArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 1048576
+collision_mask = 0
+script = ExtResource("2_b7fnp")
+metadata/_custom_type_script = "uid://bs8upadcj5xge"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XRToolsInteractableArea"]
+shape = SubResource("CapsuleShape3D_8fd54")
+
+[connection signal="pointer_event" from="XRToolsInteractableArea" to="." method="_on_xr_tools_interactable_area_pointer_event"]
