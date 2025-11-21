@@ -9,7 +9,8 @@ signal victim_triggered_hazard
 
 @onready var rigid_body_3d: RigidBody3D = $RigidBody3D
 @onready var mesh_instance_3d: MeshInstance3D = $RigidBody3D/MeshInstance3D
-@onready var area_3d: Area3D = $Area3D
+#@onready var area_3d: Area3D = $Area3D
+@onready var area_3d: Area3D = $RigidBody3D/Area3D
 
 var dialogue_sys
 var cur_state: String
@@ -87,5 +88,6 @@ func _on_xr_tools_interactable_area_pointer_event(event: Variant) -> void:
 	if !dialogue_sys:
 		dialogue_sys = get_tree().get_first_node_in_group("dialogue_system")
 	
-	if (event.event_type == XRToolsPointerEvent.Type.PRESSED):
-		dialogue_sys.start_dialogue(name, cur_state)
+	if !dialogue_sys.dialogue_active():
+		if (event.event_type == XRToolsPointerEvent.Type.PRESSED):
+			dialogue_sys.start_dialogue(name, cur_state)

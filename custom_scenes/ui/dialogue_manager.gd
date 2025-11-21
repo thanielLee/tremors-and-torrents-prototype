@@ -4,7 +4,7 @@ extends Node3D
 @export var ui_distance: float = 2.5
 @export var ui_height: float = -0.5
 @export var dialogue_button_hand : XRController3D
-@export var dialogue_button : String
+@export_enum("ax_button", "by_button") var dialogue_button : String = "ax_button"
 @export var dialogue_toggler_hand : XRController3D
 @export var dialogue_toggler_button : String
 
@@ -36,20 +36,13 @@ func _update_ui_position():
 	dialogue_ui.global_position = target_pos
 	dialogue_ui.rotation = xr_camera.rotation
 
-func _dialogue_progress_pressed():
-	dialogue_script.force_advance()
-
+func _dialogue_progress_pressed(event: String):
+	if dialogue_active():
+		if event == dialogue_button:
+			dialogue_script.force_advance()
+		
 func start_dialogue(name: String, state: String):
 	dialogue_script.start_dialogue(name, state)
 
-#func show_prompt(message: String, duration: float = 2.0):
-	#dialogue_script.show_prompt(message, duration)
-#
-#func on_qte_started(obj: Node):
-	#hud_script.on_qte_started(obj)
-#
-#func on_qte_completed():
-	#hud_script.on_qte_completed()
-#
-#func on_qte_failed():
-	#hud_script.on_qte_failed()
+func dialogue_active() -> bool:
+	return dialogue_script.active

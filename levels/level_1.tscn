@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dmqkt2sk2x8wx" path="res://scripts/world_shaker.gd" id="3_sstds"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_udfhf"]
 [ext_resource type="Texture2D" uid="uid://b3gq1qnf34ml1" path="res://textures/sky/belfast_sunset_puresky_4k.hdr" id="4_4knja"]
+[ext_resource type="Material" uid="uid://be0o818winf1k" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/misc-resources/collider_raycast_material.tres" id="4_toluw"]
 [ext_resource type="PackedScene" uid="uid://briidrsj8atop" path="res://custom_scenes/jammed_door.tscn" id="5_08mmt"]
 [ext_resource type="PackedScene" uid="uid://crte44g8idacl" path="res://hazards/electrical_fire.tscn" id="5_o7v6b"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="6_1sveg"]
@@ -34,9 +35,6 @@
 [ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="32_toluw"]
 [ext_resource type="Script" uid="uid://b4seunyy8fkyl" path="res://custom_scenes/ui/dialogue_manager.gd" id="33_rf48r"]
 [ext_resource type="PackedScene" uid="uid://bwvp4b0em2nh4" path="res://custom_scenes/ui/dialogue_ui.tscn" id="34_toluw"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rf48r"]
-albedo_color = Color(1, 0, 1, 1)
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4knja"]
 panorama = ExtResource("4_4knja")
@@ -133,9 +131,11 @@ script = ExtResource("2_1gikq")
 [node name="XROrigin3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.21, 0.588074, 0.010605)
 
-[node name="FunctionPointer" parent="XROrigin3D/LeftHand" index="3" instance=ExtResource("3_udfhf")]
-laser_material = SubResource("StandardMaterial3D_rf48r")
-collision_mask = 1342177280
+[node name="FunctionPointer" parent="XROrigin3D/RightHand" index="4" instance=ExtResource("3_udfhf")]
+distance = 100.0
+show_laser = 2
+laser_length = 1
+laser_material = ExtResource("4_toluw")
 collide_with_areas = true
 
 [node name="PlayerBody" parent="XROrigin3D" index="3"]
@@ -250,7 +250,7 @@ slot_size = 0.16
 follow_player_camera = true
 xr_anchor_to_object = NodePath("../XROrigin3D")
 xr_camera_anchor = NodePath("../XROrigin3D/XRCamera3D")
-inventory_toggler_hand = NodePath("../XROrigin3D/RightHand")
+inventory_toggler_hand = NodePath("../XROrigin3D/LeftHand")
 inventory_toggler_button = "trigger_click"
 slots_distance_to_player = 1.5
 height_adjustment = -0.45
@@ -492,7 +492,6 @@ script = ExtResource("33_rf48r")
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
 ui_distance = 2.0
 dialogue_button_hand = NodePath("../XROrigin3D/RightHand")
-dialogue_button = "ax_button"
 dialogue_toggler_hand = NodePath("../XROrigin3D/RightHand")
 
 [node name="DialogueUI" parent="DialogueManager" index="0" instance=ExtResource("34_toluw")]

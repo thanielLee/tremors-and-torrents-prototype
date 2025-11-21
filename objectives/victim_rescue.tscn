@@ -36,7 +36,7 @@ collision_mask = 524320
 shape = SubResource("SphereShape3D_5xjs5")
 
 [node name="XRToolsInteractableArea" type="Area3D" parent="."]
-collision_layer = 1346371584
+collision_layer = 1048576
 collision_mask = 0
 script = ExtResource("2_q5yrj")
 metadata/_custom_type_script = "uid://bs8upadcj5xge"

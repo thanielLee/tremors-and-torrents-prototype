@@ -15,7 +15,6 @@ var level_ended: bool = false
 var hazards : Node
 var objectives : Node
 var world_shaker : Node
-var qtes : Node
 var earthquake_triggered: bool = false
 var start_pos: Vector3
 var brief_pos: Vector3
@@ -37,7 +36,6 @@ const HAZARD_LIMIT := 2
 #const REQUIRED_OBJECTIVES := ["Victim"]
 @onready var hud_manager: Node3D = $HUDManager
 
-#@onready var dialogue_ui = $DialogueUI
 
 func is_xr_class(name : String) -> bool:
 	return name == "Level1"
@@ -50,7 +48,7 @@ func _ready():
 ### LEVEL LIFECYCLE ###
 
 func brief_player():
-	print("brief player")
+	#print("brief player")
 	start_pos = $StartPos.position
 	
 func start_level():
@@ -63,7 +61,6 @@ func start_level():
 	hazards = get_node("Hazards")
 	objectives = get_node("Objectives")
 	world_shaker = get_node("WorldShaker")
-	qtes = get_node("QTEs")
 
 	enable_hazards()
 	enable_objectives()
