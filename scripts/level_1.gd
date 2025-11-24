@@ -29,7 +29,6 @@ var score : int = 0 # Temporary basic scoring system
 var triggered_hazards: Array[String] = []
 var completed_objectives: Array[String] = []
 var UI_node
-#var tooltip_node : DialogueElement
 
 # Conditions
 const HAZARD_LIMIT := 2
@@ -41,15 +40,18 @@ func is_xr_class(name : String) -> bool:
 	return name == "Level1"
 
 func _ready():
-	brief_pos = xr_origin_3d.position
 	brief_player()
+	
+	# save brief player
+	print(xr_origin_3d.position)
+	brief_pos = xr_origin_3d.position
+	print("brief_pos: " + str(brief_pos))
 
 
 ### LEVEL LIFECYCLE ###
 
 func brief_player():
-	#print("brief player")
-	start_pos = $StartPos.position
+	pass
 	
 func start_level():
 	xr_origin_3d.position = start_pos
@@ -64,28 +66,19 @@ func start_level():
 
 	enable_hazards()
 	enable_objectives()
+	
+	hud_manager.reset_timer()
 
 func end_level(success: bool):
 	level_active = false
 	level_ended = true
 	level_timer = 0
-	disable_hazards()
-	
-	
-	if success:
-		var output = "Level complete! Score: %s" % score
-		print(output)
-		#tooltip_node._change_text_timelimited(output, 24, false, output.length(), 5)
-		#exit_to_main_menu()
-		xr_origin_3d.position = brief_pos
-	else:
-		var output = "Level failed! Score: %s" % score
-		print(output)
-		#tooltip_node._change_text_timelimited(output, 24, false, output.length(), 5)
-		#exit_to_main_menu()
-	
-	
-	# TODO: trigger results UI
+	time_elapsed = 0
+	#disable_hazards()
+
+	hud_manager.end_level_prompt(success, score)
+	hud_manager.hide_timer()
+	xr_origin_3d.position = brief_pos
 
 ### HAZARDS ###
 
@@ -112,10 +105,11 @@ func _on_hazard_triggered(hazard: Variant):
 		
 		var message = "Hazard: %s triggered! %d" % [hazard_name, score]
 		hud_manager.show_prompt(message, 3.0)
+		hud_manager.update_score(score)
 		
 		if triggered_hazards.size() >= HAZARD_LIMIT:
 			end_level(false)
-	
+		
 	# TODO: display logged hazards for results
 
 
@@ -133,15 +127,7 @@ func enable_objectives():
 		if obj.has_signal("qte_started"):
 			print(obj.name + " has qte started!")
 			obj.qte_started.connect(_on_qte_started.bind(obj))
-		#print(obj.name)
-		
-	# VERY TEMPORARY
-	#var victim: RigidBody3D = $Objectives/Victim
-	#victim.victim_safe.connect(_on_objective_completed.bind(victim.name))
-	#victim.victim_triggered_hazard.connect(_on_objective_failed.bind(victim.name))
-	#
-	#var injured: Node3D = $Objectives/Injured
-	#injured.injured_cleared.connect(_on_objective_completed.bind(injured.name))
+
 
 
 func _on_objective_completed(obj: Node):
@@ -152,12 +138,13 @@ func _on_objective_completed(obj: Node):
 		var points = obj.completed_points
 		score += points
 		
-		if obj.has_signal("qte_started"):
+		if obj.has_signal("qte_started"): # for qtes
 			hud_manager.on_qte_completed()
-		else:
+		else: # for objectives
 			var message = "Objective: %s completed! +%d" % [name, score]
 			hud_manager.show_prompt(message, 3.0)
-
+		
+		hud_manager.update_score(score)
 		check_level_end()
 
 func _on_objective_failed(obj: Node):
@@ -169,6 +156,7 @@ func _on_objective_failed(obj: Node):
 
 	if obj.failed_points != 0:
 		score += obj.failed_points
+	hud_manager.update_score(score)
 	end_level(false)
 
 func _on_qte_started(obj: Node):

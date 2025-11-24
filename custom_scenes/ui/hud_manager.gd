@@ -10,7 +10,6 @@ var elapsed_time: float = 0.0
 
 func _ready():
 	hud_script = hud.get_scene_instance()
-	print(hud_script)
 	set_process(true)
 
 func _process(delta):
@@ -38,3 +37,16 @@ func on_qte_completed():
 
 func on_qte_failed():
 	hud_script.on_qte_failed()
+
+func end_level_prompt(success: bool, score: int):
+	hud_script.end_level_prompt(success, score)
+
+func update_score(new_score: int):
+	hud_script.update_score(new_score)
+
+func reset_timer():
+	elapsed_time = 0.0
+	hud_script.reset_timer()
+
+func hide_timer():
+	hud_script.hide_timer()

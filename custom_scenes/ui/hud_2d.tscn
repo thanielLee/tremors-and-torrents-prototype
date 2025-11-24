@@ -31,6 +31,26 @@ offset_bottom = 538.0
 theme_override_font_sizes/font_size = 30
 text = "Prompt"
 
+[node name="LevelLabel" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 444.0
+offset_top = 248.0
+offset_right = 1110.0
+offset_bottom = 358.0
+theme_override_font_sizes/font_size = 80
+text = "Level Completed!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 227.0
+offset_top = 38.0
+offset_right = 378.0
+offset_bottom = 93.0
+theme_override_font_sizes/font_size = 40
+text = "Score: 0"
+
 [node name="QTEContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 0
 offset_left = 651.0
