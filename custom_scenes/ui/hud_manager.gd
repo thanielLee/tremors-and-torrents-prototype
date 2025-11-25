@@ -1,5 +1,6 @@
 extends Node3D
 
+@export var xr_origin_3d: XROrigin3D
 @export var xr_camera: Node3D
 @export var ui_distance: float = 2.5
 @export var ui_height: float = -0.5
@@ -13,18 +14,18 @@ func _ready():
 	set_process(true)
 
 func _process(delta):
-	if xr_camera:
+	if xr_origin_3d:
 		_update_ui_position()
 	
 	elapsed_time += delta
 	hud_script.set_timer(elapsed_time)
 
 func _update_ui_position():
-	var forward = -xr_camera.global_transform.basis.z
+	var forward = -xr_origin_3d.global_transform.basis.z
 	var target_pos = xr_camera.global_position + forward * ui_distance
 	target_pos.y += ui_height
 	hud.global_position = target_pos
-	hud.rotation = xr_camera.rotation
+	hud.rotation = xr_origin_3d.rotation
 
 func show_prompt(message: String, duration: float = 2.0):
 	hud_script.show_prompt(message, duration)

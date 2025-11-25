@@ -42,7 +42,7 @@ func add_progress(amount: float):
 		return
 	
 	current_progress = clamp(current_progress + amount, 0, required_progress)
-	print("current_progress: ", current_progress)
+	#print("current_progress: ", current_progress)
 	if current_progress >= required_progress:
 		complete_objective()
 

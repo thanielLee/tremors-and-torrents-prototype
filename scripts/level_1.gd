@@ -43,10 +43,7 @@ func _ready():
 	brief_player()
 	
 	# save brief player
-	print(xr_origin_3d.position)
 	brief_pos = xr_origin_3d.position
-	print("brief_pos: " + str(brief_pos))
-
 
 ### LEVEL LIFECYCLE ###
 
@@ -125,7 +122,7 @@ func enable_objectives():
 		if obj.has_signal("objective_failed"):
 			obj.objective_failed.connect(_on_objective_failed.bind(obj))
 		if obj.has_signal("qte_started"):
-			print(obj.name + " has qte started!")
+			#print(obj.name + " has qte started!")
 			obj.qte_started.connect(_on_qte_started.bind(obj))
 
 
@@ -141,7 +138,7 @@ func _on_objective_completed(obj: Node):
 		if obj.has_signal("qte_started"): # for qtes
 			hud_manager.on_qte_completed()
 		else: # for objectives
-			var message = "Objective: %s completed! +%d" % [name, score]
+			var message = "Objective: %s completed! +%d" % [name, obj.completed_points]
 			hud_manager.show_prompt(message, 3.0)
 		
 		hud_manager.update_score(score)
@@ -151,13 +148,15 @@ func _on_objective_failed(obj: Node):
 	if obj.has_signal("qte_started"):
 		hud_manager.on_qte_failed()
 	else:
-		var message = "Objective: %s failed! %d" % [name, score]
+		var message = "Objective: %s failed! %d" % [obj.name, obj.failed_points]
 		hud_manager.show_prompt(message, 3.0)
 
 	if obj.failed_points != 0:
 		score += obj.failed_points
 	hud_manager.update_score(score)
-	end_level(false)
+	
+	if obj.is_required:
+		end_level(false)
 
 func _on_qte_started(obj: Node):
 	hud_manager.on_qte_started(obj)
@@ -196,7 +195,7 @@ func _process(delta: float) -> void:
 	# brief player
 	else:
 		time_elapsed += delta
-		if time_elapsed > 20:
+		if time_elapsed > 2:
 			start_level()
 	
 	if level_ended:

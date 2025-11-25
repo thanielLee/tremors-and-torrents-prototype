@@ -147,7 +147,7 @@ collision_mask = 536870912
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitPoints/HitPoint3/OISStrikeReceiver/Area3D"]
 shape = SubResource("BoxShape3D_cyhyk")
 
-[node name="VfxHammerImpact" parent="HitPoints/HitPoint3/OISStrikeReceiver" instance=ExtResource("8_vee3w")]
+[node name="VfxHammerImpact" parent="HitPoints/HitPoint3" instance=ExtResource("8_vee3w")]
 
 [node name="BreakParticles" type="GPUParticles3D" parent="."]
 emitting = false
