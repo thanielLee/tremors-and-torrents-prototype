@@ -37,10 +37,6 @@ project/assembly_name="Tremors and Torrents Prototype"
 
 enabled=PackedStringArray("res://addons/ateneo-virtual-reality-escape/plugin.cfg", "res://addons/godot-xr-tools/plugin.cfg")
 
-[filesystem]
-
-import/blender/enabled=false
-
 [global_group]
 
 can_break="Objects that interact with objects that have the Breakable script"
