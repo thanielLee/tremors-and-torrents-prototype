@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://cuuosibwguv0i"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_i2sxy"]
+[ext_resource type="Script" uid="uid://d01bb18kho04a" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand.gd" id="2_wigye"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ng8v7"]
+size = Vector3(1.21, 0.22, 3.99)
+
+[sub_resource type="BoxMesh" id="BoxMesh_d5r6g"]
+size = Vector3(1.2, 0.15, 2.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8ps7g"]
+top_radius = 0.06
+bottom_radius = 0.06
+height = 0.75
+
+[node name="Stretcher" instance=ExtResource("1_i2sxy")]
+collision_layer = 0
+collision_mask = 0
+mass = 50.0
+ranged_grab_method = 0
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("BoxShape3D_ng8v7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00192997, 0)
+gi_mode = 0
+mesh = SubResource("BoxMesh_d5r6g")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.496081, 0, 1.61603)
+mesh = SubResource("CylinderMesh_8ps7g")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.490292, 0, 1.61878)
+mesh = SubResource("CylinderMesh_8ps7g")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.507439, 0, -1.61358)
+mesh = SubResource("CylinderMesh_8ps7g")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.497067, 0, -1.6167)
+mesh = SubResource("CylinderMesh_8ps7g")
+
+[node name="XRToolsGrabPointHand" type="Marker3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.490646, 0.0479884, 1.80561)
+script = ExtResource("2_wigye")
+mode = 1
+metadata/_custom_type_script = "uid://d01bb18kho04a"
+
+[node name="XRToolsGrabPointHand2" type="Marker3D" parent="." index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.476178, 0.0309563, 1.81394)
+script = ExtResource("2_wigye")
+hand = 1
+mode = 2
+metadata/_custom_type_script = "uid://d01bb18kho04a"
