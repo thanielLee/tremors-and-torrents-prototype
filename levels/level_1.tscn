@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=62 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
@@ -11,9 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://crte44g8idacl" path="res://hazards/electrical_fire.tscn" id="5_o7v6b"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="6_1sveg"]
 [ext_resource type="PackedScene" uid="uid://c5jkbtv57haa3" path="res://hazards/broken_glass.tscn" id="6_43hcc"]
+[ext_resource type="PackedScene" uid="uid://bkjehtndmkf6b" path="res://assets/debris/bricks_debris.fbx" id="7_tqj1w"]
 [ext_resource type="PackedScene" uid="uid://c83bvn3hvunbw" path="res://hazards/shaker.tscn" id="8_f3u63"]
 [ext_resource type="Script" uid="uid://dn0rhw5ql5k7m" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="8_jkxa6"]
-[ext_resource type="PackedScene" uid="uid://fd0fq5lehw5g" path="res://assets/house_no_floor.glb" id="8_ntdhj"]
 [ext_resource type="PackedScene" uid="uid://dgya7syy32d8d" path="res://custom_scenes/floor.tscn" id="9_0fu15"]
 [ext_resource type="PackedScene" uid="uid://df8ckf7krjyl3" path="res://custom_scenes/ois_hammer.tscn" id="11_aerfg"]
 [ext_resource type="PackedScene" uid="uid://bp4qsothxd80g" path="res://custom_scenes/injured.tscn" id="11_betor"]
@@ -38,7 +38,7 @@
 [ext_resource type="PackedScene" uid="uid://bwvp4b0em2nh4" path="res://custom_scenes/ui/dialogue_ui.tscn" id="34_toluw"]
 [ext_resource type="PackedScene" uid="uid://8u1o3tw0fktd" path="res://assets/maps/house_1.blend" id="37_gtrna"]
 [ext_resource type="PackedScene" uid="uid://bm7gwd0gh3g1y" path="res://assets/debris/brick_debris.glb" id="38_xapae"]
-[ext_resource type="PackedScene" uid="uid://cwi3arjgbm0wb" path="res://assets/debris/glass_shards.fbx" id="39_r0nt2"]
+[ext_resource type="PackedScene" uid="uid://lhj1u2fry8xs" path="res://assets/debris/rocks_2.fbx" id="39_gtrna"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4knja"]
 panorama = ExtResource("4_4knja")
@@ -55,6 +55,9 @@ sdfgi_enabled = true
 glow_enabled = true
 volumetric_fog_density = 0.0024
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_tqj1w"]
+size = Vector3(1, 15, 30)
+
 [sub_resource type="Resource" id="Resource_w75he"]
 script = ExtResource("8_jkxa6")
 magnitude = 1.0
@@ -64,7 +67,7 @@ duration_ms = 1500
 metadata/_custom_type_script = "uid://dn0rhw5ql5k7m"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lrvbd"]
-size = Vector3(15.8755, 1, 2)
+size = Vector3(30, 1, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_voubc"]
 transparency = 1
@@ -72,7 +75,7 @@ albedo_color = Color(0.164706, 0.992157, 0.992157, 0.188235)
 
 [sub_resource type="BoxMesh" id="BoxMesh_0x1rk"]
 material = SubResource("StandardMaterial3D_voubc")
-size = Vector3(15.8755, 1, 2)
+size = Vector3(30, 1, 2)
 
 [sub_resource type="SphereMesh" id="SphereMesh_udfhf"]
 radius = 0.16
@@ -154,9 +157,44 @@ light_energy = 0.4
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Environment" index="1"]
 transform = Transform3D(0.518685, -0.847034, 0.116183, 0.284139, 0.298949, 0.910986, -0.806369, -0.439502, 0.395736, 17.6631, 25.5031, 12.542)
+light_energy = 0.143
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" index="2"]
 environment = SubResource("Environment_4jcj5")
+
+[node name="brick_debris" parent="Environment" index="3" instance=ExtResource("38_xapae")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -20.516, 0, -13.428)
+
+[node name="bricks_debris" parent="Environment" index="4" instance=ExtResource("7_tqj1w")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, -37.5685, -0.01, -3.63514)
+
+[node name="WorldWall" type="StaticBody3D" parent="Environment" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7404, 0, -4.2569)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WorldWall" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 0)
+shape = SubResource("BoxShape3D_tqj1w")
+
+[node name="WorldWall2" type="StaticBody3D" parent="Environment" index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.74, 0, -4.257)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WorldWall2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 0)
+shape = SubResource("BoxShape3D_tqj1w")
+
+[node name="WorldWall3" type="StaticBody3D" parent="Environment" index="7"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -18.989)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WorldWall3" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 0)
+shape = SubResource("BoxShape3D_tqj1w")
+
+[node name="WorldWall4" type="StaticBody3D" parent="Environment" index="8"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 9.204)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WorldWall4" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 0)
+shape = SubResource("BoxShape3D_tqj1w")
 
 [node name="WorldShaker" type="Node3D" parent="." index="2"]
 script = ExtResource("3_sstds")
@@ -177,13 +215,13 @@ metadata/_custom_type_script = "uid://bcpy4a75rao8y"
 
 [node name="Floor" parent="WorldShaker" index="2" instance=ExtResource("9_0fu15")]
 
-[node name="house_no_floor" parent="WorldShaker" index="3" instance=ExtResource("8_ntdhj")]
+[node name="house_1" parent="WorldShaker" index="3" instance=ExtResource("37_gtrna")]
 transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0.0547667, 0.163577, -8.9983)
 
-[node name="JammedDoor" parent="WorldShaker/house_no_floor" index="10" instance=ExtResource("5_08mmt")]
+[node name="JammedDoor" parent="WorldShaker/house_1" index="18" instance=ExtResource("5_08mmt")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.29535, 1.00429, 0.411374)
 
-[node name="JammedDoor2" parent="WorldShaker/house_no_floor" index="11" instance=ExtResource("5_08mmt")]
+[node name="JammedDoor2" parent="WorldShaker/house_1" index="19" instance=ExtResource("5_08mmt")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.07924, 1, 0.413716)
 
 [node name="Hazards" type="Node3D" parent="." index="3"]
@@ -192,13 +230,13 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.0792
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2154, 0, -6.77083)
 
 [node name="BrokenGlass" parent="Hazards" index="1" instance=ExtResource("6_43hcc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.79712, 7.59959e-07, -4.30547)
+transform = Transform3D(0.999948, 0, 0.0101576, 0, 1, 0, -0.0101576, 0, 0.999948, -1.16205, 0.176735, -4.305)
 
 [node name="BrokenGlass2" parent="Hazards" index="2" instance=ExtResource("6_43hcc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6663, -1.93715e-07, -4.70948)
+transform = Transform3D(0.992206, 0, 0.124606, 0, 1, 0, -0.124606, 0, 0.992206, 4.6663, 0.191268, -1.85293)
 
 [node name="BrokenGlass3" parent="Hazards" index="3" instance=ExtResource("6_43hcc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.47997, -1.93715e-07, -12.2074)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.51361, 0.191855, -13.0583)
 
 [node name="Shaker" parent="Hazards" index="4" instance=ExtResource("8_f3u63")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72634, 2.66731e-06, -15.744)
@@ -207,7 +245,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72634, 2.66731e-06, -15.74
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.88733, -0.000170901, -2.85888)
 
 [node name="SafeArea" type="Area3D" parent="." index="4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.15094, 0, 7.07465)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.691479, 0, 5.60529)
 collision_layer = 32
 collision_mask = 0
 
@@ -505,14 +543,11 @@ dialogue_toggler_hand = NodePath("../XROrigin3D/RightHand")
 [node name="DialogueUI" parent="DialogueManager" index="0" instance=ExtResource("34_toluw")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 
-[node name="house_1" parent="." index="16" instance=ExtResource("37_gtrna")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5774, -0.00936452, -10.8839)
+[node name="rocks_2" parent="." index="16" instance=ExtResource("39_gtrna")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2437, 2.91557, 3.49417)
 
-[node name="brick_debris" parent="." index="17" instance=ExtResource("38_xapae")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.9484, -0.0100549, 2.00571)
-
-[node name="glass_shards" parent="." index="18" instance=ExtResource("39_r0nt2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6641, -0.0501393, -17.0068)
+[node name="rocks_3" parent="." index="17" instance=ExtResource("39_gtrna")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.8486, 0, 5.90383)
 
 [connection signal="shake_world" from="Objectives/DuckCoverHoldQTE" to="WorldShaker" method="_on_duck_cover_hold_qte_shake_world"]
 [connection signal="visibility_changed" from="InventorySystem" to="InventorySystem/MedkitSoundManager" method="_on_inventory_system_visibility_changed"]

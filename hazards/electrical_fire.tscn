@@ -39,3 +39,10 @@ visible = false
 mesh = SubResource("CylinderMesh_80vta")
 
 [node name="VfxFire02Red" parent="." index="1" instance=ExtResource("2_s8lli")]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.777048, 0)
+light_color = Color(1, 0.564706, 0, 1)
+light_energy = 0.5
+omni_range = 0.853
+omni_attenuation = 0.215
