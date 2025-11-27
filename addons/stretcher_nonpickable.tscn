@@ -1,0 +1,124 @@
+[gd_scene load_steps=14 format=3 uid="uid://v4lnugtph4cp"]
+
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="1_8ic3i"]
+[ext_resource type="Script" uid="uid://cvx3e1yr5tho7" path="res://addons/stretcher_nonpickable.gd" id="1_yq2fn"]
+[ext_resource type="Resource" uid="uid://dd4sqdg8upblx" path="res://scenes/pickable_demo/poses/pose_hammer_left.tres" id="2_va5yt"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="3_8v660"]
+[ext_resource type="Resource" uid="uid://c7lps5l5dj652" path="res://scenes/pickable_demo/poses/pose_hammer_right.tres" id="4_yq2fn"]
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="6_jdhm7"]
+[ext_resource type="PackedScene" uid="uid://ca3daqmpo0tua" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_redirect.tscn" id="7_yq2fn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w6mv8"]
+size = Vector3(0.0727735, 0.22, 1.14748)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jdhm7"]
+size = Vector3(1.2, 0.15, 2.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mdk2q"]
+top_radius = 0.06
+bottom_radius = 0.06
+height = 1.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_yq2fn"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mdk2q"]
+radius = 0.085
+height = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_yq2fn"]
+radius = 0.085
+height = 1.0
+
+[node name="stretcher_nonpickable" type="RigidBody3D"]
+script = ExtResource("1_yq2fn")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.610519, 2.38419e-07, 1.81956)
+shape = SubResource("BoxShape3D_w6mv8")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.588628, 2.38419e-07, -1.80981)
+shape = SubResource("BoxShape3D_w6mv8")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.633535, 2.38419e-07, 1.81207)
+shape = SubResource("BoxShape3D_w6mv8")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.594786, 2.38419e-07, -1.80705)
+shape = SubResource("BoxShape3D_w6mv8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0248706)
+shape = SubResource("BoxShape3D_w6mv8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00192997, 0)
+gi_mode = 0
+mesh = SubResource("BoxMesh_jdhm7")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.496081, 0, 1.61603)
+mesh = SubResource("CylinderMesh_mdk2q")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.490292, 0, 1.61878)
+mesh = SubResource("CylinderMesh_mdk2q")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.507439, 0, -1.61358)
+mesh = SubResource("CylinderMesh_mdk2q")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.497067, 0, -1.6167)
+mesh = SubResource("CylinderMesh_mdk2q")
+
+[node name="DebugCube1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.018, 0, 0)
+mesh = SubResource("BoxMesh_yq2fn")
+
+[node name="DebugCube2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.018, 0, 0)
+mesh = SubResource("BoxMesh_yq2fn")
+
+[node name="GrabPointBaseLeft" parent="." instance=ExtResource("1_8ic3i")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.539424, 0.0341265, 2.3188)
+hand_pose = ExtResource("2_va5yt")
+drive_angle = 0.0
+
+[node name="GrabPointBaseRight" parent="." instance=ExtResource("3_8v660")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.580526, 0.0328753, 2.35025)
+hand_pose = ExtResource("4_yq2fn")
+drive_angle = 0.0
+
+[node name="PickableObject2" parent="." instance=ExtResource("6_jdhm7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.483501, 0, 1.9188)
+freeze = true
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PickableObject2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_mdk2q")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PickableObject2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_yq2fn")
+skeleton = NodePath("../../PickableObject2")
+
+[node name="GrabPointRedirect" parent="PickableObject2" node_paths=PackedStringArray("target") instance=ExtResource("7_yq2fn")]
+target = NodePath("../../GrabPointBaseLeft")
+
+[node name="PickableObject" parent="." instance=ExtResource("6_jdhm7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.484, 0, 1.89668)
+freeze = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PickableObject"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_yq2fn")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PickableObject"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_mdk2q")
+
+[node name="GrabPointRedirect" parent="PickableObject" node_paths=PackedStringArray("target") instance=ExtResource("7_yq2fn")]
+target = NodePath("../../GrabPointBaseRight")
