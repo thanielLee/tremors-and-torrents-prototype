@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2r3bxg7rar2n"
-path.s3tc="res://.godot/imported/preacher curl cat.jpg-c0253d248c1cf61ab7a753cf5a94267b.s3tc.ctex"
+uid="uid://cpsxj44ur1jf"
+path.s3tc="res://.godot/imported/Tremors and Torrents - Game Logo-02.png-1f3acbd7b07a8ca90063e9cdd9478431.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://preacher curl cat.jpg"
-dest_files=["res://.godot/imported/preacher curl cat.jpg-c0253d248c1cf61ab7a753cf5a94267b.s3tc.ctex"]
+source_file="res://textures/Tremors and Torrents - Game Logo-02.png"
+dest_files=["res://.godot/imported/Tremors and Torrents - Game Logo-02.png-1f3acbd7b07a8ca90063e9cdd9478431.s3tc.ctex"]
 
 [params]
 

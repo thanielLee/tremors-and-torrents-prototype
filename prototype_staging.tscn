@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bnqnnnet4dw12" path="res://addons/godot-xr-tools/staging/staging.tscn" id="1_unb6l"]
 [ext_resource type="Script" uid="uid://db0s6i2mkd4f3" path="res://scripts/prototype_staging.gd" id="2_emhmn"]
-[ext_resource type="Texture2D" uid="uid://ftrrxm7sxndi" path="res://assets/godot/splash.png" id="3_rpsuq"]
+[ext_resource type="Texture2D" uid="uid://cpsxj44ur1jf" path="res://textures/Tremors and Torrents - Game Logo-02.png" id="3_rpsuq"]
 
 [node name="PrototypeStaging" instance=ExtResource("1_unb6l")]
 script = ExtResource("2_emhmn")
