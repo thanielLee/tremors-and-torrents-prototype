@@ -40,7 +40,7 @@ func _load_json():
 	
 	dialogue_data = json
 
-func start_dialogue(npc_name: String, npc_state: String):
+func start_dialogue(npc_name: String, npc_state: String, display_name: String):
 	if npc_name not in dialogue_data:
 		push_error("Dialogue: NPC not found in registry: " + npc_name)
 		return
@@ -54,7 +54,7 @@ func start_dialogue(npc_name: String, npc_state: String):
 	index = 0
 	active = true
 	
-	npc_name_label.text = npc_name.capitalize()
+	npc_name_label.text = display_name.capitalize()
 	show()
 	_show_line()
 

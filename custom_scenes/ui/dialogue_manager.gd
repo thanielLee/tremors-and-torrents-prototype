@@ -37,13 +37,14 @@ func _update_ui_position():
 	dialogue_ui.global_position = target_pos
 	dialogue_ui.rotation = xr_origin_3d.rotation
 
+
 func _dialogue_progress_pressed(event: String):
 	if dialogue_active():
 		if event == dialogue_button:
 			dialogue_script.force_advance()
 		
-func start_dialogue(name: String, state: String):
-	dialogue_script.start_dialogue(name, state)
+func start_dialogue(name: String, state: String, display_name: String):
+	dialogue_script.start_dialogue(name, state, display_name)
 
 func dialogue_active() -> bool:
 	return dialogue_script.active
