@@ -13,6 +13,8 @@ config_version=5
 config/name="Tremors and Torrents Prototype"
 run/main_scene="uid://chbda4yq5m63w"
 config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/bg_color=Color(0.462745, 0.345098, 0.92549, 1)
+boot_splash/image="uid://cpsxj44ur1jf"
 config/icon="uid://cpsxj44ur1jf"
 
 [autoload]
