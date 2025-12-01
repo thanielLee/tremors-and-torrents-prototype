@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=70 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
@@ -19,9 +19,13 @@
 [ext_resource type="PackedScene" uid="uid://bgyjeh4pl6fr2" path="res://assets/buildings/Post_Apocalyptic_Building_bldg.glb" id="11_0wxk8"]
 [ext_resource type="PackedScene" uid="uid://df8ckf7krjyl3" path="res://custom_scenes/ois_hammer.tscn" id="11_aerfg"]
 [ext_resource type="PackedScene" uid="uid://bp4qsothxd80g" path="res://custom_scenes/injured.tscn" id="11_betor"]
+[ext_resource type="PackedScene" uid="uid://dsbx3jbnlp43l" path="res://assets/buildings/building1.glb" id="12_ai2ei"]
+[ext_resource type="PackedScene" uid="uid://kdv8kavhnddu" path="res://assets/buildings/building2.glb" id="13_ua8iw"]
+[ext_resource type="PackedScene" uid="uid://csnj0wmjhe5lj" path="res://assets/buildings/building3.glb" id="14_vg3su"]
 [ext_resource type="PackedScene" uid="uid://4a3xx8xcbdob" path="res://custom_scenes/bandage.tscn" id="14_vjtdm"]
 [ext_resource type="PackedScene" uid="uid://dsaovvehgewyy" path="res://objectives/victim_rescue.tscn" id="15_06ecp"]
 [ext_resource type="Script" uid="uid://du4lpoac66rw" path="res://addons/ateneo-virtual-reality-escape/inventory-system/inventory_system.gd" id="15_oqlok"]
+[ext_resource type="PackedScene" uid="uid://huaw53tiahmx" path="res://assets/buildings/building4.glb" id="15_yyq8c"]
 [ext_resource type="Script" uid="uid://d2j64x8gnsuue" path="res://addons/ateneo-virtual-reality-escape/inventory-system/inventory_slot.gd" id="16_7nvrk"]
 [ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="17_jkxa6"]
 [ext_resource type="PackedScene" uid="uid://bx753cjs4touu" path="res://custom_scenes/fire_extinguisher.tscn" id="18_voubc"]
@@ -42,6 +46,7 @@
 [ext_resource type="PackedScene" uid="uid://8u1o3tw0fktd" path="res://assets/maps/house_1.blend" id="37_gtrna"]
 [ext_resource type="PackedScene" uid="uid://bm7gwd0gh3g1y" path="res://assets/debris/brick_debris.glb" id="38_xapae"]
 [ext_resource type="PackedScene" uid="uid://lhj1u2fry8xs" path="res://assets/debris/rocks_2.fbx" id="39_gtrna"]
+[ext_resource type="PackedScene" uid="uid://bd4ikqssk5ft6" path="res://assets/buildings/building5.glb" id="46_ai2ei"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4knja"]
 panorama = ExtResource("4_4knja")
@@ -215,10 +220,31 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7.3140
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.31409, 1.28465, -66.735)
 
 [node name="Post_Apocalyptic_Building_bldg" parent="Environment" index="14" instance=ExtResource("11_0wxk8")]
-transform = Transform3D(-1.09278e-07, 0, -2.5, 0, 2.5, 0, 2.5, 0, -1.09278e-07, -50.42, 2.38296, -42.88)
+transform = Transform3D(-1.09278e-07, 0, -2.5, 0, 2.5, 0, 2.5, 0, -1.09278e-07, -39.42, 2.38296, -25.88)
 
 [node name="Post_Apocalyptic_Building_bldg2" parent="Environment" index="15" instance=ExtResource("11_0wxk8")]
-transform = Transform3D(-2.5, 0, 2.18557e-07, 0, 2.5, 0, -2.18557e-07, 0, -2.5, 37.58, 2.38296, -60.88)
+transform = Transform3D(-2.5, 0, 2.18557e-07, 0, 2.5, 0, -2.18557e-07, 0, -2.5, 35.58, 2.38296, -38.88)
+
+[node name="building1" parent="Environment" index="16" instance=ExtResource("12_ai2ei")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -40.1966, -0.00891006, -17.8474)
+
+[node name="building5" parent="Environment" index="17" instance=ExtResource("12_ai2ei")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -43.1966, -0.00891006, 63.1526)
+
+[node name="building2" parent="Environment" index="18" instance=ExtResource("13_ua8iw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 0, -28.621)
+
+[node name="building3" parent="Environment" index="19" instance=ExtResource("13_ua8iw")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 30, 0, 31.656)
+
+[node name="building4" parent="Environment" index="20" instance=ExtResource("15_yyq8c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.9053, -0.0501393, -10.9009)
+
+[node name="building6" parent="Environment" index="21" instance=ExtResource("15_yyq8c")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 53.4149, -0.0501393, 149.549)
+
+[node name="building7" parent="Environment" index="22" instance=ExtResource("14_vg3su")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.0751, -0.0501363, 113.903)
 
 [node name="WorldShaker" type="Node3D" parent="." index="2"]
 script = ExtResource("3_sstds")
@@ -563,6 +589,9 @@ dialogue_toggler_hand = NodePath("../XROrigin3D/RightHand")
 
 [node name="DialogueUI" parent="DialogueManager" index="0" instance=ExtResource("34_toluw")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="building5" parent="." index="16" instance=ExtResource("46_ai2ei")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -108.748, -0.0501393, 17.0562)
 
 [connection signal="shake_world" from="Objectives/DuckCoverHoldQTE" to="WorldShaker" method="_on_duck_cover_hold_qte_shake_world"]
 [connection signal="visibility_changed" from="InventorySystem" to="InventorySystem/MedkitSoundManager" method="_on_inventory_system_visibility_changed"]
