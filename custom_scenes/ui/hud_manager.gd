@@ -21,11 +21,16 @@ func _process(delta):
 	hud_script.set_timer(elapsed_time)
 
 func _update_ui_position():
-	var forward = -xr_origin_3d.global_transform.basis.z
+	var forward = -xr_camera.global_transform.basis.z
 	var target_pos = xr_camera.global_position + forward * ui_distance
 	target_pos.y += ui_height
 	hud.global_position = target_pos
-	hud.rotation = xr_origin_3d.rotation
+	hud.rotation = xr_camera.rotation
+	#hud.global_rotation = xr_origin_3d.global_position
+	
+	# only rotate horizontally to face player. needs testing
+	#var look_dir = xr_origin_3d.global_transform.basis.z
+	#hud.look_at(hud.global_position - look_dir, Vector3.UP)
 
 func show_prompt(message: String, duration: float = 2.0):
 	hud_script.show_prompt(message, duration)

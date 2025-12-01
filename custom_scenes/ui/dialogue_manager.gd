@@ -32,7 +32,7 @@ func _process(delta):
 
 func _update_ui_position():
 	var forward = -xr_origin_3d.global_transform.basis.z
-	var target_pos = xr_origin_3d.global_position + forward * ui_distance
+	var target_pos = xr_camera.global_position + forward * ui_distance
 	target_pos.y += ui_height
 	dialogue_ui.global_position = target_pos
 	dialogue_ui.rotation = xr_origin_3d.rotation
