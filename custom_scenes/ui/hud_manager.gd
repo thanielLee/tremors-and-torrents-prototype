@@ -39,6 +39,9 @@ func on_qte_completed():
 func on_qte_failed():
 	hud_script.on_qte_failed()
 
+func qte_update_status(status: bool):
+	hud_script.update_qte_status_label(status)
+
 func end_level_prompt(success: bool, score: int):
 	hud_script.end_level_prompt(success, score)
 

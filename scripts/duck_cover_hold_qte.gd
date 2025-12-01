@@ -13,6 +13,7 @@ var hold_timer: float = 0.0
 var is_holding_pose := false
 
 signal shake_world
+signal pose(bool)
 
 func _ready():
 	super._ready()
@@ -44,16 +45,14 @@ func _process(delta):
 	#print("hand_distance_threshold: ", hand_distance_threshold)
 	
 	if is_ducked and is_holding:
-		#print("is_holding_pose: ", is_holding_pose)
 		if not is_holding_pose:
 			is_holding_pose = true
-			print("Holding posture detected")
+			pose.emit(true)
 		add_progress(delta / hold_duration)
 	else:
 		if is_holding_pose:
 			is_holding_pose = false
-			print("Lost holding posture")
-		#reset_progress()
+			pose.emit(false)
 		add_progress(-delta * 0.5 / hold_duration) # optional gradual decay
 	
 	super._process(delta)

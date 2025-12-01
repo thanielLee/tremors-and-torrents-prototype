@@ -8,7 +8,7 @@ class_name HUD
 @onready var score_label = $Control/ScoreLabel
 @onready var qte_container = $Control/QTEContainer
 @onready var qte_name_label = $Control/QTEContainer/QTENameLabel
-@onready var qte_progress = $Control/QTEContainer/QTEProgress
+@onready var qte_status_label = $Control/QTEContainer/QTEStatusLabel
 @onready var qte_feedback_label = $Control/QTEContainer/QTEFeedbackLabel
 @onready var prompt_timer = Timer.new()
 
@@ -58,11 +58,10 @@ func _on_prompt_timeout():
 # QTE
 # -----------------------
 func on_qte_started(obj: Node):
-	var name = obj.name
 	qte_container.visible = true
-	qte_progress.value = 0
+	qte_name_label.text = obj.objective_name
 	qte_feedback_label.text = ""
-	qte_name_label.text = name
+	qte_status_label.text = ""
 	show_prompt("QTE Started!", 2.0)
 
 func on_qte_completed():
@@ -79,9 +78,13 @@ func on_qte_failed():
 	await get_tree().create_timer(2.0).timeout
 	qte_container.visible = false
 
-func update_qte_feedback_label():
-	# TODO: implement
-	pass
+func update_qte_status_label(status: bool):
+	if status:
+		qte_status_label.text = "Hold that position!"
+		qte_status_label.add_theme_color_override("font_color", Color.GREEN)
+	else:
+		qte_status_label.text = "Get back into position!"
+		qte_status_label.add_theme_color_override("font_color", Color.RED)
 
 # -----------------------
 # LEVEL PROMPTS

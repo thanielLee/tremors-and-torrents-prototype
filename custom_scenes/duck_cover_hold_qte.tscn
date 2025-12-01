@@ -15,6 +15,7 @@ size = Vector3(3, 0.5, 3)
 
 [node name="DuckCoverHoldQTE" type="Node3D"]
 script = ExtResource("1_qvro0")
+objective_name = "Duck Cover and Hold!"
 
 [node name="Timer" type="Timer" parent="."]
 

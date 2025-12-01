@@ -71,7 +71,7 @@ func end_level(success: bool):
 	level_ended = true
 	level_timer = 0
 	time_elapsed = 0
-	#disable_hazards()
+	disable_hazards()
 
 	hud_manager.end_level_prompt(success, score)
 	hud_manager.hide_timer()
@@ -94,13 +94,13 @@ func disable_hazards():
 				hazard.hazard_triggered.disconnect(_on_hazard_triggered)
 
 func _on_hazard_triggered(hazard: Variant):
-	var hazard_name = hazard.name
+	var hazard_name = hazard.hazard_name
 	
 	if hazard_name not in triggered_hazards:
 		score += hazard.penalty_points
 		triggered_hazards.append(hazard_name)
 		
-		var message = "Hazard: %s triggered! %d" % [hazard_name, score]
+		var message = "Hazard: %s triggered! %d" % [hazard_name, hazard.penalty_points]
 		hud_manager.show_prompt(message, 3.0)
 		hud_manager.update_score(score)
 		
@@ -123,21 +123,21 @@ func enable_objectives():
 			obj.objective_failed.connect(_on_objective_failed.bind(obj))
 		if obj.has_signal("qte_started"):
 			obj.qte_started.connect(_on_qte_started.bind(obj))
+		if obj.has_signal("pose"):
+			obj.pose.connect(_on_qte_update_status)
 
 
 
 func _on_objective_completed(obj: Node):
-	var name = obj.name
-	if name not in completed_objectives:
-		completed_objectives.append(name)
+	if obj.name not in completed_objectives:
+		completed_objectives.append(obj.name)
 		
-		var points = obj.completed_points
-		score += points
+		score += obj.completed_points
 		
 		if obj.has_signal("qte_started"): # for qtes
 			hud_manager.on_qte_completed()
 		else: # for objectives
-			var message = "Objective: %s completed! +%d" % [name, obj.completed_points]
+			var message = "Objective: %s completed! +%d" % [obj.objective_name, obj.completed_points]
 			hud_manager.show_prompt(message, 3.0)
 		
 		hud_manager.update_score(score)
@@ -160,6 +160,9 @@ func _on_objective_failed(obj: Node):
 func _on_qte_started(obj: Node):
 	hud_manager.on_qte_started(obj)
 
+func _on_qte_update_status(status: bool):
+	hud_manager.qte_update_status(status)
+
 ### LEVEL END CHECK ###
 func check_level_end():
 	if not objectives:
@@ -175,7 +178,6 @@ func check_level_end():
 	
 	if all_required_done and triggered_hazards.size() < HAZARD_LIMIT:
 		end_level(true)
-
 
 
 ### PROCESS LOOP ###

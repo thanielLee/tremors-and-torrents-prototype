@@ -10,7 +10,7 @@ size = Vector2(16, 9)
 [sub_resource type="ViewportTexture" id="ViewportTexture_dg6fo"]
 viewport_path = NodePath("Viewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_khcm8"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dg6fo"]
 render_priority = 60
 transparency = 1
 no_depth_test = true
@@ -28,7 +28,7 @@ json_path = "res://dialogue_registry/dialogue_data.json"
 
 [node name="Screen" parent="." index="1"]
 mesh = SubResource("QuadMesh_c0b4f")
-surface_material_override/0 = SubResource("StandardMaterial3D_khcm8")
+surface_material_override/0 = SubResource("StandardMaterial3D_dg6fo")
 
 [node name="CollisionShape3D" parent="StaticBody3D" index="0"]
 shape = SubResource("BoxShape3D_2sylk")
