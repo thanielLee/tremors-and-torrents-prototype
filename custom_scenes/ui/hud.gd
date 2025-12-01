@@ -79,6 +79,10 @@ func on_qte_failed():
 	await get_tree().create_timer(2.0).timeout
 	qte_container.visible = false
 
+func update_qte_feedback_label():
+	# TODO: implement
+	pass
+
 # -----------------------
 # LEVEL PROMPTS
 # -----------------------

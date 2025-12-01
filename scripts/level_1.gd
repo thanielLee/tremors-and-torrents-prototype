@@ -122,7 +122,6 @@ func enable_objectives():
 		if obj.has_signal("objective_failed"):
 			obj.objective_failed.connect(_on_objective_failed.bind(obj))
 		if obj.has_signal("qte_started"):
-			#print(obj.name + " has qte started!")
 			obj.qte_started.connect(_on_qte_started.bind(obj))
 
 

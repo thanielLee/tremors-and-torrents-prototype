@@ -22,7 +22,7 @@ func start_qte():
 	super.start_objective()
 	set_process(true)
 	emit_signal("shake_world", duration)
-	print("Duck and hold QTE started")
+	print("started DUCKCOVERHOLD")
 
 func _process(delta):
 	if not active or not enabled:
