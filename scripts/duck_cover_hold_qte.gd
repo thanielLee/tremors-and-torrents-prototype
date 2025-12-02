@@ -12,7 +12,7 @@ extends QuickTimeEvent
 var hold_timer: float = 0.0
 var is_holding_pose := false
 
-signal shake_world
+signal shake_world(float)
 signal pose(bool)
 
 func _ready():
@@ -20,6 +20,8 @@ func _ready():
 	set_process(false)
 
 func start_qte():
+	if one_shot and done > 0:
+		return
 	super.start_objective()
 	set_process(true)
 	emit_signal("shake_world", duration)
@@ -59,4 +61,4 @@ func _process(delta):
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if enabled and not active:
-		start_objective()
+		start_qte()

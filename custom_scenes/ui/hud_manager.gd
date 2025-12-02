@@ -25,12 +25,25 @@ func _update_ui_position():
 	var target_pos = xr_camera.global_position + forward * ui_distance
 	target_pos.y += ui_height
 	hud.global_position = target_pos
-	hud.rotation = xr_camera.rotation
-	#hud.global_rotation = xr_origin_3d.global_position
+	#hud.rotation = xr_camera.rotation
+	hud.rotation = xr_origin_3d.rotation
 	
 	# only rotate horizontally to face player. needs testing
 	#var look_dir = xr_origin_3d.global_transform.basis.z
 	#hud.look_at(hud.global_position - look_dir, Vector3.UP)
+	
+	## fixing orientation
+	#var origin_forward = -xr_origin_3d.global_transform.basis.z
+	#origin_forward.y = 0 # yaw only
+	#origin_forward = origin_forward.normalized()
+	#
+	## combine yaw from origin + pitch from camera
+	#var look_dir = origin_forward
+	#look_dir.y = camera_forward.y
+	#look_dir = look_dir.normalized()
+	#
+	## face player
+	#hud.look_at(hud.global_position + look_dir, Vector3.UP)
 
 func show_prompt(message: String, duration: float = 2.0):
 	hud_script.show_prompt(message, duration)

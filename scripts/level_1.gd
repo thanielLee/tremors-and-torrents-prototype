@@ -1,4 +1,5 @@
 extends XRToolsSceneBase
+class_name Level1
 
 ## Level 1 Script
 ##
@@ -125,6 +126,8 @@ func enable_objectives():
 			obj.qte_started.connect(_on_qte_started.bind(obj))
 		if obj.has_signal("pose"):
 			obj.pose.connect(_on_qte_update_status)
+		if obj.has_signal("pose"):
+			obj.shake_world.connect(do_earthquake)
 
 
 
@@ -163,6 +166,11 @@ func _on_qte_started(obj: Node):
 func _on_qte_update_status(status: bool):
 	hud_manager.qte_update_status(status)
 
+### Helper function
+func do_earthquake(duration):
+	earthquake_triggered = true # for e.quake on time
+	world_shaker.shake_world(duration)
+
 ### LEVEL END CHECK ###
 func check_level_end():
 	if not objectives:
@@ -187,8 +195,7 @@ func _process(delta: float) -> void:
 		level_timer += delta
 		
 		if not earthquake_triggered and level_timer > 10.0:
-			emit_signal("shake_world")
-			earthquake_triggered = true
+			do_earthquake(5.0)
 		
 		# Time ran out
 		if level_timer > 120.0:
