@@ -5,6 +5,7 @@ class_name StretcherNonPickable
 @onready var handle_two: XRToolsPickable = $PickableObject2
 @onready var debug_mesh_1: MeshInstance3D = $DebugCube1
 @onready var debug_mesh_2: MeshInstance3D = $DebugCube2
+@onready var position_vector: Vector3 = Vector3(0.0, 0.0, 2.3)
 var handle_one_transform: Transform3D
 var handle_two_transform: Transform3D
 var handle_one_position: Vector3
@@ -16,6 +17,7 @@ var did_setup_info: bool
 var starting_player_vector: Vector3
 var player_body: Node3D
 var xr_origin: XROrigin3D
+
 
 func _ready() -> void:
 	handle_one_transform = global_transform.affine_inverse() * handle_one.global_transform
@@ -90,7 +92,6 @@ func _physics_process(delta):
 			_setup_player_info()
 			
 		var hands_midpoint = (handle_one_hand.global_position + handle_two_hand.global_position) / 2
-		var position_vector = Vector3(0.0, 0.0, 2.3)
 		
 		var new_transform = Transform3D(Basis.IDENTITY, hands_midpoint - (-xr_origin.basis.z * 2.3))
 		global_transform = new_transform.looking_at(hands_midpoint, Vector3.UP, true)
