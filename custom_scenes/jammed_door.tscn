@@ -95,6 +95,7 @@ collision_mask = 536870912
 shape = SubResource("BoxShape3D_cyhyk")
 
 [node name="VfxHammerImpact" parent="HitPoints/HitPoint" instance=ExtResource("8_vee3w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.110815, 0, 0)
 
 [node name="HitPoint2" type="Node3D" parent="HitPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00421143, 0.310928)
@@ -122,6 +123,7 @@ collision_mask = 536870912
 shape = SubResource("BoxShape3D_cyhyk")
 
 [node name="VfxHammerImpact" parent="HitPoints/HitPoint2" instance=ExtResource("8_vee3w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0976035, 0.0928482, 0)
 
 [node name="HitPoint3" type="Node3D" parent="HitPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.543758, -0.288703)
@@ -148,6 +150,7 @@ collision_mask = 536870912
 shape = SubResource("BoxShape3D_cyhyk")
 
 [node name="VfxHammerImpact" parent="HitPoints/HitPoint3" instance=ExtResource("8_vee3w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.124833, -0.0205875, 0)
 
 [node name="BreakParticles" type="GPUParticles3D" parent="."]
 emitting = false

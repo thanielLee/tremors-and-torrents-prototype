@@ -15,9 +15,10 @@ func set_emit_children(emit_value: bool):
 func _process(delta):
 	if is_emitting:
 		cooldown += delta
-		if cooldown >= 1.0:
+		if cooldown >= 0.5:
 			is_emitting = false
 			set_emit_children(false)
+			cooldown = 0.0
 
 func hit_process(requirement, total_progress):
 	is_emitting = true
