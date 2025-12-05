@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://v4lnugtph4cp"]
+[gd_scene load_steps=26 format=3 uid="uid://v4lnugtph4cp"]
 
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="1_8ic3i"]
 [ext_resource type="Script" uid="uid://cvx3e1yr5tho7" path="res://addons/stretcher_nonpickable.gd" id="1_yq2fn"]
@@ -68,11 +68,16 @@ top_radius = 0.12
 bottom_radius = 0.12
 height = 0.2
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_p7qsh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2da2n"]
+albedo_color = Color(0.804493, 0.415365, 0, 1)
+
 [node name="stretcher_nonpickable" type="AnimatableBody3D"]
 script = ExtResource("1_yq2fn")
 
 [node name="stretcher2" parent="." instance=ExtResource("2_w6mv8")]
-transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 1.75, 0, 0, 0)
+transform = Transform3D(1.255, 0, 0, 0, 1.255, 0, 0, 0, 1.255, 0, 0, 0)
 
 [node name="CollisionShape3D6" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_yq2fn")
@@ -104,7 +109,7 @@ visible = false
 mesh = SubResource("CylinderMesh_mdk2q")
 
 [node name="DebugCube1" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.018, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.04548, 0.00865197, -0.00533247)
 visible = false
 mesh = SubResource("BoxMesh_yq2fn")
 
@@ -114,19 +119,19 @@ visible = false
 mesh = SubResource("BoxMesh_yq2fn")
 
 [node name="GrabPointBaseLeft" parent="." instance=ExtResource("1_8ic3i")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.8, 0.062, 2.25)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.559446, 0.062, 1.64135)
 visible = true
 hand_pose = ExtResource("4_w6mv8")
 drive_angle = 0.0
 
 [node name="GrabPointBaseRight" parent="." instance=ExtResource("3_8v660")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.8, 0.059, 2.25)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.570583, 0.059, 1.63803)
 visible = true
 hand_pose = ExtResource("6_mdk2q")
 drive_angle = 0.0
 
 [node name="PickableObject2" parent="." instance=ExtResource("6_jdhm7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0, 2.15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.565, 0, 1.5)
 freeze = true
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="PickableObject2"]
@@ -143,7 +148,7 @@ skeleton = NodePath("../../PickableObject2")
 target = NodePath("../../GrabPointBaseLeft")
 
 [node name="PickableObject" parent="." instance=ExtResource("6_jdhm7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, 2.15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.566, 0, 1.5)
 freeze = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PickableObject"]
@@ -191,3 +196,9 @@ mesh = SubResource("SphereMesh_p7qsh")
 [node name="BandageStage2" type="MeshInstance3D" parent="Injured"]
 transform = Transform3D(0.724172, -0.68962, 0, -3.01442e-08, -3.16546e-08, 1, -0.68962, -0.724172, -4.37114e-08, 0.455539, 0.000764482, -0.00810447)
 mesh = SubResource("CylinderMesh_2da2n")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.199247, -2.44877)
+visible = false
+mesh = SubResource("CapsuleMesh_p7qsh")
+surface_material_override/0 = SubResource("StandardMaterial3D_2da2n")

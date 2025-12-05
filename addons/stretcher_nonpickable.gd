@@ -5,8 +5,9 @@ class_name StretcherNonPickable
 @onready var handle_two: XRToolsPickable = $PickableObject2
 @onready var debug_mesh_1: MeshInstance3D = $DebugCube1
 @onready var debug_mesh_2: MeshInstance3D = $DebugCube2
-@onready var position_vector: Vector3 = Vector3(0.0, 0.0, 2.3)
+@onready var position_vector: Vector3 = Vector3(0.0, 0.0, 1.5)
 @onready var injured_node: Node3D = $Injured
+@onready var responder_mesh: Node3D = $MeshInstance3D6
 var handle_one_transform: Transform3D
 var handle_two_transform: Transform3D
 var handle_one_position: Vector3
@@ -22,6 +23,7 @@ var one_handed_keeping_track: bool = false
 var one_handed_time: float = 0.0
 var is_on_ground: bool = false
 var physics_state_space: PhysicsDirectSpaceState3D
+
 
 signal strecher_one_handed(time: float)
 signal stretcher_dropped(distance: float)
@@ -42,11 +44,11 @@ func _ready() -> void:
 	
 func _handle_one_picked_up(pickable, by) -> void:
 	handle_one_hand = by.get_parent()
-	debug_mesh_1.visible = true
+	#debug_mesh_1.visible = true
 	
 func _handle_two_picked_up(pickable, by) -> void:
 	handle_two_hand = by.get_parent()
-	debug_mesh_2.visible = true
+	#debug_mesh_2.visible = true
 	
 func _return_handle_one(pickable, by) -> void:
 	handle_one_hand = null
@@ -98,14 +100,16 @@ func _put_stretcher_on_ground():
 	var distance = (global_position-intersection_point).length()
 	stretcher_dropped.emit(distance)
 	
-	global_position = intersection_point + Vector3(0.0, 0.30, 0.0)
+	global_position = intersection_point + Vector3(0.0, 0.15, 0.0)
 	
 func _process(delta: float) -> void:
 	pass
 
 func _physics_process(delta):
 	if handle_one_hand != null and handle_two_hand != null:
+		
 		if not did_setup_info:
+			responder_mesh.visible = true
 			_setup_player_info()
 			
 		var hands_midpoint = (handle_one_hand.global_position + handle_two_hand.global_position) / 2
@@ -113,7 +117,7 @@ func _physics_process(delta):
 		#
 		#var hand_two_angle = acos(hand_two_vec.dot(Vector3(-1.0, 0.0, 0.0)))
 		
-		var new_transform = Transform3D(Basis.IDENTITY, hands_midpoint - (-xr_origin.basis.z * 2.3))
+		var new_transform = Transform3D(Basis.IDENTITY, hands_midpoint - (-xr_origin.basis.z * 1.5))
 		global_transform = new_transform.looking_at(hands_midpoint, Vector3.UP, true)
 	#elif handle_one_hand != null or handle_two_hand != null:
 		#pass
@@ -135,7 +139,7 @@ func _physics_process(delta):
 		#
 		#
 		#var hands_midpoint = current_active_hand.global_position + displacement_vec.rotated(Vector3.UP, -deg_to_rad(global_rotation.y))
-		#var new_transform = Transform3D(Basis.IDENTITY, hands_midpoint - (-xr_origin.basis.z * 2.3))
+		#var new_transform = Transform3D(Basis.IDENTITY, hands_midpoint - (-xr_origin.basis.z * 1.5))
 		#global_transform = new_transform
 	else:
 		one_handed_keeping_track = false
@@ -144,6 +148,7 @@ func _physics_process(delta):
 		if not is_on_ground:
 			_put_stretcher_on_ground()
 		
+		responder_mesh.visible = false
 		did_setup_info = false
 		
 		
