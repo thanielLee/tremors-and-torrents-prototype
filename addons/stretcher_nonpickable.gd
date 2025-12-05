@@ -43,7 +43,6 @@ func _handle_one_picked_up(pickable, by) -> void:
 	handle_one_hand = by.get_parent()
 	debug_mesh_1.visible = true
 	
-	
 func _handle_two_picked_up(pickable, by) -> void:
 	handle_two_hand = by.get_parent()
 	debug_mesh_2.visible = true
@@ -56,7 +55,6 @@ func _return_handle_one(pickable, by) -> void:
 	
 func _return_handle_two(pickable, by) -> void:
 	handle_two_hand = null
-	##new_transform = new_transform.rotated(Vector3.UP, global_rotation.y)
 	handle_two.global_transform = global_transform * handle_two_transform
 	debug_mesh_2.visible = false
 	did_setup_info = false
@@ -97,8 +95,7 @@ func _put_stretcher_on_ground():
 	
 func _process(delta: float) -> void:
 	pass
-		
-		
+
 func _physics_process(delta):
 	if handle_one_hand != null and handle_two_hand != null:
 		if not did_setup_info:
@@ -111,28 +108,28 @@ func _physics_process(delta):
 		
 		var new_transform = Transform3D(Basis.IDENTITY, hands_midpoint - (-xr_origin.basis.z * 2.3))
 		global_transform = new_transform.looking_at(hands_midpoint, Vector3.UP, true)
-	elif handle_one_hand != null or handle_two_hand != null:
-		if not did_setup_info:
-			_setup_player_info()
-			
-		if one_handed_keeping_track:
-			one_handed_time += delta
-			strecher_one_handed.emit(one_handed_time)
-		
-		var current_active_hand
-		var displacement_vec
-		
-		if handle_one_hand != null:
-			current_active_hand = handle_one_hand
-			displacement_vec = Vector3(-0.484, 0.0, 0.0)
-		else:
-			current_active_hand = handle_two_hand
-			displacement_vec = Vector3(0.484, 0.0, 0.0)
-		
-		
-		var hands_midpoint = current_active_hand.global_position + displacement_vec
-		var new_transform = Transform3D(Basis.IDENTITY, hands_midpoint - (-xr_origin.basis.z * 2.3))
-		global_transform = new_transform.looking_at(hands_midpoint, Vector3.UP, true)
+	#elif handle_one_hand != null or handle_two_hand != null:
+		#pass
+		#if not did_setup_info:
+			#_setup_player_info()
+		#if one_handed_keeping_track:
+			#one_handed_time += delta
+			#strecher_one_handed.emit(one_handed_time)
+		#
+		#var current_active_hand
+		#var displacement_vec: Vector3
+		#
+		#if handle_one_hand != null:
+			#current_active_hand = handle_one_hand
+			#displacement_vec = Vector3(-0.484, 0.0, 0.0)
+		#else:
+			#current_active_hand = handle_two_hand
+			#displacement_vec = Vector3(0.484, 0.0, 0.0)
+		#
+		#
+		#var hands_midpoint = current_active_hand.global_position + displacement_vec.rotated(Vector3.UP, -deg_to_rad(global_rotation.y))
+		#var new_transform = Transform3D(Basis.IDENTITY, hands_midpoint - (-xr_origin.basis.z * 2.3))
+		#global_transform = new_transform
 	else:
 		one_handed_keeping_track = false
 		one_handed_time = 0.0
