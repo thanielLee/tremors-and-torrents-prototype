@@ -59,6 +59,7 @@ func _on_ois_twist_receiver_action_completed(requirement: Variant, total_progres
 		return
 	print("bandage complete!!!!!!!!!!!!!!!!!!!")
 	complete_objective()
+	turn_off()
 
 func play_bandage_sound():
 	var sound = sounds[randi() % sounds.size()]
@@ -68,3 +69,7 @@ func play_bandage_sound():
 	
 	if not sound.playing:
 		sound.play()
+
+func turn_off():
+	$Mesh.visible = false
+	bandage_stages[2].visible = false

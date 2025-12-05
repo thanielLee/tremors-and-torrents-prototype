@@ -42,13 +42,15 @@ func _on_victim_hazard():
 	fail_objective()
 
 func _physics_process(delta: float) -> void:
+	print(target_node)
 	if not active or not enabled:
 		return
 	if not following or target_node == null:
 		return
 	
-	var direction = (target_node.position - position)
+	var direction = -(target_node.position - rigid_body_3d.position)
 	var distance = direction.length()
+	print(direction)
 	
 	if distance > 0.1:
 		var force = direction.normalized() * follow_strength

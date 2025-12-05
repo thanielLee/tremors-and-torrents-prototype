@@ -26,7 +26,7 @@ func _update_ui_position():
 	target_pos.y += ui_height
 	hud.global_position = target_pos
 	#hud.rotation = xr_camera.rotation
-	hud.rotation = xr_origin_3d.rotation
+	hud.rotation = xr_camera.rotation
 	
 	# only rotate horizontally to face player. needs testing
 	#var look_dir = xr_origin_3d.global_transform.basis.z

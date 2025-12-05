@@ -126,7 +126,7 @@ func enable_objectives():
 			obj.qte_started.connect(_on_qte_started.bind(obj))
 		if obj.has_signal("pose"):
 			obj.pose.connect(_on_qte_update_status)
-		if obj.has_signal("pose"):
+		if obj.has_signal("shake_world"):
 			obj.shake_world.connect(do_earthquake)
 
 

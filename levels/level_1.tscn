@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=71 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://huaw53tiahmx" path="res://assets/buildings/building4.glb" id="15_yyq8c"]
 [ext_resource type="Script" uid="uid://d2j64x8gnsuue" path="res://addons/ateneo-virtual-reality-escape/inventory-system/inventory_slot.gd" id="16_7nvrk"]
 [ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="17_jkxa6"]
+[ext_resource type="PackedScene" uid="uid://dednqqlwdutdk" path="res://assets/meshes/scene.gltf" id="17_vg3su"]
 [ext_resource type="PackedScene" uid="uid://bx753cjs4touu" path="res://custom_scenes/fire_extinguisher.tscn" id="18_voubc"]
 [ext_resource type="Material" uid="uid://dy43ogh4jhnpk" path="res://addons/ateneo-virtual-reality-escape/inventory-system/misc-resources/inventory_slot_shader_a.tres" id="18_w75he"]
 [ext_resource type="PackedScene" uid="uid://ct0a5owt2scuh" path="res://assets/debris/rocks_1.fbx" id="18_xapae"]
@@ -143,6 +144,9 @@ albedo_color = Color(0, 0, 0, 1)
 [node name="Level1" instance=ExtResource("1_lmdqw")]
 script = ExtResource("2_1gikq")
 
+[node name="XROrigin3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.541, 0.305016, 0.65004)
+
 [node name="FunctionPointer" parent="XROrigin3D/RightHand" index="4" instance=ExtResource("3_udfhf")]
 distance = 100.0
 show_laser = 2
@@ -242,6 +246,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.0751, -0.0501363, 113.903
 
 [node name="building8" parent="Environment" index="22" instance=ExtResource("46_ai2ei")]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -108.748, -0.0501393, 17.0562)
+
+[node name="ambulance" parent="Environment" index="23" instance=ExtResource("17_vg3su")]
+transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 8.64244, -0.0569564, 7.3695)
 
 [node name="WorldShaker" type="Node3D" parent="." index="2"]
 script = ExtResource("3_sstds")
