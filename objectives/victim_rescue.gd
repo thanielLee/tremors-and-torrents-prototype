@@ -41,20 +41,45 @@ func _on_victim_safe():
 func _on_victim_hazard():
 	fail_objective()
 
+#func _physics_process(delta: float) -> void:
+	#print(target_node)
+	#if not active or not enabled:
+		#return
+	#if not following or target_node == null:
+		#return
+	#
+	#var direction = -(target_node.position - rigid_body_3d.position)
+	#var distance = direction.length()
+	#print(direction)
+	#
+	#if distance > 0.1:
+		#var force = direction.normalized() * follow_strength
+		#rigid_body_3d.apply_central_force(force)
 func _physics_process(delta: float) -> void:
-	print(target_node)
 	if not active or not enabled:
 		return
 	if not following or target_node == null:
 		return
+
+	var victim_pos = rigid_body_3d.global_position
+	var target_pos = target_node.global_position
 	
-	var direction = -(target_node.position - rigid_body_3d.position)
+	var direction = target_pos - victim_pos
 	var distance = direction.length()
-	print(direction)
-	
-	if distance > 0.1:
-		var force = direction.normalized() * follow_strength
-		rigid_body_3d.apply_central_force(force)
+
+	# Do nothing if very close
+	if distance < 0.3:
+		return
+
+	# Correct direction (move toward player)
+	var force = direction.normalized() * follow_strength
+
+	# Clamp force
+	if force.length() > max_force:
+		force = force.normalized() * max_force
+
+	rigid_body_3d.apply_central_force(force)
+
 
 # detecting the player
 func _on_area_3d_body_entered(body: Node3D) -> void:
