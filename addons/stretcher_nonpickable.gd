@@ -40,6 +40,7 @@ func _ready() -> void:
 	handle_one.grabbed.connect(_handle_one_picked_up)
 	handle_two.grabbed.connect(_handle_two_picked_up)
 	did_setup_info = false
+	injured_node.visible = false
 	physics_state_space = get_world_3d().direct_space_state
 	
 func _handle_one_picked_up(pickable, by) -> void:
@@ -100,7 +101,7 @@ func _put_stretcher_on_ground():
 	var distance = (global_position-intersection_point).length()
 	stretcher_dropped.emit(distance)
 	
-	global_position = intersection_point + Vector3(0.0, 0.15, 0.0)
+	global_position = intersection_point + Vector3(0.0, 0.3, 0.0)
 	
 func _process(delta: float) -> void:
 	pass
