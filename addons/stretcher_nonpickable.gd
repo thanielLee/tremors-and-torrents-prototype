@@ -6,6 +6,7 @@ class_name StretcherNonPickable
 @onready var debug_mesh_1: MeshInstance3D = $DebugCube1
 @onready var debug_mesh_2: MeshInstance3D = $DebugCube2
 @onready var position_vector: Vector3 = Vector3(0.0, 0.0, 2.3)
+@onready var injured_node: Node3D = $Injured
 var handle_one_transform: Transform3D
 var handle_two_transform: Transform3D
 var handle_one_position: Vector3
@@ -58,7 +59,13 @@ func _return_handle_two(pickable, by) -> void:
 	handle_two.global_transform = global_transform * handle_two_transform
 	debug_mesh_2.visible = false
 	did_setup_info = false
-	
+
+func _set_injured_visible():
+	injured_node.visible = true
+
+func _set_injured_invisible():
+	injured_node.visible = false
+
 func _setup_player_info() -> void:
 	did_setup_info = true
 	
