@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bcsf6fktx606t"]
+[gd_scene load_steps=14 format=3 uid="uid://bcsf6fktx606t"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1_vnclu"]
 [ext_resource type="PackedScene" uid="uid://bx1xdisoqo1f6" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_tac_glove_low.tscn" id="2_82wxd"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://chumpejwiub7f" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_tac_glove_low.tscn" id="5_3jbvx"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="6_jtyjf"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="7_ybovi"]
-[ext_resource type="PackedScene" uid="uid://duu4043awyc4s" path="res://ui/dialogue_element.tscn" id="10_h1ibc"]
 [ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="11_62yrx"]
 [ext_resource type="PackedScene" uid="uid://c8v28upinm8k8" path="res://levels/instructions.tscn" id="12_2u6xd"]
 
@@ -73,8 +72,3 @@ inactive_beam_color = Color(1, 0.918009, 0.903595, 1)
 
 [node name="Instructions" parent="." index="3" instance=ExtResource("12_2u6xd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -4)
-
-[node name="UI" type="Node3D" parent="." index="4"]
-
-[node name="DialogueElement" parent="UI" index="0" instance=ExtResource("10_h1ibc")]
-enabled = false

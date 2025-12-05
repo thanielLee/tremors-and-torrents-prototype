@@ -1,6 +1,7 @@
 extends Node3D
 class_name InteractableNPC
 
+@export var display_name: String
 @export var dialogue_states: Array[String] = []
 
 var dialogue_sys
@@ -23,4 +24,4 @@ func _on_xr_tools_interactable_area_pointer_event(event: Variant) -> void:
 	
 	if !dialogue_sys.dialogue_active():
 		if (event.event_type == XRToolsPointerEvent.Type.PRESSED):
-			dialogue_sys.start_dialogue(name, cur_state)
+			dialogue_sys.start_dialogue(name, cur_state, display_name)

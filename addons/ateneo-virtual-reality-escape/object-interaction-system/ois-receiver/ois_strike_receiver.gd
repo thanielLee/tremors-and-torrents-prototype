@@ -35,16 +35,16 @@ func action_ongoing(delta: float) -> void:
 		if pickable:
 			var controller := pickable.get_picked_up_by_controller()
 			if controller:
-				print("sending rumble signal")
+				#print("sending rumble signal")
 				emit_signal("rumble_hand", controller)
 				#XRToolsRumbleManager.start_rumble(controller, {
 					#"amplitude": 0.7, # from 0.0 to 1.0
 					#"duration": 0.2 # seconds
 				#})
 		
-		print("=======================")
-		print("Strike Speed: " + str(current_progress) + "m/s") # test value, delete in future
-		print("Total progress: " + str(total_progress))
-		print("=======================\n")
+		#print("=======================")
+		#print("Strike Speed: " + str(current_progress) + "m/s") # test value, delete in future
+		#print("Total progress: " + str(total_progress))
+		#print("=======================\n")
 		
 		super(delta)

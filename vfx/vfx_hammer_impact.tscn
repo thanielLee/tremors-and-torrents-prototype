@@ -4,8 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://dcvkyyfatt4bd" path="res://textures/vfx/flare.png" id="2_x1275"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x1275"]
+render_priority = 100
 transparency = 1
 cull_mode = 2
+no_depth_test = true
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("1_xnjqx")
 billboard_mode = 3
@@ -31,8 +33,10 @@ color = Color(3.5, 2, 0.8, 1)
 [sub_resource type="QuadMesh" id="QuadMesh_3s6ch"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o8dl8"]
+render_priority = 100
 transparency = 1
 cull_mode = 2
+no_depth_test = true
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("2_x1275")
 billboard_mode = 3
@@ -57,8 +61,10 @@ color = Color(3.5, 2, 0.8, 1)
 emission_curve = SubResource("CurveTexture_ixng7")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vwbqf"]
+render_priority = 100
 transparency = 1
 cull_mode = 2
+no_depth_test = true
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("1_xnjqx")
 billboard_keep_scale = true

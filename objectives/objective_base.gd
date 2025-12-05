@@ -10,6 +10,7 @@ signal objective_started
 signal objective_completed
 signal objective_failed
 
+@export var objective_name: String
 @export var enabled: bool = true
 @export var completed_points: int = 50
 @export var failed_points: int = 0

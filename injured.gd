@@ -1,6 +1,5 @@
 extends ObjectiveBase
 
-#signal injured_cleared
 @onready var mesh: Node3D = $Mesh
 @onready var bandage_stages := [
 	$BandageStage0,
@@ -21,6 +20,7 @@ func _ready() -> void:
 	sounds = [bandage_sound_1, bandage_sound_2]
 	
 func _on_ois_twist_receiver_action_started(requirement: Variant, total_progress: Variant) -> void:
+	start_objective()
 	print("twist started")
 	play_bandage_sound()
 	#var progress_ratio = clamp(total_progress / float(requirement), 0.0, 1.0)
@@ -31,6 +31,8 @@ func _on_ois_twist_receiver_action_started(requirement: Variant, total_progress:
 
 func _on_ois_twist_receiver_action_in_progress(requirement: Variant, total_progress: Variant) -> void:
 	#print("twist in progress")
+	if not active:
+		return
 	var progress_ratio = clamp(total_progress / float(requirement), 0.0, 1.0)
 	
 	var new_stage := -1
@@ -47,12 +49,16 @@ func _on_ois_twist_receiver_action_in_progress(requirement: Variant, total_progr
 		current_stage = new_stage
 
 func _on_ois_twist_receiver_action_ended(requirement: Variant, total_progress: Variant) -> void:
+	if not active:
+		return
 	print("twist stopped")
 
 func _on_ois_twist_receiver_action_completed(requirement: Variant, total_progress: Variant) -> void:
 	#emit_signal("injured_cleared")
+	if not active:
+		return
+	print("bandage complete!!!!!!!!!!!!!!!!!!!")
 	complete_objective()
-	print("bandage complete")
 
 func play_bandage_sound():
 	var sound = sounds[randi() % sounds.size()]

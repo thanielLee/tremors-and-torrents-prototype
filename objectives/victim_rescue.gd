@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
 	if not following or target_node == null:
 		return
 	
-	var direction = (target_node.global_transform.origin - global_transform.origin)
+	var direction = (target_node.position - position)
 	var distance = direction.length()
 	
 	if distance > 0.1:
@@ -67,11 +67,15 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 # detecting hazards or safe zone
 func _on_area_3d_area_entered(area: Area3D) -> void:
 	print(area.name)
-	if area.get_parent().get_script() == Hazard:
-		emit_signal("victim_triggered_hazard")
-	else:
+	
+	if area.name == "SafeArea":
 		emit_signal("victim_safe")
 		following = false
+	elif area.get_parent().get_script() == Hazard:
+		emit_signal("victim_triggered_hazard")
+		print("fail rescue")
+	else:
+		return
 
 func set_capsule_color(color: Color):
 	var material := mesh_instance_3d.get_surface_override_material(0)
@@ -90,4 +94,4 @@ func _on_xr_tools_interactable_area_pointer_event(event: Variant) -> void:
 	
 	if !dialogue_sys.dialogue_active():
 		if (event.event_type == XRToolsPointerEvent.Type.PRESSED):
-			dialogue_sys.start_dialogue(name, cur_state)
+			dialogue_sys.start_dialogue(name, cur_state, objective_name)

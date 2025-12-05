@@ -64,12 +64,16 @@ theme_override_font_sizes/font_size = 30
 text = "Duck Cover and Hold!"
 horizontal_alignment = 1
 
-[node name="QTEProgress" type="TextureProgressBar" parent="Control/QTEContainer"]
+[node name="QTEStatusLabel" type="Label" parent="Control/QTEContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Hold that position!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="QTEFeedbackLabel" type="Label" parent="Control/QTEContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "Hold that position!"
+text = "QTE completed!"
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -24,6 +24,18 @@ func _process(delta):
 
 func shake_world(duration):
 	time_left = duration
+	
+	# make new rumble event dynamically
+	var rumble_event := XRToolsRumbleEvent.new()
+	rumble_event.magnitude = 0.8
+	rumble_event.active_during_pause = false
+	rumble_event.indefinite = false
+	rumble_event.duration_ms = int(duration * 1000)
+	
+	# set new rumble event as event of rumblers
+	xr_tools_rumbler.event = rumble_event
+	xr_tools_rumbler_2.event = rumble_event
+	
+	# rumble
 	xr_tools_rumbler.rumble()
 	xr_tools_rumbler_2.rumble()
-	print("shaking world")

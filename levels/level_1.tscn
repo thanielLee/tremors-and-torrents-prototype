@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=70 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
@@ -11,19 +11,26 @@
 [ext_resource type="PackedScene" uid="uid://crte44g8idacl" path="res://hazards/electrical_fire.tscn" id="5_o7v6b"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="6_1sveg"]
 [ext_resource type="PackedScene" uid="uid://c5jkbtv57haa3" path="res://hazards/broken_glass.tscn" id="6_43hcc"]
+[ext_resource type="PackedScene" uid="uid://bkjehtndmkf6b" path="res://assets/debris/bricks_debris.fbx" id="7_tqj1w"]
 [ext_resource type="PackedScene" uid="uid://c83bvn3hvunbw" path="res://hazards/shaker.tscn" id="8_f3u63"]
 [ext_resource type="Script" uid="uid://dn0rhw5ql5k7m" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="8_jkxa6"]
-[ext_resource type="PackedScene" uid="uid://fd0fq5lehw5g" path="res://assets/house_no_floor.glb" id="8_ntdhj"]
 [ext_resource type="PackedScene" uid="uid://dgya7syy32d8d" path="res://custom_scenes/floor.tscn" id="9_0fu15"]
+[ext_resource type="PackedScene" uid="uid://di6471oabqi1t" path="res://assets/buildings/Post_Apocalyptic_Building_road.glb" id="10_xv8d5"]
+[ext_resource type="PackedScene" uid="uid://bgyjeh4pl6fr2" path="res://assets/buildings/Post_Apocalyptic_Building_bldg.glb" id="11_0wxk8"]
 [ext_resource type="PackedScene" uid="uid://df8ckf7krjyl3" path="res://custom_scenes/ois_hammer.tscn" id="11_aerfg"]
 [ext_resource type="PackedScene" uid="uid://bp4qsothxd80g" path="res://custom_scenes/injured.tscn" id="11_betor"]
+[ext_resource type="PackedScene" uid="uid://dsbx3jbnlp43l" path="res://assets/buildings/building1.glb" id="12_ai2ei"]
+[ext_resource type="PackedScene" uid="uid://kdv8kavhnddu" path="res://assets/buildings/building2.glb" id="13_ua8iw"]
+[ext_resource type="PackedScene" uid="uid://csnj0wmjhe5lj" path="res://assets/buildings/building3.glb" id="14_vg3su"]
 [ext_resource type="PackedScene" uid="uid://4a3xx8xcbdob" path="res://custom_scenes/bandage.tscn" id="14_vjtdm"]
 [ext_resource type="PackedScene" uid="uid://dsaovvehgewyy" path="res://objectives/victim_rescue.tscn" id="15_06ecp"]
 [ext_resource type="Script" uid="uid://du4lpoac66rw" path="res://addons/ateneo-virtual-reality-escape/inventory-system/inventory_system.gd" id="15_oqlok"]
+[ext_resource type="PackedScene" uid="uid://huaw53tiahmx" path="res://assets/buildings/building4.glb" id="15_yyq8c"]
 [ext_resource type="Script" uid="uid://d2j64x8gnsuue" path="res://addons/ateneo-virtual-reality-escape/inventory-system/inventory_slot.gd" id="16_7nvrk"]
 [ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="17_jkxa6"]
 [ext_resource type="PackedScene" uid="uid://bx753cjs4touu" path="res://custom_scenes/fire_extinguisher.tscn" id="18_voubc"]
 [ext_resource type="Material" uid="uid://dy43ogh4jhnpk" path="res://addons/ateneo-virtual-reality-escape/inventory-system/misc-resources/inventory_slot_shader_a.tres" id="18_w75he"]
+[ext_resource type="PackedScene" uid="uid://ct0a5owt2scuh" path="res://assets/debris/rocks_1.fbx" id="18_xapae"]
 [ext_resource type="Script" uid="uid://bour4026odpwv" path="res://scripts/medkit_sound_manager.gd" id="21_ntdhj"]
 [ext_resource type="AudioStream" uid="uid://bbe283racxu5y" path="res://assets/freesound/63529__florian_reinke__button_on.wav" id="22_0fu15"]
 [ext_resource type="AudioStream" uid="uid://bu0n47pxg0f0k" path="res://assets/freesound/344548__dster777__button.wav" id="23_4knja"]
@@ -36,7 +43,10 @@
 [ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="32_toluw"]
 [ext_resource type="Script" uid="uid://b4seunyy8fkyl" path="res://custom_scenes/ui/dialogue_manager.gd" id="33_rf48r"]
 [ext_resource type="PackedScene" uid="uid://bwvp4b0em2nh4" path="res://custom_scenes/ui/dialogue_ui.tscn" id="34_toluw"]
-[ext_resource type="PackedScene" uid="uid://cuuosibwguv0i" path="res://stretcher.tscn" id="37_5t0se"]
+[ext_resource type="PackedScene" uid="uid://8u1o3tw0fktd" path="res://assets/maps/house_1.blend" id="37_gtrna"]
+[ext_resource type="PackedScene" uid="uid://bm7gwd0gh3g1y" path="res://assets/debris/brick_debris.glb" id="38_xapae"]
+[ext_resource type="PackedScene" uid="uid://lhj1u2fry8xs" path="res://assets/debris/rocks_2.fbx" id="39_gtrna"]
+[ext_resource type="PackedScene" uid="uid://bd4ikqssk5ft6" path="res://assets/buildings/building5.glb" id="46_ai2ei"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4knja"]
 panorama = ExtResource("4_4knja")
@@ -53,6 +63,9 @@ sdfgi_enabled = true
 glow_enabled = true
 volumetric_fog_density = 0.0024
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_tqj1w"]
+size = Vector3(1, 15, 30)
+
 [sub_resource type="Resource" id="Resource_w75he"]
 script = ExtResource("8_jkxa6")
 magnitude = 1.0
@@ -62,7 +75,7 @@ duration_ms = 1500
 metadata/_custom_type_script = "uid://dn0rhw5ql5k7m"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lrvbd"]
-size = Vector3(15.8755, 1, 2)
+size = Vector3(30, 1, 4)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_voubc"]
 transparency = 1
@@ -70,7 +83,7 @@ albedo_color = Color(0.164706, 0.992157, 0.992157, 0.188235)
 
 [sub_resource type="BoxMesh" id="BoxMesh_0x1rk"]
 material = SubResource("StandardMaterial3D_voubc")
-size = Vector3(15.8755, 1, 2)
+size = Vector3(30, 1, 4)
 
 [sub_resource type="SphereMesh" id="SphereMesh_udfhf"]
 radius = 0.16
@@ -130,9 +143,6 @@ albedo_color = Color(0, 0, 0, 1)
 [node name="Level1" instance=ExtResource("1_lmdqw")]
 script = ExtResource("2_1gikq")
 
-[node name="XROrigin3D" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.21, 0.588074, 0.010605)
-
 [node name="FunctionPointer" parent="XROrigin3D/RightHand" index="4" instance=ExtResource("3_udfhf")]
 distance = 100.0
 show_laser = 2
@@ -148,14 +158,90 @@ collision_mask = 1019
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" index="0"]
 transform = Transform3D(0.172856, 0.918606, -0.355364, 0.284139, 0.298949, 0.910986, 0.943073, -0.258442, -0.209337, -13.9411, 25.5031, -11.6588)
-light_energy = 2.0
+light_energy = 0.4
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Environment" index="1"]
 transform = Transform3D(0.518685, -0.847034, 0.116183, 0.284139, 0.298949, 0.910986, -0.806369, -0.439502, 0.395736, 17.6631, 25.5031, 12.542)
-light_energy = 2.0
+light_energy = 0.143
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" index="2"]
 environment = SubResource("Environment_4jcj5")
+
+[node name="brick_debris" parent="Environment" index="3" instance=ExtResource("38_xapae")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -20.516, 0, -13.428)
+
+[node name="bricks_debris" parent="Environment" index="4" instance=ExtResource("7_tqj1w")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, -37.5685, -0.01, -3.63514)
+
+[node name="WorldWall" type="StaticBody3D" parent="Environment" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7404, 0, -4.2569)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WorldWall" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 0)
+shape = SubResource("BoxShape3D_tqj1w")
+
+[node name="WorldWall2" type="StaticBody3D" parent="Environment" index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.74, 0, -4.257)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WorldWall2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 0)
+shape = SubResource("BoxShape3D_tqj1w")
+
+[node name="WorldWall3" type="StaticBody3D" parent="Environment" index="7"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -18.989)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WorldWall3" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 0)
+shape = SubResource("BoxShape3D_tqj1w")
+
+[node name="WorldWall4" type="StaticBody3D" parent="Environment" index="8"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 9.204)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/WorldWall4" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 0)
+shape = SubResource("BoxShape3D_tqj1w")
+
+[node name="rocks_2" parent="Environment" index="9" instance=ExtResource("39_gtrna")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.77683, -9.53674e-07, -2.40771)
+
+[node name="rocks_3" parent="Environment" index="10" instance=ExtResource("39_gtrna")]
+transform = Transform3D(0.770702, 0, -0.637195, 0, 1, 0, 0.637195, 0, 0.770702, 14.4976, -4.76837e-07, -13.8773)
+
+[node name="rocks_1" parent="Environment" index="11" instance=ExtResource("18_xapae")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.411, 0, 1.295)
+
+[node name="road" parent="Environment" index="12" instance=ExtResource("10_xv8d5")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7.314, 0.879978, 4.265)
+
+[node name="Post_Apocalyptic_Building_bldg" parent="Environment" index="13" instance=ExtResource("11_0wxk8")]
+transform = Transform3D(-1.09278e-07, 0, -2.5, 0, 2.5, 0, 2.5, 0, -1.09278e-07, -39.42, 2.38296, -25.88)
+
+[node name="Post_Apocalyptic_Building_bldg2" parent="Environment" index="14" instance=ExtResource("11_0wxk8")]
+transform = Transform3D(-2.5, 0, 2.18557e-07, 0, 2.5, 0, -2.18557e-07, 0, -2.5, 35.58, 2.38296, -38.88)
+
+[node name="building1" parent="Environment" index="15" instance=ExtResource("12_ai2ei")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -40.1966, -0.00891006, -17.8474)
+
+[node name="building2" parent="Environment" index="16" instance=ExtResource("13_ua8iw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 0, -28.621)
+
+[node name="building3" parent="Environment" index="17" instance=ExtResource("13_ua8iw")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 30, 0, 31.656)
+
+[node name="building4" parent="Environment" index="18" instance=ExtResource("15_yyq8c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.9053, -0.0501393, -10.9009)
+
+[node name="building5" parent="Environment" index="19" instance=ExtResource("12_ai2ei")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -43.1966, -0.00891006, 63.1526)
+
+[node name="building6" parent="Environment" index="20" instance=ExtResource("15_yyq8c")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 53.4149, -0.0501393, 149.549)
+
+[node name="building7" parent="Environment" index="21" instance=ExtResource("14_vg3su")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.0751, -0.0501363, 113.903)
+
+[node name="building8" parent="Environment" index="22" instance=ExtResource("46_ai2ei")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -108.748, -0.0501393, 17.0562)
 
 [node name="WorldShaker" type="Node3D" parent="." index="2"]
 script = ExtResource("3_sstds")
@@ -176,13 +262,13 @@ metadata/_custom_type_script = "uid://bcpy4a75rao8y"
 
 [node name="Floor" parent="WorldShaker" index="2" instance=ExtResource("9_0fu15")]
 
-[node name="house_no_floor" parent="WorldShaker" index="3" instance=ExtResource("8_ntdhj")]
-transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, -9)
+[node name="house_1" parent="WorldShaker" index="3" instance=ExtResource("37_gtrna")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0.0547667, 0.163577, -8.9983)
 
-[node name="JammedDoor" parent="WorldShaker/house_no_floor" index="10" instance=ExtResource("5_08mmt")]
+[node name="JammedDoor" parent="WorldShaker/house_1" index="18" instance=ExtResource("5_08mmt")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.29535, 1.00429, 0.411374)
 
-[node name="JammedDoor2" parent="WorldShaker/house_no_floor" index="11" instance=ExtResource("5_08mmt")]
+[node name="JammedDoor2" parent="WorldShaker/house_1" index="19" instance=ExtResource("5_08mmt")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.07924, 1, 0.413716)
 
 [node name="Hazards" type="Node3D" parent="." index="3"]
@@ -191,22 +277,19 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.0792
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2154, 0, -6.77083)
 
 [node name="BrokenGlass" parent="Hazards" index="1" instance=ExtResource("6_43hcc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.42694, 7.59959e-07, -4.30547)
+transform = Transform3D(0.999948, 0, 0.0101576, 0, 1, 0, -0.0101576, 0, 0.999948, -6.12199, 0.176735, -12.6377)
 
 [node name="BrokenGlass2" parent="Hazards" index="2" instance=ExtResource("6_43hcc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6663, -1.93715e-07, -4.70948)
+transform = Transform3D(0.992206, 0, 0.124606, 0, 1, 0, -0.124606, 0, 0.992206, 4.6663, 0.191268, -1.85293)
 
 [node name="BrokenGlass3" parent="Hazards" index="3" instance=ExtResource("6_43hcc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.47997, -1.93715e-07, -12.2074)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.51361, 0.191855, -13.0583)
 
 [node name="Shaker" parent="Hazards" index="4" instance=ExtResource("8_f3u63")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72634, 2.66731e-06, -15.744)
 
-[node name="Shaker2" parent="Hazards" index="5" instance=ExtResource("8_f3u63")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.88733, -0.000170901, -2.85888)
-
 [node name="SafeArea" type="Area3D" parent="." index="4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.15094, 0, 7.07465)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.691479, 0, 7.60529)
 collision_layer = 32
 collision_mask = 0
 
@@ -219,7 +302,7 @@ mesh = SubResource("BoxMesh_0x1rk")
 [node name="Objectives" type="Node3D" parent="." index="5"]
 
 [node name="VictimRescue" parent="Objectives" index="0" instance=ExtResource("15_06ecp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.75773, -2.38419e-07, 4.24498)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.65679, -2.38419e-07, -12.429)
 follow_strength = 10.0
 is_required = true
 
@@ -228,6 +311,7 @@ transform = Transform3D(-6.09774e-08, 0, -1.395, 0, 1.395, 0, 1.395, 0, -6.09774
 
 [node name="DuckCoverHoldQTE" parent="Objectives" index="2" instance=ExtResource("26_0fu15")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.54264, 0.25, -6.52233)
+one_shot = true
 
 [node name="Hammer" parent="." index="6" instance=ExtResource("6_1sveg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19813, 1.10592, -1.62293)
@@ -427,8 +511,8 @@ stream = ExtResource("22_0fu15")
 [node name="MedkitCloseSound" type="AudioStreamPlayer3D" parent="InventorySystem/MedkitSoundManager" index="1"]
 stream = ExtResource("23_4knja")
 
-[node name="StartPos" type="Node3D" parent="." index="12"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.77001, 0, 10)
+[node name="StartPos" type="Node3D" parent="." index="11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.77001, 0, 7.98246)
 
 [node name="Box" type="Node3D" parent="." index="13"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.474, 0.116433, -1.55318)
@@ -484,8 +568,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
 
 [node name="Timer" type="Timer" parent="." index="14"]
 
-[node name="HUDManager" type="Node3D" parent="." index="15" node_paths=PackedStringArray("xr_camera")]
+[node name="HUDManager" type="Node3D" parent="." index="14" node_paths=PackedStringArray("xr_origin_3d", "xr_camera")]
 script = ExtResource("29_ohjdc")
+xr_origin_3d = NodePath("../XROrigin3D")
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
 
 [node name="HUD" parent="HUDManager" index="0" instance=ExtResource("30_e5brb")]
@@ -498,8 +583,9 @@ material = ExtResource("32_toluw")
 scene_properties_keys = PackedStringArray("hud.gd", "prompt_duration")
 prompt_duration = 3.0
 
-[node name="DialogueManager" type="Node3D" parent="." index="16" node_paths=PackedStringArray("xr_camera", "dialogue_button_hand", "dialogue_toggler_hand") groups=["dialogue_system"]]
+[node name="DialogueManager" type="Node3D" parent="." index="15" node_paths=PackedStringArray("xr_origin_3d", "xr_camera", "dialogue_button_hand", "dialogue_toggler_hand") groups=["dialogue_system"]]
 script = ExtResource("33_rf48r")
+xr_origin_3d = NodePath("../XROrigin3D")
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
 ui_distance = 2.0
 dialogue_button_hand = NodePath("../XROrigin3D/RightHand")
