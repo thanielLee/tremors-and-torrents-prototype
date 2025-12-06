@@ -77,7 +77,7 @@ duration_ms = 1500
 metadata/_custom_type_script = "uid://dn0rhw5ql5k7m"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lrvbd"]
-size = Vector3(30, 1, 4)
+size = Vector3(9, 1, 4)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_voubc"]
 transparency = 1
@@ -85,7 +85,7 @@ albedo_color = Color(0.164706, 0.992157, 0.992157, 0.188235)
 
 [sub_resource type="BoxMesh" id="BoxMesh_0x1rk"]
 material = SubResource("StandardMaterial3D_voubc")
-size = Vector3(30, 1, 4)
+size = Vector3(9, 1, 4)
 
 [sub_resource type="SphereMesh" id="SphereMesh_udfhf"]
 radius = 0.16
@@ -249,7 +249,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.0751, -0.0501363, 113.903
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -108.748, -0.0501393, 17.0562)
 
 [node name="ambulance" parent="Environment" index="23" instance=ExtResource("17_vg3su")]
-transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 8.64244, -0.0569564, 7.3695)
+transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 4.58524, -0.0569564, 7.3695)
 
 [node name="WorldShaker" type="Node3D" parent="." index="2"]
 script = ExtResource("3_sstds")
@@ -297,7 +297,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.51361, 0.191855, -13.0583)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72634, 2.66731e-06, -15.744)
 
 [node name="SafeArea" type="Area3D" parent="." index="4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.691479, 0, 7.60529)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.30852, 0, 7.60529)
 collision_layer = 32
 collision_mask = 0
 
@@ -311,7 +311,6 @@ mesh = SubResource("BoxMesh_0x1rk")
 
 [node name="VictimRescue" parent="Objectives" index="0" instance=ExtResource("15_06ecp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.65679, -2.38419e-07, -12.429)
-follow_strength = 10.0
 is_required = true
 
 [node name="Injured" parent="Objectives" index="1" instance=ExtResource("11_betor")]
@@ -320,6 +319,9 @@ transform = Transform3D(-6.09774e-08, 0, -1.395, 0, 1.395, 0, 1.395, 0, -6.09774
 [node name="DuckCoverHoldQTE" parent="Objectives" index="2" instance=ExtResource("26_0fu15")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.54264, 0.25, -6.52233)
 one_shot = true
+
+[node name="stretcher_nonpickable" parent="Objectives" index="3" instance=ExtResource("33_vg3su")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -6.37245, 0, 1.97875)
 
 [node name="Hammer" parent="." index="6" instance=ExtResource("6_1sveg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19813, 1.10592, -1.62293)
@@ -332,10 +334,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3465, 1.2508, -2.00495)
 [node name="Bandage" parent="." index="9" instance=ExtResource("14_vjtdm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40137, 1.30703, -1.10054)
 
-[node name="stretcher_nonpickable" parent="." index="10" instance=ExtResource("33_vg3su")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -6.37245, 0, 1.97875)
-
-[node name="InventorySystem" type="Node3D" parent="." index="11" node_paths=PackedStringArray("xr_anchor_to_object", "xr_camera_anchor", "inventory_toggler_hand")]
+[node name="InventorySystem" type="Node3D" parent="." index="10" node_paths=PackedStringArray("xr_anchor_to_object", "xr_camera_anchor", "inventory_toggler_hand")]
 transform = Transform3D(1, 0, 0, 0, 0.929133, 0.369747, 0, -0.369747, 0.929133, 0.366702, 0.537034, 1.91833)
 visible = false
 script = ExtResource("15_oqlok")
@@ -516,10 +515,10 @@ stream = ExtResource("22_0fu15")
 [node name="MedkitCloseSound" type="AudioStreamPlayer3D" parent="InventorySystem/MedkitSoundManager" index="1"]
 stream = ExtResource("23_4knja")
 
-[node name="StartPos" type="Node3D" parent="." index="12"]
+[node name="StartPos" type="Node3D" parent="." index="11"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.77001, 0, 7.98246)
 
-[node name="Box" type="Node3D" parent="." index="13"]
+[node name="Box" type="Node3D" parent="." index="12"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.474, 0.116433, -1.55318)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Box" index="0"]
@@ -571,9 +570,9 @@ visible = false
 [node name="TeamCaptain" parent="Box" index="7" instance=ExtResource("30_dp1ib")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
 
-[node name="Timer" type="Timer" parent="." index="14"]
+[node name="Timer" type="Timer" parent="." index="13"]
 
-[node name="HUDManager" type="Node3D" parent="." index="15" node_paths=PackedStringArray("xr_origin_3d", "xr_camera")]
+[node name="HUDManager" type="Node3D" parent="." index="14" node_paths=PackedStringArray("xr_origin_3d", "xr_camera")]
 script = ExtResource("29_ohjdc")
 xr_origin_3d = NodePath("../XROrigin3D")
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
@@ -588,7 +587,7 @@ material = ExtResource("32_toluw")
 scene_properties_keys = PackedStringArray("hud.gd", "prompt_duration")
 prompt_duration = 3.0
 
-[node name="DialogueManager" type="Node3D" parent="." index="16" node_paths=PackedStringArray("xr_origin_3d", "xr_camera", "dialogue_button_hand", "dialogue_toggler_hand") groups=["dialogue_system"]]
+[node name="DialogueManager" type="Node3D" parent="." index="15" node_paths=PackedStringArray("xr_origin_3d", "xr_camera", "dialogue_button_hand", "dialogue_toggler_hand") groups=["dialogue_system"]]
 script = ExtResource("33_rf48r")
 xr_origin_3d = NodePath("../XROrigin3D")
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")

@@ -3,13 +3,12 @@ extends ObjectiveBase
 signal victim_safe
 signal victim_triggered_hazard
 
-@export var follow_strength: float = 5.0
-@export var max_force: float = 50.0
+@export var follow_strength: float = 10.0
+@export var max_force: float = 80.0
 @export var dialogue_states: Array[String] = []
 
 @onready var rigid_body_3d: RigidBody3D = $RigidBody3D
 @onready var mesh_instance_3d: MeshInstance3D = $RigidBody3D/MeshInstance3D
-#@onready var area_3d: Area3D = $Area3D
 @onready var area_3d: Area3D = $RigidBody3D/Area3D
 
 var dialogue_sys
@@ -41,20 +40,6 @@ func _on_victim_safe():
 func _on_victim_hazard():
 	fail_objective()
 
-#func _physics_process(delta: float) -> void:
-	#print(target_node)
-	#if not active or not enabled:
-		#return
-	#if not following or target_node == null:
-		#return
-	#
-	#var direction = -(target_node.position - rigid_body_3d.position)
-	#var distance = direction.length()
-	#print(direction)
-	#
-	#if distance > 0.1:
-		#var force = direction.normalized() * follow_strength
-		#rigid_body_3d.apply_central_force(force)
 func _physics_process(delta: float) -> void:
 	if not active or not enabled:
 		return
@@ -93,7 +78,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 
 # detecting hazards or safe zone
 func _on_area_3d_area_entered(area: Area3D) -> void:
-	print(area.name)
+	#print(area.name)
 	
 	if area.name == "SafeArea":
 		emit_signal("victim_safe")

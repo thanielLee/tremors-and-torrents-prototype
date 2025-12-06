@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://v4lnugtph4cp"]
+[gd_scene load_steps=28 format=3 uid="uid://v4lnugtph4cp"]
 
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="1_8ic3i"]
 [ext_resource type="Script" uid="uid://cvx3e1yr5tho7" path="res://addons/stretcher_nonpickable.gd" id="1_yq2fn"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="6_jdhm7"]
 [ext_resource type="Resource" uid="uid://dsiujx4dllwvd" path="res://assets/meshes/interactables/pose_grab_wheel_right.tres" id="6_mdk2q"]
 [ext_resource type="PackedScene" uid="uid://ca3daqmpo0tua" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_redirect.tscn" id="7_yq2fn"]
+[ext_resource type="Script" uid="uid://5fymrsclibl7" path="res://objectives/objective_base.gd" id="10_mdk2q"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_jdhm7"]
 size = Vector3(1.2, 0.15, 2.5)
@@ -70,6 +71,9 @@ height = 0.2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2da2n"]
 albedo_color = Color(0.804493, 0.415365, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p7qsh"]
+size = Vector3(1, 1, 1.42896)
 
 [node name="stretcher_nonpickable" type="AnimatableBody3D"]
 script = ExtResource("1_yq2fn")
@@ -200,3 +204,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -2.22926)
 visible = false
 mesh = SubResource("CapsuleMesh_p7qsh")
 surface_material_override/0 = SubResource("StandardMaterial3D_2da2n")
+
+[node name="ObjectiveLogic" type="Node3D" parent="."]
+script = ExtResource("10_mdk2q")
+objective_name = "Stretcher"
+completed_points = 100
+is_required = true
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_mask = 32
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.630737)
+shape = SubResource("BoxShape3D_p7qsh")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]

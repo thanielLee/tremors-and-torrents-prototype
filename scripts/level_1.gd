@@ -128,6 +128,9 @@ func enable_objectives():
 			obj.pose.connect(_on_qte_update_status)
 		if obj.has_signal("shake_world"):
 			obj.shake_world.connect(do_earthquake)
+		if obj.has_signal("stretcher_dropped"):
+			var obj_logic = obj.get_node("ObjectiveLogic")
+			obj_logic.objective_completed.connect(_on_objective_completed.bind(obj_logic))
 
 
 
