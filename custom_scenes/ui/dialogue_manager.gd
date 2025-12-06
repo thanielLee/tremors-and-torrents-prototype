@@ -35,7 +35,8 @@ func _update_ui_position():
 	var target_pos = xr_camera.global_position + forward * ui_distance
 	target_pos.y += ui_height
 	dialogue_ui.global_position = target_pos
-	dialogue_ui.rotation = xr_camera.rotation
+	dialogue_ui.look_at(xr_origin_3d.global_position + Vector3(0, (xr_camera.global_position-xr_origin_3d.global_position).length(), 0), Vector3.UP, true)
+	
 
 
 

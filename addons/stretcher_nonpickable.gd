@@ -8,7 +8,7 @@ class_name StretcherNonPickable
 @onready var position_vector: Vector3 = Vector3(0.0, 0.0, 1.5)
 @onready var injured_mesh: Node3D = $Injured
 @onready var responder_mesh: Node3D = $responder1
-@onready var injured_node: Node3D = $"../Objectives/Injured"
+@onready var injured_node: Node3D = $"../Injured"
 var handle_one_transform: Transform3D
 var handle_two_transform: Transform3D
 var handle_one_position: Vector3
