@@ -568,7 +568,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54303, -1.43442)
 visible = false
 
 [node name="TeamCaptain" parent="Box" index="7" instance=ExtResource("30_dp1ib")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -2, 0, -2)
 
 [node name="Timer" type="Timer" parent="." index="13"]
 
