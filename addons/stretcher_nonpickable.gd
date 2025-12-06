@@ -6,8 +6,9 @@ class_name StretcherNonPickable
 @onready var debug_mesh_1: MeshInstance3D = $DebugCube1
 @onready var debug_mesh_2: MeshInstance3D = $DebugCube2
 @onready var position_vector: Vector3 = Vector3(0.0, 0.0, 1.5)
-@onready var injured_node: Node3D = $Injured
-@onready var responder_mesh: Node3D = $MeshInstance3D6
+@onready var injured_mesh: Node3D = $Injured
+@onready var responder_mesh: Node3D = $responder1
+@onready var injured_node: Node3D = $"../Objectives/Injured"
 var handle_one_transform: Transform3D
 var handle_two_transform: Transform3D
 var handle_one_position: Vector3
@@ -40,7 +41,7 @@ func _ready() -> void:
 	handle_one.grabbed.connect(_handle_one_picked_up)
 	handle_two.grabbed.connect(_handle_two_picked_up)
 	did_setup_info = false
-	injured_node.visible = false
+	injured_mesh.visible = false
 	physics_state_space = get_world_3d().direct_space_state
 	
 func _handle_one_picked_up(pickable, by) -> void:
@@ -64,10 +65,10 @@ func _return_handle_two(pickable, by) -> void:
 	did_setup_info = false
 
 func _set_injured_visible():
-	injured_node.visible = true
+	injured_mesh.visible = true
 
 func _set_injured_invisible():
-	injured_node.visible = false
+	injured_mesh.visible = false
 
 func _setup_player_info() -> void:
 	did_setup_info = true
@@ -95,13 +96,18 @@ func _put_stretcher_on_ground():
 	ray_query.to = global_position + Vector3(0., -20.0, 0.0)
 	ray_query.exclude = [self]
 	ray_query.collision_mask = 1
-	
+	44
 	var result: Dictionary = physics_state_space.intersect_ray(ray_query)
 	var intersection_point: Vector3 = result["position"]
 	var distance = (global_position-intersection_point).length()
 	stretcher_dropped.emit(distance)
 	
 	global_position = intersection_point + Vector3(0.0, 0.3, 0.0)
+	
+	if ((global_position-Vector3(-3.5, 0.4, -14.6)).length() <= 5.0):
+		injured_mesh.visible = true
+		injured_node.visible = false
+		global_rotation.y = (global_rotation.y+180)
 	
 func _process(delta: float) -> void:
 	pass
@@ -112,6 +118,8 @@ func _physics_process(delta):
 		if not did_setup_info:
 			responder_mesh.visible = true
 			_setup_player_info()
+		
+		responder_mesh.global_position.y = 0.0
 			
 		var hands_midpoint = (handle_one_hand.global_position + handle_two_hand.global_position) / 2
 		#var hand_two_vec = (handle_two_hand.global_position - hands_midpoint).normalized()
@@ -151,6 +159,8 @@ func _physics_process(delta):
 		
 		responder_mesh.visible = false
 		did_setup_info = false
+		
+		
 		
 		
 	if handle_one_hand == null:

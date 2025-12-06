@@ -59,7 +59,7 @@ func _on_ois_twist_receiver_action_completed(requirement: Variant, total_progres
 		return
 	print("bandage complete!!!!!!!!!!!!!!!!!!!")
 	complete_objective()
-	turn_off()
+	#turn_off()
 
 func play_bandage_sound():
 	var sound = sounds[randi() % sounds.size()]
