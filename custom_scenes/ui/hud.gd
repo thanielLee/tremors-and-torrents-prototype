@@ -87,6 +87,41 @@ func update_qte_status_label(status: bool):
 		qte_status_label.add_theme_color_override("font_color", Color.RED)
 
 # -----------------------
+# OBJECTIVE
+# -----------------------
+func on_obj_started(obj: Node):
+	qte_container.visible = true
+	qte_name_label.text = obj.objective_name
+	qte_feedback_label.text = ""
+	qte_status_label.text = ""
+	show_prompt("Objective Started!", 2.0)
+
+func on_obj_completed(obj: Node):
+	qte_feedback_label.text = obj.objective_name + " Completed!"
+	qte_feedback_label.add_theme_color_override("font_color", Color.GREEN)
+	show_prompt("Success!", 2.0)
+	await get_tree().create_timer(2.0).timeout
+	qte_container.visible = false
+
+#func on_obj_failed(obj: Node):
+	#qte_feedback_label.text = "QTE Failed!"
+	#qte_feedback_label.add_theme_color_override("font_color", Color.RED)
+	#show_prompt("Failed!", 2.0)
+	#await get_tree().create_timer(2.0).timeout
+	#qte_container.visible = false
+
+func update_obj_status_label(time: float):
+	#if status:
+		#qte_status_label.text = "Hold that position!"
+		#qte_status_label.add_theme_color_override("font_color", Color.GREEN)
+	#else:
+		#qte_status_label.text = "Get back into position!"
+		#qte_status_label.add_theme_color_override("font_color", Color.RED)
+	var seconds = int(time) % 60
+	var mseconds = int(fmod(time, 1) * 1000) % 1000
+	qte_status_label.text = "%02d.%02d" % [seconds, mseconds]
+	
+# -----------------------
 # LEVEL PROMPTS
 # -----------------------
 func end_level_prompt(success: bool, score):

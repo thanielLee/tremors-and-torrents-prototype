@@ -122,6 +122,10 @@ func enable_objectives():
 			obj.objective_completed.connect(_on_objective_completed.bind(obj))
 		if obj.has_signal("objective_failed"):
 			obj.objective_failed.connect(_on_objective_failed.bind(obj))
+		if obj.has_signal("objective_started"):
+			obj.objective_started.connect(_on_objective_started.bind(obj))
+		if obj.has_signal("time"):
+			obj.time.connect(_on_obj_update_status)
 		if obj.has_signal("qte_started"):
 			obj.qte_started.connect(_on_qte_started.bind(obj))
 		if obj.has_signal("pose"):
@@ -132,7 +136,11 @@ func enable_objectives():
 			var obj_logic = obj.get_node("ObjectiveLogic")
 			obj_logic.objective_completed.connect(_on_objective_completed.bind(obj_logic))
 
+func _on_objective_started(obj: Node):
+	hud_manager.on_obj_started(obj)
 
+func _on_obj_update_status(time: float):
+	hud_manager.update_obj_status_label(time)
 
 func _on_objective_completed(obj: Node):
 	if obj.name not in completed_objectives:
@@ -145,6 +153,7 @@ func _on_objective_completed(obj: Node):
 		else: # for objectives
 			var message = "Objective: %s completed! +%d" % [obj.objective_name, obj.completed_points]
 			hud_manager.show_prompt(message, 3.0)
+			hud_manager.on_obj_completed(obj)
 		
 		hud_manager.update_score(score)
 		check_level_end()

@@ -17,13 +17,23 @@ signal objective_failed
 @export var is_required: bool = false  # For REQUIRED_OBJECTIVES tracking
 @export var auto_start: bool = false   # Whether it starts immediately on level load
 
+@export var ideal_completion_time: float = 10
+var elapsed_time: float = 0
+
 var active: bool = false
 var completed: bool = false
 var failed: bool = false
 
+signal time(float)
+
 func _ready():
 	if auto_start:
 		start_objective()
+
+func _process(delta: float) -> void:
+	if active:
+		elapsed_time += delta
+		time.emit(elapsed_time)
 
 func start_objective():
 	if not enabled or active:
