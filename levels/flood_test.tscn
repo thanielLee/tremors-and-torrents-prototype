@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyui8jrvjlb4t"]
+
+[ext_resource type="PackedScene" uid="uid://dcdbr1hjtfjje" path="res://levels/flood_plane.tscn" id="1_15f3j"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_otxdf"]
+radius = 0.1
+height = 0.2
+
+[node name="FloodTest" type="Node3D"]
+
+[node name="FloodPlane" parent="." instance=ExtResource("1_15f3j")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0430247, 0)
+mesh = SubResource("CapsuleMesh_otxdf")
