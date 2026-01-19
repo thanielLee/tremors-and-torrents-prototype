@@ -3,8 +3,11 @@ extends ObjectiveBase
 signal victim_safe
 signal victim_triggered_hazard
 
-@export var follow_strength: float = 10.0
-@export var max_force: float = 80.0
+#@export var follow_strength: float = 10.0
+#@export var max_force: float = 80.0
+@export var side_offset: float = 0.6	# meters to the right
+@export var back_offset: float = 0.2	# slightly behind player
+
 @export var dialogue_states: Array[String] = []
 @export var offset: Vector3 = Vector3(-0.5, 1, -0.5)
 
@@ -22,11 +25,10 @@ var state_index = 0
 
 # movement logic
 var following: bool = false
-var player
+var player: XROrigin3D
 
 var left_hand_held := false
 var right_hand_held := false
-var assisted_walk_active := false
 
 
 func _ready():
@@ -39,17 +41,10 @@ func _ready():
 	if dialogue_states.size() > 0:
 		cur_state = dialogue_states[state_index]
 	
-	# movement setup
-	#pickable.grabbed.connect(_on_grabbed)
-	#pickable.released.connect(_on_released)
-	#pickable.action_pressed.connect(_on_action_pressed)
-	#pickable.action_released.connect(_on_action_released)
-	
 	interactable_handle_right.grabbed.connect(_on_grabbed)
 	interactable_handle_left.grabbed.connect(_on_grabbed)
 	interactable_handle_right.released.connect(_on_released)
 	interactable_handle_left.released.connect(_on_released)
-	
 	
 	body.linear_damp = 10.0
 	body.angular_damp = 10.0
@@ -73,16 +68,6 @@ func _on_released(handle, by):
 	elif grab_point.name == "GrabPointHandLeft":
 		left_hand_held = false
 
-#func _update_assisted_walk_state():
-	#print("left_hand_held ", left_hand_held)
-	#print("right_hand_held ", right_hand_held)
-	#assisted_walk_active = left_hand_held and right_hand_held
-	#
-	#if assisted_walk_active:
-		#body.freeze = false
-	#else:
-		#body.freeze = true
-
 
 func next_state_dialogue():
 	state_index += 1
@@ -99,59 +84,31 @@ func _on_victim_hazard():
 func _physics_process(delta: float) -> void:
 	if not active or not enabled:
 		return
-	#if not following or target_node == null:
-		#return
-
-	#var victim_pos = body.global_position
-	#var target_pos = target_node.global_position
-	#
-	#var direction = target_pos - victim_pos
-	#var distance = direction.length()
-#
-	## Do nothing if very close
-	#if distance < 0.3:
-		#return
-#
-	## Correct direction (move toward player)
-	#var force = direction.normalized() * follow_strength
-#
-	## Clamp force
-	#if force.length() > max_force:
-		#force = force.normalized() * max_force
-#
-	#body.apply_central_force(force)
 	
-	if left_hand_held and right_hand_held and player != null:
-		body.global_position = player.global_position + offset
-
-	#var pickup_node := pickable.get_picked_up_by()
-	#if pickup_node != null:
-		#var player = pickup_node.get_parent().get_parent() # gets XROrigin3D
-	#print("player ", player)
-	#if not player:
-		#return
-
-	#var target_pos = player.global_position
-	#target_pos.y = body.global_position.y  # prevent floating
-#
-	#var direction = target_pos - body.global_position
-	#body.global_position += direction * delta * 2.0
-
+	if not (left_hand_held and right_hand_held and player):
+		return
+	
+	var pbasis := player.global_transform.basis
+	var right := pbasis.x.normalized()
+	var forward := -pbasis.x.normalized()
+	
+	var target_pos := player.global_position + right*side_offset - forward*back_offset
+	
+	target_pos.y = body.global_position.y
+	
+	body.global_position = target_pos
+	body.global_transform.basis = Basis().looking_at(forward, Vector3.UP)
 
 # detecting the player
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if not enabled or not active:
 		return
 	
-	player = body
-	#following = true
-	set_capsule_color(Color.GREEN)
+	player = body.get_parent()
 
 
 # detecting hazards or safe zone
 func _on_area_3d_area_entered(area: Area3D) -> void:
-	#print(area.name)
-	
 	if area.name == "SafeArea":
 		emit_signal("victim_safe")
 		following = false
@@ -160,17 +117,6 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 		print("fail rescue")
 	else:
 		return
-
-func set_capsule_color(color: Color):
-	var material := mesh_instance_3d.get_surface_override_material(0)
-	
-	# If mesh has no material
-	if material == null:
-		material = StandardMaterial3D.new()
-		mesh_instance_3d.set_surface_override_material(0, material)
-	
-	material.albedo_color = color
-
 
 func _on_xr_tools_interactable_area_pointer_event(event: Variant) -> void:
 	if !dialogue_sys:

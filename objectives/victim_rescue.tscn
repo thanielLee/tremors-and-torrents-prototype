@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://dsaovvehgewyy"]
+[gd_scene load_steps=14 format=3 uid="uid://dsaovvehgewyy"]
 
 [ext_resource type="Script" uid="uid://ccjy1q4ckumut" path="res://objectives/victim_rescue.gd" id="1_0qijs"]
+[ext_resource type="PackedScene" uid="uid://pinr5n4sc1nq" path="res://assets/responder1.glb" id="2_j4ht5"]
 [ext_resource type="Script" uid="uid://bs8upadcj5xge" path="res://addons/godot-xr-tools/objects/interactable_area.gd" id="2_q5yrj"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="3_12ehe"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="4_1w5fe"]
@@ -9,22 +10,15 @@
 [ext_resource type="PackedScene" uid="uid://bddj5m7ull6g0" path="res://addons/godot-xr-tools/interactables/interactable_handle.tscn" id="7_j4ht5"]
 [ext_resource type="PackedScene" uid="uid://ca3daqmpo0tua" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_redirect.tscn" id="8_so1c5"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q5yrj"]
-albedo_color = Color(1, 0, 0, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_jailu"]
-material = SubResource("StandardMaterial3D_q5yrj")
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_12ehe"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5xjs5"]
 radius = 1.0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_2c2vd"]
-radius = 0.75
+[sub_resource type="BoxShape3D" id="BoxShape3D_so1c5"]
+size = Vector3(1.19904, 0.874084, 1)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_ftsdy"]
-radius = 0.75
+[sub_resource type="BoxShape3D" id="BoxShape3D_2c2vd"]
 
 [node name="VictimRescue" type="Node3D"]
 script = ExtResource("1_0qijs")
@@ -32,40 +26,44 @@ dialogue_states = Array[String](["pre_rescue", "post_rescue"])
 objective_name = "Victim"
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_mask = 0
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
-mesh = SubResource("CapsuleMesh_jailu")
+[node name="responder1" parent="RigidBody3D" instance=ExtResource("2_j4ht5")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+visible = false
 shape = SubResource("CapsuleShape3D_12ehe")
 
 [node name="Area3D" type="Area3D" parent="RigidBody3D"]
+visible = false
 collision_mask = 524320
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Area3D"]
 shape = SubResource("SphereShape3D_5xjs5")
 
 [node name="RightHandle" type="Node3D" parent="RigidBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.568954, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.417247, 1.65901, 0)
 
 [node name="InteractableHandleRight" parent="RigidBody3D/RightHandle" instance=ExtResource("7_j4ht5")]
+snap_distance = 10.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/RightHandle/InteractableHandleRight"]
-shape = SubResource("SphereShape3D_2c2vd")
+shape = SubResource("BoxShape3D_so1c5")
 
 [node name="GrabPointRedirect" parent="RigidBody3D/RightHandle/InteractableHandleRight" node_paths=PackedStringArray("target") instance=ExtResource("8_so1c5")]
 target = NodePath("../../../Node3D/GrabPointHandRight")
 
 [node name="LeftHandle" type="Node3D" parent="RigidBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.569, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.372375, 1.1543, 0)
 
 [node name="InteractableHandleLeft" parent="RigidBody3D/LeftHandle" instance=ExtResource("7_j4ht5")]
+snap_distance = 10.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/LeftHandle/InteractableHandleLeft"]
-shape = SubResource("SphereShape3D_ftsdy")
+shape = SubResource("BoxShape3D_2c2vd")
 
 [node name="GrabPointRedirect" parent="RigidBody3D/LeftHandle/InteractableHandleLeft" node_paths=PackedStringArray("target") instance=ExtResource("8_so1c5")]
 target = NodePath("../../../Node3D/GrabPointHandLeft")
@@ -73,14 +71,17 @@ target = NodePath("../../../Node3D/GrabPointHandLeft")
 [node name="Node3D" type="Node3D" parent="RigidBody3D"]
 
 [node name="GrabPointHandRight" parent="RigidBody3D/Node3D" instance=ExtResource("4_1w5fe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.492067, 0, 0)
+transform = Transform3D(-0.5, 0.866025, -4.37114e-08, 0.866025, 0.5, 7.57103e-08, 8.74228e-08, 0, -1, -0.223003, 1.68169, 0.111385)
+visible = true
 hand_pose = ExtResource("6_dshul")
 
 [node name="GrabPointHandLeft" parent="RigidBody3D/Node3D" instance=ExtResource("3_12ehe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.492, 0, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.232723, 1.24138, 0.208689)
+visible = true
 hand_pose = ExtResource("4_5xjs5")
 
 [node name="XRToolsInteractableArea" type="Area3D" parent="."]
+visible = false
 collision_layer = 1048576
 collision_mask = 0
 script = ExtResource("2_q5yrj")
