@@ -6,11 +6,15 @@ signal victim_triggered_hazard
 @export var follow_strength: float = 10.0
 @export var max_force: float = 80.0
 @export var dialogue_states: Array[String] = []
+@export var offset: Vector3 = Vector3(-0.5, 1, -0.5)
 
 @onready var body: RigidBody3D = $RigidBody3D
 @onready var mesh_instance_3d: MeshInstance3D = $RigidBody3D/MeshInstance3D
 @onready var area_3d: Area3D = $RigidBody3D/Area3D
 @onready var pickable: XRToolsPickable = $RigidBody3D/XRToolsPickable
+@onready var interactable_handle_right: XRToolsInteractableHandle = $RigidBody3D/RightHandle/InteractableHandleRight
+@onready var interactable_handle_left: XRToolsInteractableHandle = $RigidBody3D/LeftHandle/InteractableHandleLeft
+
 
 var dialogue_sys
 var cur_state: String
@@ -36,57 +40,48 @@ func _ready():
 		cur_state = dialogue_states[state_index]
 	
 	# movement setup
-	pickable.grabbed.connect(_on_grabbed)
-	pickable.released.connect(_on_released)
+	#pickable.grabbed.connect(_on_grabbed)
+	#pickable.released.connect(_on_released)
 	#pickable.action_pressed.connect(_on_action_pressed)
 	#pickable.action_released.connect(_on_action_released)
+	
+	interactable_handle_right.grabbed.connect(_on_grabbed)
+	interactable_handle_left.grabbed.connect(_on_grabbed)
+	interactable_handle_right.released.connect(_on_released)
+	interactable_handle_left.released.connect(_on_released)
+	
 	
 	body.linear_damp = 10.0
 	body.angular_damp = 10.0
 	body.freeze = true
 
-func _on_grabbed(pickable, by):
-	var grab_point = pickable.get_active_grab_point()
-	#print(grab_point)
+func _on_grabbed(handle, by):
+	var grab_point = handle.get_child(1).target # GrabPointRedirect
 	if grab_point == null:
 		return
-	if grab_point.name == "GrabPointHandLeft":
-		left_hand_held = true
-	elif grab_point.name == "GrabPointHandRight":
+	if grab_point.name == "GrabPointHandRight":
 		right_hand_held = true
+	elif grab_point.name == "GrabPointHandLeft":
+		left_hand_held = true
 
-	_update_assisted_walk_state()
-
-func _on_released(pickable, by):
-	var grab_point = pickable.get_active_grab_point()
-	#print(grab_point)
+func _on_released(handle, by):
+	var grab_point = handle.get_child(1).target # GrabPointRedirect
 	if grab_point == null:
 		return
-	if grab_point.name == "GrabPointHandLeft":
-		left_hand_held = false
-	elif grab_point.name == "GrabPointHandRight":
+	if grab_point.name == "GrabPointHandRight":
 		right_hand_held = false
+	elif grab_point.name == "GrabPointHandLeft":
+		left_hand_held = false
 
-	_update_assisted_walk_state()
-
-#func _on_action_pressed():
-	#pass
-#
-#func _on_action_released():
-	#pass
-
-func _update_assisted_walk_state():
-	print("left_hand_held ", left_hand_held)
-	print("right_hand_held ", right_hand_held)
-	assisted_walk_active = left_hand_held and right_hand_held
-	
-	if assisted_walk_active:
-		body.freeze = false
-	else:
-		body.freeze = true
-	
-	print("body.freeze ", body.freeze)
-	print(pickable.get_picked_up_by())
+#func _update_assisted_walk_state():
+	#print("left_hand_held ", left_hand_held)
+	#print("right_hand_held ", right_hand_held)
+	#assisted_walk_active = left_hand_held and right_hand_held
+	#
+	#if assisted_walk_active:
+		#body.freeze = false
+	#else:
+		#body.freeze = true
 
 
 func next_state_dialogue():
@@ -126,8 +121,8 @@ func _physics_process(delta: float) -> void:
 #
 	#body.apply_central_force(force)
 	
-	if not assisted_walk_active:
-		return
+	if left_hand_held and right_hand_held and player != null:
+		body.global_position = player.global_position + offset
 
 	#var pickup_node := pickable.get_picked_up_by()
 	#if pickup_node != null:
@@ -136,11 +131,11 @@ func _physics_process(delta: float) -> void:
 	#if not player:
 		#return
 
-	var target_pos = player.global_position
-	target_pos.y = body.global_position.y  # prevent floating
-
-	var direction = target_pos - body.global_position
-	body.global_position += direction * delta * 2.0
+	#var target_pos = player.global_position
+	#target_pos.y = body.global_position.y  # prevent floating
+#
+	#var direction = target_pos - body.global_position
+	#body.global_position += direction * delta * 2.0
 
 
 # detecting the player
