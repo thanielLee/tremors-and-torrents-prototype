@@ -25,15 +25,13 @@ signal shake_world
 var level_active = false
 var level_timer : float = 0.0
 var time_elapsed : float = 0.0
-var score : int = 0 # Temporary basic scoring system 
+var score : int = 0 
 
-var triggered_hazards: Array[String] = []
 var completed_objectives: Array[String] = []
-var UI_node
+var triggered_hazards: Array[String] = []
+const HAZARD_LIMIT := 2
 
 # Conditions
-const HAZARD_LIMIT := 2
-#const REQUIRED_OBJECTIVES := ["Victim"]
 @onready var hud_manager: Node3D = $HUDManager
 
 
@@ -63,7 +61,7 @@ func start_level():
 	world_shaker = get_node("WorldShaker")
 
 	enable_hazards()
-	enable_objectives()
+	setup_objectives()
 	
 	hud_manager.reset_timer()
 
@@ -113,7 +111,7 @@ func _on_hazard_triggered(hazard: Variant):
 
 ### OBJECTIVES ###
 
-func enable_objectives():
+func setup_objectives():
 	if not objectives:
 		return
 
@@ -136,13 +134,35 @@ func enable_objectives():
 			var obj_logic = obj.get_node("ObjectiveLogic")
 			obj_logic.objective_completed.connect(_on_objective_completed.bind(obj_logic))
 
-func _on_objective_started(obj: Node):
+func enable_objectives():
+	for o in objectives.get_children():
+		var obj = o as ObjectiveBase
+		if not obj:
+			continue
+		if obj.completed or obj.failed:
+			continue
+		
+		obj.enabled = true
+
+func disable_other_objectives(obj: ObjectiveBase):
+	for o in objectives.get_children():
+		if o.name == obj.name:
+			continue
+		
+		var other_obj = o as ObjectiveBase
+		if other_obj:
+			other_obj.enabled = false
+
+func _on_objective_started(obj: ObjectiveBase):
 	hud_manager.on_obj_started(obj)
+	
+	# disable other objectives right now
+	disable_other_objectives(obj)
 
 func _on_obj_update_status(time: float):
 	hud_manager.update_obj_status_label(time)
 
-func _on_objective_completed(obj: Node):
+func _on_objective_completed(obj: ObjectiveBase):
 	if obj.name not in completed_objectives:
 		completed_objectives.append(obj.name)
 		
@@ -156,9 +176,11 @@ func _on_objective_completed(obj: Node):
 			hud_manager.on_obj_completed(obj)
 		
 		hud_manager.update_score(score)
+		
+		enable_objectives()
 		check_level_end()
 
-func _on_objective_failed(obj: Node):
+func _on_objective_failed(obj: ObjectiveBase):
 	if obj.has_signal("qte_started"):
 		hud_manager.on_qte_failed()
 	else:
@@ -171,6 +193,8 @@ func _on_objective_failed(obj: Node):
 	
 	if obj.is_required:
 		end_level(false)
+	
+	enable_objectives()
 
 func _on_qte_started(obj: Node):
 	hud_manager.on_qte_started(obj)
@@ -191,6 +215,8 @@ func check_level_end():
 	var all_required_done := true
 	
 	for obj in objectives.get_children():
+		if obj.has_signal("stretcher_dropped"):
+			continue
 		if obj.is_required:
 			if obj.name not in completed_objectives:
 				all_required_done = false

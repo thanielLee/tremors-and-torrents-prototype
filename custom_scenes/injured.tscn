@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://bp4qsothxd80g"]
 
-[ext_resource type="Script" uid="uid://bbncc441ssy0o" path="res://injured.gd" id="1_heuca"]
+[ext_resource type="Script" uid="uid://bbncc441ssy0o" path="res://custom_scenes/injured.gd" id="1_heuca"]
 [ext_resource type="Script" uid="uid://3bi02tndcxdg" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/ois-receiver/ois_twist_receiver.gd" id="2_as5ff"]
 [ext_resource type="AudioStream" uid="uid://dbgvfjvxpx0am" path="res://assets/freesound/bandage_sound_1.mp3" id="3_f8pag"]
 [ext_resource type="AudioStream" uid="uid://gtrjdh5pp8oi" path="res://assets/freesound/bandage_sound_2.mp3" id="4_k55h8"]

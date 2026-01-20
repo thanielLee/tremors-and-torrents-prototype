@@ -19,6 +19,7 @@ signal objective_failed
 
 @export var ideal_completion_time: float = 10
 var elapsed_time: float = 0
+var completion_time: float = 0
 
 var active: bool = false
 var completed: bool = false
@@ -34,7 +35,9 @@ func _process(delta: float) -> void:
 	if active:
 		elapsed_time += delta
 		time.emit(elapsed_time)
-
+	elif completed and not failed:
+		completion_time = elapsed_time
+		
 func start_objective():
 	if not enabled or active:
 		return
@@ -64,3 +67,6 @@ func reset_objective():
 	active = false
 	completed = false
 	failed = false
+
+func get_completion_time():
+	return completion_time

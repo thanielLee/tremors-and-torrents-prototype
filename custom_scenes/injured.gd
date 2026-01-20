@@ -21,13 +21,8 @@ func _ready() -> void:
 	
 func _on_ois_twist_receiver_action_started(requirement: Variant, total_progress: Variant) -> void:
 	start_objective()
-	print("twist started")
-	play_bandage_sound()
-	#var progress_ratio = clamp(total_progress / float(requirement), 0.0, 1.0)
-	#
-	##bandage.scale = Vector3(1, lerp(0.01, 1.0, progress_ratio), 1)
-	#_on_ois_twist_receiver_action_in_progress(requirement, total_progress)
-
+	if enabled:
+		play_bandage_sound()
 
 func _on_ois_twist_receiver_action_in_progress(requirement: Variant, total_progress: Variant) -> void:
 	#print("twist in progress")
@@ -51,15 +46,11 @@ func _on_ois_twist_receiver_action_in_progress(requirement: Variant, total_progr
 func _on_ois_twist_receiver_action_ended(requirement: Variant, total_progress: Variant) -> void:
 	if not active:
 		return
-	print("twist stopped")
 
 func _on_ois_twist_receiver_action_completed(requirement: Variant, total_progress: Variant) -> void:
-	#emit_signal("injured_cleared")
 	if not active:
 		return
-	print("bandage complete!!!!!!!!!!!!!!!!!!!")
 	complete_objective()
-	#turn_off()
 
 func play_bandage_sound():
 	var sound = sounds[randi() % sounds.size()]

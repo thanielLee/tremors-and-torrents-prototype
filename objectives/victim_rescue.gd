@@ -3,10 +3,8 @@ extends ObjectiveBase
 signal victim_safe
 signal victim_triggered_hazard
 
-#@export var follow_strength: float = 10.0
-#@export var max_force: float = 80.0
-@export var side_offset: float = 0.6	# meters to the right
-@export var back_offset: float = 0.2	# slightly behind player
+@export var side_offset: float = 0.4	# meters to the right
+@export var back_offset: float = 0.1	# slightly behind player
 
 @export var dialogue_states: Array[String] = []
 @export var offset: Vector3 = Vector3(-0.5, 1, -0.5)
@@ -33,7 +31,6 @@ var right_hand_held := false
 
 func _ready():
 	super._ready()
-	active = true
 	victim_safe.connect(_on_victim_safe)
 	victim_triggered_hazard.connect(_on_victim_hazard)
 	
@@ -90,7 +87,7 @@ func _physics_process(delta: float) -> void:
 	
 	var pbasis := player.global_transform.basis
 	var right := pbasis.x.normalized()
-	var forward := -pbasis.x.normalized()
+	var forward := pbasis.z.normalized()
 	
 	var target_pos := player.global_position + right*side_offset - forward*back_offset
 	
@@ -98,14 +95,16 @@ func _physics_process(delta: float) -> void:
 	
 	body.global_position = target_pos
 	body.global_transform.basis = Basis().looking_at(forward, Vector3.UP)
+	#body.look_at(body.global_position + Vector3(0, (player.global_position).length(), 0), Vector3.UP, true)
 
-# detecting the player
+
+# detecting the player and starting the obkective
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	if not enabled or not active:
+	if not enabled:
 		return
 	
 	player = body.get_parent()
-
+	start_objective()
 
 # detecting hazards or safe zone
 func _on_area_3d_area_entered(area: Area3D) -> void:
@@ -114,7 +113,6 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 		following = false
 	elif area.get_parent().get_script() == Hazard:
 		emit_signal("victim_triggered_hazard")
-		print("fail rescue")
 	else:
 		return
 

@@ -16,7 +16,7 @@
 radius = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_so1c5"]
-size = Vector3(1.19904, 0.874084, 1)
+size = Vector3(0.919833, 0.874084, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2c2vd"]
 
@@ -26,6 +26,7 @@ dialogue_states = Array[String](["pre_rescue", "post_rescue"])
 objective_name = "Victim"
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
+collision_layer = 4
 collision_mask = 0
 axis_lock_angular_x = true
 axis_lock_angular_z = true
@@ -34,11 +35,11 @@ axis_lock_angular_z = true
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_12ehe")
 
 [node name="Area3D" type="Area3D" parent="RigidBody3D"]
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_mask = 524320
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Area3D"]
@@ -46,6 +47,7 @@ shape = SubResource("SphereShape3D_5xjs5")
 
 [node name="RightHandle" type="Node3D" parent="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.417247, 1.65901, 0)
+visible = false
 
 [node name="InteractableHandleRight" parent="RigidBody3D/RightHandle" instance=ExtResource("7_j4ht5")]
 snap_distance = 10.0
@@ -54,10 +56,11 @@ snap_distance = 10.0
 shape = SubResource("BoxShape3D_so1c5")
 
 [node name="GrabPointRedirect" parent="RigidBody3D/RightHandle/InteractableHandleRight" node_paths=PackedStringArray("target") instance=ExtResource("8_so1c5")]
-target = NodePath("../../../Node3D/GrabPointHandRight")
+target = NodePath("../../../Handles/GrabPointHandRight")
 
 [node name="LeftHandle" type="Node3D" parent="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.372375, 1.1543, 0)
+visible = false
 
 [node name="InteractableHandleLeft" parent="RigidBody3D/LeftHandle" instance=ExtResource("7_j4ht5")]
 snap_distance = 10.0
@@ -66,16 +69,16 @@ snap_distance = 10.0
 shape = SubResource("BoxShape3D_2c2vd")
 
 [node name="GrabPointRedirect" parent="RigidBody3D/LeftHandle/InteractableHandleLeft" node_paths=PackedStringArray("target") instance=ExtResource("8_so1c5")]
-target = NodePath("../../../Node3D/GrabPointHandLeft")
+target = NodePath("../../../Handles/GrabPointHandLeft")
 
-[node name="Node3D" type="Node3D" parent="RigidBody3D"]
+[node name="Handles" type="Node3D" parent="RigidBody3D"]
 
-[node name="GrabPointHandRight" parent="RigidBody3D/Node3D" instance=ExtResource("4_1w5fe")]
+[node name="GrabPointHandRight" parent="RigidBody3D/Handles" instance=ExtResource("4_1w5fe")]
 transform = Transform3D(-0.5, 0.866025, -4.37114e-08, 0.866025, 0.5, 7.57103e-08, 8.74228e-08, 0, -1, -0.223003, 1.68169, 0.111385)
 visible = true
 hand_pose = ExtResource("6_dshul")
 
-[node name="GrabPointHandLeft" parent="RigidBody3D/Node3D" instance=ExtResource("3_12ehe")]
+[node name="GrabPointHandLeft" parent="RigidBody3D/Handles" instance=ExtResource("3_12ehe")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.232723, 1.24138, 0.208689)
 visible = true
 hand_pose = ExtResource("4_5xjs5")

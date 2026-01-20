@@ -103,12 +103,12 @@ func on_obj_completed(obj: Node):
 	await get_tree().create_timer(2.0).timeout
 	qte_container.visible = false
 
-#func on_obj_failed(obj: Node):
-	#qte_feedback_label.text = "QTE Failed!"
-	#qte_feedback_label.add_theme_color_override("font_color", Color.RED)
-	#show_prompt("Failed!", 2.0)
-	#await get_tree().create_timer(2.0).timeout
-	#qte_container.visible = false
+func on_obj_failed(obj: Node):
+	qte_feedback_label.text = "Objective Failed!"
+	qte_feedback_label.add_theme_color_override("font_color", Color.RED)
+	show_prompt("Failed!", 2.0)
+	await get_tree().create_timer(2.0).timeout
+	qte_container.visible = false
 
 func update_obj_status_label(time: float):
 	#if status:
