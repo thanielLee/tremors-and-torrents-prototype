@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=75 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_1.gd" id="2_1gikq"]
@@ -49,6 +49,9 @@
 [ext_resource type="PackedScene" uid="uid://bm7gwd0gh3g1y" path="res://assets/debris/brick_debris.glb" id="38_xapae"]
 [ext_resource type="PackedScene" uid="uid://lhj1u2fry8xs" path="res://assets/debris/rocks_2.fbx" id="39_gtrna"]
 [ext_resource type="PackedScene" uid="uid://bd4ikqssk5ft6" path="res://assets/buildings/building5.glb" id="46_ai2ei"]
+[ext_resource type="AudioStream" uid="uid://c8gd8a548qysy" path="res://assets/audio/earthquake-consolidated.wav" id="50_vsljp"]
+[ext_resource type="AudioStream" uid="uid://d0l6x7lhlm0f3" path="res://assets/audio/intense-horror-game-ambience-418842.mp3" id="51_5vbbt"]
+[ext_resource type="AudioStream" uid="uid://t17p4wyjbdm5" path="res://assets/audio/ambulance-siren-363656.mp3" id="52_vsljp"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4knja"]
 panorama = ExtResource("4_4knja")
@@ -598,6 +601,24 @@ dialogue_toggler_hand = NodePath("../XROrigin3D/RightHand")
 
 [node name="DialogueUI" parent="DialogueManager" index="0" instance=ExtResource("34_toluw")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="GlobalAudioManager" type="Node3D" parent="." index="16"]
+
+[node name="EarthquakePlayer" type="AudioStreamPlayer" parent="GlobalAudioManager" index="0"]
+stream = ExtResource("50_vsljp")
+volume_db = 3.033
+
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="GlobalAudioManager" index="1"]
+stream = ExtResource("51_5vbbt")
+volume_db = -5.2
+autoplay = true
+parameters/looping = true
+
+[node name="AmbulancePlayer" type="AudioStreamPlayer3D" parent="GlobalAudioManager" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.42127, 3.04527, 7.74581)
+stream = ExtResource("52_vsljp")
+volume_db = -12.735
+autoplay = true
 
 [connection signal="shake_world" from="Objectives/DuckCoverHoldQTE" to="WorldShaker" method="_on_duck_cover_hold_qte_shake_world"]
 [connection signal="visibility_changed" from="InventorySystem" to="InventorySystem/MedkitSoundManager" method="_on_inventory_system_visibility_changed"]

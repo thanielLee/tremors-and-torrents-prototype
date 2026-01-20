@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5jkbtv57haa3"]
+[gd_scene load_steps=5 format=3 uid="uid://c5jkbtv57haa3"]
 
 [ext_resource type="PackedScene" uid="uid://dts3qx1g7762" path="res://hazards/hazard_base.tscn" id="1_o7m3x"]
 [ext_resource type="PackedScene" uid="uid://d0k002ycfbskd" path="res://assets/debris/glass_shards_clean.fbx" id="2_3ei5b"]
+[ext_resource type="AudioStream" uid="uid://c2rjfeme465js" path="res://assets/audio/glass_stepped_on.wav" id="3_5r2ds"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ml4q5"]
 size = Vector3(2, 0.2, 2)
@@ -19,3 +20,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 shape = SubResource("BoxShape3D_ml4q5")
 
 [node name="glass_shards_clean" parent="." index="1" instance=ExtResource("2_3ei5b")]
+
+[node name="OnTriggerAudio" parent="." index="2"]
+stream = ExtResource("3_5r2ds")

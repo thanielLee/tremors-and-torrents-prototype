@@ -31,6 +31,11 @@ var completed_objectives: Array[String] = []
 var triggered_hazards: Array[String] = []
 const HAZARD_LIMIT := 2
 
+# Global Audio Nodes
+@onready var earthquake_rumble: AudioStreamPlayer = $GlobalAudioManager/EarthquakePlayer
+@onready var background_music: AudioStreamPlayer = $GlobalAudioManager/BGMPlayer
+
+
 # Conditions
 @onready var hud_manager: Node3D = $HUDManager
 
@@ -202,10 +207,15 @@ func _on_qte_started(obj: Node):
 func _on_qte_update_status(status: bool):
 	hud_manager.qte_update_status(status)
 
-### Helper function
+### Helper functionw
 func do_earthquake(duration):
+	#print(earthquake_rumble.stream.get_length() - duration)
+	earthquake_rumble.play(earthquake_rumble.stream.get_length() - duration - 4.5)
+	
 	earthquake_triggered = true # for e.quake on time
 	world_shaker.shake_world(duration)
+	
+	
 
 ### LEVEL END CHECK ###
 func check_level_end():

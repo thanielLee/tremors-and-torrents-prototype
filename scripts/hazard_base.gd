@@ -16,6 +16,8 @@ signal hazard_triggered
 @export var resolved_points: int = 0
 @export var damage_points: int = 0
 
+@onready var audio_player : AudioStreamPlayer3D = $OnTriggerAudio
+
 var triggered: bool = false
 
 func _ready() -> void:
@@ -23,3 +25,4 @@ func _ready() -> void:
 
 func _on_detection_area_body_entered(body: Node3D) -> void:
 	hazard_triggered.emit()
+	audio_player.play()
