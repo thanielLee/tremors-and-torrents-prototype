@@ -6,11 +6,15 @@ extends Node3D
 @export var ui_height: float = -0.5
 
 @onready var hud: XRToolsViewport2DIn3D = $HUD
+@onready var result_log: Node3D = $ResultLog
+
 var hud_script
+var result_log_script
 var elapsed_time: float = 0.0
 
 func _ready():
 	hud_script = hud.get_scene_instance()
+	result_log_script = result_log.get_scene_instance()
 	set_process(true)
 
 func _process(delta):
@@ -82,3 +86,8 @@ func reset_timer():
 
 func hide_timer():
 	hud_script.hide_timer()
+
+func log_results(message: String):
+	print("logging results in hud manager")
+	result_log_script.log_results(message)
+	result_log.visible = true

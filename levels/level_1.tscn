@@ -36,7 +36,6 @@
 [ext_resource type="AudioStream" uid="uid://bbe283racxu5y" path="res://assets/freesound/63529__florian_reinke__button_on.wav" id="22_0fu15"]
 [ext_resource type="AudioStream" uid="uid://bu0n47pxg0f0k" path="res://assets/freesound/344548__dster777__button.wav" id="23_4knja"]
 [ext_resource type="PackedScene" uid="uid://cexlre72hlkim" path="res://custom_scenes/duck_cover_hold_qte.tscn" id="26_0fu15"]
-[ext_resource type="PackedScene" uid="uid://beyogvof4pdmg" path="res://custom_scenes/level_1_briefer.tscn" id="26_4knja"]
 [ext_resource type="Script" uid="uid://mwkmv5yaqd6g" path="res://custom_scenes/ui/hud_manager.gd" id="29_ohjdc"]
 [ext_resource type="PackedScene" uid="uid://41fv2ptcljjp" path="res://custom_scenes/team_captain.tscn" id="30_dp1ib"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="30_e5brb"]
@@ -49,6 +48,7 @@
 [ext_resource type="PackedScene" uid="uid://bm7gwd0gh3g1y" path="res://assets/debris/brick_debris.glb" id="38_xapae"]
 [ext_resource type="PackedScene" uid="uid://lhj1u2fry8xs" path="res://assets/debris/rocks_2.fbx" id="39_gtrna"]
 [ext_resource type="PackedScene" uid="uid://bd4ikqssk5ft6" path="res://assets/buildings/building5.glb" id="46_ai2ei"]
+[ext_resource type="PackedScene" uid="uid://culd7ukt6dcqw" path="res://custom_scenes/level_1_briefer_2d.tscn" id="47_vsljp"]
 [ext_resource type="AudioStream" uid="uid://c8gd8a548qysy" path="res://assets/audio/earthquake-consolidated.wav" id="50_vsljp"]
 [ext_resource type="AudioStream" uid="uid://d0l6x7lhlm0f3" path="res://assets/audio/intense-horror-game-ambience-418842.mp3" id="51_5vbbt"]
 [ext_resource type="AudioStream" uid="uid://t17p4wyjbdm5" path="res://assets/audio/ambulance-siren-363656.mp3" id="52_vsljp"]
@@ -313,7 +313,7 @@ mesh = SubResource("BoxMesh_0x1rk")
 [node name="Objectives" type="Node3D" parent="." index="5"]
 
 [node name="VictimRescue" parent="Objectives" index="0" instance=ExtResource("15_06ecp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.44817, 7.15255e-07, 1.01281)
+transform = Transform3D(-1, 0, -1.19209e-07, 0, 1, 0, 1.19209e-07, 0, -1, 1.20321, 0.0843372, -12.4636)
 is_required = true
 
 [node name="Injured" parent="Objectives" index="1" instance=ExtResource("11_betor")]
@@ -567,11 +567,7 @@ collision_mask = 0
 size = Vector3(0.233452, 4.19862, 6.90649)
 material = SubResource("StandardMaterial3D_0fu15")
 
-[node name="Level1Briefer" parent="Box" index="6" instance=ExtResource("26_4knja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54303, -1.43442)
-visible = false
-
-[node name="TeamCaptain" parent="Box" index="7" instance=ExtResource("30_dp1ib")]
+[node name="TeamCaptain" parent="Box" index="6" instance=ExtResource("30_dp1ib")]
 transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -2, 0, -2)
 
 [node name="Timer" type="Timer" parent="." index="13"]
@@ -590,6 +586,17 @@ viewport_size = Vector2(1600, 900)
 material = ExtResource("32_toluw")
 scene_properties_keys = PackedStringArray("hud.gd", "prompt_duration")
 prompt_duration = 3.0
+
+[node name="ResultLog" parent="HUDManager" index="1" instance=ExtResource("30_e5brb")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -112.474, 1.65946, -2.9876)
+visible = false
+screen_size = Vector2(16, 9)
+collision_layer = 1
+scene = ExtResource("47_vsljp")
+viewport_size = Vector2(1600, 900)
+update_mode = 0
+unshaded = true
+scene_properties_keys = PackedStringArray("log.gd")
 
 [node name="DialogueManager" type="Node3D" parent="." index="15" node_paths=PackedStringArray("xr_origin_3d", "xr_camera", "dialogue_button_hand", "dialogue_toggler_hand") groups=["dialogue_system"]]
 script = ExtResource("33_rf48r")

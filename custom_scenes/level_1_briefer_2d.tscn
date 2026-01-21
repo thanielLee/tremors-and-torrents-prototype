@@ -1,25 +1,31 @@
-[gd_scene format=3 uid="uid://culd7ukt6dcqw"]
+[gd_scene load_steps=2 format=3 uid="uid://culd7ukt6dcqw"]
 
-[node name="Level1Briefer2D" type="Control"]
+[ext_resource type="Script" uid="uid://bbvc7pviee5a7" path="res://custom_scenes/log.gd" id="1_p4npc"]
+
+[node name="Log" type="CanvasLayer"]
+script = ExtResource("1_p4npc")
+
+[node name="Control" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 400.0
-offset_bottom = 250.0
+[node name="ColorRect" type="ColorRect" parent="Control"]
+custom_minimum_size = Vector2(1600, 900)
+offset_right = 1603.0
+offset_bottom = 854.0
 color = Color(0, 0, 0, 0.87451)
 
-[node name="Description" type="RichTextLabel" parent="."]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 390.0
-offset_bottom = 240.0
+[node name="Description" type="RichTextLabel" parent="Control"]
+custom_minimum_size = Vector2(120, 800)
+offset_left = 24.0
+offset_top = 15.0
+offset_right = 1565.0
+offset_bottom = 877.0
 theme_override_constants/line_separation = -3
-theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/normal_font_size = 60
+bbcode_enabled = true
 text = "Level 1
 
 You are a disaster responder doing a Search and Rescue.

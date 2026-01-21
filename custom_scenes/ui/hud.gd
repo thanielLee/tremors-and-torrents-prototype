@@ -111,12 +111,6 @@ func on_obj_failed(obj: Node):
 	qte_container.visible = false
 
 func update_obj_status_label(time: float):
-	#if status:
-		#qte_status_label.text = "Hold that position!"
-		#qte_status_label.add_theme_color_override("font_color", Color.GREEN)
-	#else:
-		#qte_status_label.text = "Get back into position!"
-		#qte_status_label.add_theme_color_override("font_color", Color.RED)
 	var seconds = int(time) % 60
 	var mseconds = int(fmod(time, 1) * 1000) % 1000
 	qte_status_label.text = "%02d.%02d" % [seconds, mseconds]
@@ -126,7 +120,7 @@ func update_obj_status_label(time: float):
 # -----------------------
 func end_level_prompt(success: bool, score):
 	if success:
-		level_label.text = "Level Completed! Score: %s" % score 
+		level_label.text = "Level Completed!\nScore: %s" % score 
 		level_label.add_theme_color_override("font_color", Color.GREEN)
 	else:
 		level_label.text = "Level Failed!"

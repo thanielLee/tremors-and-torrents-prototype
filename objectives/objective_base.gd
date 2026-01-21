@@ -32,11 +32,11 @@ func _ready():
 		start_objective()
 
 func _process(delta: float) -> void:
-	if active:
+	if active and not completed:
 		elapsed_time += delta
 		time.emit(elapsed_time)
-	elif completed and not failed:
-		completion_time = elapsed_time
+	#elif completed and not failed:
+		
 		
 func start_objective():
 	if not enabled or active:
@@ -52,6 +52,7 @@ func complete_objective():
 		return
 	active = false
 	completed = true
+	completion_time = elapsed_time
 	print("Objective Completed: ", name)
 	emit_signal("objective_completed")
 
@@ -60,6 +61,7 @@ func fail_objective():
 		return
 	active = false
 	failed = true
+	completion_time = elapsed_time
 	print("Objective Failed:", name)
 	emit_signal("objective_failed")
 
@@ -69,4 +71,4 @@ func reset_objective():
 	failed = false
 
 func get_completion_time():
-	return completion_time
+	return elapsed_time

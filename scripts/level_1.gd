@@ -31,6 +31,7 @@ var completed_objectives: Array[String] = []
 var triggered_hazards: Array[String] = []
 const HAZARD_LIMIT := 2
 
+var completed: Array[ObjectiveBase] = []
 # Global Audio Nodes
 @onready var earthquake_rumble: AudioStreamPlayer = $GlobalAudioManager/EarthquakePlayer
 @onready var background_music: AudioStreamPlayer = $GlobalAudioManager/BGMPlayer
@@ -44,16 +45,11 @@ func is_xr_class(name : String) -> bool:
 	return name == "Level1"
 
 func _ready():
-	brief_player()
-	
 	# save brief player
 	brief_pos = xr_origin_3d.position
 
 ### LEVEL LIFECYCLE ###
 
-func brief_player():
-	pass
-	
 func start_level():
 	xr_origin_3d.position = start_pos
 	print("Level started")
@@ -76,9 +72,13 @@ func end_level(success: bool):
 	level_timer = 0
 	time_elapsed = 0
 	disable_hazards()
-
 	hud_manager.end_level_prompt(success, score)
 	hud_manager.hide_timer()
+	await get_tree().create_timer(1.0).timeout
+	log_results()
+
+	
+	
 	xr_origin_3d.position = brief_pos
 
 ### HAZARDS ###
@@ -182,6 +182,7 @@ func _on_objective_completed(obj: ObjectiveBase):
 		
 		hud_manager.update_score(score)
 		
+		completed.append(obj)
 		enable_objectives()
 		check_level_end()
 
@@ -214,8 +215,6 @@ func do_earthquake(duration):
 	
 	earthquake_triggered = true # for e.quake on time
 	world_shaker.shake_world(duration)
-	
-	
 
 ### LEVEL END CHECK ###
 func check_level_end():
@@ -236,6 +235,14 @@ func check_level_end():
 		end_level(true)
 
 
+### LOGGING
+func log_results():
+	var message : String = "Results:\n\n"
+	for obj in completed:
+		message += "%s    : %.2f\n" % [obj.objective_name, obj.get_completion_time()]
+	
+	hud_manager.log_results(message)
+
 ### PROCESS LOOP ###
 
 func _process(delta: float) -> void:
@@ -249,9 +256,9 @@ func _process(delta: float) -> void:
 		if level_timer > 120.0:
 			end_level(false)
 	# brief player
-	else:
+	elif not level_active and not level_ended:
 		time_elapsed += delta
-		if time_elapsed > 1:
+		if time_elapsed > 15:
 			start_level()
 	
 	if level_ended:
