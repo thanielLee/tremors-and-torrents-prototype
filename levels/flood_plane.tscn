@@ -1,8 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://dcdbr1hjtfjje"]
 
-[ext_resource type="Shader" uid="uid://bqdmdtdnxcxe5" path="res://flood_water.gdshader" id="1_1om6k"]
+[ext_resource type="Shader" uid="uid://bqdmdtdnxcxe5" path="res://shaders/flood_water.gdshader" id="1_1om6k"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_6o8ei"]
+size = Vector2(20, 20)
 subdivide_width = 200
 subdivide_depth = 200
 orientation = 1

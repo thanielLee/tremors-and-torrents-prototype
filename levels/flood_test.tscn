@@ -1,14 +1,47 @@
-[gd_scene load_steps=3 format=3 uid="uid://cyui8jrvjlb4t"]
+[gd_scene load_steps=10 format=3 uid="uid://cyui8jrvjlb4t"]
 
 [ext_resource type="PackedScene" uid="uid://dcdbr1hjtfjje" path="res://levels/flood_plane.tscn" id="1_15f3j"]
+[ext_resource type="Script" uid="uid://dgyjfn63ibs20" path="res://levels/flood_test.gd" id="1_mp1s2"]
+[ext_resource type="Shader" uid="uid://bdt86532g8ud1" path="res://shaders/Terrain.gdshader" id="1_otxdf"]
+[ext_resource type="Script" uid="uid://c861i55er6pvs" path="res://levels/flood_plane.gd" id="3_nvv5k"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_nvv5k"]
+size = Vector2(20, 20)
+subdivide_width = 200
+subdivide_depth = 200
+orientation = 1
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mp1s2"]
+seed = 38
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ge17w"]
+seamless = true
+noise = SubResource("FastNoiseLite_mp1s2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i7vql"]
+render_priority = 0
+shader = ExtResource("1_otxdf")
+shader_parameter/albedo = Color(0, 0.584314, 0, 1)
+shader_parameter/noise = SubResource("NoiseTexture2D_ge17w")
+shader_parameter/noise_scale = 50.0
+shader_parameter/height_scale = 2.429
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_otxdf"]
 radius = 0.1
 height = 0.2
 
 [node name="FloodTest" type="Node3D"]
+script = ExtResource("1_mp1s2")
+
+[node name="Terrain" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.038151, 0)
+mesh = SubResource("QuadMesh_nvv5k")
+surface_material_override/0 = SubResource("ShaderMaterial_i7vql")
 
 [node name="FloodPlane" parent="." instance=ExtResource("1_15f3j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.397888, 0)
+script = ExtResource("3_nvv5k")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0430247, 0)
