@@ -29,6 +29,7 @@ shape = SubResource("BoxShape3D_qvro0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00190973, 5.96046e-08, 0.0049367)
+visible = false
 mesh = SubResource("BoxMesh_3jm01")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

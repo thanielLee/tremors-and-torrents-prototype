@@ -20,8 +20,8 @@ func _ready() -> void:
 	sounds = [bandage_sound_1, bandage_sound_2]
 	
 func _on_ois_twist_receiver_action_started(requirement: Variant, total_progress: Variant) -> void:
-	start_objective()
-	if enabled:
+	if enabled and not (completed or failed):
+		start_objective()
 		play_bandage_sound()
 
 func _on_ois_twist_receiver_action_in_progress(requirement: Variant, total_progress: Variant) -> void:

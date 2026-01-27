@@ -26,7 +26,7 @@ var is_on_ground: bool = false
 var physics_state_space: PhysicsDirectSpaceState3D
 
 # objective logic
-@onready var objective_script: ObjectiveBase = $ObjectiveLogic
+@onready var objective_script: ObjectiveBase = $ObjectiveStretcher
 
 
 signal strecher_one_handed(time: float)
@@ -72,7 +72,6 @@ func _set_injured_visible():
 
 func _set_injured_invisible():
 	injured_mesh.visible = false
-	objective_script.start_objective()
 
 func _setup_player_info() -> void:
 	did_setup_info = true
@@ -122,6 +121,7 @@ func _physics_process(delta):
 		if not did_setup_info:
 			responder_mesh.visible = true
 			_setup_player_info()
+			objective_script.start_objective()
 		
 		responder_mesh.global_position.y = 0.0
 			
@@ -181,6 +181,6 @@ func _physics_process(delta):
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
 	if area.name == "SafeArea":
-		objective_script.emit_signal("objective_completed")
+		objective_script.complete_objective()
 	elif area.get_parent().get_script() == Hazard:
-		objective_script.emit_signal("objective_failed")
+		objective_script.fail_objective()

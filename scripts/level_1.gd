@@ -11,13 +11,14 @@ class_name Level1
 ## Handles initialization, hazards, objectives, and level flow.
 
 @onready var xr_origin_3d = $XROrigin3D
+@onready var start_pos: Node3D = $StartPos
 var level_ended: bool = false
 
 var hazards : Node
 var objectives : Node
 var world_shaker : Node
 var earthquake_triggered: bool = false
-var start_pos: Vector3
+#var start_pos: Vector3
 var brief_pos: Vector3
 
 signal shake_world
@@ -27,16 +28,17 @@ var level_timer : float = 0.0
 var time_elapsed : float = 0.0
 var score : int = 0 
 
-var completed_objectives: Array[String] = []
+var completed_objectives: Array[ObjectiveBase] = [] # for obj completion tracking
+var completed_obj_times: Array[float] = []
 var triggered_hazards: Array[String] = []
 const HAZARD_LIMIT := 2
 
-var completed: Array[ObjectiveBase] = []
 # Global Audio Nodes
 @onready var earthquake_rumble: AudioStreamPlayer = $GlobalAudioManager/EarthquakePlayer
 @onready var background_music: AudioStreamPlayer = $GlobalAudioManager/BGMPlayer
 
-
+var elapsed_time: float = 0
+var obj_active: bool = false
 # Conditions
 @onready var hud_manager: Node3D = $HUDManager
 
@@ -47,22 +49,20 @@ func is_xr_class(name : String) -> bool:
 func _ready():
 	# save brief player
 	brief_pos = xr_origin_3d.position
-
-### LEVEL LIFECYCLE ###
-
-func start_level():
-	xr_origin_3d.position = start_pos
-	print("Level started")
-	level_active = true
-	level_timer = 0
-	
-	# Cache references
 	hazards = get_node("Hazards")
 	objectives = get_node("Objectives")
 	world_shaker = get_node("WorldShaker")
 
 	enable_hazards()
 	setup_objectives()
+
+### LEVEL LIFECYCLE ###
+
+func start_level():
+	xr_origin_3d.position = start_pos.position
+	print("Level started")
+	level_active = true
+	level_timer = 0
 	
 	hud_manager.reset_timer()
 
@@ -77,8 +77,6 @@ func end_level(success: bool):
 	await get_tree().create_timer(1.0).timeout
 	log_results()
 
-	
-	
 	xr_origin_3d.position = brief_pos
 
 ### HAZARDS ###
@@ -127,8 +125,8 @@ func setup_objectives():
 			obj.objective_failed.connect(_on_objective_failed.bind(obj))
 		if obj.has_signal("objective_started"):
 			obj.objective_started.connect(_on_objective_started.bind(obj))
-		if obj.has_signal("time"):
-			obj.time.connect(_on_obj_update_status)
+		#if obj.has_signal("time"):
+			#obj.time.connect(_on_obj_update_status)
 		if obj.has_signal("qte_started"):
 			obj.qte_started.connect(_on_qte_started.bind(obj))
 		if obj.has_signal("pose"):
@@ -136,8 +134,10 @@ func setup_objectives():
 		if obj.has_signal("shake_world"):
 			obj.shake_world.connect(do_earthquake)
 		if obj.has_signal("stretcher_dropped"):
-			var obj_logic = obj.get_node("ObjectiveLogic")
+			var obj_logic = obj.get_node("ObjectiveStretcher") as ObjectiveBase
+			obj_logic.objective_started.connect(_on_objective_started.bind(obj_logic))
 			obj_logic.objective_completed.connect(_on_objective_completed.bind(obj_logic))
+			obj_logic.objective_failed.connect(_on_objective_failed.bind(obj_logic))
 
 func enable_objectives():
 	for o in objectives.get_children():
@@ -161,6 +161,8 @@ func disable_other_objectives(obj: ObjectiveBase):
 func _on_objective_started(obj: ObjectiveBase):
 	hud_manager.on_obj_started(obj)
 	
+	obj_active = true
+	elapsed_time = 0
 	# disable other objectives right now
 	disable_other_objectives(obj)
 
@@ -168,8 +170,10 @@ func _on_obj_update_status(time: float):
 	hud_manager.update_obj_status_label(time)
 
 func _on_objective_completed(obj: ObjectiveBase):
-	if obj.name not in completed_objectives:
-		completed_objectives.append(obj.name)
+	if obj not in completed_objectives:
+		completed_objectives.append(obj)
+		completed_obj_times.append(elapsed_time)
+		obj_active = false
 		
 		score += obj.completed_points
 		
@@ -182,11 +186,11 @@ func _on_objective_completed(obj: ObjectiveBase):
 		
 		hud_manager.update_score(score)
 		
-		completed.append(obj)
 		enable_objectives()
 		check_level_end()
 
 func _on_objective_failed(obj: ObjectiveBase):
+	obj_active = false
 	if obj.has_signal("qte_started"):
 		hud_manager.on_qte_failed()
 	else:
@@ -227,7 +231,7 @@ func check_level_end():
 		if obj.has_signal("stretcher_dropped"):
 			continue
 		if obj.is_required:
-			if obj.name not in completed_objectives:
+			if obj not in completed_objectives:
 				all_required_done = false
 				break
 	
@@ -238,9 +242,9 @@ func check_level_end():
 ### LOGGING
 func log_results():
 	var message : String = "Results:\n\n"
-	for obj in completed:
-		message += "%s    : %.2f\n" % [obj.objective_name, obj.get_completion_time()]
-	
+	for i in range(completed_objectives.size()):
+		message += "%s    : %.2f\n" % [completed_objectives[i].objective_name, completed_obj_times[i]]
+
 	hud_manager.log_results(message)
 
 ### PROCESS LOOP ###
@@ -251,14 +255,18 @@ func _process(delta: float) -> void:
 		
 		if not earthquake_triggered and level_timer > 10.0:
 			do_earthquake(5.0)
-		
+			
+		if obj_active:
+			elapsed_time += delta
+			_on_obj_update_status(elapsed_time)
+			
 		# Time ran out
 		if level_timer > 120.0:
 			end_level(false)
 	# brief player
 	elif not level_active and not level_ended:
 		time_elapsed += delta
-		if time_elapsed > 15:
+		if time_elapsed > 2:
 			start_level()
 	
 	if level_ended:

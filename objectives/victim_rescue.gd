@@ -3,16 +3,14 @@ extends ObjectiveBase
 signal victim_safe
 signal victim_triggered_hazard
 
-@export var side_offset: float = 0.4	# meters to the right
-@export var back_offset: float = 0.1	# slightly behind player
+@export var side_offset: float = -0.4
+@export var back_offset: float = 0.7
 
 @export var dialogue_states: Array[String] = []
-@export var offset: Vector3 = Vector3(-0.5, 1, -0.5)
+#@export var offset: Vector3 = Vector3(-0.5, 1, -0.5)
 
 @onready var body: RigidBody3D = $RigidBody3D
-@onready var mesh_instance_3d: MeshInstance3D = $RigidBody3D/MeshInstance3D
 @onready var area_3d: Area3D = $RigidBody3D/Area3D
-@onready var pickable: XRToolsPickable = $RigidBody3D/XRToolsPickable
 @onready var interactable_handle_right: XRToolsInteractableHandle = $RigidBody3D/RightHandle/InteractableHandleRight
 @onready var interactable_handle_left: XRToolsInteractableHandle = $RigidBody3D/LeftHandle/InteractableHandleLeft
 
@@ -89,7 +87,8 @@ func _physics_process(delta: float) -> void:
 	var right := pbasis.x.normalized()
 	var forward := pbasis.z.normalized()
 	
-	var target_pos := player.global_position + right*side_offset - forward*back_offset
+	var target_pos := player.global_position + right*side_offset + forward*back_offset
+	#var target_pos := player.global_position + offset
 	
 	target_pos.y = body.global_position.y
 	

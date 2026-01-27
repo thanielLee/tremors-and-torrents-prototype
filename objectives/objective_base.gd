@@ -25,18 +25,18 @@ var active: bool = false
 var completed: bool = false
 var failed: bool = false
 
-signal time(float)
+#signal time(float)
 
 func _ready():
 	if auto_start:
 		start_objective()
 
 func _process(delta: float) -> void:
-	if active and not completed:
-		elapsed_time += delta
-		time.emit(elapsed_time)
+	#if active and not completed:
+		#elapsed_time += delta
+		#time.emit(elapsed_time)
 	#elif completed and not failed:
-		
+	pass
 		
 func start_objective():
 	if not enabled or active:

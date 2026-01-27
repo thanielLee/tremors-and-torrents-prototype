@@ -13,12 +13,14 @@ offset_bottom = 40.0
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
 custom_minimum_size = Vector2(1600, 900)
+layout_mode = 0
 offset_right = 1603.0
 offset_bottom = 854.0
 color = Color(0, 0, 0, 0.87451)
 
 [node name="Description" type="RichTextLabel" parent="Control"]
 custom_minimum_size = Vector2(120, 800)
+layout_mode = 0
 offset_left = 24.0
 offset_top = 15.0
 offset_right = 1565.0

@@ -38,7 +38,7 @@ radius = 0.1
 height = 0.25
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_awwxl"]
-radius = 0.136728
+radius = 0.08
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_heuca"]
 top_radius = 0.105
@@ -117,9 +117,11 @@ visible = false
 mesh = SubResource("CylinderMesh_f8pag")
 
 [node name="BandageSound1" type="AudioStreamPlayer3D" parent="."]
+visible = false
 stream = ExtResource("3_f8pag")
 
 [node name="BandageSound2" type="AudioStreamPlayer3D" parent="."]
+visible = false
 stream = ExtResource("4_k55h8")
 
 [connection signal="action_completed" from="OISTwistReceiver" to="." method="_on_ois_twist_receiver_action_completed"]
