@@ -6,10 +6,11 @@
 script = ExtResource("1_hsohv")
 
 [node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(1600, 900)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1600.0
+offset_bottom = 412.0
 
 [node name="TimerLabel" type="Label" parent="Control"]
 layout_mode = 0
@@ -39,6 +40,17 @@ offset_right = 1110.0
 offset_bottom = 358.0
 theme_override_font_sizes/font_size = 80
 text = "Level Completed!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReasonLabel" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 488.0
+offset_top = 350.0
+offset_right = 1092.0
+offset_bottom = 433.0
+theme_override_font_sizes/font_size = 60
+text = "Rescue took too long"
 horizontal_alignment = 1
 vertical_alignment = 1
 

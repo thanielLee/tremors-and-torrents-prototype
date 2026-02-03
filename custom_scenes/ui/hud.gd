@@ -6,6 +6,7 @@ class_name HUD
 @onready var prompt_label = $Control/PromptLabel
 @onready var level_label = $Control/LevelLabel
 @onready var score_label = $Control/ScoreLabel
+@onready var reason_label = $Control/ReasonLabel
 @onready var qte_container = $Control/QTEContainer
 @onready var qte_name_label = $Control/QTEContainer/QTENameLabel
 @onready var qte_status_label = $Control/QTEContainer/QTEStatusLabel
@@ -118,7 +119,8 @@ func update_obj_status_label(time: float):
 # -----------------------
 # LEVEL PROMPTS
 # -----------------------
-func end_level_prompt(success: bool, score):
+# TODO: disentangle prompt functions into own succeed/fail funcs 
+func end_level_prompt(success: bool, score: float):
 	if success:
 		level_label.text = "Level Completed!\nScore: %s" % score 
 		level_label.add_theme_color_override("font_color", Color.GREEN)
@@ -129,6 +131,10 @@ func end_level_prompt(success: bool, score):
 	score_label.visible = false
 	await get_tree().create_timer(5.0).timeout
 	level_label.visible = false
+
+func prompt_reason_label(message: String):
+	reason_label.text = message
+	reason_label.add_theme_color_override("font_color", Color.RED)
 
 func update_score(new_score: int):
 	score_label.text = "Score: %s" % new_score 

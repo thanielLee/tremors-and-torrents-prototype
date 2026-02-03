@@ -10,6 +10,8 @@ class_name Level1
 ##
 ## Handles initialization, hazards, objectives, and level flow.
 
+@export var level_time_limit: float = 120
+
 @onready var xr_origin_3d = $XROrigin3D
 @onready var start_pos: Node3D = $StartPos
 var level_ended: bool = false
@@ -72,12 +74,35 @@ func end_level(success: bool):
 	level_timer = 0
 	time_elapsed = 0
 	disable_hazards()
-	hud_manager.end_level_prompt(success, score)
-	hud_manager.hide_timer()
-	await get_tree().create_timer(1.0).timeout
-	log_results()
+
 
 	xr_origin_3d.position = brief_pos
+
+func check_level_end():
+	var all_required_done := true
+	
+	for obj in objectives.get_children():
+		if obj.has_signal("stretcher_dropped"):
+			continue
+		if obj.is_required:
+			if obj not in completed_objectives:
+				all_required_done = false
+				break
+	
+	if all_required_done and triggered_hazards.size() < HAZARD_LIMIT:
+		end_level(true)
+
+func complete_level():
+	log_results()
+	hud_manager.end_level_prompt(true, score)
+	hud_manager.hide_timer()
+	await get_tree().create_timer(1.0).timeout
+
+func fail_level(message):
+	log_results()
+	hud_manager.end_level_prompt(false, score)
+	hud_manager.hide_timer()
+	await get_tree().create_timer(1.0).timeout
 
 ### HAZARDS ###
 
@@ -221,23 +246,6 @@ func do_earthquake(duration):
 	world_shaker.shake_world(duration)
 
 ### LEVEL END CHECK ###
-func check_level_end():
-	if not objectives:
-		return
-	
-	var all_required_done := true
-	
-	for obj in objectives.get_children():
-		if obj.has_signal("stretcher_dropped"):
-			continue
-		if obj.is_required:
-			if obj not in completed_objectives:
-				all_required_done = false
-				break
-	
-	if all_required_done and triggered_hazards.size() < HAZARD_LIMIT:
-		end_level(true)
-
 
 ### LOGGING
 func log_results():
@@ -253,20 +261,21 @@ func _process(delta: float) -> void:
 	if level_active:
 		level_timer += delta
 		
-		if not earthquake_triggered and level_timer > 10.0:
-			do_earthquake(5.0)
+		#if not earthquake_triggered and level_timer > 10.0:
+			#do_earthquake(5.0)
 			
 		if obj_active:
 			elapsed_time += delta
 			_on_obj_update_status(elapsed_time)
 			
 		# Time ran out
-		if level_timer > 120.0:
-			end_level(false)
+		if level_timer >= level_time_limit:
+			fail_level()
+			#end_level(false)
 	# brief player
 	elif not level_active and not level_ended:
 		time_elapsed += delta
-		if time_elapsed > 2:
+		if time_elapsed > 1:
 			start_level()
 	
 	if level_ended:

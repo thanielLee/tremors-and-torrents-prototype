@@ -3,8 +3,8 @@ extends ObjectiveBase
 signal victim_safe
 signal victim_triggered_hazard
 
-@export var side_offset: float = -0.4
-@export var back_offset: float = 0.7
+@export var side_offset: float = 0
+@export var back_offset: float = 0
 
 @export var dialogue_states: Array[String] = []
 #@export var offset: Vector3 = Vector3(-0.5, 1, -0.5)
@@ -13,6 +13,9 @@ signal victim_triggered_hazard
 @onready var area_3d: Area3D = $RigidBody3D/Area3D
 @onready var interactable_handle_right: XRToolsInteractableHandle = $RigidBody3D/RightHandle/InteractableHandleRight
 @onready var interactable_handle_left: XRToolsInteractableHandle = $RigidBody3D/LeftHandle/InteractableHandleLeft
+
+@onready var walking_mesh: Node3D = $RigidBody3D/WalkingMesh
+@onready var lying_down_mesh: Node3D = $RigidBody3D/LyingDownMesh
 
 
 var dialogue_sys
@@ -104,6 +107,8 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	
 	player = body.get_parent()
 	start_objective()
+	walking_mesh.visible = true
+	lying_down_mesh.visible = false
 
 # detecting hazards or safe zone
 func _on_area_3d_area_entered(area: Area3D) -> void:
