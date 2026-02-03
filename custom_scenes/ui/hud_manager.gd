@@ -74,8 +74,8 @@ func update_obj_status_label(time: float):
 func qte_update_status(status: bool):
 	hud_script.update_qte_status_label(status)
 
-func end_level_prompt(success: bool, score: int):
-	hud_script.end_level_prompt(success, score)
+func end_level_prompt(success: bool, score: int, message: String = ""):
+	hud_script.end_level_prompt(success, score, message)
 
 func update_score(new_score: int):
 	hud_script.update_score(new_score)

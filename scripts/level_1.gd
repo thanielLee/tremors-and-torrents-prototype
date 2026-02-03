@@ -23,7 +23,7 @@ var earthquake_triggered: bool = false
 #var start_pos: Vector3
 var brief_pos: Vector3
 
-signal shake_world
+# signal shake_world
 
 var level_active = false
 var level_timer : float = 0.0
@@ -45,9 +45,6 @@ var obj_active: bool = false
 @onready var hud_manager: Node3D = $HUDManager
 
 
-func is_xr_class(name : String) -> bool:
-	return name == "Level1"
-
 func _ready():
 	# save brief player
 	brief_pos = xr_origin_3d.position
@@ -68,15 +65,25 @@ func start_level():
 	
 	hud_manager.reset_timer()
 
-func end_level(success: bool):
+func _reset_level_state():
 	level_active = false
 	level_ended = true
 	level_timer = 0
 	time_elapsed = 0
 	disable_hazards()
-
-
 	xr_origin_3d.position = brief_pos
+
+func complete_level():
+	_reset_level_state()
+	log_results()
+	hud_manager.end_level_prompt(true, score, "")
+	hud_manager.hide_timer()
+
+func fail_level(message: String):
+	_reset_level_state()
+	log_results()
+	hud_manager.end_level_prompt(false, score, message)
+	hud_manager.hide_timer()
 
 func check_level_end():
 	var all_required_done := true
@@ -90,19 +97,7 @@ func check_level_end():
 				break
 	
 	if all_required_done and triggered_hazards.size() < HAZARD_LIMIT:
-		end_level(true)
-
-func complete_level():
-	log_results()
-	hud_manager.end_level_prompt(true, score)
-	hud_manager.hide_timer()
-	await get_tree().create_timer(1.0).timeout
-
-func fail_level(message):
-	log_results()
-	hud_manager.end_level_prompt(false, score)
-	hud_manager.hide_timer()
-	await get_tree().create_timer(1.0).timeout
+		complete_level()
 
 ### HAZARDS ###
 
@@ -132,7 +127,7 @@ func _on_hazard_triggered(hazard: Variant):
 		hud_manager.update_score(score)
 		
 		if triggered_hazards.size() >= HAZARD_LIMIT:
-			end_level(false)
+			fail_level("Hazard limit reached")
 		
 	# TODO: display logged hazards for results
 
@@ -227,7 +222,7 @@ func _on_objective_failed(obj: ObjectiveBase):
 	hud_manager.update_score(score)
 	
 	if obj.is_required:
-		end_level(false)
+		fail_level("Required objective failed")
 	
 	enable_objectives()
 
@@ -270,8 +265,7 @@ func _process(delta: float) -> void:
 			
 		# Time ran out
 		if level_timer >= level_time_limit:
-			fail_level()
-			#end_level(false)
+			fail_level("Time limit exceeded")
 	# brief player
 	elif not level_active and not level_ended:
 		time_elapsed += delta

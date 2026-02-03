@@ -119,14 +119,19 @@ func update_obj_status_label(time: float):
 # -----------------------
 # LEVEL PROMPTS
 # -----------------------
-# TODO: disentangle prompt functions into own succeed/fail funcs 
-func end_level_prompt(success: bool, score: float):
-	if success:
-		level_label.text = "Level Completed!\nScore: %s" % score 
-		level_label.add_theme_color_override("font_color", Color.GREEN)
-	else:
-		level_label.text = "Level Failed!"
-		level_label.add_theme_color_override("font_color", Color.RED)
+func on_level_succeeded(score: float):
+	level_label.text = "Level Completed!\nScore: %s" % score 
+	level_label.add_theme_color_override("font_color", Color.GREEN)
+	level_label.visible = true
+	score_label.visible = false
+	await get_tree().create_timer(5.0).timeout
+	level_label.visible = false
+
+func on_level_failed(message: String):
+	level_label.text = "Level Failed!"
+	level_label.add_theme_color_override("font_color", Color.RED)
+	reason_label.text = message
+	reason_label.add_theme_color_override("font_color", Color.RED)
 	level_label.visible = true
 	score_label.visible = false
 	await get_tree().create_timer(5.0).timeout
@@ -137,4 +142,11 @@ func prompt_reason_label(message: String):
 	reason_label.add_theme_color_override("font_color", Color.RED)
 
 func update_score(new_score: int):
-	score_label.text = "Score: %s" % new_score 
+	score_label.text = "Score: %s" % new_score
+
+func end_level_prompt(success: bool, score: int, message: String = ""):
+	if success:
+		await on_level_succeeded(score)
+	else:
+		var msg = message if message != "" else "Level Failed"
+		await on_level_failed(msg)
