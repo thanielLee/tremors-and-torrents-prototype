@@ -114,7 +114,7 @@ func on_obj_failed(obj: Node):
 func update_obj_status_label(time: float):
 	var seconds = int(time) % 60
 	var mseconds = int(fmod(time, 1) * 1000) % 1000
-	qte_status_label.text = "%02d.%02d" % [seconds, mseconds]
+	qte_feedback_label.text = "%02d.%02d" % [seconds, mseconds]
 	
 # -----------------------
 # LEVEL PROMPTS

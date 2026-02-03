@@ -240,41 +240,49 @@ func do_earthquake(duration):
 	earthquake_triggered = true # for e.quake on time
 	world_shaker.shake_world(duration)
 
-### LEVEL END CHECK ###
 
 ### LOGGING
-func log_results():
-	var message : String = "Results:\n\n"
-	for i in range(completed_objectives.size()):
-		message += "%s    : %.2f\n" % [completed_objectives[i].objective_name, completed_obj_times[i]]
 
+func log_results():
+	var message: String = "Results:\n\n"
+	for i in range(completed_objectives.size()):
+		var obj_name = completed_objectives[i].objective_name
+		var obj_time = completed_obj_times[i]
+		message += "%s: %.2f seconds\n" % [obj_name, obj_time]
+	
 	hud_manager.log_results(message)
 
 ### PROCESS LOOP ###
 
 func _process(delta: float) -> void:
-	if level_active:
-		level_timer += delta
-		
-		#if not earthquake_triggered and level_timer > 10.0:
-			#do_earthquake(5.0)
-			
-		if obj_active:
-			elapsed_time += delta
-			_on_obj_update_status(elapsed_time)
-			
-		# Time ran out
-		if level_timer >= level_time_limit:
-			fail_level("Time limit exceeded")
-	# brief player
-	elif not level_active and not level_ended:
-		time_elapsed += delta
-		if time_elapsed > 1:
-			start_level()
-	
 	if level_ended:
-		time_elapsed += delta
-		if time_elapsed > 10.0:
-			exit_to_main_menu()
+		_handle_level_ended(delta)
+	elif level_active:
+		_handle_level_active(delta)
+	else:
+		_handle_level_briefing(delta)
+
+
+func _handle_level_active(delta: float) -> void:
+	level_timer += delta
+	
+	if obj_active:
+		elapsed_time += delta
+		_on_obj_update_status(elapsed_time)
+	
+	if level_timer >= level_time_limit:
+		fail_level("Time limit exceeded")
+
+
+func _handle_level_briefing(delta: float) -> void:
+	time_elapsed += delta
+	if time_elapsed > 1.0:
+		start_level()
+
+
+func _handle_level_ended(delta: float) -> void:
+	time_elapsed += delta
+	if time_elapsed > 10.0:
+		exit_to_main_menu()
 		
 	
