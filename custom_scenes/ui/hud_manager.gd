@@ -1,4 +1,5 @@
 extends Node3D
+class_name HUDManager
 
 @export var xr_origin_3d: XROrigin3D
 @export var xr_camera: Node3D

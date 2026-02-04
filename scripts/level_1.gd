@@ -10,22 +10,22 @@ class_name Level1
 ##
 ## Handles initialization, hazards, objectives, and level flow.
 
-@export var level_time_limit: float = 120
+@export var level_time_limit: float = 120.0
+@export var briefing_time_limit: float = 15.0
 
 @onready var xr_origin_3d = $XROrigin3D
 @onready var start_pos: Node3D = $StartPos
-var level_ended: bool = false
+var brief_pos: Vector3
+
 
 var hazards : Node
 var objectives : Node
 var world_shaker : Node
 var earthquake_triggered: bool = false
-#var start_pos: Vector3
-var brief_pos: Vector3
 
-# signal shake_world
 
-var level_active = false
+var level_ended: bool = false
+var level_active: bool = false
 var level_timer : float = 0.0
 var time_elapsed : float = 0.0
 var score : int = 0 
@@ -39,10 +39,10 @@ const HAZARD_LIMIT := 2
 @onready var earthquake_rumble: AudioStreamPlayer = $GlobalAudioManager/EarthquakePlayer
 @onready var background_music: AudioStreamPlayer = $GlobalAudioManager/BGMPlayer
 
-var elapsed_time: float = 0
+var obj_elapsed_time: float = 0.0
 var obj_active: bool = false
 # Conditions
-@onready var hud_manager: Node3D = $HUDManager
+@onready var hud_manager: HUDManager = $HUDManager
 
 
 func _ready():
@@ -58,12 +58,13 @@ func _ready():
 ### LEVEL LIFECYCLE ###
 
 func start_level():
+	hud_manager.reset_timer()
+
 	xr_origin_3d.position = start_pos.position
 	print("Level started")
 	level_active = true
 	level_timer = 0
 	
-	hud_manager.reset_timer()
 
 func _reset_level_state():
 	level_active = false
@@ -104,13 +105,15 @@ func check_level_end():
 func enable_hazards():
 	# For connecting all hazard signals to call function _on_hazard_triggered(name)
 	if not hazards: return
-	for hazard in hazards.get_children():
+	for h in hazards.get_children():
+		var hazard = h as Hazard
 		if hazard.has_signal("hazard_triggered"):
 			hazard.hazard_triggered.connect(_on_hazard_triggered.bind(hazard))
 
 func disable_hazards():
 	if not hazards: return
-	for hazard in hazards.get_children():
+	for h in hazards.get_children():
+		var hazard = h as Hazard
 		if hazard.has_signal("hazard_triggered"):
 			if hazard.hazard_triggered.is_connected(_on_hazard_triggered):
 				hazard.hazard_triggered.disconnect(_on_hazard_triggered)
@@ -182,7 +185,7 @@ func _on_objective_started(obj: ObjectiveBase):
 	hud_manager.on_obj_started(obj)
 	
 	obj_active = true
-	elapsed_time = 0
+	obj_elapsed_time = 0
 	# disable other objectives right now
 	disable_other_objectives(obj)
 
@@ -192,7 +195,7 @@ func _on_obj_update_status(time: float):
 func _on_objective_completed(obj: ObjectiveBase):
 	if obj not in completed_objectives:
 		completed_objectives.append(obj)
-		completed_obj_times.append(elapsed_time)
+		completed_obj_times.append(obj_elapsed_time)
 		obj_active = false
 		
 		score += obj.completed_points
@@ -267,8 +270,8 @@ func _handle_level_active(delta: float) -> void:
 	level_timer += delta
 	
 	if obj_active:
-		elapsed_time += delta
-		_on_obj_update_status(elapsed_time)
+		obj_elapsed_time += delta
+		_on_obj_update_status(obj_elapsed_time)
 	
 	if level_timer >= level_time_limit:
 		fail_level("Time limit exceeded")
@@ -276,7 +279,7 @@ func _handle_level_active(delta: float) -> void:
 
 func _handle_level_briefing(delta: float) -> void:
 	time_elapsed += delta
-	if time_elapsed > 1.0:
+	if time_elapsed > briefing_time_limit:
 		start_level()
 
 
