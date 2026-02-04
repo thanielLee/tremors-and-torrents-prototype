@@ -34,10 +34,10 @@ axis_lock_angular_z = true
 
 [node name="WalkingMesh" parent="RigidBody3D" instance=ExtResource("3_so1c5")]
 transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, -0.195, 0, -0.12)
+visible = false
 
 [node name="LyingDownMesh" parent="RigidBody3D" instance=ExtResource("3_2c2vd")]
 transform = Transform3D(1.3, 0, 0, 0, 1.29136, 0.149621, 0, -0.149621, 1.29136, 0, -0.986063, 0.0627184)
-visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

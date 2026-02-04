@@ -14,7 +14,7 @@ class_name Level1
 @export var briefing_time_limit: float = 15.0
 
 @onready var xr_origin_3d = $XROrigin3D
-@onready var start_pos: Node3D = $StartPos
+@onready var start_pos: Vector3 = $StartPos.position
 var brief_pos: Vector3
 
 
@@ -26,6 +26,7 @@ var earthquake_triggered: bool = false
 
 var level_ended: bool = false
 var level_active: bool = false
+var level_failed_obj_active: bool = false
 var level_timer : float = 0.0
 var time_elapsed : float = 0.0
 var score : int = 0 
@@ -39,6 +40,7 @@ const HAZARD_LIMIT := 2
 @onready var earthquake_rumble: AudioStreamPlayer = $GlobalAudioManager/EarthquakePlayer
 @onready var background_music: AudioStreamPlayer = $GlobalAudioManager/BGMPlayer
 
+var current_objective: ObjectiveBase = null
 var obj_elapsed_time: float = 0.0
 var obj_active: bool = false
 # Conditions
@@ -60,11 +62,11 @@ func _ready():
 func start_level():
 	hud_manager.reset_timer()
 
-	xr_origin_3d.position = start_pos.position
 	print("Level started")
 	level_active = true
 	level_timer = 0
-	
+	teleport_player(start_pos)
+
 
 func _reset_level_state():
 	level_active = false
@@ -72,19 +74,40 @@ func _reset_level_state():
 	level_timer = 0
 	time_elapsed = 0
 	disable_hazards()
-	xr_origin_3d.position = brief_pos
+	# xr_origin_3d.position = brief_pos
 
 func complete_level():
-	_reset_level_state()
+	level_ended = true
+	disable_hazards()
+
+	if current_objective and obj_active:
+		disable_other_objectives(current_objective)
+	else:
+		disable_objectives()
+	# _reset_level_state()
 	log_results()
 	hud_manager.end_level_prompt(true, score, "")
 	hud_manager.hide_timer()
 
 func fail_level(message: String):
-	_reset_level_state()
-	log_results()
-	hud_manager.end_level_prompt(false, score, message)
-	hud_manager.hide_timer()
+	level_ended = true
+	disable_hazards()
+
+	if current_objective and obj_active:
+		disable_other_objectives(current_objective)
+		level_failed_obj_active = true		
+		
+		hud_manager.end_level_prompt(false, score, message)
+		hud_manager.show_prompt("Finish current active objective to end level!", 3.0)
+	else:
+		disable_objectives()
+		log_results()
+		hud_manager.hide_timer()
+		hud_manager.end_level_prompt(false, score, message)
+		
+		await get_tree().create_timer(5.0).timeout
+		teleport_player(brief_pos)
+	# _reset_level_state()
 
 func check_level_end():
 	var all_required_done := true
@@ -172,6 +195,12 @@ func enable_objectives():
 		
 		obj.enabled = true
 
+func disable_objectives():
+	for o in objectives.get_children():
+		var obj = o as ObjectiveBase
+		if obj:
+			obj.enabled = false
+
 func disable_other_objectives(obj: ObjectiveBase):
 	for o in objectives.get_children():
 		if o.name == obj.name:
@@ -182,6 +211,7 @@ func disable_other_objectives(obj: ObjectiveBase):
 			other_obj.enabled = false
 
 func _on_objective_started(obj: ObjectiveBase):
+	current_objective = obj
 	hud_manager.on_obj_started(obj)
 	
 	obj_active = true
@@ -243,23 +273,34 @@ func do_earthquake(duration):
 	earthquake_triggered = true # for e.quake on time
 	world_shaker.shake_world(duration)
 
+func teleport_player(new_position: Vector3):
+	xr_origin_3d.position = new_position
 
 ### LOGGING
 
 func log_results():
 	var message: String = "Results:\n\n"
-	for i in range(completed_objectives.size()):
-		var obj_name = completed_objectives[i].objective_name
-		var obj_time = completed_obj_times[i]
-		message += "%s: %.2f seconds\n" % [obj_name, obj_time]
+	if completed_objectives.size() == 0:
+		message += "No objectives completed.\n"
+	else:
+		for i in range(completed_objectives.size()):
+			var obj_name = completed_objectives[i].objective_name
+			var obj_time = completed_obj_times[i]
+			message += "%s: %.2f seconds\n" % [obj_name, obj_time]
 	
+	message += "\nTime Taken: %.2f seconds\n" % level_timer
+	message += "Total Score: %d\n" % score
+	message += "Hazards Triggered: %d / %d\n" % [triggered_hazards.size(), HAZARD_LIMIT]
+
 	hud_manager.log_results(message)
 
 ### PROCESS LOOP ###
 
 func _process(delta: float) -> void:
-	if level_ended:
+	if level_ended and not level_failed_obj_active:
 		_handle_level_ended(delta)
+	elif level_failed_obj_active:
+		_handle_level_failed(delta)
 	elif level_active:
 		_handle_level_active(delta)
 	else:
@@ -278,14 +319,22 @@ func _handle_level_active(delta: float) -> void:
 
 
 func _handle_level_briefing(delta: float) -> void:
-	time_elapsed += delta
-	if time_elapsed > briefing_time_limit:
+	level_timer += delta
+	if level_timer > briefing_time_limit:
 		start_level()
 
 
 func _handle_level_ended(delta: float) -> void:
-	time_elapsed += delta
-	if time_elapsed > 10.0:
+	level_timer += delta
+	if level_timer > 20.0:
 		exit_to_main_menu()
-		
-	
+
+func _handle_level_failed(delta: float) -> void:
+	level_timer += delta
+	obj_elapsed_time += delta
+	_on_obj_update_status(obj_elapsed_time)
+	if current_objective in completed_objectives:
+		log_results()
+		hud_manager.end_level_prompt(false, score, "")
+		await get_tree().create_timer(5.0).timeout
+		teleport_player(brief_pos)

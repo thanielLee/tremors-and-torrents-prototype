@@ -133,9 +133,11 @@ func on_level_failed(message: String):
 	reason_label.text = message
 	reason_label.add_theme_color_override("font_color", Color.RED)
 	level_label.visible = true
+	reason_label.visible = true
 	score_label.visible = false
 	await get_tree().create_timer(5.0).timeout
 	level_label.visible = false
+	reason_label.visible = false
 
 func prompt_reason_label(message: String):
 	reason_label.text = message
@@ -148,5 +150,4 @@ func end_level_prompt(success: bool, score: int, message: String = ""):
 	if success:
 		await on_level_succeeded(score)
 	else:
-		var msg = message if message != "" else "Level Failed"
-		await on_level_failed(msg)
+		await on_level_failed(message)	

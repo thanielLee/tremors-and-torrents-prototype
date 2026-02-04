@@ -147,7 +147,7 @@ albedo_color = Color(0, 0, 0, 1)
 
 [node name="Level1" instance=ExtResource("1_lmdqw")]
 script = ExtResource("2_1gikq")
-level_time_limit = 120.0
+level_time_limit = 5.0
 briefing_time_limit = 5.0
 
 [node name="XROrigin3D" parent="." index="0"]
@@ -315,7 +315,7 @@ mesh = SubResource("BoxMesh_0x1rk")
 [node name="Objectives" type="Node3D" parent="." index="5"]
 
 [node name="VictimRescue" parent="Objectives" index="0" instance=ExtResource("15_06ecp")]
-transform = Transform3D(-1, 0, -1.19209e-07, 0, 1, 0, 1.19209e-07, 0, -1, 1.60171, 0.0843373, -12.7303)
+transform = Transform3D(-1, 0, -1.19209e-07, 0, 1, 0, 1.19209e-07, 0, -1, -1.73253, 0.0843373, 4.65963)
 is_required = true
 
 [node name="Injured" parent="Objectives" index="1" instance=ExtResource("11_betor")]
