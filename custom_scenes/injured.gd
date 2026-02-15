@@ -11,6 +11,7 @@ var current_stage : int
 @onready var bandage_sound_2: AudioStreamPlayer3D = $BandageSound2
 var sounds
 
+var injured_seen: bool = false
 
 func _ready() -> void:
 	for stage in bandage_stages:
@@ -18,6 +19,13 @@ func _ready() -> void:
 	current_stage = -1
 	
 	sounds = [bandage_sound_1, bandage_sound_2]
+	$VisibleOnScreenNotifier3D
+
+	var notif: VisibleOnScreenNotifier3D = $VisibleOnScreenNotifier3D
+	notif.screen_entered.connect(_check_entered)
+
+func _check_entered():
+	injured_seen = true
 	
 func _on_ois_twist_receiver_action_started(requirement: Variant, total_progress: Variant) -> void:
 	if enabled and not (completed or failed):
@@ -31,6 +39,7 @@ func _on_ois_twist_receiver_action_in_progress(requirement: Variant, total_progr
 	var progress_ratio = clamp(total_progress / float(requirement), 0.0, 1.0)
 	
 	var new_stage := -1
+	print(progress_ratio)
 	if progress_ratio >= 1.0:
 		new_stage = 2
 	elif progress_ratio >= 0.5:

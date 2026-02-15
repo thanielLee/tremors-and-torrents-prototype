@@ -68,6 +68,8 @@ func send_raycast():
 				var vfx_node: Node3D = object_parent.get_child(1)
 				for child in vfx_node.get_children():
 					child.emitting = false
+		
+			object_parent.is_active = false
 					
 
 func end_action(pickable):

@@ -29,6 +29,8 @@ var player: XROrigin3D
 var left_hand_held := false
 var right_hand_held := false
 
+var victim_seen: bool = false
+
 
 func _ready():
 	super._ready()
@@ -47,6 +49,12 @@ func _ready():
 	body.linear_damp = 10.0
 	body.angular_damp = 10.0
 	body.freeze = true
+	
+	var notif: VisibleOnScreenNotifier3D = $VisibleOnScreenNotifier3D
+	notif.screen_entered.connect(_check_entered)
+
+func _check_entered():
+	victim_seen = true
 
 func _on_grabbed(handle, by):
 	var grab_point = handle.get_child(1).target # GrabPointRedirect
@@ -116,6 +124,9 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 		emit_signal("victim_safe")
 		following = false
 	elif area.get_parent().get_script() == Hazard:
+		if area.get_parent().hazard_name == "Electrical Fire":
+			if !area.get_parent().is_active:
+				return
 		emit_signal("victim_triggered_hazard")
 	else:
 		return

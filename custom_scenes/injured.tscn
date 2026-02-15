@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://bp4qsothxd80g"]
+[gd_scene load_steps=18 format=3 uid="uid://bp4qsothxd80g"]
 
 [ext_resource type="Script" uid="uid://bbncc441ssy0o" path="res://custom_scenes/injured.gd" id="1_heuca"]
 [ext_resource type="Script" uid="uid://3bi02tndcxdg" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/ois-receiver/ois_twist_receiver.gd" id="2_as5ff"]
+[ext_resource type="PackedScene" uid="uid://gsmvxsjmkje0" path="res://assets/(Lying Down)NPC_man.glb" id="2_k55h8"]
 [ext_resource type="AudioStream" uid="uid://dbgvfjvxpx0am" path="res://assets/freesound/bandage_sound_1.mp3" id="3_f8pag"]
 [ext_resource type="AudioStream" uid="uid://gtrjdh5pp8oi" path="res://assets/freesound/bandage_sound_2.mp3" id="4_k55h8"]
 
@@ -41,53 +42,64 @@ height = 0.25
 radius = 0.08
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_heuca"]
-top_radius = 0.105
-bottom_radius = 0.105
-height = 0.2
+top_radius = 0.06
+bottom_radius = 0.04
+height = 0.23
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_as5ff"]
-top_radius = 0.11
-bottom_radius = 0.11
-height = 0.2
+top_radius = 0.065
+bottom_radius = 0.045
+height = 0.23
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_f8pag"]
-top_radius = 0.12
-bottom_radius = 0.12
-height = 0.2
+top_radius = 0.07
+bottom_radius = 0.05
+height = 0.23
 
 [node name="Injured" type="Node3D"]
 script = ExtResource("1_heuca")
 objective_name = "Injured"
 
+[node name="NewMesh" type="Node3D" parent="."]
+
+[node name="LyingDownMesh" parent="NewMesh" instance=ExtResource("2_k55h8")]
+transform = Transform3D(1.3, 0, 0, 0, 1.29136, 0.149621, 0, -0.149621, 1.29136, 0, -1.0925, 0.0627184)
+
 [node name="Mesh" type="Node3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, -8.74228e-08, 2, 0, -2, -8.74228e-08, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
+visible = false
 mesh = SubResource("CapsuleMesh_k55h8")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(0.991903, -0.126995, 0, 0.126995, 0.991903, 0, 0, 0, 1, 0.0681005, -0.334436, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_8xfjp")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(0.991894, 0.127065, 0, -0.127065, 0.991894, 0, 0, 0, 1, -0.068, -0.334436, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_8xfjp")
 
 [node name="ArmMesh" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(0.724172, -0.68962, 0, 0.68962, 0.724172, 0, 0, 0, 1, 0.187, 0.048, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_j33ko")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(0.724172, 0.68962, 0, -0.68962, 0.724172, 0, 0, 0, 1, -0.187, 0.048, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_8xfjp")
 
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.283861, 0)
+visible = false
 mesh = SubResource("SphereMesh_sp84e")
 
 [node name="OISTwistReceiver" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.513576, 0, 0.0389669)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.152386, 0.0533326, 0.71943)
 script = ExtResource("2_as5ff")
 single_direction = true
 group = "bandage"
@@ -102,17 +114,17 @@ collision_mask = 536870912
 shape = SubResource("SphereShape3D_awwxl")
 
 [node name="BandageStage0" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.724172, -0.68962, 0, -3.01442e-08, -3.16546e-08, 1, -0.68962, -0.724172, -4.37114e-08, 0.455539, 0.000764482, -0.00810447)
+transform = Transform3D(0.99872, -0.050593, -2.21149e-09, 0, -4.37114e-08, 1, -0.050593, -0.99872, -4.36554e-08, 0.143, 0.048, 0.702)
 visible = false
 mesh = SubResource("CylinderMesh_heuca")
 
 [node name="BandageStage1" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.724172, -0.68962, 0, -3.01442e-08, -3.16546e-08, 1, -0.68962, -0.724172, -4.37114e-08, 0.455539, 0.000764482, -0.00810447)
+transform = Transform3D(0.998689, -0.051203, -2.23815e-09, 0, -4.37114e-08, 1, -0.051203, -0.998689, -4.36541e-08, 0.142938, 0.04812, 0.702162)
 visible = false
 mesh = SubResource("CylinderMesh_as5ff")
 
 [node name="BandageStage2" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.724172, -0.68962, 0, -3.01442e-08, -3.16546e-08, 1, -0.68962, -0.724172, -4.37114e-08, 0.455539, 0.000764482, -0.00810447)
+transform = Transform3D(0.99872, -0.050593, -2.21149e-09, 0, -4.37114e-08, 1, -0.050593, -0.99872, -4.36554e-08, 0.143, 0.048, 0.702)
 visible = false
 mesh = SubResource("CylinderMesh_f8pag")
 
@@ -123,6 +135,10 @@ stream = ExtResource("3_f8pag")
 [node name="BandageSound2" type="AudioStreamPlayer3D" parent="."]
 visible = false
 stream = ExtResource("4_k55h8")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0764101, 0.0936272)
+aabb = AABB(-0.424502, -0.2338, -0.948519, 0.849004, 0.467601, 1.89704)
 
 [connection signal="action_completed" from="OISTwistReceiver" to="." method="_on_ois_twist_receiver_action_completed"]
 [connection signal="action_ended" from="OISTwistReceiver" to="." method="_on_ois_twist_receiver_action_ended"]

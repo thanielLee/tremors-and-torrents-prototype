@@ -43,10 +43,12 @@ const HAZARD_LIMIT := 2
 var current_objective: ObjectiveBase = null
 var obj_elapsed_time: float = 0.0
 var obj_active: bool = false
+var camera_forward: Vector3 = Vector3(0.0, 0.0, 1.0)
 # Conditions
 @onready var hud_manager: HUDManager = $HUDManager
 
-
+@onready var injured = $Objectives/Injured
+@onready var victim = $Objectives/VictimRescue
 func _ready():
 	# save brief player
 	brief_pos = xr_origin_3d.position
@@ -110,17 +112,19 @@ func fail_level(message: String):
 	# _reset_level_state()
 
 func check_level_end():
-	var all_required_done := true
+	var required_done := false
 	
 	for obj in objectives.get_children():
 		if obj.has_signal("stretcher_dropped"):
+			if obj.objective_script in completed_objectives:
+				required_done = true
 			continue
 		if obj.is_required:
-			if obj not in completed_objectives:
-				all_required_done = false
+			if obj in completed_objectives:
+				required_done = true
 				break
 	
-	if all_required_done and triggered_hazards.size() < HAZARD_LIMIT:
+	if required_done and triggered_hazards.size() < HAZARD_LIMIT:
 		complete_level()
 
 ### HAZARDS ###
@@ -143,6 +147,11 @@ func disable_hazards():
 
 func _on_hazard_triggered(hazard: Variant):
 	var hazard_name = hazard.hazard_name
+	
+	if hazard_name == "Electrical Fire":
+		if hazard.is_active:
+			fail_level("Ran into fire")
+		return
 	
 	if hazard_name not in triggered_hazards:
 		score += hazard.penalty_points
@@ -297,6 +306,7 @@ func log_results():
 ### PROCESS LOOP ###
 
 func _process(delta: float) -> void:
+	print(str(injured.injured_seen) + " " + str(victim.victim_seen))
 	if level_ended and not level_failed_obj_active:
 		_handle_level_ended(delta)
 	elif level_failed_obj_active:
@@ -305,6 +315,8 @@ func _process(delta: float) -> void:
 		_handle_level_active(delta)
 	else:
 		_handle_level_briefing(delta)
+	
+	camera_forward = $XROrigin3D/XRCamera3D.global_transform.basis.z * -1
 
 
 func _handle_level_active(delta: float) -> void:
@@ -313,7 +325,7 @@ func _handle_level_active(delta: float) -> void:
 	if obj_active:
 		obj_elapsed_time += delta
 		_on_obj_update_status(obj_elapsed_time)
-	
+
 	if level_timer >= level_time_limit:
 		fail_level("Time limit exceeded")
 
