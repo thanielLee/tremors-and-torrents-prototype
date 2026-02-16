@@ -1,13 +1,11 @@
 @tool
 extends XRToolsSceneBase
-class_name Level2
+class_name Level1
 
-## Level 2 Script
+## Level 1 Script
 ##
 ## This script extends XRToolsSceneBase and deals with the game elements
-## specifically for Level 2
-##
-## This could serve as a guide/reference for future level creation  
+## specifically for Level 1
 ##
 ## Handles initialization, hazards, objectives, and level flow.
 
@@ -107,7 +105,7 @@ func fail_level(message: String):
 		log_results()
 		hud_manager.hide_timer()
 		hud_manager.end_level_prompt(false, score, message)
-		
+
 		await get_tree().create_timer(5.0).timeout
 		teleport_player(brief_pos)
 	# _reset_level_state()
@@ -124,7 +122,7 @@ func check_level_end():
 			if obj in completed_objectives:
 				required_done = true
 				break
-	
+
 	if required_done and triggered_hazards.size() < HAZARD_LIMIT:
 		complete_level()
 

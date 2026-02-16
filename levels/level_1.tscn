@@ -1,11 +1,70 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckn5firtu6im3"]
+[gd_scene load_steps=13 format=3 uid="uid://ckn5firtu6im3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
+[ext_resource type="Script" uid="uid://dxrd1bf6mcajs" path="res://levels/level_1.gd" id="2_aerfg"]
 [ext_resource type="PackedScene" uid="uid://dvcu5rlq5inps" path="res://assets/level1_graybox_test.glb" id="2_jirdo"]
+[ext_resource type="Script" uid="uid://mwkmv5yaqd6g" path="res://custom_scenes/ui/hud_manager.gd" id="29_ohjdc"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="30_e5brb"]
+[ext_resource type="PackedScene" uid="uid://cg3e6vl8r45gh" path="res://custom_scenes/ui/hud_2d.tscn" id="31_rf48r"]
+[ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="32_toluw"]
+[ext_resource type="Script" uid="uid://b4seunyy8fkyl" path="res://custom_scenes/ui/dialogue_manager.gd" id="33_rf48r"]
+[ext_resource type="PackedScene" uid="uid://bwvp4b0em2nh4" path="res://custom_scenes/ui/dialogue_ui.tscn" id="34_toluw"]
+[ext_resource type="AudioStream" uid="uid://c8gd8a548qysy" path="res://assets/audio/earthquake-consolidated.wav" id="50_vsljp"]
+[ext_resource type="AudioStream" uid="uid://d0l6x7lhlm0f3" path="res://assets/audio/intense-horror-game-ambience-418842.mp3" id="51_5vbbt"]
+[ext_resource type="AudioStream" uid="uid://t17p4wyjbdm5" path="res://assets/audio/ambulance-siren-363656.mp3" id="52_vsljp"]
 
 [node name="Level1" instance=ExtResource("1_lmdqw")]
+script = ExtResource("2_aerfg")
+level_time_limit = 120.0
+briefing_time_limit = 15.0
 
 [node name="Environment" type="Node3D" parent="." index="1"]
 
 [node name="level1_graybox_test" parent="Environment" index="0" instance=ExtResource("2_jirdo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.1784, -3.8147e-06, -4.70663)
+
+[node name="Objectives" type="Node3D" parent="." index="2"]
+
+[node name="HUDManager" type="Node3D" parent="." index="3" node_paths=PackedStringArray("xr_origin_3d", "xr_camera")]
+script = ExtResource("29_ohjdc")
+xr_origin_3d = NodePath("")
+xr_camera = NodePath("")
+
+[node name="HUD" parent="HUDManager" index="0" instance=ExtResource("30_e5brb")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+screen_size = Vector2(16, 9)
+collision_layer = 0
+scene = ExtResource("31_rf48r")
+viewport_size = Vector2(1600, 900)
+material = ExtResource("32_toluw")
+scene_properties_keys = PackedStringArray("hud.gd", "prompt_duration")
+prompt_duration = 3.0
+
+[node name="DialogueManager" type="Node3D" parent="." index="4" node_paths=PackedStringArray("xr_origin_3d", "xr_camera", "dialogue_button_hand", "dialogue_toggler_hand") groups=["dialogue_system"]]
+script = ExtResource("33_rf48r")
+xr_origin_3d = NodePath("../XROrigin3D")
+xr_camera = NodePath("../XROrigin3D/XRCamera3D")
+ui_distance = 2.0
+dialogue_button_hand = NodePath("../XROrigin3D/RightHand")
+dialogue_toggler_hand = NodePath("../XROrigin3D/RightHand")
+
+[node name="DialogueUI" parent="DialogueManager" index="0" instance=ExtResource("34_toluw")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="GlobalAudioManager" type="Node3D" parent="." index="5"]
+
+[node name="EarthquakePlayer" type="AudioStreamPlayer" parent="GlobalAudioManager" index="0"]
+stream = ExtResource("50_vsljp")
+volume_db = 3.033
+
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="GlobalAudioManager" index="1"]
+stream = ExtResource("51_5vbbt")
+volume_db = -5.2
+autoplay = true
+parameters/looping = true
+
+[node name="AmbulancePlayer" type="AudioStreamPlayer3D" parent="GlobalAudioManager" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.42127, 3.04527, 7.74581)
+stream = ExtResource("52_vsljp")
+volume_db = -12.735
+autoplay = true
