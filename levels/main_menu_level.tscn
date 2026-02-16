@@ -66,12 +66,18 @@ shape = SubResource("BoxShape3D_j4tkq")
 mesh = SubResource("QuadMesh_j88c8")
 
 [node name="ToLevel1" parent="." index="2" instance=ExtResource("11_62yrx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -4.87699)
 scene = "res://levels/level_1.tscn"
 active_beam_color = Color(0.154876, 0.154876, 0.154876, 1)
 inactive_beam_color = Color(1, 0.918009, 0.903595, 1)
 
-[node name="Instructions" parent="." index="3" instance=ExtResource("9_h1ibc")]
+[node name="ToLevel2" parent="." index="3" instance=ExtResource("11_62yrx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.76331, 0, -3)
+scene = "res://levels/level_1.tscn"
+active_beam_color = Color(0.154876, 0.154876, 0.154876, 1)
+inactive_beam_color = Color(1, 0.918009, 0.903595, 1)
+
+[node name="Instructions" parent="." index="4" instance=ExtResource("9_h1ibc")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 2, -4)
 scene = ExtResource("10_f01vn")
 viewport_size = Vector2(1600, 900)

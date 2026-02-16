@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckn5firtu6im3"]
+
+[ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
+[ext_resource type="PackedScene" uid="uid://dvcu5rlq5inps" path="res://assets/level1_graybox_test.glb" id="2_jirdo"]
+
+[node name="Level1" instance=ExtResource("1_lmdqw")]
+
+[node name="Environment" type="Node3D" parent="." index="1"]
+
+[node name="level1_graybox_test" parent="Environment" index="0" instance=ExtResource("2_jirdo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.1784, -3.8147e-06, -4.70663)
