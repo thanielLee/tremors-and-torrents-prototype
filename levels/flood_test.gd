@@ -4,4 +4,5 @@ extends Node3D
 
 
 func _ready():
-	flood_node.start_flooding(1.0)
+	pass
+	#flood_node.start_flooding(3.75)

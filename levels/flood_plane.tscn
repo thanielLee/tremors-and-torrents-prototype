@@ -3,14 +3,15 @@
 [ext_resource type="Shader" uid="uid://bqdmdtdnxcxe5" path="res://shaders/flood_water.gdshader" id="1_1om6k"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_6o8ei"]
-size = Vector2(20, 20)
-subdivide_width = 200
-subdivide_depth = 200
+size = Vector2(140, 130)
+subdivide_width = 2000
+subdivide_depth = 2000
 orientation = 1
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1om6k"]
 noise_type = 3
 fractal_type = 2
+fractal_lacunarity = 1.73
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6o8ei"]
 seamless = true
@@ -22,6 +23,7 @@ noise = SubResource("FastNoiseLite_1om6k")
 noise_type = 3
 seed = 10
 fractal_type = 2
+fractal_lacunarity = 1.86
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_s7cr3"]
 seamless = true
@@ -48,8 +50,8 @@ shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_s7cr3")
 shader_parameter/wave_direction = Vector2(2, 1)
 shader_parameter/wave_direction2 = Vector2(2, 1)
 shader_parameter/time_scale = 0.025
-shader_parameter/noise_scale = 10.0
-shader_parameter/height_scale = 0.15
+shader_parameter/noise_scale = 9.88
+shader_parameter/height_scale = 0.2
 shader_parameter/color_deep = Color(0.105882, 0.294118, 0.329412, 1)
 shader_parameter/color_shallow = Color(0, 0.552941, 0.65098, 1)
 shader_parameter/beers_law = 2.0

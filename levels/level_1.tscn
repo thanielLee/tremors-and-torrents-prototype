@@ -55,12 +55,12 @@
 panorama = ExtResource("4_4knja")
 energy_multiplier = 0.15
 
-[sub_resource type="Sky" id="Sky_ff7d2"]
+[sub_resource type="Sky" id="Sky_yik85"]
 sky_material = SubResource("PanoramaSkyMaterial_4knja")
 
 [sub_resource type="Environment" id="Environment_4jcj5"]
 background_mode = 2
-sky = SubResource("Sky_ff7d2")
+sky = SubResource("Sky_yik85")
 ambient_light_sky_contribution = 0.0
 sdfgi_enabled = true
 glow_enabled = true
