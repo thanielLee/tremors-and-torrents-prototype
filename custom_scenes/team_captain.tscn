@@ -7,8 +7,5 @@
 display_name = "Team Captain"
 dialogue_states = Array[String](["briefing", "debriefing"])
 
-[node name="MeshInstance3D" parent="RigidBody3D" index="0"]
-mesh = null
-
 [node name="responder1" parent="." index="2" instance=ExtResource("2_uuqp7")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)

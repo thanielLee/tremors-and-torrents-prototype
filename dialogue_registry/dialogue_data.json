@@ -1,30 +1,103 @@
 {
-	"VictimRescue": {
-		"pre_rescue": [
-			"Help! I'm trapped under this rubble!",
-			"My leg’s stuck... please help me move the debris."
-		],
-		"post_rescue": [
-			"Thank you for rescuing me!",
-			"I couldn't have made it without your help."
-		]
-	},
-	"TeamCaptain": {
-		"briefing": [
-			"We have a situation at the construction site.",
-			"[b]Multiple people[/b] are trapped under debris after the collapse.",
-			"We need to act quickly to rescue them.",
-			"Remember to stay safe and follow protocol.",
-			"[b]Avoid hazards[/b] like unstable structures and sharp objects.",
-			"[b]Guide rescuees[/b] to safety once they're free. Help them [b]avoid further injury[/b].",
-			"Let's move out and save as many as we can.",
-			"Good luck, team."
-		],		
-		"debriefing": [
-			"Great job out there, team.",
-			"We managed to rescue all the trapped individuals.",
-			"Your quick thinking and teamwork made all the difference.",
-			"Let's head back to base and prepare for the next mission."
-		]
-	}
+    "VictimRescue": {
+        "pre_rescue": [
+            { "text": "Help! I'm trapped under this rubble!", "duration": 2.8 },
+            { "text": "My leg's stuck... please help me move the debris.", "duration": 3.4 }
+        ],
+        "post_rescue": [
+            { "text": "Thank you for rescuing me!", "duration": 2.6 },
+            { "text": "I couldn't have made it without your help.", "duration": 3.0 }
+        ]
+    },
+
+    "TeamCaptain": {
+        "level_2_briefing": [
+            { 
+                "text": "Lead Responder, this is Command.", 
+                "duration": 2.5 
+            },
+            { 
+                "text": "A 6.8 magnitude earthquake has been recorded offshore.", 
+                "duration": 3.8 
+            },
+            { 
+                "text": "Initial tremors have already been felt across the barangay.", 
+                "duration": 3.6 
+            },
+            { 
+                "text": "Structural damage is likely. Aftershocks are expected.", 
+                "duration": 3.8 
+            },
+            { 
+                "text": "[b]Residential Zone A[/b] has high-density housing and weak concrete structures.", 
+                "duration": 4.5 
+            },
+            { 
+                "text": "The elementary school is currently occupied.", 
+                "duration": 3.2 
+            },
+            { 
+                "text": "Expect civilian panic and possible gas leaks.", 
+                "duration": 3.5 
+            },
+
+            { 
+                "text": "[b]Primary Objectives:[/b]", 
+                "duration": 2.2 
+            },
+            { 
+                "text": "Conduct rapid area assessment.", 
+                "duration": 2.5 
+            },
+            { 
+                "text": "Guide at least 3 civilians to the designated safe assembly zone.", 
+                "duration": 4.2 
+            },
+            { 
+                "text": "Identify and secure at least one structural hazard.", 
+                "duration": 4.0 
+            },
+
+            { 
+                "text": "[b]Secondary Objectives:[/b]", 
+                "duration": 2.2 
+            },
+            { 
+                "text": "Extinguish any active fires.", 
+                "duration": 3.0 
+            },
+            { 
+                "text": "Provide first aid to injured civilians if necessary.", 
+                "duration": 3.8 
+            },
+
+            { 
+                "text": "You have limited time before secondary tremors escalate.", 
+                "duration": 3.8 
+            },
+            { 
+                "text": "Prepare yourself. Deploy when ready.", 
+                "duration": 3.0 
+            }
+        ],
+
+        "debriefing": [
+            { 
+                "text": "Good work, Lead Responder.", 
+                "duration": 2.6 
+            },
+            { 
+                "text": "Your actions helped minimize casualties and restore order.", 
+                "duration": 4.2 
+            },
+            { 
+                "text": "Aftershocks remain possible. Continue to monitor structural stability.", 
+                "duration": 4.5 
+            },
+            { 
+                "text": "Return to base for evaluation and further instructions.", 
+                "duration": 3.5 
+            }
+        ]
+    }
 }
