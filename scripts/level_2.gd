@@ -1,4 +1,3 @@
-@tool
 extends XRToolsSceneBase
 class_name Level2
 
@@ -307,7 +306,7 @@ func log_results():
 ### PROCESS LOOP ###
 
 func _process(delta: float) -> void:
-	print(str(injured.injured_seen) + " " + str(victim.victim_seen))
+	#print(str(injured.injured_seen) + " " + str(victim.victim_seen))
 	if level_ended and not level_failed_obj_active:
 		_handle_level_ended(delta)
 	elif level_failed_obj_active:

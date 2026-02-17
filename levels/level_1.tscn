@@ -1,10 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://ckn5firtu6im3"]
+[gd_scene load_steps=20 format=3 uid="uid://ckn5firtu6im3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://dxrd1bf6mcajs" path="res://levels/level_1.gd" id="2_aerfg"]
 [ext_resource type="PackedScene" uid="uid://dvcu5rlq5inps" path="res://assets/level1_graybox_test.glb" id="2_jirdo"]
 [ext_resource type="PackedScene" uid="uid://crte44g8idacl" path="res://hazards/electrical_fire.tscn" id="5_o7v6b"]
 [ext_resource type="PackedScene" uid="uid://cuuosibwguv0i" path="res://stretcher.tscn" id="6_bgw3c"]
+[ext_resource type="PackedScene" uid="uid://cexlre72hlkim" path="res://custom_scenes/duck_cover_hold_qte.tscn" id="8_7nvrk"]
+[ext_resource type="PackedScene" uid="uid://xfhu0tputojr" path="res://custom_scenes/interactable_npc.tscn" id="8_oqlok"]
+[ext_resource type="PackedScene" uid="uid://pinr5n4sc1nq" path="res://assets/responder1.glb" id="9_7nvrk"]
 [ext_resource type="PackedScene" uid="uid://bp4qsothxd80g" path="res://custom_scenes/injured.tscn" id="11_betor"]
 [ext_resource type="PackedScene" uid="uid://dsaovvehgewyy" path="res://objectives/victim_rescue.tscn" id="15_06ecp"]
 [ext_resource type="Script" uid="uid://mwkmv5yaqd6g" path="res://custom_scenes/ui/hud_manager.gd" id="29_ohjdc"]
@@ -19,32 +22,40 @@
 
 [node name="Level1" instance=ExtResource("1_lmdqw")]
 script = ExtResource("2_aerfg")
-level_time_limit = 120.0
-briefing_time_limit = 15.0
 
 [node name="Environment" type="Node3D" parent="." index="1"]
 
 [node name="level1_graybox_test" parent="Environment" index="0" instance=ExtResource("2_jirdo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.1784, -3.8147e-06, -4.70663)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.178, -1, -4.707)
 
 [node name="Objectives" type="Node3D" parent="." index="2"]
 
 [node name="Injured" parent="Objectives" index="0" instance=ExtResource("11_betor")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 14.4883, 1.18002, 9.06944)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 14.4883, 0.133314, 9.06944)
 
 [node name="ElectricalFire" parent="Objectives" index="1" instance=ExtResource("5_o7v6b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.7068, 1.05316, 9.64876)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.7068, -0.0212259, 9.64876)
 
 [node name="Stretcher" parent="Objectives" index="2" instance=ExtResource("6_bgw3c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.2329, 1.40403, -15.7447)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.2329, 0.239165, -15.7447)
 
 [node name="VictimRescue" parent="Objectives" index="3" instance=ExtResource("15_06ecp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.1628, 1.26189, 7.39898)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.1628, 0.0379871, 7.39898)
 
-[node name="HUDManager" type="Node3D" parent="." index="3" node_paths=PackedStringArray("xr_origin_3d", "xr_camera")]
+[node name="DuckCoverHoldQTE" parent="Objectives" index="4" instance=ExtResource("8_7nvrk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
+
+[node name="NPCs" type="Node3D" parent="." index="3"]
+
+[node name="InteractableNPC" parent="NPCs" index="0" instance=ExtResource("8_oqlok")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.73569, 0, -11.8196)
+dialogue_states = Array[String](["welcoming", "repeating"])
+
+[node name="responder1" parent="NPCs/InteractableNPC" index="2" instance=ExtResource("9_7nvrk")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+
+[node name="HUDManager" type="Node3D" parent="." index="4"]
 script = ExtResource("29_ohjdc")
-xr_origin_3d = NodePath("")
-xr_camera = NodePath("")
 
 [node name="HUD" parent="HUDManager" index="0" instance=ExtResource("30_e5brb")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
@@ -56,7 +67,7 @@ material = ExtResource("32_toluw")
 scene_properties_keys = PackedStringArray("hud.gd", "prompt_duration")
 prompt_duration = 3.0
 
-[node name="DialogueManager" type="Node3D" parent="." index="4" node_paths=PackedStringArray("xr_origin_3d", "xr_camera", "dialogue_button_hand", "dialogue_toggler_hand") groups=["dialogue_system"]]
+[node name="DialogueManager" type="Node3D" parent="." index="5" node_paths=PackedStringArray("xr_origin_3d", "xr_camera", "dialogue_button_hand", "dialogue_toggler_hand") groups=["dialogue_system"]]
 script = ExtResource("33_rf48r")
 xr_origin_3d = NodePath("../XROrigin3D")
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
@@ -67,7 +78,7 @@ dialogue_toggler_hand = NodePath("../XROrigin3D/RightHand")
 [node name="DialogueUI" parent="DialogueManager" index="0" instance=ExtResource("34_toluw")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 
-[node name="GlobalAudioManager" type="Node3D" parent="." index="5"]
+[node name="GlobalAudioManager" type="Node3D" parent="." index="6"]
 
 [node name="EarthquakePlayer" type="AudioStreamPlayer" parent="GlobalAudioManager" index="0"]
 stream = ExtResource("50_vsljp")
