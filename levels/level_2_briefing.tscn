@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bqgo56wirqsy2"]
+[gd_scene load_steps=17 format=3 uid="uid://bqgo56wirqsy2"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_dyeri"]
 [ext_resource type="Script" uid="uid://dqba1ncoreeq4" path="res://levels/level_2_briefing.gd" id="2_a81k6"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://b8e7ebkdguro8" path="res://custom_scenes/dialogue_manager.tscn" id="3_0j5n4"]
 [ext_resource type="PackedScene" uid="uid://41fv2ptcljjp" path="res://custom_scenes/team_captain.tscn" id="4_v6mhn"]
 [ext_resource type="Texture2D" uid="uid://b3gq1qnf34ml1" path="res://textures/sky/belfast_sunset_puresky_4k.hdr" id="4_xegxb"]
-[ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="7_8xt3a"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0j5n4"]
 size = Vector3(8, 0.2, 8)
@@ -119,7 +118,3 @@ dialogue_toggler_hand = NodePath("../XROrigin3D/RightHand")
 
 [node name="TeamCaptain" parent="." index="3" instance=ExtResource("4_v6mhn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55765, 0, -4.82183)
-
-[node name="Teleport" parent="." index="4" instance=ExtResource("7_8xt3a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6651, -5.96046e-08, -0.814262)
-scene = "uid://cpnfo7hdx0oxg"

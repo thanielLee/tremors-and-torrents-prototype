@@ -28,6 +28,78 @@ script = ExtResource("2_aerfg")
 [node name="level1_graybox_test" parent="Environment" index="0" instance=ExtResource("2_jirdo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.178, -1, -4.707)
 
+[node name="SpotLight3D" type="SpotLight3D" parent="Environment" index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.701121, 0.713042, 0, -0.713042, 0.701121, 48.9688, 5.44337, 2.94852)
+light_energy = 2.0
+spot_range = 11.4467
+spot_angle = 27.0668
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Environment" index="2"]
+transform = Transform3D(1, 0, 0, 0, 0.701121, 0.713042, 0, -0.713042, 0.701121, 44.6651, 5.44337, 2.94852)
+light_energy = 2.0
+spot_range = 14.4798
+spot_angle = 27.07
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="Environment" index="3"]
+transform = Transform3D(1, 0, 0, 0, 0.701121, 0.713042, 0, -0.713042, 0.701121, 39.7206, 5.44337, 2.94852)
+light_energy = 2.0
+spot_range = 14.4798
+spot_angle = 27.07
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="Environment" index="4"]
+transform = Transform3D(1, 0, 0, 0, 0.701121, 0.713042, 0, -0.713042, 0.701121, 32.6997, 5.44337, 2.94852)
+light_energy = 2.0
+spot_range = 14.4798
+spot_angle = 27.07
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="Environment" index="5"]
+transform = Transform3D(1, 0, 0, 0, 0.701121, 0.713042, 0, -0.713042, 0.701121, 27.8779, 5.44337, 2.94852)
+light_energy = 2.0
+spot_range = 14.4798
+spot_angle = 27.07
+
+[node name="SpotLight3D6" type="SpotLight3D" parent="Environment" index="6"]
+transform = Transform3D(1, 0, 0, 0, 0.701121, 0.713042, 0, -0.713042, 0.701121, 23.6424, 5.44337, 2.94852)
+light_energy = 2.0
+spot_range = 14.4798
+spot_angle = 27.07
+
+[node name="SpotLight3D7" type="SpotLight3D" parent="Environment" index="7"]
+transform = Transform3D(1, 0, 0, 0, 0.701121, 0.713042, 0, -0.713042, 0.701121, 16.0924, 5.44337, 2.94852)
+light_energy = 2.0
+spot_range = 14.4798
+spot_angle = 27.07
+
+[node name="SpotLight3D8" type="SpotLight3D" parent="Environment" index="8"]
+transform = Transform3D(1, 0, 0, 0, 0.701121, 0.713042, 0, -0.713042, 0.701121, 11.6177, 5.44337, 2.94852)
+light_energy = 2.0
+spot_range = 14.4798
+spot_angle = 27.07
+
+[node name="SpotLight3D9" type="SpotLight3D" parent="Environment" index="9"]
+transform = Transform3D(1, 0, 0, 0, 0.701121, 0.713042, 0, -0.713042, 0.701121, 7.09223, 5.44337, 2.94852)
+light_energy = 2.0
+spot_range = 14.4798
+spot_angle = 27.07
+
+[node name="SpotLight3D10" type="SpotLight3D" parent="Environment" index="10"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.101549, 11.3845, 2.94852)
+light_energy = 2.0
+spot_range = 14.4798
+spot_angle = 27.07
+
+[node name="SpotLight3D11" type="SpotLight3D" parent="Environment" index="11"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.101549, 11.3845, -7.14342)
+light_energy = 2.0
+spot_range = 14.4798
+spot_angle = 27.07
+
+[node name="SpotLight3D12" type="SpotLight3D" parent="Environment" index="12"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.101549, 11.3845, -16.51)
+light_energy = 2.0
+spot_range = 14.4798
+spot_angle = 27.07
+
 [node name="Objectives" type="Node3D" parent="." index="2"]
 
 [node name="Injured" parent="Objectives" index="0" instance=ExtResource("11_betor")]
@@ -59,6 +131,7 @@ script = ExtResource("29_ohjdc")
 
 [node name="HUD" parent="HUDManager" index="0" instance=ExtResource("30_e5brb")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+visible = false
 screen_size = Vector2(16, 9)
 collision_layer = 0
 scene = ExtResource("31_rf48r")

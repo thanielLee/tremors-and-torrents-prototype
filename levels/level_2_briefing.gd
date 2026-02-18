@@ -20,7 +20,7 @@ func _ready() -> void:
 
 
 func _start_briefing():
-	dialogue_manager.start_dialogue("team_captain", "level_2_briefing", "Captain")
+	dialogue_manager.start_dialogue("TeamCaptain", "level_2_briefing", "Captain")
 
 
 func _on_briefing_finished():
@@ -49,7 +49,8 @@ func _process(delta):
 func _both_triggers_pressed() -> bool:
 	if not left_controller or not right_controller:
 		return false
-	
+	print("both pressed!")
+	#return false
 	return left_controller.is_button_pressed("trigger") and right_controller.is_button_pressed("trigger")
 
 

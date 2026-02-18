@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=75 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_nfgrx"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_2.gd" id="2_m0g18"]
@@ -52,7 +52,6 @@
 [ext_resource type="AudioStream" uid="uid://c8gd8a548qysy" path="res://assets/audio/earthquake-consolidated.wav" id="50_kfovk"]
 [ext_resource type="AudioStream" uid="uid://d0l6x7lhlm0f3" path="res://assets/audio/intense-horror-game-ambience-418842.mp3" id="51_gfkco"]
 [ext_resource type="AudioStream" uid="uid://t17p4wyjbdm5" path="res://assets/audio/ambulance-siren-363656.mp3" id="52_7ymgk"]
-[ext_resource type="PackedScene" uid="uid://dcr8tvptx5285" path="res://assets/buildings/army_tent.glb" id="53_m0g18"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4knja"]
 panorama = ExtResource("5_p36y6")
@@ -314,6 +313,7 @@ collision_mask = 0
 shape = SubResource("BoxShape3D_lrvbd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SafeArea" index="1"]
+visible = false
 mesh = SubResource("BoxMesh_0x1rk")
 
 [node name="Objectives" type="Node3D" parent="." index="5"]
@@ -632,9 +632,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.42127, 3.04527, 7.74581)
 stream = ExtResource("52_7ymgk")
 volume_db = -12.735
 autoplay = true
-
-[node name="Sketchfab_Scene" parent="." index="17" instance=ExtResource("53_m0g18")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.8796, 0, 128.964)
 
 [connection signal="shake_world" from="Objectives/DuckCoverHoldQTE" to="WorldShaker" method="_on_duck_cover_hold_qte_shake_world"]
 [connection signal="visibility_changed" from="InventorySystem" to="InventorySystem/MedkitSoundManager" method="_on_inventory_system_visibility_changed"]

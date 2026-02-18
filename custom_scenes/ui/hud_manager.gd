@@ -15,7 +15,8 @@ var elapsed_time: float = 0.0
 
 func _ready():
 	hud_script = hud.get_scene_instance()
-	result_log_script = result_log.get_scene_instance()
+	if result_log:
+		result_log_script = result_log.get_scene_instance()
 	set_process(true)
 
 func _process(delta):
