@@ -23,12 +23,6 @@ var triggered: bool = false
 var is_active: bool = true
 
 func _ready() -> void:
-	#var cur_node = get_parent_node_3d()
-	#
-	#while cur_node is not Level2:
-		#cur_node = cur_node.get_parent_node_3d()
-	#
-	#scene_base = cur_node
 	pass
 
 func _on_detection_area_body_entered(body: Node3D) -> void:

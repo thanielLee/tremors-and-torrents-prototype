@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://bf88eeqpgtid3"]
+[gd_scene load_steps=72 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_nfgrx"]
 [ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_2.gd" id="2_m0g18"]
@@ -23,9 +23,6 @@
 [ext_resource type="PackedScene" uid="uid://dgya7syy32d8d" path="res://custom_scenes/floor.tscn" id="21_diohl"]
 [ext_resource type="PackedScene" uid="uid://8u1o3tw0fktd" path="res://assets/maps/house_1.blend" id="22_hwl1s"]
 [ext_resource type="PackedScene" uid="uid://briidrsj8atop" path="res://custom_scenes/jammed_door.tscn" id="23_ccryc"]
-[ext_resource type="PackedScene" uid="uid://crte44g8idacl" path="res://hazards/electrical_fire.tscn" id="24_su2ae"]
-[ext_resource type="PackedScene" uid="uid://c5jkbtv57haa3" path="res://hazards/broken_glass.tscn" id="25_3ubgy"]
-[ext_resource type="PackedScene" uid="uid://c83bvn3hvunbw" path="res://hazards/shaker.tscn" id="26_ppdlv"]
 [ext_resource type="PackedScene" uid="uid://dsaovvehgewyy" path="res://objectives/victim_rescue.tscn" id="27_aequv"]
 [ext_resource type="PackedScene" uid="uid://bp4qsothxd80g" path="res://custom_scenes/injured.tscn" id="28_hor3l"]
 [ext_resource type="PackedScene" uid="uid://cexlre72hlkim" path="res://custom_scenes/duck_cover_hold_qte.tscn" id="29_p3sfv"]
@@ -126,20 +123,20 @@ height = 0.32
 radius = 0.16
 height = 0.32
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ym0i"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wvv8u"]
 transparency = 1
 albedo_color = Color(0.937255, 0, 0.27451, 0.580392)
 
 [sub_resource type="BoxMesh" id="BoxMesh_06ecp"]
-material = SubResource("StandardMaterial3D_8ym0i")
+material = SubResource("StandardMaterial3D_wvv8u")
 size = Vector3(1.5, 1.5, 0.155)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eyrqu"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4s8mp"]
 transparency = 1
 albedo_color = Color(0.937255, 0, 0.27451, 0.580392)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ohjdc"]
-material = SubResource("StandardMaterial3D_eyrqu")
+material = SubResource("StandardMaterial3D_4s8mp")
 size = Vector3(1.5, 1.5, 0.155)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0fu15"]
@@ -287,24 +284,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.295
 [node name="JammedDoor2" parent="WorldShaker/house_1" index="19" instance=ExtResource("23_ccryc")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.07924, 1, 0.413716)
 
-[node name="Hazards" type="Node3D" parent="." index="3"]
-
-[node name="ElectricalFire" parent="Hazards" index="0" instance=ExtResource("24_su2ae")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.51332, 0, -7.994)
-
-[node name="BrokenGlass" parent="Hazards" index="1" instance=ExtResource("25_3ubgy")]
-transform = Transform3D(0.999948, 0, 0.0101576, 0, 1, 0, -0.0101576, 0, 0.999948, -6.12199, 0.176735, -12.6377)
-
-[node name="BrokenGlass2" parent="Hazards" index="2" instance=ExtResource("25_3ubgy")]
-transform = Transform3D(0.992206, 0, 0.124606, 0, 1, 0, -0.124606, 0, 0.992206, 4.6663, 0.191268, -1.85293)
-
-[node name="BrokenGlass3" parent="Hazards" index="3" instance=ExtResource("25_3ubgy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.51361, 0.191855, -13.0583)
-
-[node name="Shaker" parent="Hazards" index="4" instance=ExtResource("26_ppdlv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72634, 2.66731e-06, -15.744)
-
-[node name="SafeArea" type="Area3D" parent="." index="4"]
+[node name="SafeArea" type="Area3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.30852, 0, 7.60529)
 collision_layer = 32
 collision_mask = 0
@@ -316,7 +296,7 @@ shape = SubResource("BoxShape3D_lrvbd")
 visible = false
 mesh = SubResource("BoxMesh_0x1rk")
 
-[node name="Objectives" type="Node3D" parent="." index="5"]
+[node name="Objectives" type="Node3D" parent="." index="4"]
 
 [node name="VictimRescue" parent="Objectives" index="0" instance=ExtResource("27_aequv")]
 transform = Transform3D(-1, 0, -1.19209e-07, 0, 1, 0, 1.19209e-07, 0, -1, 1.52842, 0.152693, -12.4416)
@@ -333,18 +313,18 @@ one_shot = true
 [node name="stretcher_nonpickable" parent="Objectives" index="3" instance=ExtResource("30_161cq")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -6.37245, 0, 1.97875)
 
-[node name="Hammer" parent="." index="6" instance=ExtResource("31_gkbjj")]
+[node name="Hammer" parent="." index="5" instance=ExtResource("31_gkbjj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19813, 1.10592, -1.62293)
 
-[node name="OISHammer" parent="." index="7" instance=ExtResource("32_2oogw")]
+[node name="OISHammer" parent="." index="6" instance=ExtResource("32_2oogw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3465, 1.2508, -2.00495)
 
-[node name="FireExtinguisher" parent="." index="8" instance=ExtResource("33_77nb8")]
+[node name="FireExtinguisher" parent="." index="7" instance=ExtResource("33_77nb8")]
 
-[node name="Bandage" parent="." index="9" instance=ExtResource("34_1ir06")]
+[node name="Bandage" parent="." index="8" instance=ExtResource("34_1ir06")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40137, 1.30703, -1.10054)
 
-[node name="InventorySystem" type="Node3D" parent="." index="10" node_paths=PackedStringArray("xr_anchor_to_object", "xr_camera_anchor", "inventory_toggler_hand")]
+[node name="InventorySystem" type="Node3D" parent="." index="9" node_paths=PackedStringArray("xr_anchor_to_object", "xr_camera_anchor", "inventory_toggler_hand")]
 transform = Transform3D(1, 0, 0, 0, 0.929133, 0.369747, 0, -0.369747, 0.929133, 0.366702, 0.537034, 1.91833)
 visible = false
 script = ExtResource("35_p8xxh")
@@ -525,10 +505,10 @@ stream = ExtResource("40_2wrbm")
 [node name="MedkitCloseSound" type="AudioStreamPlayer3D" parent="InventorySystem/MedkitSoundManager" index="1"]
 stream = ExtResource("41_s8a0g")
 
-[node name="StartPos" type="Node3D" parent="." index="11"]
+[node name="StartPos" type="Node3D" parent="." index="10"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.77001, 0, 7.98246)
 
-[node name="Box" type="Node3D" parent="." index="12"]
+[node name="Box" type="Node3D" parent="." index="11"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.474, 0.116433, -1.55318)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Box" index="0"]
@@ -576,9 +556,9 @@ material = SubResource("StandardMaterial3D_0fu15")
 [node name="TeamCaptain" parent="Box" index="6" instance=ExtResource("42_8kyvv")]
 transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -2, 0, -2)
 
-[node name="Timer" type="Timer" parent="." index="13"]
+[node name="Timer" type="Timer" parent="." index="12"]
 
-[node name="HUDManager" type="Node3D" parent="." index="14" node_paths=PackedStringArray("xr_origin_3d", "xr_camera")]
+[node name="HUDManager" type="Node3D" parent="." index="13" node_paths=PackedStringArray("xr_origin_3d", "xr_camera")]
 script = ExtResource("43_fhf8j")
 xr_origin_3d = NodePath("../XROrigin3D")
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
@@ -604,7 +584,7 @@ update_mode = 0
 unshaded = true
 scene_properties_keys = PackedStringArray("log.gd")
 
-[node name="DialogueManager" type="Node3D" parent="." index="15" node_paths=PackedStringArray("xr_origin_3d", "xr_camera", "dialogue_button_hand", "dialogue_toggler_hand") groups=["dialogue_system"]]
+[node name="DialogueManager" type="Node3D" parent="." index="14" node_paths=PackedStringArray("xr_origin_3d", "xr_camera", "dialogue_button_hand", "dialogue_toggler_hand") groups=["dialogue_system"]]
 script = ExtResource("48_0g4c8")
 xr_origin_3d = NodePath("../XROrigin3D")
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
@@ -615,7 +595,7 @@ dialogue_toggler_hand = NodePath("../XROrigin3D/RightHand")
 [node name="DialogueUI" parent="DialogueManager" index="0" instance=ExtResource("49_nbkr0")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 
-[node name="GlobalAudioManager" type="Node3D" parent="." index="16"]
+[node name="GlobalAudioManager" type="Node3D" parent="." index="15"]
 
 [node name="EarthquakePlayer" type="AudioStreamPlayer" parent="GlobalAudioManager" index="0"]
 stream = ExtResource("50_kfovk")
