@@ -33,6 +33,9 @@ var level_timer : float = 0.0
 var time_elapsed : float = 0.0
 var score : int = 0 
 
+var seen_injured: bool = false
+var seen_victim: bool = false
+
 var completed_objectives: Array[ObjectiveBase] = [] # for obj completion tracking
 var completed_obj_times: Array[float] = []
 var triggered_hazards: Array[String] = []
@@ -310,6 +313,9 @@ func log_results():
 
 func _process(delta: float) -> void:
 	#print(str(injured.injured_seen) + " " + str(victim.victim_seen))
+	
+	
+	
 	if level_ended and not level_failed_obj_active:
 		_handle_level_ended(delta)
 	elif level_failed_obj_active:
@@ -321,7 +327,14 @@ func _process(delta: float) -> void:
 		start_level()
 	
 	camera_forward = $XROrigin3D/XRCamera3D.global_transform.basis.z * -1
+	
 
+func _physics_process(delta: float) -> void:
+	
+	seen_injured = seen_injured or _check_player_seen($Objectives/Injured/VisibleArea)
+	seen_victim = seen_victim or _check_player_seen($Objectives/VictimRescue)
+	
+	#print("Seen Injured: " + str(seen_injured) + " Seen Victim: " + str(seen_victim))
 
 func _handle_level_active(delta: float) -> void:
 	level_timer += delta
@@ -364,3 +377,22 @@ func _handle_level_failed(delta: float) -> void:
 		hud_manager.end_level_prompt(false, score, "")
 		await get_tree().create_timer(5.0).timeout
 		teleport_player(brief_pos)
+
+func _check_player_seen(check_node: Node3D) -> bool:
+	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
+	var xr_camera: XRCamera3D = xr_origin_3d.get_child(0)
+	var camera_origin = xr_camera.global_position
+	var camera_front = -xr_camera.global_basis.z.normalized()
+	var query = PhysicsRayQueryParameters3D.create(camera_origin, check_node.global_position)
+	query.collide_with_areas = true
+	query.collision_mask = query.collision_mask | (1<<30)
+	var result = space_state.intersect_ray(query)
+	#print(result)
+	#print()
+	var theta = rad_to_deg(acos(camera_front.dot((check_node.global_position-camera_origin).normalized())))
+	#print(str(theta) + " " + str(xr_camera.global_position))
+	if result and theta <= 45:
+		var object: Node3D = result["collider"]
+		return object == check_node
+	return false
+	

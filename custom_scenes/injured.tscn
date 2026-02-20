@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bp4qsothxd80g"]
+[gd_scene load_steps=19 format=3 uid="uid://bp4qsothxd80g"]
 
 [ext_resource type="Script" uid="uid://bbncc441ssy0o" path="res://custom_scenes/injured.gd" id="1_heuca"]
 [ext_resource type="Script" uid="uid://3bi02tndcxdg" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/ois-receiver/ois_twist_receiver.gd" id="2_as5ff"]
@@ -55,6 +55,9 @@ height = 0.23
 top_radius = 0.07
 bottom_radius = 0.05
 height = 0.23
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k55h8"]
+size = Vector3(0.975, 0.92, 2.34)
 
 [node name="Injured" type="Node3D"]
 script = ExtResource("1_heuca")
@@ -139,6 +142,14 @@ stream = ExtResource("4_k55h8")
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0764101, 0.0936272)
 aabb = AABB(-0.424502, -0.2338, -0.948519, 0.849004, 0.467601, 1.89704)
+
+[node name="VisibleArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1)
+collision_layer = 536870912
+collision_mask = 536870912
+
+[node name="VisibleBox" type="CollisionShape3D" parent="VisibleArea"]
+shape = SubResource("BoxShape3D_k55h8")
 
 [connection signal="action_completed" from="OISTwistReceiver" to="." method="_on_ois_twist_receiver_action_completed"]
 [connection signal="action_ended" from="OISTwistReceiver" to="." method="_on_ois_twist_receiver_action_ended"]
