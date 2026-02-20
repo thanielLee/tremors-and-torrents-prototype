@@ -1,7 +1,7 @@
 [gd_scene load_steps=72 format=3 uid="uid://bf88eeqpgtid3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_nfgrx"]
-[ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://scripts/level_2.gd" id="2_m0g18"]
+[ext_resource type="Script" uid="uid://c7pbyapd1r66b" path="res://levels/level_2.gd" id="2_m0g18"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_df2rw"]
 [ext_resource type="Material" uid="uid://be0o818winf1k" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/misc-resources/collider_raycast_material.tres" id="4_1h2df"]
 [ext_resource type="Texture2D" uid="uid://b3gq1qnf34ml1" path="res://textures/sky/belfast_sunset_puresky_4k.hdr" id="5_p36y6"]
@@ -43,7 +43,7 @@
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="44_k2am5"]
 [ext_resource type="PackedScene" uid="uid://cg3e6vl8r45gh" path="res://custom_scenes/ui/hud_2d.tscn" id="45_cc7io"]
 [ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="46_wwh2a"]
-[ext_resource type="PackedScene" uid="uid://culd7ukt6dcqw" path="res://custom_scenes/level_2_briefer_2d.tscn" id="47_8oba4"]
+[ext_resource type="PackedScene" uid="uid://culd7ukt6dcqw" path="res://custom_scenes/level_result_log_2d.tscn" id="47_8oba4"]
 [ext_resource type="Script" uid="uid://b4seunyy8fkyl" path="res://custom_scenes/ui/dialogue_manager.gd" id="48_0g4c8"]
 [ext_resource type="PackedScene" uid="uid://bwvp4b0em2nh4" path="res://custom_scenes/ui/dialogue_ui.tscn" id="49_nbkr0"]
 [ext_resource type="AudioStream" uid="uid://c8gd8a548qysy" path="res://assets/audio/earthquake-consolidated.wav" id="50_kfovk"]

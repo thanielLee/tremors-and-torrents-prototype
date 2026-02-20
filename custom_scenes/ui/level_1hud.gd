@@ -6,9 +6,9 @@ class_name Level1HUD
 @onready var reason_label: Label = $Control/ReasonLabel
 @onready var timer_label: Label = $Control/TimerLabel
 @onready var objective_container: VBoxContainer = $Control/ObjectiveContainer
-@onready var objective_name_label: Label = $Control/Objective/ObjectiveNameLabel
-@onready var objective_status_label: Label = $Control/Objective/ObjectiveStatusLabel
-@onready var objective_feedback_label: Label = $Control/Objective/ObjectiveFeedbackLabel
+@onready var objective_name_label: Label = $Control/ObjectiveContainer/ObjectiveNameLabel
+@onready var objective_status_label: Label = $Control/ObjectiveContainer/ObjectiveStatusLabel
+@onready var objective_feedback_label: Label = $Control/ObjectiveContainer/ObjectiveFeedbackLabel
 
 @onready var prompt_timer = Timer.new()
 
@@ -23,7 +23,8 @@ func _ready():
 	add_child(prompt_timer)
 	prompt_timer.one_shot = true
 	prompt_timer.timeout.connect(_on_prompt_timeout)
-
+	
+	objective_container.visible = false
 	prompt_label.visible = false
 	timer_label.text = "Time: 00:00"
 
@@ -31,6 +32,7 @@ func _ready():
 # LEVEL TIMER
 # -----------------------
 func set_timer(time: float):
+	print("in level1hud set timer")
 	var minutes = int(time / 60)
 	var seconds = int(time) % 60
 	timer_label.text = "Time: %02d:%02d" % [minutes, seconds]

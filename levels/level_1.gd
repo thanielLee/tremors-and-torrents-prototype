@@ -15,6 +15,9 @@ var current_objective: ObjectiveBase = null
 var obj_elapsed_time: float = 0.0
 var obj_active: bool = false
 
+func _ready() -> void:
+	setup_objectives()
+
 func setup_objectives():
 	if not objectives:
 		return
@@ -22,16 +25,21 @@ func setup_objectives():
 	for obj in objectives.get_children():
 		if obj.has_signal("objective_completed"):
 			obj.objective_completed.connect(_on_objective_completed.bind(obj))
+			print("connected objective_completed for %s" % obj.name)
 		if obj.has_signal("objective_failed"):
 			obj.objective_failed.connect(_on_objective_failed.bind(obj))
+			print("connected objective_failed for %s" % obj.name)
 		if obj.has_signal("objective_started"):
 			obj.objective_started.connect(_on_objective_started.bind(obj))
+			print("connected objective_started for %s" % obj.name)
 		#if obj.has_signal("time"):
 			#obj.time.connect(_on_obj_update_status)
 		if obj.has_signal("qte_started"):
 			obj.qte_started.connect(_on_qte_started.bind(obj))
+			print("connected qte_started for %s" % obj.name)
 		if obj.has_signal("pose"):
-			obj.pose.connect(_on_qte_update_status)
+			obj.pose.connect(_on_qte_update_status.bind(obj))
+			print("connected pose for %s" % obj.name)
 		#if obj.has_signal("shake_world"):
 			#obj.shake_world.connect(do_earthquake)
 		if obj.has_signal("stretcher_dropped"):
@@ -39,11 +47,14 @@ func setup_objectives():
 			obj_logic.objective_started.connect(_on_objective_started.bind(obj_logic))
 			obj_logic.objective_completed.connect(_on_objective_completed.bind(obj_logic))
 			obj_logic.objective_failed.connect(_on_objective_failed.bind(obj_logic))
+			print("connected allat for %s" % obj_logic.name)
 
 func _on_objective_started(obj: ObjectiveBase):
+	print("started: " + obj.objective_name)
 	current_objective = obj
 	hud_manager.reset_timer()
-	hud_manager.show_tim
+	hud_manager.show_timer()
+	hud_manager.on_obj_started(obj)
 	
 	obj_active = true
 	obj_elapsed_time = 0
