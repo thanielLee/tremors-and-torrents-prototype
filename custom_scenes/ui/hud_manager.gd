@@ -24,7 +24,8 @@ func _process(delta):
 		_update_ui_position()
 	
 	elapsed_time += delta
-	hud_script.set_timer(elapsed_time)
+	#hud_script.set_timer(elapsed_time)
+	set_timer(elapsed_time)
 
 func _update_ui_position():
 	var forward = -xr_camera.global_transform.basis.z
@@ -51,6 +52,9 @@ func _update_ui_position():
 	#
 	## face player
 	#hud.look_at(hud.global_position + look_dir, Vector3.UP)
+
+func set_timer(time: float):
+	hud_script.set_timer(time)
 
 func show_prompt(message: String, duration: float = 2.0):
 	hud_script.show_prompt(message, duration)
@@ -85,6 +89,9 @@ func update_score(new_score: int):
 func reset_timer():
 	elapsed_time = 0.0
 	hud_script.reset_timer()
+
+func show_timer():
+	hud_script.show_timer()
 
 func hide_timer():
 	hud_script.hide_timer()

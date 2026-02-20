@@ -42,7 +42,8 @@ func setup_objectives():
 
 func _on_objective_started(obj: ObjectiveBase):
 	current_objective = obj
-	hud_manager.on_obj_started(obj)
+	hud_manager.reset_timer()
+	hud_manager.show_tim
 	
 	obj_active = true
 	obj_elapsed_time = 0
@@ -50,7 +51,7 @@ func _on_objective_started(obj: ObjectiveBase):
 	#disable_other_objectives(obj)
 
 func _on_obj_update_status(time: float):
-	hud_manager.update_obj_status_label(time)
+	hud_manager.reset(time)
 
 func _on_objective_completed(obj: ObjectiveBase):
 	#if obj not in completed_objectives:
