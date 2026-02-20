@@ -69,6 +69,17 @@ func reset_objective():
 	active = false
 	completed = false
 	failed = false
+	
+	elapsed_time = 0
+	completion_time = 0
+	
+	_on_reset()  # hook for child classes
+	
+	if auto_start:
+		start_objective()
 
 func get_completion_time():
 	return elapsed_time
+
+func _on_reset():
+	pass
