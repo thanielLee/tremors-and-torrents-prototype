@@ -57,7 +57,7 @@ bottom_radius = 0.05
 height = 0.23
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k55h8"]
-size = Vector3(0.975, 0.92, 2.34)
+size = Vector3(2.685, 2.66, 4.42)
 
 [node name="Injured" type="Node3D"]
 script = ExtResource("1_heuca")

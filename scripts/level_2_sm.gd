@@ -1,5 +1,5 @@
 extends XRToolsSceneBase
-#class_name Level2
+class_name Level2SM
 
 ## Level 2 Script
 ##
@@ -11,16 +11,17 @@ extends XRToolsSceneBase
 ## Handles initialization, hazards, objectives, and level flow.
 
 @export var level_time_limit: float = 120.0
-@export var briefing_time_limit: float = 15.0
+@export var briefing_time_limit: float = 5.0
 
 @onready var xr_origin_3d = $XROrigin3D
 @onready var start_pos: Vector3 = $StartPos.position
 var brief_pos: Vector3
 
 # State Machine Variables
-enum State {BRIEFING, LEVEL_LOADING, ACTIVE_NO_OBJECTIVE, ACTIVE_SEEN_OBJECTIVE, LEVEL_FAIL, OBJECTIVE_ACTIVE, ACTIVE_OBJECTIVE_DONE, LEVEL_END_TIME_FAILED, LEVEL_COMPLETE}
+enum State {BRIEFING, LEVEL_LOADING, ACTIVE_NO_OBJECTIVE, INVISIBLE_OBJECTIVE, ACTIVE_SEEN_OBJECTIVE, LEVEL_FAIL, OBJECTIVE_ACTIVE, ACTIVE_OBJECTIVE_DONE, LEVEL_END_TIME_FAILED, LEVEL_COMPLETE}
 
 var current_state: State
+var prev_state: State
 var completed_briefing: bool = false
 var started_loading: bool = false
 var completed_loading: bool = false
@@ -72,6 +73,7 @@ func _ready():
 	world_shaker = get_node("WorldShaker")
 	
 	current_state = State.BRIEFING
+	prev_state = State.BRIEFING
 
 	#enable_hazards()
 	#setup_objectives()
@@ -248,7 +250,10 @@ func _on_objective_started(obj: ObjectiveBase):
 	
 	obj_active = true
 	obj_elapsed_time = 0
-	current_state = State.OBJECTIVE_ACTIVE
+	if !obj.is_invisible:
+		current_state = State.OBJECTIVE_ACTIVE
+	else:
+		current_state = State.INVISIBLE_OBJECTIVE
 	# disable other objectives right now
 	disable_other_objectives(obj)
 
@@ -273,7 +278,7 @@ func _on_objective_completed(obj: ObjectiveBase):
 		hud_manager.update_score(score)
 		
 		enable_objectives()
-		check_level_end()
+		#check_level_end()
 
 func _on_objective_failed(obj: ObjectiveBase):
 	obj_active = false
@@ -330,6 +335,7 @@ func log_results():
 ### PROCESS LOOP ###
 
 func _process(delta: float) -> void:
+	_get_next_state(delta)
 	#print(str(injured.injured_seen) + " " + str(victim.victim_seen))
 	
 	#if level_ended and not level_failed_obj_active:
@@ -344,6 +350,10 @@ func _process(delta: float) -> void:
 	camera_forward = $XROrigin3D/XRCamera3D.global_transform.basis.z * -1
 	
 func _get_next_state(delta: float) -> void:
+	if current_state != prev_state:
+		print("CURRENT STATE: " + str(State.find_key(current_state)))
+		print("REQUIRED OBJECTIVES: " + str(len(required_objectives)))
+		prev_state = current_state
 	match current_state:
 		State.BRIEFING:
 			_handle_level_briefing(delta)
@@ -370,6 +380,22 @@ func _get_next_state(delta: float) -> void:
 			
 			if objective_seen:
 				current_state = State.ACTIVE_SEEN_OBJECTIVE
+		State.INVISIBLE_OBJECTIVE:
+			_update_timer(delta)
+			var objective_seen = _update_seen_objectives()
+			
+			if prev_completed_objectives != len(completed_objectives):
+				prev_completed_objectives = len(completed_objectives)
+				
+				if len(seen_objectives) > 0:
+					current_state = State.ACTIVE_SEEN_OBJECTIVE
+				else:
+					current_state = State.ACTIVE_NO_OBJECTIVE
+				
+				if time_elapsed >= level_time_limit:
+					current_state = State.LEVEL_END_TIME_FAILED
+				
+				
 		State.ACTIVE_SEEN_OBJECTIVE:
 			_update_timer(delta)
 			var objective_seen = _update_seen_objectives()
@@ -416,7 +442,13 @@ func _update_seen_objectives() -> bool:
 	for child in objectives.get_children():
 		if child in seen_objectives:
 			continue
-		if _check_player_seen(child):
+		if child is AnimatableBody3D:
+			continue
+		if child.is_invisible:
+			continue
+		var did_see = _check_player_seen(child)
+		print("DID SEE " + str(child.name) + ": " + str(did_see))
+		if did_see:
 			seen_objectives.push_back(child)
 			return_val = true
 	
@@ -488,6 +520,6 @@ func _check_player_seen(check_node: Node3D) -> bool:
 	#print(str(theta) + " " + str(xr_camera.global_position))
 	if result and theta <= 45:
 		var object: Node3D = result["collider"]
-		return object == check_node
+		return check_node.is_ancestor_of(object)
 	return false
 	
