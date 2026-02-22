@@ -23,4 +23,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("BoxShape3D_j5wyh")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="DetectionArea" index="1"]
+visible = false
 mesh = SubResource("BoxMesh_ncx3j")

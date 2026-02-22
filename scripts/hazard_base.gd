@@ -17,7 +17,7 @@ signal hazard_triggered
 @export var damage_points: int = 0
 
 @onready var audio_player : AudioStreamPlayer3D = $OnTriggerAudio
-var scene_base: Level2
+var scene_base: XRToolsSceneBase
 
 var triggered: bool = false
 var is_active: bool = true
@@ -25,7 +25,7 @@ var is_active: bool = true
 func _ready() -> void:
 	var cur_node = get_parent_node_3d()
 	
-	while cur_node is not Level2:
+	while cur_node is not XRToolsSceneBase:
 		cur_node = cur_node.get_parent_node_3d()
 	
 	scene_base = cur_node

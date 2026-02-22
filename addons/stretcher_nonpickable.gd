@@ -8,7 +8,8 @@ class_name StretcherNonPickable
 @onready var position_vector: Vector3 = Vector3(0.0, 0.0, 1.5)
 @onready var injured_mesh: Node3D = $Injured
 @onready var responder_mesh: Node3D = $responder1
-@onready var injured_node: Node3D = $"../Injured"
+@onready var injured_node: Node3D = $"../../Injured"
+@onready var responder_collision: StaticBody3D = $responder1/StaticBody3D
 var handle_one_transform: Transform3D
 var handle_two_transform: Transform3D
 var handle_one_position: Vector3
@@ -20,13 +21,15 @@ var did_setup_info: bool
 var starting_player_vector: Vector3
 var player_body: Node3D
 var xr_origin: XROrigin3D
+var xr_camera: XRCamera3D
 var one_handed_keeping_track: bool = false
 var one_handed_time: float = 0.0
 var is_on_ground: bool = false
 var physics_state_space: PhysicsDirectSpaceState3D
 
+
 # objective logic
-@onready var objective_script: ObjectiveBase = $ObjectiveStretcher
+@onready var objective_script: ObjectiveBase = $".."
 
 
 signal strecher_one_handed(time: float)
@@ -45,6 +48,7 @@ func _ready() -> void:
 	handle_two.grabbed.connect(_handle_two_picked_up)
 	did_setup_info = false
 	injured_mesh.visible = false
+	responder_collision.collision_layer = 0
 	physics_state_space = get_world_3d().direct_space_state
 	
 func _handle_one_picked_up(pickable, by) -> void:
@@ -82,6 +86,7 @@ func _setup_player_info() -> void:
 		current_parent = current_parent.get_parent()
 	
 	xr_origin = current_parent.get_child(0)
+	xr_camera = xr_origin.get_child(0)
 	player_body = xr_origin.get_child(3)
 	
 	starting_player_vector = Plane(Vector3.ZERO, Vector3.UP).project(-xr_origin.basis.z).normalized()
@@ -99,7 +104,6 @@ func _put_stretcher_on_ground():
 	ray_query.to = global_position + Vector3(0., -20.0, 0.0)
 	ray_query.exclude = [self]
 	ray_query.collision_mask = 1
-	44
 	var result: Dictionary = physics_state_space.intersect_ray(ray_query)
 	var intersection_point: Vector3 = result["position"]
 	var distance = (global_position-intersection_point).length()
@@ -107,11 +111,13 @@ func _put_stretcher_on_ground():
 	
 	global_position = intersection_point + Vector3(0.0, 0.3, 0.0)
 	
-	if ((global_position-Vector3(-3.5, 0.4, -14.6)).length() <= 5.0):
+	if ((global_position-Vector3(-3.5, 0.4, -14.6)).length() <= 5.0) and injured_node.completed:
 		injured_mesh.visible = true
 		injured_node.visible = false
-		global_rotation.y = (global_rotation.y+180)
-	
+		global_rotation.y = 0
+		global_position = Vector3(-1.605, 0.129, -11.615)
+		responder_collision.collision_layer = 1
+
 func _process(delta: float) -> void:
 	pass
 
@@ -129,8 +135,11 @@ func _physics_process(delta):
 		#var hand_two_vec = (handle_two_hand.global_position - hands_midpoint).normalized()
 		#
 		#var hand_two_angle = acos(hand_two_vec.dot(Vector3(-1.0, 0.0, 0.0)))
-		
-		var new_transform = Transform3D(Basis.IDENTITY, hands_midpoint - (-xr_origin.basis.z * 1.5))
+		var origin_plane = Plane(xr_origin.global_basis.y, xr_origin.global_position)
+		var test_vec = -xr_camera.basis.z
+		test_vec.y = 0.0
+		var new_transform = Transform3D(Basis.IDENTITY, hands_midpoint - (test_vec * 1.5))
+		#var new_transform = Transform3D(Basis.IDENTITY, hands_midpoint - (-xr_origin.basis.z * 1.5))
 		global_transform = new_transform.looking_at(hands_midpoint, Vector3.UP, true)
 	#elif handle_one_hand != null or handle_two_hand != null:
 		#pass

@@ -18,7 +18,7 @@ class_name Level2SM
 var brief_pos: Vector3
 
 # State Machine Variables
-enum State {BRIEFING, LEVEL_LOADING, ACTIVE_NO_OBJECTIVE, INVISIBLE_OBJECTIVE, ACTIVE_SEEN_OBJECTIVE, LEVEL_FAIL, OBJECTIVE_ACTIVE, ACTIVE_OBJECTIVE_DONE, LEVEL_END_TIME_FAILED, LEVEL_COMPLETE}
+enum State {BRIEFING, LEVEL_LOADING, ACTIVE_NO_OBJECTIVE, INVISIBLE_OBJECTIVE, ACTIVE_SEEN_OBJECTIVE, LEVEL_FAIL, OBJECTIVE_ACTIVE, ACTIVE_OBJECTIVE_DONE, LEVEL_FAIL_TIME_FAILED, LEVEL_COMPLETE, LEVEL_ENDED}
 
 var current_state: State
 var prev_state: State
@@ -29,6 +29,7 @@ var player_started: bool = false
 var seen_objectives: Array = []
 var required_objectives: Array = []
 var prev_completed_objectives: int = 0
+var failure_message: String = ""
 
 
 var hazards : Node
@@ -65,6 +66,11 @@ var camera_forward: Vector3 = Vector3(0.0, 0.0, 1.0)
 
 @onready var injured = $Objectives/Injured
 @onready var victim = $Objectives/VictimRescue
+@onready var check_position_1: MeshInstance3D = $CheckPosition1
+@onready var check_position_2: MeshInstance3D = $CheckPosition2
+@onready var check_position_3: MeshInstance3D = $CheckPosition3
+@onready var raycast_check: Node3D = $RayCheck
+@onready var hit_position: MeshInstance3D = $HitPosition1
 func _ready():
 	# save brief player
 	brief_pos = xr_origin_3d.position
@@ -107,7 +113,6 @@ func complete_level():
 		disable_other_objectives(current_objective)
 	else:
 		disable_objectives()
-	# _reset_level_state()
 	log_results()
 	hud_manager.end_level_prompt(true, score, "")
 	hud_manager.hide_timer()
@@ -130,7 +135,6 @@ func fail_level(message: String):
 		
 		await get_tree().create_timer(5.0).timeout
 		teleport_player(brief_pos)
-	# _reset_level_state()
 
 func check_level_end():
 	var required_done := false
@@ -209,15 +213,14 @@ func setup_objectives():
 			obj.pose.connect(_on_qte_update_status)
 		if obj.has_signal("shake_world"):
 			obj.shake_world.connect(do_earthquake)
-		if obj.has_signal("stretcher_dropped"):
-			var obj_logic = obj.get_node("ObjectiveStretcher") as ObjectiveBase
-			obj_logic.objective_started.connect(_on_objective_started.bind(obj_logic))
-			obj_logic.objective_completed.connect(_on_objective_completed.bind(obj_logic))
-			obj_logic.objective_failed.connect(_on_objective_failed.bind(obj_logic))
+		#if obj.has_signal("stretcher_dropped"):
+			#var obj_logic = obj.get_node("ObjectiveStretcher") as ObjectiveBase
+			#obj_logic.objective_started.connect(_on_objective_started.bind(obj_logic))
+			#obj_logic.objective_completed.connect(_on_objective_completed.bind(obj_logic))
+			#obj_logic.objective_failed.connect(_on_objective_failed.bind(obj_logic))
 		
-		if !obj.has_signal("stretcher_dropped"):
-			if obj.is_required:
-				required_objectives.append(obj)
+		if obj.is_required:
+			required_objectives.append(obj)
 
 func enable_objectives():
 	for o in objectives.get_children():
@@ -269,10 +272,13 @@ func _on_objective_completed(obj: ObjectiveBase):
 		score += obj.completed_points
 		
 		if obj.has_signal("qte_started"): # for qtes
-			hud_manager.on_qte_completed()
+			#hud_manager.on_qte_completed()
+			hud_manager.show_prompt(obj.completed_message, 3.0)
+			hud_manager.on_obj_completed(obj)
 		else: # for objectives
 			var message = "Objective: %s completed! +%d" % [obj.objective_name, obj.completed_points]
-			hud_manager.show_prompt(message, 3.0)
+			#hud_manager.show_prompt(message, 3.0)
+			hud_manager.show_prompt(obj.completed_message, 3.0)
 			hud_manager.on_obj_completed(obj)
 		
 		hud_manager.update_score(score)
@@ -291,9 +297,11 @@ func _on_objective_failed(obj: ObjectiveBase):
 	if obj.failed_points != 0:
 		score += obj.failed_points
 	hud_manager.update_score(score)
-	current_state = State.LEVEL_FAIL
+	
 	if obj.is_required:
-		fail_level("Required objective failed")
+		current_state = State.LEVEL_FAIL
+		failure_message = obj.fail_message
+		#fail_level("Required objective failed")
 	
 	enable_objectives()
 
@@ -336,6 +344,7 @@ func log_results():
 
 func _process(delta: float) -> void:
 	_get_next_state(delta)
+	hud_manager.show_prompt("CURRENT STATE: " + str(State.find_key(current_state)), delta)
 	#print(str(injured.injured_seen) + " " + str(victim.victim_seen))
 	
 	#if level_ended and not level_failed_obj_active:
@@ -349,7 +358,7 @@ func _process(delta: float) -> void:
 	
 	camera_forward = $XROrigin3D/XRCamera3D.global_transform.basis.z * -1
 	
-func _get_next_state(delta: float) -> void:
+func _get_next_state(delta: float):
 	if current_state != prev_state:
 		print("CURRENT STATE: " + str(State.find_key(current_state)))
 		print("REQUIRED OBJECTIVES: " + str(len(required_objectives)))
@@ -393,14 +402,14 @@ func _get_next_state(delta: float) -> void:
 					current_state = State.ACTIVE_NO_OBJECTIVE
 				
 				if time_elapsed >= level_time_limit:
-					current_state = State.LEVEL_END_TIME_FAILED
+					current_state = State.LEVEL_FAIL_TIME_FAILED
 				
 				
 		State.ACTIVE_SEEN_OBJECTIVE:
 			_update_timer(delta)
 			var objective_seen = _update_seen_objectives()
 			
-			if time_elapsed > level_time_limit or len(triggered_hazards) >= 3:
+			if len(triggered_hazards) >= 3:
 				current_state = State.LEVEL_FAIL
 			
 		State.OBJECTIVE_ACTIVE:
@@ -408,14 +417,12 @@ func _get_next_state(delta: float) -> void:
 			var objective_seen = _update_seen_objectives()
 			
 			if time_elapsed >= level_time_limit:
-				current_state = State.LEVEL_END_TIME_FAILED
+				current_state = State.LEVEL_FAIL_TIME_FAILED
 			
 			if prev_completed_objectives != len(completed_objectives):
 				prev_completed_objectives = len(completed_objectives)
 				current_state = State.ACTIVE_OBJECTIVE_DONE
 				
-				
-		
 		State.ACTIVE_OBJECTIVE_DONE:
 			var state_changed = false
 			for objective in required_objectives:
@@ -431,13 +438,23 @@ func _get_next_state(delta: float) -> void:
 			elif len(triggered_hazards) >= 3:
 				fail_level("Triggered too many hazards!")
 			else:
-				fail_level("Current objective failed!")
-		State.LEVEL_END_TIME_FAILED:
+				fail_level(failure_message)
+			_reset_level_state()
+			current_state = State.LEVEL_ENDED
+		State.LEVEL_FAIL_TIME_FAILED:
 			fail_level("You took too long!")
+			_reset_level_state()
+			current_state = State.LEVEL_ENDED
 		State.LEVEL_COMPLETE:
 			complete_level()
+			_reset_level_state()
+			current_state = State.LEVEL_ENDED
+		State.LEVEL_ENDED:
+			_update_timer(delta)
+			if level_timer > 20.0:
+				exit_to_main_menu()
 
-func _update_seen_objectives() -> bool:
+func _update_seen_objectives():
 	var return_val = false
 	for child in objectives.get_children():
 		if child in seen_objectives:
@@ -445,6 +462,8 @@ func _update_seen_objectives() -> bool:
 		if child is AnimatableBody3D:
 			continue
 		if child.is_invisible:
+			continue
+		if !child.is_required:
 			continue
 		var did_see = _check_player_seen(child)
 		print("DID SEE " + str(child.name) + ": " + str(did_see))
@@ -483,19 +502,19 @@ func _handle_level_active(delta: float) -> void:
 		fail_level("Time limit exceeded")
 
 
-func _handle_level_briefing(delta: float) -> void:
+func _handle_level_briefing(delta: float):
 	_update_timer(delta)
 	if level_timer > briefing_time_limit:
-		#start_level()\
+		#start_level()
 		completed_briefing = true
 
 
-func _handle_level_ended(delta: float) -> void:
+func _handle_level_ended(delta: float):
 	level_timer += delta
 	if level_timer > 20.0:
 		exit_to_main_menu()
 
-func _handle_level_failed(delta: float) -> void:
+func _handle_level_failed(delta: float):
 	level_timer += delta
 	obj_elapsed_time += delta
 	_on_obj_update_status(obj_elapsed_time)
@@ -505,15 +524,28 @@ func _handle_level_failed(delta: float) -> void:
 		await get_tree().create_timer(5.0).timeout
 		teleport_player(brief_pos)
 
-func _check_player_seen(check_node: Node3D) -> bool:
+func _check_player_seen(check_node: Node3D):
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 	var xr_camera: XRCamera3D = xr_origin_3d.get_child(0)
 	var camera_origin = xr_camera.global_position
 	var camera_front = -xr_camera.global_basis.z.normalized()
 	var query = PhysicsRayQueryParameters3D.create(camera_origin, check_node.global_position)
 	query.collide_with_areas = true
-	query.collision_mask = query.collision_mask | (1<<30)
+	query.collision_mask = (1<<29)
+	check_position_1.global_position = camera_origin
+	
 	var result = space_state.intersect_ray(query)
+	if result:
+		var ray_position = result["position"]
+		if check_node == injured:
+			check_position_2.global_position = check_node.global_position
+			raycast_check.global_position = (camera_origin+ray_position)/2
+			raycast_check.look_at(ray_position, Vector3.UP)
+			var raycast_mesh: MeshInstance3D = raycast_check.get_child(0)
+			raycast_mesh.mesh.height = (check_node.global_position-camera_origin).length()
+			hit_position.global_position = ray_position
+		elif check_node == victim:
+			check_position_3.global_position = check_node.global_position
 	#print(result)
 	#print()
 	var theta = rad_to_deg(acos(camera_front.dot((check_node.global_position-camera_origin).normalized())))

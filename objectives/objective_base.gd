@@ -16,10 +16,14 @@ signal objective_failed
 @export var failed_points: int = 0
 @export var is_required: bool = false  # For REQUIRED_OBJECTIVES tracking
 @export var auto_start: bool = false   # Whether it starts immediately on level load
+@export var is_invisible: bool = false
 
 @export var ideal_completion_time: float = 10
 var elapsed_time: float = 0
 var completion_time: float = 0
+@export var completed_message: String = "You have completed this objective!"
+@export var fail_message: String = "You have failed this objective!"
+
 
 var active: bool = false
 var completed: bool = false

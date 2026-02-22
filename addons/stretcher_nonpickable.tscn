@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://v4lnugtph4cp"]
+[gd_scene load_steps=31 format=3 uid="uid://v4lnugtph4cp"]
 
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="1_8ic3i"]
 [ext_resource type="Script" uid="uid://cvx3e1yr5tho7" path="res://addons/stretcher_nonpickable.gd" id="1_yq2fn"]
@@ -11,6 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://ca3daqmpo0tua" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_redirect.tscn" id="7_yq2fn"]
 [ext_resource type="Script" uid="uid://5fymrsclibl7" path="res://objectives/objective_base.gd" id="10_mdk2q"]
 [ext_resource type="PackedScene" uid="uid://gsmvxsjmkje0" path="res://assets/(Lying Down)NPC_man.glb" id="10_p7qsh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2da2n"]
+size = Vector3(0.745483, 1.41296, 0.597168)
 
 [sub_resource type="BoxMesh" id="BoxMesh_jdhm7"]
 size = Vector3(1.2, 0.15, 2.5)
@@ -86,6 +89,12 @@ script = ExtResource("1_yq2fn")
 
 [node name="responder1" parent="." instance=ExtResource("2_jdhm7")]
 transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, -1.719)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="responder1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="responder1/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00238038, 0.718079, -0.041748)
+shape = SubResource("BoxShape3D_2da2n")
 
 [node name="stretcher2" parent="." instance=ExtResource("2_w6mv8")]
 transform = Transform3D(1.255, 0, 0, 0, 1.255, 0, 0, 0, 1.255, -0.00131929, 0.00319254, 2.0802e-05)

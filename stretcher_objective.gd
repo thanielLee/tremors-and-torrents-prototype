@@ -1,0 +1,2 @@
+extends ObjectiveBase
+class_name Stretcher
