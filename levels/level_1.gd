@@ -60,13 +60,13 @@ func setup_objectives():
 			print("connected pose for %s" % obj.name)
 		#if obj.has_signal("shake_world"):
 			#obj.shake_world.connect(do_earthquake)
-		if obj.has_signal("stretcher_dropped"):
-			var obj_logic = obj.get_node("ObjectiveStretcher") as ObjectiveBase
+		if obj.get_node("ObjectiveLogic"):
+			var obj_logic = obj.get_node("ObjectiveLogic") as ObjectiveBase
 			obj_logic.objective_started.connect(_on_objective_started.bind(obj_logic))
 			obj_logic.objective_completed.connect(_on_objective_completed.bind(obj_logic))
 			obj_logic.objective_failed.connect(_on_objective_failed.bind(obj_logic))
 			obj_logic.objective_reset.connect(_on_objective_reset.bind(obj_logic))
-			print("connected ")
+			print("connected " + obj.name)
 
 func _on_objective_started(obj: ObjectiveBase):
 	#print("started: " + obj.objective_name)

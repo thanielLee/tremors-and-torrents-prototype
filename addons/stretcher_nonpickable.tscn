@@ -223,7 +223,7 @@ visible = false
 mesh = SubResource("CapsuleMesh_p7qsh")
 surface_material_override/0 = SubResource("StandardMaterial3D_2da2n")
 
-[node name="ObjectiveStretcher" type="Node3D" parent="."]
+[node name="ObjectiveLogic" type="Node3D" parent="."]
 script = ExtResource("10_mdk2q")
 objective_name = "Stretcher"
 completed_points = 100

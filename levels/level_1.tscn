@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://ckn5firtu6im3"]
+[gd_scene load_steps=51 format=3 uid="uid://ckn5firtu6im3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://dxrd1bf6mcajs" path="res://levels/level_1.gd" id="2_aerfg"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://v4lnugtph4cp" path="res://addons/stretcher_nonpickable.tscn" id="10_voubc"]
 [ext_resource type="PackedScene" uid="uid://bp4qsothxd80g" path="res://custom_scenes/injured.tscn" id="11_betor"]
 [ext_resource type="PackedScene" uid="uid://dp2xb3fr3eafv" path="res://custom_scenes/ui/level_1hud.tscn" id="12_udfhf"]
+[ext_resource type="PackedScene" uid="uid://crte44g8idacl" path="res://hazards/electrical_fire.tscn" id="14_rf48r"]
 [ext_resource type="PackedScene" uid="uid://dsaovvehgewyy" path="res://objectives/victim_rescue.tscn" id="15_06ecp"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="23_ntdhj"]
 [ext_resource type="PackedScene" uid="uid://4a3xx8xcbdob" path="res://custom_scenes/bandage.tscn" id="24_0fu15"]
@@ -215,6 +216,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
 
 [node name="stretcher_nonpickable" parent="Objectives" index="3" instance=ExtResource("10_voubc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.2329, 0.239165, -15.7447)
+
+[node name="ElectricalFire" parent="Objectives" index="4" instance=ExtResource("14_rf48r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.2305, 0, 8.01161)
 
 [node name="NPCs" type="Node3D" parent="." index="4"]
 
