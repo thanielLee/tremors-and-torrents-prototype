@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://ckn5firtu6im3"]
+[gd_scene load_steps=54 format=3 uid="uid://ckn5firtu6im3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://dxrd1bf6mcajs" path="res://levels/level_1.gd" id="2_aerfg"]
@@ -101,6 +101,17 @@ albedo_color = Color(0.937255, 0, 0.27451, 0.580392)
 [sub_resource type="BoxMesh" id="BoxMesh_gtrna"]
 material = SubResource("StandardMaterial3D_eyrqu")
 size = Vector3(1.5, 1.5, 0.155)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rf48r"]
+size = Vector3(9, 1, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_voubc"]
+transparency = 1
+albedo_color = Color(0.164706, 0.992157, 0.992157, 0.188235)
+
+[sub_resource type="BoxMesh" id="BoxMesh_toluw"]
+material = SubResource("StandardMaterial3D_voubc")
+size = Vector3(9, 1, 4)
 
 [node name="Level1" instance=ExtResource("1_lmdqw")]
 script = ExtResource("2_aerfg")
@@ -209,13 +220,13 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 14.488
 objective_name = "Bandage injured"
 
 [node name="VictimRescue" parent="Objectives" index="1" instance=ExtResource("15_06ecp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.1628, 0.0379871, 7.39898)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.403, 0.0379871, 6.60441)
 
 [node name="DuckCoverHoldQTE" parent="Objectives" index="2" instance=ExtResource("8_7nvrk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
 
 [node name="stretcher_nonpickable" parent="Objectives" index="3" instance=ExtResource("10_voubc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.2329, 0.239165, -15.7447)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.2329, 0.239165, -14.7447)
 
 [node name="ElectricalFire" parent="Objectives" index="4" instance=ExtResource("14_rf48r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.2305, 0, 8.01161)
@@ -456,5 +467,27 @@ volume_db = 3.033
 stream = ExtResource("30_06ecp")
 volume_db = -5.2
 parameters/looping = true
+
+[node name="SafeArea" type="Area3D" parent="." index="10"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 21.1594, -9.53674e-07, -15.7488)
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SafeArea" index="0"]
+shape = SubResource("BoxShape3D_rf48r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SafeArea" index="1"]
+mesh = SubResource("BoxMesh_toluw")
+
+[node name="SafeArea2" type="Area3D" parent="." index="11"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 36.9641, -9.53674e-07, 8.06839)
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SafeArea2" index="0"]
+shape = SubResource("BoxShape3D_rf48r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SafeArea2" index="1"]
+mesh = SubResource("BoxMesh_toluw")
 
 [connection signal="visibility_changed" from="InventorySystem" to="InventorySystem/MedkitSoundManager" method="_on_inventory_system_visibility_changed"]
