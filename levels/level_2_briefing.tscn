@@ -118,3 +118,5 @@ dialogue_toggler_hand = NodePath("../XROrigin3D/RightHand")
 
 [node name="TeamCaptain" parent="." index="3" instance=ExtResource("4_v6mhn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55765, 0, -4.82183)
+registry_name = "TeamCaptain"
+display_name = "Captain"

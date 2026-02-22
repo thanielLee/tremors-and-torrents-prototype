@@ -1,12 +1,13 @@
-[gd_scene load_steps=39 format=3 uid="uid://ckn5firtu6im3"]
+[gd_scene load_steps=44 format=3 uid="uid://ckn5firtu6im3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://dxrd1bf6mcajs" path="res://levels/level_1.gd" id="2_aerfg"]
 [ext_resource type="PackedScene" uid="uid://dvcu5rlq5inps" path="res://assets/level1_graybox_test.glb" id="2_jirdo"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_4knja"]
 [ext_resource type="Script" uid="uid://du4lpoac66rw" path="res://addons/ateneo-virtual-reality-escape/inventory-system/inventory_system.gd" id="3_udfhf"]
 [ext_resource type="Script" uid="uid://d2j64x8gnsuue" path="res://addons/ateneo-virtual-reality-escape/inventory-system/inventory_slot.gd" id="4_i6od7"]
+[ext_resource type="Material" uid="uid://be0o818winf1k" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/misc-resources/collider_raycast_material.tres" id="4_voubc"]
 [ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="5_ryfpa"]
-[ext_resource type="PackedScene" uid="uid://cuuosibwguv0i" path="res://stretcher.tscn" id="6_bgw3c"]
 [ext_resource type="Material" uid="uid://dy43ogh4jhnpk" path="res://addons/ateneo-virtual-reality-escape/inventory-system/misc-resources/inventory_slot_shader_a.tres" id="6_ntdhj"]
 [ext_resource type="Script" uid="uid://bour4026odpwv" path="res://scripts/medkit_sound_manager.gd" id="7_0fu15"]
 [ext_resource type="AudioStream" uid="uid://bbe283racxu5y" path="res://assets/freesound/63529__florian_reinke__button_on.wav" id="8_4knja"]
@@ -14,17 +15,26 @@
 [ext_resource type="PackedScene" uid="uid://xfhu0tputojr" path="res://custom_scenes/interactable_npc.tscn" id="8_oqlok"]
 [ext_resource type="PackedScene" uid="uid://pinr5n4sc1nq" path="res://assets/responder1.glb" id="9_7nvrk"]
 [ext_resource type="AudioStream" uid="uid://bu0n47pxg0f0k" path="res://assets/freesound/344548__dster777__button.wav" id="9_voubc"]
+[ext_resource type="PackedScene" uid="uid://v4lnugtph4cp" path="res://addons/stretcher_nonpickable.tscn" id="10_voubc"]
 [ext_resource type="PackedScene" uid="uid://bp4qsothxd80g" path="res://custom_scenes/injured.tscn" id="11_betor"]
 [ext_resource type="PackedScene" uid="uid://dp2xb3fr3eafv" path="res://custom_scenes/ui/level_1hud.tscn" id="12_udfhf"]
 [ext_resource type="PackedScene" uid="uid://dsaovvehgewyy" path="res://objectives/victim_rescue.tscn" id="15_06ecp"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="23_ntdhj"]
 [ext_resource type="PackedScene" uid="uid://4a3xx8xcbdob" path="res://custom_scenes/bandage.tscn" id="24_0fu15"]
 [ext_resource type="PackedScene" uid="uid://bx753cjs4touu" path="res://custom_scenes/fire_extinguisher.tscn" id="25_4knja"]
+[ext_resource type="PackedScene" uid="uid://l762dbl7qj04" path="res://level_button.tscn" id="28_voubc"]
 [ext_resource type="Script" uid="uid://mwkmv5yaqd6g" path="res://custom_scenes/ui/hud_manager.gd" id="29_ohjdc"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="30_e5brb"]
 [ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="32_toluw"]
 [ext_resource type="Script" uid="uid://b4seunyy8fkyl" path="res://custom_scenes/ui/dialogue_manager.gd" id="33_rf48r"]
 [ext_resource type="PackedScene" uid="uid://bwvp4b0em2nh4" path="res://custom_scenes/ui/dialogue_ui.tscn" id="34_toluw"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_voubc"]
+radius = 0.0619181
+
+[sub_resource type="SphereMesh" id="SphereMesh_voubc"]
+radius = 0.062
+height = 0.062
 
 [sub_resource type="SphereMesh" id="SphereMesh_0x1rk"]
 radius = 0.16
@@ -82,112 +92,117 @@ size = Vector3(1.5, 1.5, 0.155)
 script = ExtResource("2_aerfg")
 
 [node name="XROrigin3D" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.0379, 0, 7.85677)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.6639, 0, 5.73866)
+
+[node name="FunctionPointer" parent="XROrigin3D/RightHand" index="4" instance=ExtResource("3_4knja")]
+distance = 1000.0
+show_laser = 2
+laser_length = 1
+laser_material = ExtResource("4_voubc")
+collide_with_areas = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="XROrigin3D/RightHand" index="5"]
+collision_layer = 2147483648
+collision_mask = 2147483648
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/RightHand/RigidBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0313994, 0.0335441)
+shape = SubResource("SphereShape3D_voubc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightHand/RigidBody3D" index="1"]
+mesh = SubResource("SphereMesh_voubc")
 
 [node name="Environment" type="Node3D" parent="." index="1"]
 
 [node name="level1_graybox_test" parent="Environment" index="0" instance=ExtResource("2_jirdo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.178, -1, -4.707)
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Environment" index="1"]
-transform = Transform3D(1, 0, 0, 0, 0.701121, 0.713042, 0, -0.713042, 0.701121, 48.9688, 5.44337, 2.94852)
-light_energy = 2.0
-spot_range = 11.4467
-spot_angle = 27.0668
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" index="1"]
+transform = Transform3D(-0.178339, 0.557326, -0.810915, 1.0102e-08, 0.824126, 0.566406, 0.983969, 0.101012, -0.146973, 0.025, 3.825, 0)
+light_color = Color(0.921569, 0.960784, 1, 1)
+light_energy = 0.5
+light_volumetric_fog_energy = 0.0
+shadow_bias = 1.0
+shadow_normal_bias = 0.05
 
-[node name="SpotLight3D2" type="SpotLight3D" parent="Environment" index="2"]
-transform = Transform3D(1, 0, 0, 0, 0.701121, 0.713042, 0, -0.713042, 0.701121, 44.6651, 5.44337, 2.94852)
-light_energy = 2.0
-spot_range = 14.4798
-spot_angle = 27.07
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Environment" index="2"]
+transform = Transform3D(0.952129, 0.173148, -0.251931, 0, 0.824126, 0.566406, 0.305695, -0.539292, 0.784675, 0.025, 3.825, 0)
+light_color = Color(0.921569, 0.960784, 1, 1)
+light_energy = 0.5
+light_volumetric_fog_energy = 0.0
+shadow_bias = 1.0
+shadow_normal_bias = 0.05
 
-[node name="SpotLight3D3" type="SpotLight3D" parent="Environment" index="3"]
-transform = Transform3D(1, 0, 0, 0, 0.701121, 0.713042, 0, -0.713042, 0.701121, 39.7206, 5.44337, 2.94852)
-light_energy = 2.0
-spot_range = 14.4798
-spot_angle = 27.07
+[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="Environment" index="3"]
+transform = Transform3D(0.170502, -0.558113, 0.812059, 0, 0.824126, 0.566406, -0.985357, -0.0965733, 0.140515, 0.025, 3.825, 0)
+light_color = Color(0.921569, 0.960784, 1, 1)
+light_energy = 0.5
+light_volumetric_fog_energy = 0.0
+shadow_bias = 1.0
+shadow_normal_bias = 0.05
 
-[node name="SpotLight3D4" type="SpotLight3D" parent="Environment" index="4"]
-transform = Transform3D(1, 0, 0, 0, 0.701121, 0.713042, 0, -0.713042, 0.701121, 32.6997, 5.44337, 2.94852)
-light_energy = 2.0
-spot_range = 14.4798
-spot_angle = 27.07
+[node name="DirectionalLight3D4" type="DirectionalLight3D" parent="Environment" index="4"]
+transform = Transform3D(-0.983032, 0.103899, -0.151175, 6.78039e-09, 0.824126, 0.566406, 0.183437, 0.556795, -0.810142, 0.025, 3.825, 0)
+light_color = Color(0.921569, 0.960784, 1, 1)
+light_energy = 0.5
+light_volumetric_fog_energy = 0.0
+shadow_bias = 1.0
+shadow_normal_bias = 0.05
 
-[node name="SpotLight3D5" type="SpotLight3D" parent="Environment" index="5"]
-transform = Transform3D(1, 0, 0, 0, 0.701121, 0.713042, 0, -0.713042, 0.701121, 27.8779, 5.44337, 2.94852)
-light_energy = 2.0
-spot_range = 14.4798
-spot_angle = 27.07
+[node name="Buttons" type="Node3D" parent="." index="2"]
 
-[node name="SpotLight3D6" type="SpotLight3D" parent="Environment" index="6"]
-transform = Transform3D(1, 0, 0, 0, 0.701121, 0.713042, 0, -0.713042, 0.701121, 23.6424, 5.44337, 2.94852)
-light_energy = 2.0
-spot_range = 14.4798
-spot_angle = 27.07
+[node name="Injured" parent="Buttons" index="0" node_paths=PackedStringArray("objective") instance=ExtResource("28_voubc")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15.2037, 1.335, 3.46562)
+objective = NodePath("../../Objectives/Injured")
 
-[node name="SpotLight3D7" type="SpotLight3D" parent="Environment" index="7"]
-transform = Transform3D(1, 0, 0, 0, 0.701121, 0.713042, 0, -0.713042, 0.701121, 16.0924, 5.44337, 2.94852)
-light_energy = 2.0
-spot_range = 14.4798
-spot_angle = 27.07
+[node name="Victim" parent="Buttons" index="1" node_paths=PackedStringArray("objective") instance=ExtResource("28_voubc")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 40.2037, 1.335, 3.46562)
+objective = NodePath("../../Objectives/VictimRescue")
 
-[node name="SpotLight3D8" type="SpotLight3D" parent="Environment" index="8"]
-transform = Transform3D(1, 0, 0, 0, 0.701121, 0.713042, 0, -0.713042, 0.701121, 11.6177, 5.44337, 2.94852)
-light_energy = 2.0
-spot_range = 14.4798
-spot_angle = 27.07
+[node name="Fire" parent="Buttons" index="2" node_paths=PackedStringArray("objective") instance=ExtResource("28_voubc")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 25.2037, 1.335, 3.46562)
+objective = NodePath("../../Objectives/VictimRescue")
 
-[node name="SpotLight3D9" type="SpotLight3D" parent="Environment" index="9"]
-transform = Transform3D(1, 0, 0, 0, 0.701121, 0.713042, 0, -0.713042, 0.701121, 7.09223, 5.44337, 2.94852)
-light_energy = 2.0
-spot_range = 14.4798
-spot_angle = 27.07
+[node name="Door" parent="Buttons" index="3" node_paths=PackedStringArray("objective") instance=ExtResource("28_voubc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 40.2037, 1.335, -10.7595)
+objective = NodePath("../../Objectives/VictimRescue")
 
-[node name="SpotLight3D10" type="SpotLight3D" parent="Environment" index="10"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.101549, 11.3845, 2.94852)
-light_energy = 2.0
-spot_range = 14.4798
-spot_angle = 27.07
+[node name="Stretcher" parent="Buttons" index="4" instance=ExtResource("28_voubc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 31.2037, 1.335, -10.7595)
 
-[node name="SpotLight3D11" type="SpotLight3D" parent="Environment" index="11"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.101549, 11.3845, -7.14342)
-light_energy = 2.0
-spot_range = 14.4798
-spot_angle = 27.07
+[node name="DuckCoverHold" parent="Buttons" index="5" instance=ExtResource("28_voubc")]
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 4.64552, 1.335, -2.99993)
 
-[node name="SpotLight3D12" type="SpotLight3D" parent="Environment" index="12"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.101549, 11.3845, -16.51)
-light_energy = 2.0
-spot_range = 14.4798
-spot_angle = 27.07
-
-[node name="Objectives" type="Node3D" parent="." index="2"]
+[node name="Objectives" type="Node3D" parent="." index="3"]
 
 [node name="Injured" parent="Objectives" index="0" instance=ExtResource("11_betor")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 14.4883, 0.133314, 9.06944)
 
-[node name="Stretcher" parent="Objectives" index="1" instance=ExtResource("6_bgw3c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.2329, 0.239165, -15.7447)
-
-[node name="VictimRescue" parent="Objectives" index="2" instance=ExtResource("15_06ecp")]
+[node name="VictimRescue" parent="Objectives" index="1" instance=ExtResource("15_06ecp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.1628, 0.0379871, 7.39898)
 
-[node name="DuckCoverHoldQTE" parent="Objectives" index="3" instance=ExtResource("8_7nvrk")]
+[node name="DuckCoverHoldQTE" parent="Objectives" index="2" instance=ExtResource("8_7nvrk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
 
-[node name="NPCs" type="Node3D" parent="." index="3"]
+[node name="stretcher_nonpickable" parent="Objectives" index="3" instance=ExtResource("10_voubc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.2329, 0.239165, -15.7447)
+
+[node name="NPCs" type="Node3D" parent="." index="4"]
 
 [node name="InteractableNPC" parent="NPCs" index="0" instance=ExtResource("8_oqlok")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.73569, 0, -11.8196)
-dialogue_states = Array[String](["welcoming", "repeating"])
+registry_name = "SandboxGuide"
+display_name = "Guide"
+dialogue_states = Array[String](["sandbox_repeat", "sandbox_welcome"])
 
 [node name="responder1" parent="NPCs/InteractableNPC" index="2" instance=ExtResource("9_7nvrk")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
-[node name="HUDManager" type="Node3D" parent="." index="4" node_paths=PackedStringArray("xr_origin_3d", "xr_camera")]
+[node name="HUDManager" type="Node3D" parent="." index="5" node_paths=PackedStringArray("xr_origin_3d", "xr_camera")]
 script = ExtResource("29_ohjdc")
 xr_origin_3d = NodePath("../XROrigin3D")
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
+has_timer = false
 
 [node name="HUD" parent="HUDManager" index="0" instance=ExtResource("30_e5brb")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
@@ -199,7 +214,7 @@ material = ExtResource("32_toluw")
 scene_properties_keys = PackedStringArray("level_1hud.gd", "prompt_duration")
 prompt_duration = 3.0
 
-[node name="DialogueManager" type="Node3D" parent="." index="5" node_paths=PackedStringArray("xr_origin_3d", "xr_camera", "dialogue_button_hand", "dialogue_toggler_hand") groups=["dialogue_system"]]
+[node name="DialogueManager" type="Node3D" parent="." index="6" node_paths=PackedStringArray("xr_origin_3d", "xr_camera", "dialogue_button_hand", "dialogue_toggler_hand") groups=["dialogue_system"]]
 script = ExtResource("33_rf48r")
 xr_origin_3d = NodePath("../XROrigin3D")
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
@@ -210,7 +225,7 @@ dialogue_toggler_hand = NodePath("../XROrigin3D/RightHand")
 [node name="DialogueUI" parent="DialogueManager" index="0" instance=ExtResource("34_toluw")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 
-[node name="InventorySystem" type="Node3D" parent="." index="6" node_paths=PackedStringArray("xr_anchor_to_object", "xr_camera_anchor", "inventory_toggler_hand")]
+[node name="InventorySystem" type="Node3D" parent="." index="7" node_paths=PackedStringArray("xr_anchor_to_object", "xr_camera_anchor", "inventory_toggler_hand")]
 transform = Transform3D(1, 0, 0, 0, 0.929133, 0.369747, 0, -0.369747, 0.929133, 0.366702, 0.537034, 1.91833)
 visible = false
 script = ExtResource("3_udfhf")
@@ -390,7 +405,7 @@ stream = ExtResource("8_4knja")
 [node name="MedkitCloseSound" type="AudioStreamPlayer3D" parent="InventorySystem/MedkitSoundManager" index="1"]
 stream = ExtResource("9_voubc")
 
-[node name="Tools" type="Node3D" parent="." index="7"]
+[node name="Tools" type="Node3D" parent="." index="8"]
 
 [node name="Hammer" parent="Tools" index="0" instance=ExtResource("23_ntdhj")]
 

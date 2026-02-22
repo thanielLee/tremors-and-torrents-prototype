@@ -36,7 +36,7 @@ horizontal_alignment = 1
 [node name="ButtonPromptLabel" type="Label" parent="Control/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "Press (button) to continue."
+text = "Press (A) to continue."
 horizontal_alignment = 1
 
 [node name="ProceedTimer" type="Timer" parent="Control"]

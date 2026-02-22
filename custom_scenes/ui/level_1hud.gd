@@ -26,7 +26,7 @@ func _ready():
 	
 	objective_container.visible = false
 	prompt_label.visible = false
-	timer_label.text = "Time: 00:00"
+	hide_timer()
 
 # -----------------------
 # LEVEL TIMER
@@ -79,3 +79,8 @@ func on_obj_failed(obj: ObjectiveBase):
 	show_prompt("Success!", 2.0)
 	await get_tree().create_timer(2.0).timeout
 	objective_container.visible = false
+
+func update_obj_status_label(time: float):
+	var seconds = int(time) % 60
+	var mseconds = int(fmod(time, 1) * 1000) % 1000
+	timer_label.text = "%02d.%02d" % [seconds, mseconds]

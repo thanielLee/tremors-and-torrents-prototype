@@ -9,6 +9,7 @@ class_name Level1
 ## Handles initialization, hazards, objectives, and level flow.
 @onready var objectives: Node3D = $Objectives
 @onready var hud_manager: HUDManager = $HUDManager
+@onready var dialogue_manager: DialogueManager = $DialogueManager
 
 
 var current_objective: ObjectiveBase = null
@@ -17,6 +18,18 @@ var obj_active: bool = false
 
 func _ready() -> void:
 	setup_objectives()
+	
+	hud_manager.hide_timer()
+	
+	_start_briefing()
+
+func _process(delta: float) -> void:
+	if obj_active:
+		obj_elapsed_time += delta
+		_on_obj_update_status(obj_elapsed_time)
+
+func _start_briefing():
+	dialogue_manager.start_dialogue("SandboxGuide", "sandbox_welcome", "Guide")
 
 func setup_objectives():
 	if not objectives:
@@ -29,6 +42,9 @@ func setup_objectives():
 		if obj.has_signal("objective_failed"):
 			obj.objective_failed.connect(_on_objective_failed.bind(obj))
 			print("connected objective_failed for %s" % obj.name)
+		if obj.has_signal("objective_reset"):
+			obj.objective_reset.connect(_on_objective_reset.bind(obj))
+			print("connected objective_reset for %s" % obj.name)
 		if obj.has_signal("objective_started"):
 			obj.objective_started.connect(_on_objective_started.bind(obj))
 			print("connected objective_started for %s" % obj.name)
@@ -47,10 +63,10 @@ func setup_objectives():
 			obj_logic.objective_started.connect(_on_objective_started.bind(obj_logic))
 			obj_logic.objective_completed.connect(_on_objective_completed.bind(obj_logic))
 			obj_logic.objective_failed.connect(_on_objective_failed.bind(obj_logic))
-			print("connected allat for %s" % obj_logic.name)
+			obj_logic.objective_reset.connect(_on_objective_reset.bind(obj_logic))
 
 func _on_objective_started(obj: ObjectiveBase):
-	print("started: " + obj.objective_name)
+	#print("started: " + obj.objective_name)
 	current_objective = obj
 	hud_manager.reset_timer()
 	hud_manager.show_timer()
@@ -62,7 +78,8 @@ func _on_objective_started(obj: ObjectiveBase):
 	#disable_other_objectives(obj)
 
 func _on_obj_update_status(time: float):
-	hud_manager.reset(time)
+	hud_manager.update_obj_status_label(time)
+
 
 func _on_objective_completed(obj: ObjectiveBase):
 	#if obj not in completed_objectives:
@@ -92,14 +109,13 @@ func _on_objective_failed(obj: ObjectiveBase):
 		var message = "Objective: %s failed! %d" % [obj.name, obj.failed_points]
 		hud_manager.show_prompt(message, 3.0)
 
-	#if obj.failed_points != 0:
-		#score += obj.failed_points
-	#hud_manager.update_score(score)
-	#
-	#if obj.is_required:
-		#fail_level("Required objective failed")
-	#
-	#enable_objectives()
+func _on_objective_reset(obj: ObjectiveBase):
+	obj_active = false
+	hud_manager.hide_timer()
+	# Reset the objective state
+	if current_objective == obj:
+		current_objective = null
+	obj_elapsed_time = 0.0
 
 func _on_qte_started(obj: Node):
 	hud_manager.on_qte_started(obj)

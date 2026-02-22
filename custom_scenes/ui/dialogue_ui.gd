@@ -16,7 +16,7 @@ var index = 0
 var show_button_prompt: bool = false
 var active = false
 
-signal dialogue_finished
+signal dialogue_finished(npc_name)
 
 func _ready():
 	hide()
@@ -98,4 +98,4 @@ func force_advance():
 func _end_dialogue():
 	active = false
 	hide()
-	emit_signal("dialogue_finished")
+	emit_signal("dialogue_finished", current_npc)

@@ -5,6 +5,7 @@ class_name HUDManager
 @export var xr_camera: Node3D
 @export var ui_distance: float = 2.5
 @export var ui_height: float = -0.5
+@export var has_timer: bool = true
 
 @onready var hud: XRToolsViewport2DIn3D = $HUD
 @onready var result_log: Node3D = $ResultLog
@@ -23,9 +24,10 @@ func _process(delta):
 	if xr_origin_3d:
 		_update_ui_position()
 	
-	elapsed_time += delta
-	#hud_script.set_timer(elapsed_time)
-	set_timer(elapsed_time)
+	if has_timer:
+		elapsed_time += delta
+		#hud_script.set_timer(elapsed_time)
+		set_timer(elapsed_time)
 
 func _update_ui_position():
 	var forward = -xr_camera.global_transform.basis.z

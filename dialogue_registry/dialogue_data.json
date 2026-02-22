@@ -99,5 +99,111 @@
                 "duration": 3.5 
             }
         ]
+    },
+    "SandboxGuide": {
+        "sandbox_welcome": [
+            { 
+                "text": "Welcome, Lead Responder.", 
+                "duration": 5.0 
+            },
+            { 
+                "text": "You are now in the training sandbox environment.", 
+                "duration": 3.5 
+            },
+            { 
+                "text": "This space is designed for practice, experimentation, and mastery.", 
+                "duration": 4.0 
+            },
+            { 
+                "text": "There is no time limit here. No penalties. No mission failure.", 
+                "duration": 4.2 
+            },
+            { 
+                "text": "Around you are multiple chambers.", 
+                "duration": 2.8 
+            },
+            { 
+                "text": "Each chamber contains a specific objective scenario from our disaster response operations.", 
+                "duration": 5.0 
+            },
+            { 
+                "text": "You may enter any chamber at any time.", 
+                "duration": 3.0 
+            },
+            { 
+                "text": "Inside, focus on completing the objective as instructed.", 
+                "duration": 3.5 
+            },
+            { 
+                "text": "Observe your environment carefully. Use the correct tools. Apply proper procedure.", 
+                "duration": 4.5 
+            },
+            { 
+                "text": "If you wish to attempt the scenario again, locate the reset button on the chamber wall.", 
+                "duration": 4.8 
+            },
+            { 
+                "text": "Pressing the reset button will restore the chamber to its initial state.", 
+                "duration": 4.5 
+            },
+            { 
+                "text": "You may repeat each objective as many times as necessary.", 
+                "duration": 3.8 
+            },
+            { 
+                "text": "Use this opportunity to refine your technique and improve your response time.", 
+                "duration": 4.6 
+            },
+            { 
+                "text": "When you feel confident, proceed to the full mission scenarios.", 
+                "duration": 4.0 
+            },
+            { 
+                "text": "Training builds readiness. Readiness saves lives.", 
+                "duration": 3.5 
+            },
+            { 
+                "text": "You may begin whenever you are ready.", 
+                "duration": 3.0 
+            }
+        ],
+        "sandbox_repeat": [
+            { 
+                "text": "Back again, Lead Responder?", 
+                "duration": 2.8 
+            },
+            { 
+                "text": "This is the training sandbox environment.", 
+                "duration": 3.2 
+            },
+            { 
+                "text": "You are free to enter any chamber and practice its objective.", 
+                "duration": 4.2 
+            },
+            { 
+                "text": "There are no time limits or penalties here.", 
+                "duration": 3.6 
+            },
+            { 
+                "text": "Focus on proper procedure and situational awareness.", 
+                "duration": 3.8 
+            },
+            { 
+                "text": "If you want to retry a scenario, use the reset button inside the chamber.", 
+                "duration": 4.8 
+            },
+            { 
+                "text": "You may repeat each objective as many times as needed.", 
+                "duration": 3.8 
+            },
+            { 
+                "text": "Continue training until your actions become instinctive.", 
+                "duration": 4.0 
+            },
+            { 
+                "text": "Proceed when ready.", 
+                "duration": 2.5 
+            }
+        ]
     }
 }
