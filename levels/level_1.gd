@@ -10,6 +10,8 @@ class_name Level1
 @onready var objectives: Node3D = $Objectives
 @onready var hud_manager: HUDManager = $HUDManager
 @onready var dialogue_manager: DialogueManager = $DialogueManager
+@onready var world_shaker: Node3D = $Environment/WorldShaker
+@onready var earthquake_player: AudioStreamPlayer = $GlobalAudioManager/EarthquakePlayer
 
 
 var current_objective: ObjectiveBase = null
@@ -50,11 +52,11 @@ func setup_objectives():
 			print("connected objective_started for %s" % obj.name)
 		#if obj.has_signal("time"):
 			#obj.time.connect(_on_obj_update_status)
-		if obj.has_signal("qte_started"):
-			obj.qte_started.connect(_on_qte_started.bind(obj))
-			print("connected qte_started for %s" % obj.name)
+		#if obj.has_signal("qte_started"):
+			#obj.qte_started.connect(_on_qte_started.bind(obj))
+			#print("connected qte_started for %s" % obj.name)
 		if obj.has_signal("pose"):
-			obj.pose.connect(_on_qte_update_status.bind(obj))
+			obj.pose.connect(_on_qte_update_status)
 			print("connected pose for %s" % obj.name)
 		#if obj.has_signal("shake_world"):
 			#obj.shake_world.connect(do_earthquake)
@@ -64,6 +66,7 @@ func setup_objectives():
 			obj_logic.objective_completed.connect(_on_objective_completed.bind(obj_logic))
 			obj_logic.objective_failed.connect(_on_objective_failed.bind(obj_logic))
 			obj_logic.objective_reset.connect(_on_objective_reset.bind(obj_logic))
+			print("connected ")
 
 func _on_objective_started(obj: ObjectiveBase):
 	#print("started: " + obj.objective_name)
@@ -89,12 +92,9 @@ func _on_objective_completed(obj: ObjectiveBase):
 	
 	#score += obj.completed_points
 	
-	if obj.has_signal("qte_started"): # for qtes
-		hud_manager.on_qte_completed()
-	else: # for objectives
-		var message = "Objective: %s completed! +%d" % [obj.objective_name, obj.completed_points]
-		hud_manager.show_prompt(message, 3.0)
-		hud_manager.on_obj_completed(obj)
+	var message = "Objective: %s completed! +%d" % [obj.objective_name, obj.completed_points]
+	hud_manager.show_prompt(message, 3.0)
+	hud_manager.on_obj_completed(obj)
 	
 	#hud_manager.update_score(score)
 	#
@@ -103,11 +103,9 @@ func _on_objective_completed(obj: ObjectiveBase):
 
 func _on_objective_failed(obj: ObjectiveBase):
 	obj_active = false
-	if obj.has_signal("qte_started"):
-		hud_manager.on_qte_failed()
-	else:
-		var message = "Objective: %s failed! %d" % [obj.name, obj.failed_points]
-		hud_manager.show_prompt(message, 3.0)
+	var message = "Objective: %s failed! %d" % [obj.name, obj.failed_points]
+	hud_manager.show_prompt(message, 3.0)
+	hud_manager.on_obj_failed(obj)
 
 func _on_objective_reset(obj: ObjectiveBase):
 	obj_active = false
@@ -117,8 +115,14 @@ func _on_objective_reset(obj: ObjectiveBase):
 		current_objective = null
 	obj_elapsed_time = 0.0
 
-func _on_qte_started(obj: Node):
-	hud_manager.on_qte_started(obj)
-
 func _on_qte_update_status(status: bool):
 	hud_manager.qte_update_status(status)
+
+
+# helper functions
+func do_earthquake(duration):
+	#print(earthquake_rumble.stream.get_length() - duration)
+	earthquake_player.play(earthquake_player.stream.get_length() - duration - 4.5)
+	
+	#earthquake_triggered = true # for e.quake on time
+	world_shaker.shake_world(duration)

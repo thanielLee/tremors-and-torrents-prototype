@@ -76,6 +76,9 @@ func on_obj_started(obj: Node):
 func on_obj_completed(obj: Node):
 	hud_script.on_obj_completed(obj)
 
+func on_obj_failed(obj: Node):
+	hud_script.on_obj_failed(obj)
+
 func update_obj_status_label(time: float):
 	hud_script.update_obj_status_label(time)
 

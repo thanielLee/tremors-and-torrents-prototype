@@ -13,93 +13,84 @@
     "TeamCaptain": {
         "level_2_briefing": [
             { 
-                "text": "Lead Responder, this is Command.", 
-                "duration": 2.5 
+                "text": "All units, this is Captain Nhoy from the Municipal Disaster Risk Reduction and Management Operations Center.", 
+                "duration": 4.8 
             },
             { 
-                "text": "A 6.8 magnitude earthquake has been recorded offshore.", 
-                "duration": 3.8 
+                "text": "A strong magnitude 6.7 earthquake has affected multiple barangays in the municipality.", 
+                "duration": 4.4 
             },
             { 
-                "text": "Initial tremors have already been felt across the barangay.", 
-                "duration": 3.6 
+                "text": "Ground shaking was recorded at approximately 09:42 AM.", 
+                "duration": 3.3 
             },
             { 
-                "text": "Structural damage is likely. Aftershocks are expected.", 
-                "duration": 3.8 
+                "text": "Initial reports from the Barangay Committee indicate structural damage.", 
+                "duration": 5.2 
             },
             { 
-                "text": "[b]Residential Zone A[/b] has high-density housing and weak concrete structures.", 
-                "duration": 4.5 
+                "text": "Several houses have collapsed, fires have been reported, and residents are injured.", 
+                "duration": 4.8 
             },
             { 
-                "text": "The elementary school is currently occupied.", 
-                "duration": 3.2 
-            },
-            { 
-                "text": "Expect civilian panic and possible gas leaks.", 
-                "duration": 3.5 
+                "text": "Aftershocks are expected. All responders observe standard safety protocols.", 
+                "duration": 4.6 
             },
 
             { 
                 "text": "[b]Primary Objectives:[/b]", 
-                "duration": 2.2 
-            },
-            { 
-                "text": "Conduct rapid area assessment.", 
                 "duration": 2.5 
             },
             { 
-                "text": "Guide at least 3 civilians to the designated safe assembly zone.", 
-                "duration": 4.2 
+                "text": "All units please locate and rescue at least one trapped civilian in the affected barangay.", 
+                "duration": 4.6 
             },
             { 
-                "text": "Identify and secure at least one structural hazard.", 
+                "text": "Provide first aid by properly bandaging injured civilians.", 
                 "duration": 4.0 
             },
-
             { 
-                "text": "[b]Secondary Objectives:[/b]", 
-                "duration": 2.2 
+                "text": "Transport stabilized victims to the evacuation center using a stretcher.", 
+                "duration": 4.8 
             },
             { 
-                "text": "Extinguish any active fires.", 
-                "duration": 3.0 
-            },
-            { 
-                "text": "Provide first aid to injured civilians if necessary.", 
-                "duration": 3.8 
-            },
-
-            { 
-                "text": "You have limited time before secondary tremors escalate.", 
-                "duration": 3.8 
-            },
-            { 
-                "text": "Prepare yourself. Deploy when ready.", 
-                "duration": 3.0 
-            }
-        ],
-
-        "debriefing": [
-            { 
-                "text": "Good work, Lead Responder.", 
-                "duration": 2.6 
-            },
-            { 
-                "text": "Your actions helped minimize casualties and restore order.", 
-                "duration": 4.2 
-            },
-            { 
-                "text": "Aftershocks remain possible. Continue to monitor structural stability.", 
+                "text": "Extinguish any active fires caused by structural damage or gas leaks.", 
                 "duration": 4.5 
             },
+
             { 
-                "text": "Return to base for evaluation and further instructions.", 
-                "duration": 3.5 
+                "text": "[b]Safety Protocol:[/b]", 
+                "duration": 2.3 
+            },
+            { 
+                "text": "During aftershocks, immediately perform duck, cover, and hold procedures.", 
+                "duration": 4.6 
+            },
+            { 
+                "text": "Stay alert for falling debris, unstable structures, and damaged electrical lines.", 
+                "duration": 4.8 
+            },
+
+            { 
+                "text": "[b]Operational Directives:[/b]", 
+                "duration": 2.5 
+            },
+            { 
+                "text": "Establish triage and treatment areas at designated evacuation centers.", 
+                "duration": 4.8 
+            },
+            { 
+                "text": "This is a full activation of earthquake response protocols. Prioritize life-saving operations.", 
+                "duration": 5.0 
+            },
+            { 
+                "text": "Operations Center standing by for updates. Execute response immediately.", 
+                "duration": 4.2 
             }
         ]
     },
+
+    
     "SandboxGuide": {
         "sandbox_welcome": [
             { 

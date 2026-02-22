@@ -264,6 +264,8 @@ func _on_objective_failed(obj: ObjectiveBase):
 	else:
 		var message = "Objective: %s failed! %d" % [obj.name, obj.failed_points]
 		hud_manager.show_prompt(message, 3.0)
+		hud_manager.on_obj_failed(obj)
+		
 
 	if obj.failed_points != 0:
 		score += obj.failed_points

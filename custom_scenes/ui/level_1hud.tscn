@@ -60,7 +60,7 @@ horizontal_alignment = 1
 [node name="ObjectiveStatusLabel" type="Label" parent="Control/ObjectiveContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "Hold that position!"
+text = "Get into position!"
 horizontal_alignment = 1
 vertical_alignment = 1
 

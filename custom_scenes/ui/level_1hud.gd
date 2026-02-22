@@ -69,18 +69,30 @@ func on_obj_started(obj: ObjectiveBase):
 func on_obj_completed(obj: ObjectiveBase):
 	objective_feedback_label.text = obj.objective_name + " Completed!"
 	objective_feedback_label.add_theme_color_override("font_color", Color.GREEN)
+	objective_status_label.text = ""
 	show_prompt("Success!", 2.0)
 	await get_tree().create_timer(2.0).timeout
 	objective_container.visible = false
+	hide_timer()
 
 func on_obj_failed(obj: ObjectiveBase):
 	objective_feedback_label.text = obj.objective_name + " Failed!"
 	objective_feedback_label.add_theme_color_override("font_color", Color.RED)
-	show_prompt("Success!", 2.0)
+	objective_status_label.text = ""
+	show_prompt("Failed!", 2.0)
+	hide_timer()
 	await get_tree().create_timer(2.0).timeout
 	objective_container.visible = false
 
 func update_obj_status_label(time: float):
-	var seconds = int(time) % 60
-	var mseconds = int(fmod(time, 1) * 1000) % 1000
-	timer_label.text = "%02d.%02d" % [seconds, mseconds]
+	timer_label.text = "%.2f" % time
+
+
+
+func update_qte_status_label(status: bool):
+	if status:
+		objective_status_label.text = "Hold that position!"
+		objective_status_label.add_theme_color_override("font_color", Color.GREEN)
+	else:
+		objective_status_label.text = "Get back into position!"
+		objective_status_label.add_theme_color_override("font_color", Color.RED)

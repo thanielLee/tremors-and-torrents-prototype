@@ -58,22 +58,22 @@ func _on_prompt_timeout():
 # -----------------------
 # QTE
 # -----------------------
-func on_qte_started(obj: Node):
+func on_qte_started(obj: ObjectiveBase):
 	qte_container.visible = true
 	qte_name_label.text = obj.objective_name
 	qte_feedback_label.text = ""
 	qte_status_label.text = ""
-	show_prompt("QTE Started!", 2.0)
+	show_prompt(obj.objective_name + " Started!", 2.0)
 
-func on_qte_completed():
-	qte_feedback_label.text = "QTE Completed!"
+func on_qte_completed(obj: ObjectiveBase):
+	qte_feedback_label.text = obj.objective_name + " Completed!"
 	qte_feedback_label.add_theme_color_override("font_color", Color.GREEN)
 	show_prompt("Success!", 2.0)
 	await get_tree().create_timer(2.0).timeout
 	qte_container.visible = false
 
-func on_qte_failed():
-	qte_feedback_label.text = "QTE Failed!"
+func on_qte_failed(obj: ObjectiveBase):
+	qte_feedback_label.text = obj.objective_name + " Failed!"
 	qte_feedback_label.add_theme_color_override("font_color", Color.RED)
 	show_prompt("Failed!", 2.0)
 	await get_tree().create_timer(2.0).timeout
@@ -95,7 +95,7 @@ func on_obj_started(obj: Node):
 	qte_name_label.text = obj.objective_name
 	qte_feedback_label.text = ""
 	qte_status_label.text = ""
-	show_prompt("Objective Started!", 2.0)
+	show_prompt(obj.objective_name + " started!", 2.0)
 
 func on_obj_completed(obj: Node):
 	qte_feedback_label.text = obj.objective_name + " Completed!"
@@ -105,16 +105,17 @@ func on_obj_completed(obj: Node):
 	qte_container.visible = false
 
 func on_obj_failed(obj: Node):
-	qte_feedback_label.text = "Objective Failed!"
+	qte_feedback_label.text = obj.objective_name + " Failed!"
 	qte_feedback_label.add_theme_color_override("font_color", Color.RED)
 	show_prompt("Failed!", 2.0)
 	await get_tree().create_timer(2.0).timeout
 	qte_container.visible = false
 
 func update_obj_status_label(time: float):
-	var seconds = int(time) % 60
-	var mseconds = int(fmod(time, 1) * 1000) % 1000
-	qte_feedback_label.text = "%02d.%02d" % [seconds, mseconds]
+	#var seconds = int(time) % 60
+	#var mseconds = int(fmod(time, 1) * 1000) % 1000
+	#qte_feedback_label.text = "%02d.%02d" % [seconds, mseconds]
+	qte_feedback_label.text = "%.2f" % time
 	
 # -----------------------
 # LEVEL PROMPTS
