@@ -9,10 +9,10 @@ func _ready() -> void:
 	interactable_area.connect("button_pressed", _trigger_button_effect) 
 
 func _trigger_button_effect(button) -> void:
-	print("reset Button Pressed! " + objective.objective_name)
 	if objective is not ObjectiveBase:
 		var obj_logic = objective.get_node("ObjectiveLogic") as ObjectiveBase
 		objective = obj_logic
+	print("reset Button Pressed! " + objective.objective_name)
 	objective.reset_objective()
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.

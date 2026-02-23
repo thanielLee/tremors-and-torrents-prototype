@@ -101,7 +101,6 @@ turbulence_influence_max = 0.3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19116, 0)
 material_override = SubResource("ShaderMaterial_34168")
 amount = 1
-lifetime = 5.0
 process_material = SubResource("ParticleProcessMaterial_vgux2")
 draw_pass_1 = SubResource("QuadMesh_vva8o")
 

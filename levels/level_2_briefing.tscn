@@ -38,12 +38,12 @@ size = Vector3(1, 5, 8)
 panorama = ExtResource("4_xegxb")
 energy_multiplier = 0.15
 
-[sub_resource type="Sky" id="Sky_ff7d2"]
+[sub_resource type="Sky" id="Sky_xegxb"]
 sky_material = SubResource("PanoramaSkyMaterial_8xt3a")
 
 [sub_resource type="Environment" id="Environment_2dsa0"]
 background_mode = 2
-sky = SubResource("Sky_ff7d2")
+sky = SubResource("Sky_xegxb")
 ambient_light_sky_contribution = 0.0
 sdfgi_enabled = true
 glow_enabled = true
@@ -51,7 +51,7 @@ volumetric_fog_density = 0.0024
 
 [node name="Level2Briefing" node_paths=PackedStringArray("left_controller", "right_controller") instance=ExtResource("1_dyeri")]
 script = ExtResource("2_a81k6")
-scene = "uid://bf88eeqpgtid3"
+scene = "uid://ckjbgxs7pcdii"
 left_controller = NodePath("XROrigin3D/LeftHand")
 right_controller = NodePath("XROrigin3D/RightHand")
 

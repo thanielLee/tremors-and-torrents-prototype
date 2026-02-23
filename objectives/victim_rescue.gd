@@ -99,15 +99,15 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	var pbasis := player.global_transform.basis
-	var right := pbasis.x.normalized()
+	#var right := pbasis.x.normalized()
 	var forward := pbasis.z.normalized()
-	
-	var target_pos := player.global_position + right*side_offset + forward*back_offset
-	#var target_pos := player.global_position + offset
-	
-	target_pos.y = body.global_position.y
-	
-	body.global_position = target_pos
+	#
+	#var target_pos := player.global_position + right*side_offset + forward*back_offset
+	##var target_pos := player.global_position + offset
+	#
+	#target_pos.y = body.global_position.y
+	#
+	#body.global_position = target_pos
 	body.global_transform.basis = Basis().looking_at(forward, Vector3.UP)
 	#body.look_at(body.global_position + Vector3(0, (player.global_position).length(), 0), Vector3.UP, true)
 

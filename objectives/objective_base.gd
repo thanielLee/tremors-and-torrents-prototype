@@ -49,7 +49,7 @@ func start_objective():
 	active = true
 	completed = false
 	failed = false
-	print("Objective Started: ", name)
+	print("Objective Started: ", objective_name)
 	emit_signal("objective_started")
 
 func complete_objective():
@@ -58,7 +58,7 @@ func complete_objective():
 	active = false
 	completed = true
 	completion_time = elapsed_time
-	print("Objective Completed: ", name)
+	print("Objective Completed: ", objective_name)
 	emit_signal("objective_completed")
 
 func fail_objective():
@@ -67,7 +67,7 @@ func fail_objective():
 	active = false
 	failed = true
 	completion_time = elapsed_time
-	print("Objective Failed:", name)
+	print("Objective Failed:", objective_name)
 	emit_signal("objective_failed")
 
 func reset_objective():

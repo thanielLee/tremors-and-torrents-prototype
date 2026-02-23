@@ -61,13 +61,13 @@ func set_timer(time: float):
 func show_prompt(message: String, duration: float = 2.0):
 	hud_script.show_prompt(message, duration)
 
-func on_qte_started(obj: Node):
+func on_qte_started(obj: ObjectiveBase):
 	hud_script.on_qte_started(obj)
 
 func on_qte_completed():
 	hud_script.on_qte_completed()
 
-func on_qte_failed():
+func on_qte_failed(p):
 	hud_script.on_qte_failed()
 
 func on_obj_started(obj: Node):

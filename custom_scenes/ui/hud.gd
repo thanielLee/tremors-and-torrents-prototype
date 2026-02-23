@@ -66,14 +66,14 @@ func on_qte_started(obj: ObjectiveBase):
 	show_prompt(obj.objective_name + " Started!", 2.0)
 
 func on_qte_completed(obj: ObjectiveBase):
-	qte_feedback_label.text = obj.objective_name + " Completed!"
+	qte_feedback_label.text = obj.completed_message
 	qte_feedback_label.add_theme_color_override("font_color", Color.GREEN)
 	show_prompt("Success!", 2.0)
 	await get_tree().create_timer(2.0).timeout
 	qte_container.visible = false
 
 func on_qte_failed(obj: ObjectiveBase):
-	qte_feedback_label.text = obj.objective_name + " Failed!"
+	qte_feedback_label.text = obj.fail_message
 	qte_feedback_label.add_theme_color_override("font_color", Color.RED)
 	show_prompt("Failed!", 2.0)
 	await get_tree().create_timer(2.0).timeout
@@ -90,22 +90,22 @@ func update_qte_status_label(status: bool):
 # -----------------------
 # OBJECTIVE
 # -----------------------
-func on_obj_started(obj: Node):
+func on_obj_started(obj: ObjectiveBase):
 	qte_container.visible = true
 	qte_name_label.text = obj.objective_name
 	qte_feedback_label.text = ""
 	qte_status_label.text = ""
 	show_prompt(obj.objective_name + " started!", 2.0)
 
-func on_obj_completed(obj: Node):
-	qte_feedback_label.text = obj.objective_name + " Completed!"
+func on_obj_completed(obj: ObjectiveBase):
+	qte_feedback_label.text = obj.completed_message
 	qte_feedback_label.add_theme_color_override("font_color", Color.GREEN)
 	show_prompt("Success!", 2.0)
 	await get_tree().create_timer(2.0).timeout
 	qte_container.visible = false
 
-func on_obj_failed(obj: Node):
-	qte_feedback_label.text = obj.objective_name + " Failed!"
+func on_obj_failed(obj: ObjectiveBase):
+	qte_feedback_label.text = obj.fail_message
 	qte_feedback_label.add_theme_color_override("font_color", Color.RED)
 	show_prompt("Failed!", 2.0)
 	await get_tree().create_timer(2.0).timeout

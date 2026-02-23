@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://ckn5firtu6im3"]
+[gd_scene load_steps=55 format=3 uid="uid://ckn5firtu6im3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://dxrd1bf6mcajs" path="res://levels/level_1.gd" id="2_aerfg"]
@@ -18,8 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://xfhu0tputojr" path="res://custom_scenes/interactable_npc.tscn" id="8_oqlok"]
 [ext_resource type="PackedScene" uid="uid://pinr5n4sc1nq" path="res://assets/responder1.glb" id="9_7nvrk"]
 [ext_resource type="AudioStream" uid="uid://bu0n47pxg0f0k" path="res://assets/freesound/344548__dster777__button.wav" id="9_voubc"]
-[ext_resource type="PackedScene" uid="uid://v4lnugtph4cp" path="res://addons/stretcher_nonpickable.tscn" id="10_voubc"]
-[ext_resource type="PackedScene" uid="uid://bp4qsothxd80g" path="res://custom_scenes/injured.tscn" id="11_betor"]
+[ext_resource type="PackedScene" uid="uid://v4lnugtph4cp" path="res://objectives/stretcher_nonpickable.tscn" id="10_voubc"]
+[ext_resource type="PackedScene" uid="uid://bp4qsothxd80g" path="res://objectives/injured.tscn" id="11_betor"]
 [ext_resource type="PackedScene" uid="uid://dp2xb3fr3eafv" path="res://custom_scenes/ui/level_1hud.tscn" id="12_udfhf"]
 [ext_resource type="PackedScene" uid="uid://crte44g8idacl" path="res://hazards/electrical_fire.tscn" id="14_rf48r"]
 [ext_resource type="PackedScene" uid="uid://dsaovvehgewyy" path="res://objectives/victim_rescue.tscn" id="15_06ecp"]
@@ -34,6 +34,7 @@
 [ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="32_toluw"]
 [ext_resource type="Script" uid="uid://b4seunyy8fkyl" path="res://custom_scenes/ui/dialogue_manager.gd" id="33_rf48r"]
 [ext_resource type="PackedScene" uid="uid://bwvp4b0em2nh4" path="res://custom_scenes/ui/dialogue_ui.tscn" id="34_toluw"]
+[ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="35_toluw"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rf48r"]
 radius = 0.05
@@ -116,6 +117,9 @@ size = Vector3(9, 1, 4)
 [node name="Level1" instance=ExtResource("1_lmdqw")]
 script = ExtResource("2_aerfg")
 
+[node name="XROrigin3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.50691)
+
 [node name="FunctionPointer" parent="XROrigin3D/RightHand" index="4" instance=ExtResource("3_4knja")]
 distance = 1000.0
 show_laser = 2
@@ -197,17 +201,18 @@ objective = NodePath("../../Objectives/VictimRescue")
 
 [node name="Fire" parent="Buttons" index="2" node_paths=PackedStringArray("objective") instance=ExtResource("28_voubc")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 25.2037, 1.335, 3.46562)
-objective = NodePath("../../Objectives/VictimRescue")
+objective = NodePath("../../Objectives/ElectricalFire")
 
-[node name="Door" parent="Buttons" index="3" node_paths=PackedStringArray("objective") instance=ExtResource("28_voubc")]
+[node name="Door" parent="Buttons" index="3" instance=ExtResource("28_voubc")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 40.2037, 1.335, -10.7595)
-objective = NodePath("../../Objectives/VictimRescue")
 
-[node name="Stretcher" parent="Buttons" index="4" instance=ExtResource("28_voubc")]
+[node name="Stretcher" parent="Buttons" index="4" node_paths=PackedStringArray("objective") instance=ExtResource("28_voubc")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 31.2037, 1.335, -10.7595)
+objective = NodePath("../../Objectives/stretcher_nonpickable")
 
-[node name="DuckCoverHold" parent="Buttons" index="5" instance=ExtResource("28_voubc")]
+[node name="DuckCoverHold" parent="Buttons" index="5" node_paths=PackedStringArray("objective") instance=ExtResource("28_voubc")]
 transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 4.64552, 1.335, -2.99993)
+objective = NodePath("../../Objectives/DuckCoverHoldQTE")
 
 [node name="Objectives" type="Node3D" parent="." index="3"]
 
@@ -539,5 +544,9 @@ shape = SubResource("BoxShape3D_rf48r")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SafeArea2" index="1"]
 mesh = SubResource("BoxMesh_toluw")
+
+[node name="Teleport" parent="." index="12" instance=ExtResource("35_toluw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.120645, 1.82675)
+scene = "uid://bcsf6fktx606t"
 
 [connection signal="visibility_changed" from="InventorySystem" to="InventorySystem/MedkitSoundManager" method="_on_inventory_system_visibility_changed"]

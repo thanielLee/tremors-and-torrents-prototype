@@ -10,7 +10,7 @@ class_name Level2SM
 ##
 ## Handles initialization, hazards, objectives, and level flow.
 
-@export var level_time_limit: float = 120.0
+@export var level_time_limit: float = 20.0
 @export var briefing_time_limit: float = 5.0
 
 @onready var xr_origin_3d = $XROrigin3D
@@ -47,6 +47,8 @@ var score : int = 0
 
 var seen_injured: bool = false
 var seen_victim: bool = false
+var seeing: bool = true
+var player_prompted_with_unfinished_objs: bool = false
 
 var completed_objectives: Array[ObjectiveBase] = [] # for obj completion tracking
 var completed_obj_times: Array[float] = []
@@ -78,8 +80,8 @@ func _ready():
 	objectives = get_node("Objectives")
 	world_shaker = get_node("WorldShaker")
 	
-	current_state = State.BRIEFING
-	prev_state = State.BRIEFING
+	current_state = State.LEVEL_LOADING
+	prev_state = State.LEVEL_LOADING
 
 	#enable_hazards()
 	#setup_objectives()
@@ -119,6 +121,11 @@ func complete_level():
 
 func fail_level(message: String):
 	level_ended = true
+	
+	if current_objective:
+		if !current_objective.is_required:
+			current_objective.fail_objective()
+		
 	disable_hazards()
 
 	if current_objective and obj_active:
@@ -207,20 +214,18 @@ func setup_objectives():
 			obj.objective_started.connect(_on_objective_started.bind(obj))
 		#if obj.has_signal("time"):
 			#obj.time.connect(_on_obj_update_status)
-		if obj.has_signal("qte_started"):
-			obj.qte_started.connect(_on_qte_started.bind(obj))
+		# if obj.has_signal("qte_started"):
+		# 	obj.qte_started.connect(_on_qte_started.bind(obj))
 		if obj.has_signal("pose"):
 			obj.pose.connect(_on_qte_update_status)
 		if obj.has_signal("shake_world"):
 			obj.shake_world.connect(do_earthquake)
-		#if obj.has_signal("stretcher_dropped"):
-			#var obj_logic = obj.get_node("ObjectiveStretcher") as ObjectiveBase
-			#obj_logic.objective_started.connect(_on_objective_started.bind(obj_logic))
-			#obj_logic.objective_completed.connect(_on_objective_completed.bind(obj_logic))
-			#obj_logic.objective_failed.connect(_on_objective_failed.bind(obj_logic))
-		
-		if obj.is_required:
-			required_objectives.append(obj)
+		if obj.get_node("ObjectiveLogic"):
+			var obj_logic = obj.get_node("ObjectiveLogic") as ObjectiveBase
+			obj_logic.objective_started.connect(_on_objective_started.bind(obj_logic))
+			obj_logic.objective_completed.connect(_on_objective_completed.bind(obj_logic))
+			obj_logic.objective_failed.connect(_on_objective_failed.bind(obj_logic))
+			print("connected " + obj.name)
 
 func enable_objectives():
 	for o in objectives.get_children():
@@ -248,10 +253,10 @@ func disable_other_objectives(obj: ObjectiveBase):
 			other_obj.enabled = false
 
 func _on_objective_started(obj: ObjectiveBase):
-	if obj is StretcherObjective:
-		var cur_obj: StretcherObjective = obj as StretcherObjective
-		if !cur_obj.can_be_enabled:
-			return
+	#if obj is StretcherObjective:
+		#var cur_obj: StretcherObjective = obj as StretcherObjective
+		#if !cur_obj.can_be_enabled:
+			#return
 	current_objective = obj
 	hud_manager.on_obj_started(obj)
 	
@@ -275,28 +280,37 @@ func _on_objective_completed(obj: ObjectiveBase):
 		
 		score += obj.completed_points
 		
-		if obj.has_signal("qte_started"): # for qtes
-			#hud_manager.on_qte_completed()
-			hud_manager.show_prompt(obj.completed_message, 3.0)
-			hud_manager.on_obj_completed(obj)
-		else: # for objectives
-			var message = "Objective: %s completed! +%d" % [obj.objective_name, obj.completed_points]
-			#hud_manager.show_prompt(message, 3.0)
-			hud_manager.show_prompt(obj.completed_message, 3.0)
-			hud_manager.on_obj_completed(obj)
+		# if obj.has_signal("qte_started"): # for qtes
+		# 	#hud_manager.on_qte_completed()
+		# 	hud_manager.show_prompt(obj.completed_message, 3.0)
+		# 	hud_manager.on_obj_completed(obj)
+		# else: # for objectives
+		# var message = "%s +%d" % [obj.completed_message, obj.completed_points]
+		# var message = "Objective: %s completed! +%d" % [obj.objective_name, obj.completed_points]
+		#hud_manager.show_prompt(message, 3.0)
+		hud_manager.show_prompt(obj.completed_message + " +%d" % obj.completed_points, 3.0)
+		hud_manager.on_obj_completed(obj)
 		
 		hud_manager.update_score(score)
 		
 		enable_objectives()
+		if !obj.is_required:
+			if len(seen_objectives) > 0:
+				current_state = State.ACTIVE_SEEN_OBJECTIVE
+			else:
+				current_state = State.ACTIVE_NO_OBJECTIVE
+		else:
+			current_state = State.ACTIVE_OBJECTIVE_DONE
+		current_objective = null
 		#check_level_end()
 
 func _on_objective_failed(obj: ObjectiveBase):
 	obj_active = false
-	if obj.has_signal("qte_started"):
-		hud_manager.on_qte_failed()
-	else:
-		var message = "Objective: %s failed! %d" % [obj.name, obj.failed_points]
-		hud_manager.show_prompt(message, 3.0)
+	# if obj.has_signal("qte_started"):
+	# 	hud_manager.on_qte_failed(obj)
+	# else:
+	hud_manager.show_prompt(obj.fail_message + " -%d" % obj.failed_points, 3.0)
+	hud_manager.on_obj_failed(obj)
 
 	if obj.failed_points != 0:
 		score += obj.failed_points
@@ -305,12 +319,17 @@ func _on_objective_failed(obj: ObjectiveBase):
 	if obj.is_required:
 		current_state = State.LEVEL_FAIL
 		failure_message = obj.fail_message
+	else:
+		if len(seen_objectives) > 0:
+			current_state = State.ACTIVE_SEEN_OBJECTIVE
+		else:
+			current_state = State.ACTIVE_NO_OBJECTIVE
 		#fail_level("Required objective failed")
-	
+	current_objective = null
 	enable_objectives()
 
-func _on_qte_started(obj: Node):
-	hud_manager.on_qte_started(obj)
+# func _on_qte_started(obj: Node):
+# 	hud_manager.on_qte_started(obj)
 
 func _on_qte_update_status(status: bool):
 	hud_manager.qte_update_status(status)
@@ -348,7 +367,7 @@ func log_results():
 
 func _process(delta: float) -> void:
 	_get_next_state(delta)
-	hud_manager.show_prompt("CURRENT STATE: " + str(State.find_key(current_state)), delta)
+	# hud_manager.show_prompt("CURRENT STATE: " + str(State.find_key(current_state)), delta)
 	#print(str(injured.injured_seen) + " " + str(victim.victim_seen))
 	
 	#if level_ended and not level_failed_obj_active:
@@ -388,7 +407,7 @@ func _get_next_state(delta: float):
 			if not player_started:
 				player_started = true
 				enable_objectives()
-			if time_elapsed > level_time_limit or len(triggered_hazards) >= 3:
+			if level_timer > level_time_limit or len(triggered_hazards) >= 3:
 				current_state = State.LEVEL_FAIL
 			
 			if objective_seen:
@@ -397,16 +416,16 @@ func _get_next_state(delta: float):
 			_update_timer(delta)
 			var objective_seen = _update_seen_objectives()
 			
-			if prev_completed_objectives != len(completed_objectives):
-				prev_completed_objectives = len(completed_objectives)
+			#if prev_completed_objectives != len(completed_objectives):
+				#prev_completed_objectives = len(completed_objectives)
+				#
+				#if len(seen_objectives) > 0:
+					#current_state = State.ACTIVE_SEEN_OBJECTIVE
+				#else:
+					#current_state = State.ACTIVE_NO_OBJECTIVE
 				
-				if len(seen_objectives) > 0:
-					current_state = State.ACTIVE_SEEN_OBJECTIVE
-				else:
-					current_state = State.ACTIVE_NO_OBJECTIVE
-				
-				if time_elapsed >= level_time_limit:
-					current_state = State.LEVEL_FAIL_TIME_FAILED
+			#if level_timer >= level_time_limit:
+				#current_state = State.LEVEL_FAIL_TIME_FAILED
 				
 				
 		State.ACTIVE_SEEN_OBJECTIVE:
@@ -416,33 +435,41 @@ func _get_next_state(delta: float):
 			if len(triggered_hazards) >= 3:
 				current_state = State.LEVEL_FAIL
 			
+			if level_timer >= level_time_limit:
+				_prompt_player_to_finish_seen_objectives()
+			
 		State.OBJECTIVE_ACTIVE:
 			_update_timer(delta)
 			var objective_seen = _update_seen_objectives()
 			
-			if time_elapsed >= level_time_limit:
+			if level_timer >= level_time_limit:
 				current_state = State.LEVEL_FAIL_TIME_FAILED
 			
-			if prev_completed_objectives != len(completed_objectives):
-				prev_completed_objectives = len(completed_objectives)
-				current_state = State.ACTIVE_OBJECTIVE_DONE
+			#if prev_completed_objectives != len(completed_objectives):
+				#prev_completed_objectives = len(completed_objectives)
+				#current_state = State.ACTIVE_OBJECTIVE_DONE
 				
 		State.ACTIVE_OBJECTIVE_DONE:
-			var state_changed = false
-			for objective in required_objectives:
-				if objective in seen_objectives and !objective.completed:
-					current_state = State.ACTIVE_SEEN_OBJECTIVE
-					state_changed = true
-			
-			if !state_changed:
-				current_state = State.LEVEL_COMPLETE
+			if level_timer >=level_time_limit:
+				
+				var state_changed = false
+				for objective in required_objectives:
+					if objective in seen_objectives and !objective.completed:
+						current_state = State.ACTIVE_SEEN_OBJECTIVE
+						state_changed = true
+				
+				if !state_changed:
+					current_state = State.LEVEL_COMPLETE
+			else:
+				current_state = State.ACTIVE_SEEN_OBJECTIVE
 		State.LEVEL_FAIL:
-			if time_elapsed >= level_time_limit:
+			if level_timer >= level_time_limit:
 				fail_level("You took too long!")
 			elif len(triggered_hazards) >= 3:
 				fail_level("Triggered too many hazards!")
 			else:
 				fail_level(failure_message)
+			
 			_reset_level_state()
 			current_state = State.LEVEL_ENDED
 		State.LEVEL_FAIL_TIME_FAILED:
@@ -461,6 +488,10 @@ func _get_next_state(delta: float):
 func _update_seen_objectives():
 	var return_val = false
 	for child in objectives.get_children():
+		if child is not ObjectiveBase:
+			var obj_logic = child.get_node("ObjectiveLogic") as ObjectiveBase
+			child = obj_logic
+
 		if child in seen_objectives:
 			continue
 		if child is AnimatableBody3D:
@@ -539,23 +570,35 @@ func _check_player_seen(check_node: Node3D):
 	check_position_1.global_position = camera_origin
 	
 	var result = space_state.intersect_ray(query)
-	if result:
-		var ray_position = result["position"]
-		if check_node == injured:
-			check_position_2.global_position = check_node.global_position
-			raycast_check.global_position = (camera_origin+ray_position)/2
-			raycast_check.look_at(ray_position, Vector3.UP)
-			var raycast_mesh: MeshInstance3D = raycast_check.get_child(0)
-			raycast_mesh.mesh.height = (check_node.global_position-camera_origin).length()
-			hit_position.global_position = ray_position
-		elif check_node == victim:
-			check_position_3.global_position = check_node.global_position
+	#if result:
+		#var ray_position = result["position"]
+		#if check_node == injured:
+			#check_position_2.global_position = check_node.global_position
+			#raycast_check.global_position = (camera_origin+ray_position)/2
+			#raycast_check.look_at(ray_position, Vector3.UP)
+			#var raycast_mesh: MeshInstance3D = raycast_check.get_child(0)
+			#raycast_mesh.mesh.height = (check_node.global_position-camera_origin).length()
+			#hit_position.global_position = ray_position
+		#elif check_node == victim:
+			#check_position_3.global_position = check_node.global_position
 	#print(result)
 	#print()
 	var theta = rad_to_deg(acos(camera_front.dot((check_node.global_position-camera_origin).normalized())))
 	#print(str(theta) + " " + str(xr_camera.global_position))
 	if result and theta <= 45:
 		var object: Node3D = result["collider"]
-		return check_node.is_ancestor_of(object)
+		return check_node.is_ancestor_of(object) or object.is_ancestor_of(check_node)
 	return false
+	
+func _prompt_player_to_finish_seen_objectives():
+	if not player_prompted_with_unfinished_objs:
+		var objs = ""
+		for required_objective in seen_objectives:
+			if required_objective is not ObjectiveBase:
+				var obj_script = required_objective.get_node("ObjectiveLogic") as ObjectiveBase
+				required_objective = obj_script
+			objs += required_objective.objective_name + " "
+		hud_manager.show_prompt("Finish the required objective/s! " + objs, 5.0)
+	
+	player_prompted_with_unfinished_objs = true
 	

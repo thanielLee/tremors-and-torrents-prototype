@@ -188,8 +188,8 @@ func setup_objectives():
 			obj.objective_started.connect(_on_objective_started.bind(obj))
 		#if obj.has_signal("time"):
 			#obj.time.connect(_on_obj_update_status)
-		if obj.has_signal("qte_started"):
-			obj.qte_started.connect(_on_qte_started.bind(obj))
+		#if obj.has_signal("qte_started"):
+			#obj.qte_started.connect(_on_qte_started.bind(obj))
 		if obj.has_signal("pose"):
 			obj.pose.connect(_on_qte_update_status)
 		if obj.has_signal("shake_world"):
@@ -246,12 +246,12 @@ func _on_objective_completed(obj: ObjectiveBase):
 		
 		score += obj.completed_points
 		
-		if obj.has_signal("qte_started"): # for qtes
-			hud_manager.on_qte_completed()
-		else: # for objectives
-			var message = "Objective: %s completed! +%d" % [obj.objective_name, obj.completed_points]
-			hud_manager.show_prompt(message, 3.0)
-			hud_manager.on_obj_completed(obj)
+		#if obj.has_signal("qte_started"): # for qtes
+			#hud_manager.on_qte_completed()
+		#else: # for objectives
+		var message = "%s +%d" % [obj.completed_message, obj.completed_points]
+		hud_manager.show_prompt(message, 3.0)
+		hud_manager.on_obj_completed(obj)
 		
 		hud_manager.update_score(score)
 		
@@ -260,12 +260,12 @@ func _on_objective_completed(obj: ObjectiveBase):
 
 func _on_objective_failed(obj: ObjectiveBase):
 	obj_active = false
-	if obj.has_signal("qte_started"):
-		hud_manager.on_qte_failed()
-	else:
-		var message = "Objective: %s failed! %d" % [obj.name, obj.failed_points]
-		hud_manager.show_prompt(message, 3.0)
-		hud_manager.on_obj_failed(obj)
+	#if obj.has_signal("qte_started"):
+		#hud_manager.on_qte_failed()
+	#else:
+	var message = "%s  %d" % [obj.fail_message, obj.failed_points]
+	hud_manager.show_prompt(message, 3.0)
+	hud_manager.on_obj_failed(obj)
 		
 
 	if obj.failed_points != 0:
@@ -277,8 +277,8 @@ func _on_objective_failed(obj: ObjectiveBase):
 	
 	enable_objectives()
 
-func _on_qte_started(obj: Node):
-	hud_manager.on_qte_started(obj)
+# func _on_qte_started(obj: Node):
+# 	hud_manager.on_qte_started(obj)
 
 func _on_qte_update_status(status: bool):
 	hud_manager.qte_update_status(status)

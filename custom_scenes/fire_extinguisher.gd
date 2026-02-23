@@ -13,10 +13,10 @@ var smoke_particles: GPUParticles3D
 
 var original_particle_settings := {}
 
-@export var extinguish_speed: float = 0.5
+@export var extinguish_speed: float = 0.2
 
 var current_fire_vfx: Node3D = null
-var fire_progress: float = 10.0
+var fire_progress: float = 1.0
 var is_extinguishing_fire := false
 
 var obj_logic: ObjectiveBase
@@ -151,7 +151,8 @@ func _reduce_fire(delta):
 			if child is GPUParticles3D:
 				child.amount_ratio = fire_progress
 				#child.speed_scale = fire_progress
-
+	
+	print(fire_progress)
 	if fire_progress <= 0.0:
 		_finish_extinguish()
 
