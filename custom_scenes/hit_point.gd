@@ -4,6 +4,7 @@ extends Node3D
 @onready var particle_emit_node = $VfxHammerImpact
 var cooldown: float = 0.0
 var is_emitting: bool = false
+var hitpoint_id: int
 
 func _ready():
 	strike_receiver.connect("action_started", hit_process)

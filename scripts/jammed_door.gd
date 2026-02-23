@@ -8,14 +8,16 @@ signal door_cleared()
 @onready var hit_points: Node3D = $HitPoints
 @onready var hit_sound: AudioStreamPlayer3D = $HitSound
 @onready var break_particles: GPUParticles3D = $BreakParticles
+@onready var door_mesh: Node3D 
+var door_mesh_child: Node
 var hit_point_count : int
-
+var door_mesh_children: Array = []
 
 # For rumble
 @export var strike_rumble_event: XRToolsRumbleEvent
 @export var break_rumble_event: XRToolsRumbleEvent
 var last_controller: XRController3D = null
-
+var id_counter: int = 0
 
 func _ready() -> void:
 	hit_point_count = hit_points.get_child_count()
@@ -26,7 +28,19 @@ func _ready() -> void:
 				child.action_completed.connect(_on_hit_point_completed.bind(hit_point)) # for hit point desrtoyed
 				child.action_started.connect(_on_hit_point_started)
 				child.rumble_hand.connect(_on_rumble_hand)
-		
+				
+		hit_point.hitpoint_id = id_counter
+		id_counter += 1
+	door_mesh = $Mesh
+	var door_mesh_child
+	for child in door_mesh.get_children():
+		print(child.name + " " + str(child))
+		if child.name == "broken_door":
+			door_mesh_child = child
+			
+	for child in door_mesh_child.get_children():
+		if "broken_door" in child.name:
+			door_mesh_children.push_back(child)
 
 func check_finished():
 	if hit_point_count <= 0:
@@ -49,6 +63,8 @@ func _on_hit_point_completed(requirement: Variant, total_progress: Variant, hit_
 	
 	hit_point.queue_free()
 	hit_point_count -= 1
+	
+	door_mesh_children[hit_point.hitpoint_id].visible = false
 	
 	if break_sound:
 		break_sound.play()

@@ -2,11 +2,14 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4x2qgx2nudh3"
+uid="uid://chkq8le0d7a4a"
 path.s3tc="res://.godot/imported/start_button_start.png-d4c3f94fa14e72e938085a5c963d46c3.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
+}
+generator_parameters={
+"md5": "66f6bb10633fdbd5e61f21a8886be0a8"
 }
 
 [deps]

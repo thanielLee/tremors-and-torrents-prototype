@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cbctejjm3gt0w"
+uid="uid://crylileh1t35a"
 path="res://.godot/imported/start_button.glb-8b12d539c940d130b98f0efbe1923e42.scn"
 
 [deps]
@@ -34,6 +34,9 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "nodes": {
+"PATH:AnimationPlayer": {
+"import/skip_import": true
+},
 "PATH:Button": {
 "import/skip_import": true
 }

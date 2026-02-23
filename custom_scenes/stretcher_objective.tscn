@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://vljehl314yjw"]
+
+[ext_resource type="Script" uid="uid://bdltk82vkx5pa" path="res://stretcher_objective.gd" id="1_toeq1"]
+[ext_resource type="PackedScene" uid="uid://v4lnugtph4cp" path="res://addons/stretcher_nonpickable.tscn" id="2_ann0c"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ann0c"]
+size = Vector3(1.672, 1.64307, 4.03586)
+
+[node name="StretcherObjective" type="Node3D"]
+script = ExtResource("1_toeq1")
+
+[node name="stretcher_nonpickable" parent="." instance=ExtResource("2_ann0c")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="VisibleArea" type="StaticBody3D" parent="."]
+collision_layer = 536870912
+collision_mask = 536870912
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VisibleArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0894165, 0.321533, -0.00382996)
+shape = SubResource("BoxShape3D_ann0c")
+debug_fill = false
