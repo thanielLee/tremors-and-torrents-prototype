@@ -16,6 +16,8 @@ class_name Level2
 @onready var xr_origin_3d = $XROrigin3D
 @onready var start_pos: Vector3 = $StartPos.position
 var brief_pos: Vector3
+@onready var left_hand: XRController3D = $XROrigin3D/LeftHand
+@onready var right_hand: XRController3D = $XROrigin3D/RightHand
 
 
 var hazards : Node
@@ -93,14 +95,16 @@ func complete_level():
 	log_results()
 	hud_manager.end_level_prompt(true, score, "")
 	hud_manager.hide_timer()
+	await get_tree().create_timer(5.0).timeout
+	level_ended = true
 
 func fail_level(message: String):
-	level_ended = true
 	disable_hazards()
 
 	if current_objective and obj_active:
 		disable_other_objectives(current_objective)
-		level_failed_obj_active = true		
+		level_ended = true
+		level_failed_obj_active = true
 		
 		hud_manager.end_level_prompt(false, score, message)
 		hud_manager.show_prompt("Finish current active objective to end level!", 3.0)
@@ -111,6 +115,7 @@ func fail_level(message: String):
 		hud_manager.end_level_prompt(false, score, message)
 		
 		await get_tree().create_timer(5.0).timeout
+		level_ended = true
 		teleport_player(brief_pos)
 	# _reset_level_state()
 
@@ -166,8 +171,6 @@ func _on_hazard_triggered(hazard: Variant):
 		
 		if triggered_hazards.size() >= HAZARD_LIMIT:
 			fail_level("Hazard limit reached")
-		
-	# TODO: display logged hazards for results
 
 
 ### OBJECTIVES ###
@@ -191,11 +194,12 @@ func setup_objectives():
 			obj.pose.connect(_on_qte_update_status)
 		if obj.has_signal("shake_world"):
 			obj.shake_world.connect(do_earthquake)
-		if obj.has_signal("stretcher_dropped"):
-			var obj_logic = obj.get_node("ObjectiveStretcher") as ObjectiveBase
+		if obj.get_node("ObjectiveLogic"):
+			var obj_logic = obj.get_node("ObjectiveLogic") as ObjectiveBase
 			obj_logic.objective_started.connect(_on_objective_started.bind(obj_logic))
 			obj_logic.objective_completed.connect(_on_objective_completed.bind(obj_logic))
 			obj_logic.objective_failed.connect(_on_objective_failed.bind(obj_logic))
+			print("connected " + obj.name)
 
 func enable_objectives():
 	for o in objectives.get_children():
@@ -261,6 +265,8 @@ func _on_objective_failed(obj: ObjectiveBase):
 	else:
 		var message = "Objective: %s failed! %d" % [obj.name, obj.failed_points]
 		hud_manager.show_prompt(message, 3.0)
+		hud_manager.on_obj_failed(obj)
+		
 
 	if obj.failed_points != 0:
 		score += obj.failed_points
@@ -320,7 +326,8 @@ func _process(delta: float) -> void:
 	elif level_active:
 		_handle_level_active(delta)
 	else:
-		_handle_level_briefing(delta)
+		#_handle_level_briefing(delta)
+		start_level()
 	
 	camera_forward = $XROrigin3D/XRCamera3D.global_transform.basis.z * -1
 	
@@ -343,15 +350,25 @@ func _handle_level_active(delta: float) -> void:
 		fail_level("Time limit exceeded")
 
 
-func _handle_level_briefing(delta: float) -> void:
-	level_timer += delta
-	if level_timer > briefing_time_limit:
-		start_level()
+#func _handle_level_briefing(delta: float) -> void:
+	#level_timer += delta
+	#if level_timer > briefing_time_limit:
+		#start_level()
+func _both_triggers_pressed() -> bool:
+	if not left_hand or not right_hand:
+		return false
+	#print("both pressed!")
+	#return false
+	return left_hand.is_button_pressed("trigger") and right_hand.is_button_pressed("trigger")
+
 
 
 func _handle_level_ended(delta: float) -> void:
-	level_timer += delta
-	if level_timer > 20.0:
+	#teleport_player(brief_pos)
+	#level_timer += delta
+	#if level_timer > 20.0:
+		#exit_to_main_menu()
+	if level_timer > 60.0 or _both_triggers_pressed():
 		exit_to_main_menu()
 
 func _handle_level_failed(delta: float) -> void:

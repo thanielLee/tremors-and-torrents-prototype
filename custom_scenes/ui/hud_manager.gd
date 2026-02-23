@@ -5,6 +5,7 @@ class_name HUDManager
 @export var xr_camera: Node3D
 @export var ui_distance: float = 2.5
 @export var ui_height: float = -0.5
+@export var has_timer: bool = true
 
 @onready var hud: XRToolsViewport2DIn3D = $HUD
 @onready var result_log: Node3D = $ResultLog
@@ -15,15 +16,18 @@ var elapsed_time: float = 0.0
 
 func _ready():
 	hud_script = hud.get_scene_instance()
-	result_log_script = result_log.get_scene_instance()
+	if result_log:
+		result_log_script = result_log.get_scene_instance()
 	set_process(true)
 
 func _process(delta):
 	if xr_origin_3d:
 		_update_ui_position()
 	
-	elapsed_time += delta
-	hud_script.set_timer(elapsed_time)
+	if has_timer:
+		elapsed_time += delta
+		#hud_script.set_timer(elapsed_time)
+		set_timer(elapsed_time)
 
 func _update_ui_position():
 	var forward = -xr_camera.global_transform.basis.z
@@ -51,6 +55,9 @@ func _update_ui_position():
 	## face player
 	#hud.look_at(hud.global_position + look_dir, Vector3.UP)
 
+func set_timer(time: float):
+	hud_script.set_timer(time)
+
 func show_prompt(message: String, duration: float = 2.0):
 	hud_script.show_prompt(message, duration)
 
@@ -69,8 +76,14 @@ func on_obj_started(obj: Node):
 func on_obj_completed(obj: Node):
 	hud_script.on_obj_completed(obj)
 
+func on_obj_failed(obj: Node):
+	hud_script.on_obj_failed(obj)
+
 func update_obj_status_label(time: float):
 	hud_script.update_obj_status_label(time)
+
+func hide_obj_container():
+	hud_script.hide_obj_container()
 
 func qte_update_status(status: bool):
 	hud_script.update_qte_status_label(status)
@@ -84,6 +97,9 @@ func update_score(new_score: int):
 func reset_timer():
 	elapsed_time = 0.0
 	hud_script.reset_timer()
+
+func show_timer():
+	hud_script.show_timer()
 
 func hide_timer():
 	hud_script.hide_timer()

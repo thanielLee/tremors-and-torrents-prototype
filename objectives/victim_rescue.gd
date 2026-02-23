@@ -17,6 +17,7 @@ signal victim_triggered_hazard
 @onready var walking_mesh: Node3D = $RigidBody3D/WalkingMesh
 @onready var lying_down_mesh: Node3D = $RigidBody3D/LyingDownMesh
 
+var initial_transform: Transform3D
 
 var dialogue_sys
 var cur_state: String
@@ -34,6 +35,8 @@ var victim_seen: bool = false
 
 func _ready():
 	super._ready()
+	initial_transform = body.global_transform
+	
 	victim_safe.connect(_on_victim_safe)
 	victim_triggered_hazard.connect(_on_victim_hazard)
 	
@@ -87,6 +90,7 @@ func _on_victim_safe():
 func _on_victim_hazard():
 	fail_objective()
 
+
 func _physics_process(delta: float) -> void:
 	if not active or not enabled:
 		return
@@ -138,3 +142,30 @@ func _on_xr_tools_interactable_area_pointer_event(event: Variant) -> void:
 	if !dialogue_sys.dialogue_active():
 		if (event.event_type == XRToolsPointerEvent.Type.PRESSED):
 			dialogue_sys.start_dialogue(name, cur_state, objective_name)
+
+func _on_reset():
+	# Stop following logic
+	following = false
+	player = null
+	
+	# Reset grab state
+	left_hand_held = false
+	right_hand_held = false
+	
+	# Reset dialogue state
+	state_index = 0
+	if dialogue_states.size() > 0:
+		cur_state = dialogue_states[0]
+	
+	# Reset visibility
+	walking_mesh.visible = false
+	lying_down_mesh.visible = true
+	
+	# Reset physics safely
+	body.freeze = true
+	body.linear_velocity = Vector3.ZERO
+	body.angular_velocity = Vector3.ZERO
+	body.global_transform = initial_transform
+	
+	# Reset detection flags
+	victim_seen = false

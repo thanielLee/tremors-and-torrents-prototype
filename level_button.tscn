@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://hclxpxlu6gd2" path="res://level_button.gd" id="1_j8bpn"]
 [ext_resource type="Script" uid="uid://cveb7kg27pig4" path="res://addons/godot-xr-tools/interactables/interactable_area_button.gd" id="2_shs6u"]
-[ext_resource type="PackedScene" uid="uid://crylileh1t35a" path="res://assets/meshes/start_button.glb" id="2_txyvr"]
-[ext_resource type="PackedScene" uid="uid://be4o3p4dwko8p" path="res://assets/meshes/red_button.glb" id="3_txyvr"]
+[ext_resource type="PackedScene" uid="uid://cbctejjm3gt0w" path="res://assets/meshes/start_button.glb" id="2_txyvr"]
+[ext_resource type="PackedScene" uid="uid://8srslgr056vp" path="res://assets/meshes/red_button.glb" id="3_txyvr"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_n4tde"]
 size = Vector3(0.06, 0.38, 0.345)

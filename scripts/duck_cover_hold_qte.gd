@@ -25,7 +25,6 @@ func start_qte():
 	super.start_objective()
 	set_process(true)
 	emit_signal("shake_world", duration)
-	print("started DUCKCOVERHOLD")
 
 func _process(delta):
 	if not active or not enabled:

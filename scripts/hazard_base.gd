@@ -32,13 +32,9 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func _on_detection_area_body_entered(body: Node3D) -> void:
-	
-	if !scene_base.level_active:
-		return
-		
 	if !is_active:
 		return
-		
+	print(body)
 	hazard_triggered.emit()
 	audio_player.play()
 
