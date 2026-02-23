@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://ctfsxxskdtd3j"]
+[gd_scene load_steps=92 format=3 uid="uid://ckjbgxs7pcdii"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_inwr5"]
 [ext_resource type="Script" uid="uid://dabt4rsi4n6s5" path="res://scripts/level_2_sm.gd" id="2_inwr5"]
@@ -22,14 +22,14 @@
 [ext_resource type="Script" uid="uid://dn0rhw5ql5k7m" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="20_rogqt"]
 [ext_resource type="PackedScene" uid="uid://dgya7syy32d8d" path="res://custom_scenes/floor.tscn" id="21_bsh8r"]
 [ext_resource type="PackedScene" uid="uid://8u1o3tw0fktd" path="res://assets/maps/house_1.blend" id="22_sy2yg"]
-[ext_resource type="PackedScene" uid="uid://briidrsj8atop" path="res://custom_scenes/jammed_door.tscn" id="23_q0ql7"]
+[ext_resource type="PackedScene" uid="uid://ciy4kh1na180s" path="res://custom_scenes/jammed_door_new.tscn" id="24_1cuvt"]
 [ext_resource type="PackedScene" uid="uid://crte44g8idacl" path="res://hazards/electrical_fire.tscn" id="24_rddgb"]
 [ext_resource type="PackedScene" uid="uid://c5jkbtv57haa3" path="res://hazards/broken_glass.tscn" id="25_mg5to"]
 [ext_resource type="PackedScene" uid="uid://c83bvn3hvunbw" path="res://hazards/shaker.tscn" id="26_1xdl0"]
 [ext_resource type="PackedScene" uid="uid://dsaovvehgewyy" path="res://objectives/victim_rescue.tscn" id="27_m763p"]
 [ext_resource type="PackedScene" uid="uid://bp4qsothxd80g" path="res://custom_scenes/injured.tscn" id="28_kvtuh"]
 [ext_resource type="PackedScene" uid="uid://cexlre72hlkim" path="res://custom_scenes/duck_cover_hold_qte.tscn" id="29_ngpef"]
-[ext_resource type="PackedScene" uid="uid://d1dbh27fj76c2" path="res://custom_scenes/stretcher_objective.tscn" id="31_1cuvt"]
+[ext_resource type="PackedScene" uid="uid://vljehl314yjw" path="res://custom_scenes/stretcher_objective.tscn" id="31_1cuvt"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="31_4wll4"]
 [ext_resource type="PackedScene" uid="uid://df8ckf7krjyl3" path="res://custom_scenes/ois_hammer.tscn" id="32_agwwm"]
 [ext_resource type="PackedScene" uid="uid://bx753cjs4touu" path="res://custom_scenes/fire_extinguisher.tscn" id="33_wwoh5"]
@@ -347,11 +347,11 @@ metadata/_custom_type_script = "uid://bcpy4a75rao8y"
 [node name="house_1" parent="WorldShaker" index="3" instance=ExtResource("22_sy2yg")]
 transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0.0547667, -0.0411397, -8.9983)
 
-[node name="JammedDoor" parent="WorldShaker/house_1" index="18" instance=ExtResource("23_q0ql7")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.29535, 1.00429, 0.411374)
+[node name="JammedDoor3" parent="WorldShaker/house_1" index="18" instance=ExtResource("24_1cuvt")]
+transform = Transform3D(-3.47506e-08, 0, -0.795, 0, 0.795, 0, 0.795, 0, -3.47506e-08, -2.27689, 1.00016, 0.448364)
 
-[node name="JammedDoor2" parent="WorldShaker/house_1" index="19" instance=ExtResource("23_q0ql7")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.07924, 1, 0.413716)
+[node name="JammedDoor4" parent="WorldShaker/house_1" index="19" instance=ExtResource("24_1cuvt")]
+transform = Transform3D(-3.47506e-08, 0, -0.795, 0, 0.795, 0, 0.795, 0, -3.47506e-08, 1.06593, 1.00016, 0.419806)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WorldShaker/house_1" index="20"]
 collision_layer = 536870912

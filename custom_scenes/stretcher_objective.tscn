@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1dbh27fj76c2"]
+[gd_scene load_steps=4 format=3 uid="uid://vljehl314yjw"]
 
 [ext_resource type="Script" uid="uid://bdltk82vkx5pa" path="res://stretcher_objective.gd" id="1_toeq1"]
 [ext_resource type="PackedScene" uid="uid://v4lnugtph4cp" path="res://addons/stretcher_nonpickable.tscn" id="2_ann0c"]

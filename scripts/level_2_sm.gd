@@ -248,6 +248,10 @@ func disable_other_objectives(obj: ObjectiveBase):
 			other_obj.enabled = false
 
 func _on_objective_started(obj: ObjectiveBase):
+	if obj is StretcherObjective:
+		var cur_obj: StretcherObjective = obj as StretcherObjective
+		if !cur_obj.can_be_enabled:
+			return
 	current_objective = obj
 	hud_manager.on_obj_started(obj)
 	

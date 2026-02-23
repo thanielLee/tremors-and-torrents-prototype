@@ -8,7 +8,7 @@ class_name StretcherNonPickable
 @onready var position_vector: Vector3 = Vector3(0.0, 0.0, 1.5)
 @onready var injured_mesh: Node3D = $Injured
 @onready var responder_mesh: Node3D = $responder1
-@onready var injured_node: Node3D = $"../../Injured"
+@onready var injured_node: ObjectiveBase = $"../../Injured"
 @onready var responder_collision: StaticBody3D = $responder1/StaticBody3D
 var handle_one_transform: Transform3D
 var handle_two_transform: Transform3D
@@ -26,6 +26,8 @@ var one_handed_keeping_track: bool = false
 var one_handed_time: float = 0.0
 var is_on_ground: bool = false
 var physics_state_space: PhysicsDirectSpaceState3D
+var starting_vec: Vector3
+var setup_starting_vec: bool = false
 
 
 # objective logic
@@ -50,6 +52,10 @@ func _ready() -> void:
 	injured_mesh.visible = false
 	responder_collision.collision_layer = 0
 	physics_state_space = get_world_3d().direct_space_state
+	injured_node.connect("objective_completed", _set_objective_ready)
+	
+func _set_objective_ready():
+	objective_script.can_be_enabled = true
 	
 func _handle_one_picked_up(pickable, by) -> void:
 	handle_one_hand = by.get_parent()
@@ -111,6 +117,9 @@ func _put_stretcher_on_ground():
 	
 	global_position = intersection_point + Vector3(0.0, 0.3, 0.0)
 	
+	if !objective_script.can_be_enabled:
+		return
+		
 	if ((global_position-Vector3(-3.5, 0.4, -14.6)).length() <= 5.0) and injured_node.completed:
 		injured_mesh.visible = true
 		injured_node.visible = false
@@ -120,6 +129,10 @@ func _put_stretcher_on_ground():
 
 func _process(delta: float) -> void:
 	pass
+	#if !can_be_enabled:
+		#objective_script.enabled = false
+	#else:
+		#objective_script.enabled = true
 
 func _physics_process(delta):
 	if handle_one_hand != null and handle_two_hand != null:
@@ -128,6 +141,10 @@ func _physics_process(delta):
 			responder_mesh.visible = true
 			_setup_player_info()
 			objective_script.start_objective()
+			var test_vec = -xr_camera.basis.z
+			test_vec.y = 0.0
+			test_vec = test_vec.normalized()
+			starting_vec = test_vec
 		
 		responder_mesh.global_position.y = 0.0
 			
@@ -135,10 +152,9 @@ func _physics_process(delta):
 		#var hand_two_vec = (handle_two_hand.global_position - hands_midpoint).normalized()
 		#
 		#var hand_two_angle = acos(hand_two_vec.dot(Vector3(-1.0, 0.0, 0.0)))
-		var origin_plane = Plane(xr_origin.global_basis.y, xr_origin.global_position)
-		var test_vec = -xr_camera.basis.z
-		test_vec.y = 0.0
-		var new_transform = Transform3D(Basis.IDENTITY, hands_midpoint - (test_vec * 1.5))
+			
+		
+		var new_transform = Transform3D(Basis.IDENTITY, hands_midpoint - (starting_vec * 1.5))
 		#var new_transform = Transform3D(Basis.IDENTITY, hands_midpoint - (-xr_origin.basis.z * 1.5))
 		global_transform = new_transform.looking_at(hands_midpoint, Vector3.UP, true)
 	#elif handle_one_hand != null or handle_two_hand != null:
@@ -166,6 +182,7 @@ func _physics_process(delta):
 	else:
 		one_handed_keeping_track = false
 		one_handed_time = 0.0
+		setup_starting_vec = false
 		
 		if not is_on_ground:
 			_put_stretcher_on_ground()
