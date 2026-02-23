@@ -7,6 +7,9 @@ extends ObjectiveBase
 	$BandageStage2
 ]
 var current_stage : int
+
+@onready var ois_twist_receiver: OISTwistReceiver = $OISTwistReceiver
+
 @onready var bandage_sound_1: AudioStreamPlayer3D = $BandageSound1
 @onready var bandage_sound_2: AudioStreamPlayer3D = $BandageSound2
 var sounds
@@ -73,3 +76,16 @@ func play_bandage_sound():
 func turn_off():
 	$Mesh.visible = false
 	bandage_stages[2].visible = false
+
+func _on_reset():
+	# reset bandage stages
+	for stage in bandage_stages:
+		stage.visible = false
+	current_stage = -1
+	
+	ois_twist_receiver.completed = false
+	ois_twist_receiver.total_progress = 0
+	ois_twist_receiver.past_progress = 0
+	ois_twist_receiver.total_angle = 0
+
+	

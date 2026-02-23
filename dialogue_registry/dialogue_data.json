@@ -111,7 +111,7 @@
             },
             { 
                 "text": "Around you are multiple chambers.", 
-                "duration": 2.8 
+                "duration": 3.5
             },
             { 
                 "text": "Each chamber contains a specific objective scenario from our disaster response operations.", 
@@ -128,6 +128,14 @@
             { 
                 "text": "Observe your environment carefully. Use the correct tools. Apply proper procedure.", 
                 "duration": 4.5 
+            },
+            {
+                "text": "Should you have any questions about the scenario or the tools at your disposal,\n feel free to ask the assigned guide per objective.",
+                "duration": 6.0
+            },
+            {
+                "text": "Interact with them by aiming at them and pressing the trigger on your right controller.",
+                "duration": 4.0
             },
             { 
                 "text": "If you wish to attempt the scenario again, locate the reset button on the chamber wall.", 
@@ -170,6 +178,10 @@
             { 
                 "text": "You are free to enter any chamber and practice its objective.", 
                 "duration": 4.2 
+            },
+            {
+                "text": "Interact with the assigned guide in each chamber using the trigger of the right\n controller for instructions and tips on how to complete the objective.",
+                "duration": 6.0
             },
             { 
                 "text": "There are no time limits or penalties here.", 

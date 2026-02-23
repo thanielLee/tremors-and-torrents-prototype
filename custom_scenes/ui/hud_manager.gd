@@ -82,6 +82,9 @@ func on_obj_failed(obj: Node):
 func update_obj_status_label(time: float):
 	hud_script.update_obj_status_label(time)
 
+func hide_obj_container():
+	hud_script.hide_obj_container()
+
 func qte_update_status(status: bool):
 	hud_script.update_qte_status_label(status)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://ckn5firtu6im3"]
+[gd_scene load_steps=54 format=3 uid="uid://ckn5firtu6im3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://dxrd1bf6mcajs" path="res://levels/level_1.gd" id="2_aerfg"]
@@ -37,6 +37,10 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rf48r"]
 radius = 0.05
+
+[sub_resource type="SphereMesh" id="SphereMesh_tqj1w"]
+radius = 0.05
+height = 0.1
 
 [sub_resource type="Resource" id="Resource_dp1ib"]
 script = ExtResource("7_toluw")
@@ -112,9 +116,6 @@ size = Vector3(9, 1, 4)
 [node name="Level1" instance=ExtResource("1_lmdqw")]
 script = ExtResource("2_aerfg")
 
-[node name="XROrigin3D" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5273, 0, -5.23739)
-
 [node name="FunctionPointer" parent="XROrigin3D/RightHand" index="4" instance=ExtResource("3_4knja")]
 distance = 1000.0
 show_laser = 2
@@ -122,12 +123,15 @@ laser_length = 1
 laser_material = ExtResource("4_voubc")
 collide_with_areas = true
 
-[node name="Area3D" type="Area3D" parent="XROrigin3D/RightHand" index="5"]
-collision_layer = 0
+[node name="ButtonInteract" type="Area3D" parent="XROrigin3D/RightHand" index="5"]
+collision_layer = 2147483648
 collision_mask = 2147483648
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/RightHand/Area3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/RightHand/ButtonInteract" index="0"]
 shape = SubResource("SphereShape3D_rf48r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightHand/ButtonInteract" index="1"]
+mesh = SubResource("SphereMesh_tqj1w")
 
 [node name="Environment" type="Node3D" parent="." index="1"]
 

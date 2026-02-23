@@ -23,7 +23,7 @@ var obj_logic: ObjectiveBase
 var started: bool = false
 var completed: bool = false
 
-var object_parent: Hazard
+var object_parent: Node
 
 func _ready():
 	parent_pickable.connect("action_pressed", start_action)

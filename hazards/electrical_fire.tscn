@@ -51,6 +51,7 @@ omni_attenuation = 0.215
 
 [node name="AmbientFireNoise" type="AudioStreamPlayer3D" parent="." index="3"]
 stream = ExtResource("3_gq0g6")
+volume_db = -10.909
 unit_size = 5.0
 pitch_scale = 0.9
 autoplay = true

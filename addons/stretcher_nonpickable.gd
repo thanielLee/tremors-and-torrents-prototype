@@ -26,7 +26,7 @@ var is_on_ground: bool = false
 var physics_state_space: PhysicsDirectSpaceState3D
 
 # objective logic
-@onready var objective_script: ObjectiveBase = $ObjectiveStretcher
+@onready var objective_script: ObjectiveBase = $ObjectiveLogic
 
 
 signal strecher_one_handed(time: float)

@@ -87,7 +87,8 @@ func on_obj_failed(obj: ObjectiveBase):
 func update_obj_status_label(time: float):
 	timer_label.text = "%.2f" % time
 
-
+func hide_obj_container():
+	objective_container.hide()
 
 func update_qte_status_label(status: bool):
 	if status:

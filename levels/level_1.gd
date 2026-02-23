@@ -110,6 +110,7 @@ func _on_objective_failed(obj: ObjectiveBase):
 func _on_objective_reset(obj: ObjectiveBase):
 	obj_active = false
 	hud_manager.hide_timer()
+	hud_manager.hide_obj_container()
 	# Reset the objective state
 	if current_objective == obj:
 		current_objective = null
