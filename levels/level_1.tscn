@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://ckn5firtu6im3"]
+[gd_scene load_steps=53 format=3 uid="uid://ckn5firtu6im3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://dxrd1bf6mcajs" path="res://levels/level_1.gd" id="2_aerfg"]
@@ -35,12 +35,8 @@
 [ext_resource type="Script" uid="uid://b4seunyy8fkyl" path="res://custom_scenes/ui/dialogue_manager.gd" id="33_rf48r"]
 [ext_resource type="PackedScene" uid="uid://bwvp4b0em2nh4" path="res://custom_scenes/ui/dialogue_ui.tscn" id="34_toluw"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_voubc"]
-radius = 0.0619181
-
-[sub_resource type="SphereMesh" id="SphereMesh_voubc"]
-radius = 0.062
-height = 0.062
+[sub_resource type="SphereShape3D" id="SphereShape3D_rf48r"]
+radius = 0.05
 
 [sub_resource type="Resource" id="Resource_dp1ib"]
 script = ExtResource("7_toluw")
@@ -126,16 +122,12 @@ laser_length = 1
 laser_material = ExtResource("4_voubc")
 collide_with_areas = true
 
-[node name="RigidBody3D" type="RigidBody3D" parent="XROrigin3D/RightHand" index="5"]
-collision_layer = 2147483648
+[node name="Area3D" type="Area3D" parent="XROrigin3D/RightHand" index="5"]
+collision_layer = 0
 collision_mask = 2147483648
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/RightHand/RigidBody3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0313994, 0.0335441)
-shape = SubResource("SphereShape3D_voubc")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightHand/RigidBody3D" index="1"]
-mesh = SubResource("SphereMesh_voubc")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/RightHand/Area3D" index="0"]
+shape = SubResource("SphereShape3D_rf48r")
 
 [node name="Environment" type="Node3D" parent="." index="1"]
 
@@ -244,54 +236,54 @@ transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="Guide" parent="NPCs" index="1" instance=ExtResource("8_oqlok")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 14.5922, 0, 2.52157)
-registry_name = "SandboxGuide"
-display_name = "Guide"
-dialogue_states = Array[String](["sandbox_repeat", "sandbox_welcome"])
+registry_name = "BandagingGuide"
+display_name = "Bandaging Guide"
+dialogue_states = Array[String](["instructions"])
 
 [node name="responder1" parent="NPCs/Guide" index="2" instance=ExtResource("9_7nvrk")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="Guide3" parent="NPCs" index="2" instance=ExtResource("8_oqlok")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 30.8638, 0, 2.52157)
-registry_name = "SandboxGuide"
-display_name = "Guide"
-dialogue_states = Array[String](["sandbox_repeat", "sandbox_welcome"])
+registry_name = "FireExtinguishGuide"
+display_name = "Fire Extinguishing Guide"
+dialogue_states = Array[String](["instructions"])
 
 [node name="responder1" parent="NPCs/Guide3" index="2" instance=ExtResource("9_7nvrk")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="Guide4" parent="NPCs" index="3" instance=ExtResource("8_oqlok")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 47.358, 0, 2.52157)
-registry_name = "SandboxGuide"
-display_name = "Guide"
-dialogue_states = Array[String](["sandbox_repeat", "sandbox_welcome"])
+registry_name = "AssistedWalkGuide"
+display_name = "Assisted Walk Guide"
+dialogue_states = Array[String](["instructions"])
 
 [node name="responder1" parent="NPCs/Guide4" index="2" instance=ExtResource("9_7nvrk")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="Guide5" parent="NPCs" index="4" instance=ExtResource("8_oqlok")]
 transform = Transform3D(1, 0, -1.78814e-07, 0, 1, 0, 1.78814e-07, 0, 1, 40.7307, 0, -9.99232)
-registry_name = "SandboxGuide"
+registry_name = "BlockedOffGuide"
 display_name = "Guide"
-dialogue_states = Array[String](["sandbox_repeat", "sandbox_welcome"])
+dialogue_states = Array[String](["instructions"])
 
 [node name="responder1" parent="NPCs/Guide5" index="2" instance=ExtResource("9_7nvrk")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="Guide6" parent="NPCs" index="5" instance=ExtResource("8_oqlok")]
 transform = Transform3D(1, 0, -1.78814e-07, 0, 1, 0, 1.78814e-07, 0, 1, 25.1002, 0, -9.99232)
-registry_name = "SandboxGuide"
-display_name = "Guide"
-dialogue_states = Array[String](["sandbox_repeat", "sandbox_welcome"])
+registry_name = "StretcherGuide"
+display_name = "Stretcher Guide"
+dialogue_states = Array[String](["instructions"])
 
 [node name="responder1" parent="NPCs/Guide6" index="2" instance=ExtResource("9_7nvrk")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="Guide2" parent="NPCs" index="6" instance=ExtResource("8_oqlok")]
 transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 8.75789, 0, -8.36647)
-registry_name = "SandboxGuide"
-display_name = "Guide"
-dialogue_states = Array[String](["sandbox_repeat", "sandbox_welcome"])
+registry_name = "DuckCoverHoldGuide"
+display_name = "Duck Cover Hold Guide"
+dialogue_states = Array[String](["instructions"])
 
 [node name="responder1" parent="NPCs/Guide2" index="2" instance=ExtResource("9_7nvrk")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)

@@ -196,5 +196,165 @@
                 "duration": 2.5 
             }
         ]
+    },
+    "DuckCoverHoldGuide": {
+        "instructions": [
+            { 
+                "text": "Warning, aftershock detected.", 
+                "duration": 2.4 
+            },
+            { 
+                "text": "Immediately perform duck, cover, and hold.", 
+                "duration": 3.4 
+            },
+            { 
+                "text": "Crouch down to reduce exposure.", 
+                "duration": 2.6 
+            },
+            { 
+                "text": "Place both hands over your head for protection.", 
+                "duration": 3.4 
+            },
+            { 
+                "text": "Hold your position until the ground shaking stops.", 
+                "duration": 3.6 
+            },
+            { 
+                "text": "Stay alert and resume operations when safe.", 
+                "duration": 3.0 
+            }
+        ]
+    },
+    "AssistedWalkGuide": {
+        "instructions": [
+            { 
+                "text": "Assist this injured civilian to the safe area.", 
+                "duration": 3.6 
+            },
+            { 
+                "text": "Support the victim by grabbing their waist with one hand.", 
+                "duration": 3.8 
+            },
+            { 
+                "text": "Use your other hand to hold the victim's raised arm.", 
+                "duration": 3.6 
+            },
+            { 
+                "text": "Keep your hands close to these positions to support their movement.", 
+                "duration": 4.2 
+            },
+            { 
+                "text": "Guide the civilian carefully toward the evacuation area.", 
+                "duration": 3.8 
+            },
+            { 
+                "text": "Maintain steady assistance until the victim reaches safety.", 
+                "duration": 4.0 
+            }
+        ]
+    },
+    "FireExtinguishGuide": {
+        "instructions": [
+            { 
+                "text": "Seems like a fire broke out.", 
+                "duration": 3.8 
+            },
+            { 
+                "text": "Open your emergency kit and locate the fire extinguisher.", 
+                "duration": 4.0 
+            },
+            { 
+                "text": "Pick up the fire extinguisher.", 
+                "duration": 2.4 
+            },
+            { 
+                "text": "Aim at the base of the fire.", 
+                "duration": 2.8 
+            },
+            { 
+                "text": "Press the trigger on your controller to discharge the extinguisher.", 
+                "duration": 4.2 
+            },
+            { 
+                "text": "Continue spraying until the fire is fully extinguished.", 
+                "duration": 3.6 
+            }
+        ]
+    },
+    "StretcherGuide": {
+        "instructions": [
+            { 
+                "text": "Responder, the injured civilian must be transported to the evacuation area.", 
+                "duration": 4.2 
+            },
+            { 
+                "text": "Locate the stretcher nearby.", 
+                "duration": 2.6 
+            },
+            { 
+                "text": "Grab both stretcher handles by holding them with your controllers.", 
+                "duration": 4.2 
+            },
+            { 
+                "text": "Position the stretcher around the victim.", 
+                "duration": 3.4 
+            },
+            { 
+                "text": "Lift the stretcher carefully.", 
+                "duration": 2.4 
+            },
+            { 
+                "text": "Carry the victim to the designated safe area or evacuation zone.", 
+                "duration": 4.2 
+            },
+            { 
+                "text": "Lower the stretcher to safely drop the victim at the evac area.", 
+                "duration": 4.0 
+            }
+        ]
+    },
+    "BandagingGuide": {
+        "instructions": [
+            { 
+                "text": "Responder, this victim needs immediate first aid.", 
+                "duration": 3.0 
+            },
+            { 
+                "text": "Open your emergency kit by pressing the trigger on your left controller.", 
+                "duration": 4.2 
+            },
+            { 
+                "text": "Locate the bandage inside the emergency kit and pick it up.", 
+                "duration": 3.8 
+            },
+            { 
+                "text": "Find the wound on the injured victim.", 
+                "duration": 2.8 
+            },
+            { 
+                "text": "While holding the bandage, perform a circling motion around the wound.", 
+                "duration": 4.5 
+            },
+            { 
+                "text": "Continue wrapping until the wound is fully covered.", 
+                "duration": 3.6 
+            },
+            { 
+                "text": "Good work. Proper bandaging prevents further injury.", 
+                "duration": 3.4 
+            }
+        ]
+    },
+    "BlockedOffGuide": {
+        "instructions": [
+            { 
+                "text": "This area is currently inaccessible.", 
+                "duration": 3.0 
+            },
+            { 
+                "text": "Please proceed to the next available objective.", 
+                "duration": 3.0 
+            }
+        ]
     }
 }
