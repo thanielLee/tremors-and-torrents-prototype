@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwvp4b0em2nh4"]
+
+[ext_resource type="PackedScene" uid="uid://bpunjpmf5cvyy" path="res://custom_scenes/ui/hud.tscn" id="1_dg6fo"]
+[ext_resource type="PackedScene" uid="uid://dq001x5p05els" path="res://custom_scenes/ui/dialogue_ui_2d.tscn" id="2_khcm8"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_c0b4f"]
+resource_local_to_scene = true
+size = Vector2(16, 9)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_dg6fo"]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_khcm8"]
+render_priority = 60
+transparency = 1
+no_depth_test = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_dg6fo")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2sylk"]
+resource_local_to_scene = true
+size = Vector3(16, 9, 0.02)
+
+[node name="DialogueUI" instance=ExtResource("1_dg6fo")]
+scene = ExtResource("2_khcm8")
+scene_properties_keys = PackedStringArray("dialogue_ui.gd", "json_path")
+json_path = "res://dialogue_registry/dialogue_data.json"
+
+[node name="Screen" parent="." index="1"]
+mesh = SubResource("QuadMesh_c0b4f")
+surface_material_override/0 = SubResource("StandardMaterial3D_khcm8")
+
+[node name="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_2sylk")

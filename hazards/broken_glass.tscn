@@ -1,17 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://c5jkbtv57haa3"]
 
 [ext_resource type="PackedScene" uid="uid://dts3qx1g7762" path="res://hazards/hazard_base.tscn" id="1_o7m3x"]
+[ext_resource type="PackedScene" uid="uid://d0k002ycfbskd" path="res://assets/debris/glass_shards_clean.fbx" id="2_3ei5b"]
+[ext_resource type="AudioStream" uid="uid://c2rjfeme465js" path="res://assets/audio/glass_stepped_on.wav" id="3_5r2ds"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ml4q5"]
-size = Vector3(1, 0.2, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y8vrh"]
-transparency = 1
-albedo_color = Color(0.847475, 0.847474, 0.847475, 0.345098)
-
-[sub_resource type="BoxMesh" id="BoxMesh_i1a1c"]
-material = SubResource("StandardMaterial3D_y8vrh")
-size = Vector3(1, 0.2, 1)
+size = Vector3(2, 0.2, 2)
 
 [node name="BrokenGlass" instance=ExtResource("1_o7m3x")]
 hazard_name = "Broken Glass"
@@ -25,5 +19,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" index="0"]
 shape = SubResource("BoxShape3D_ml4q5")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="DetectionArea" index="1"]
-mesh = SubResource("BoxMesh_i1a1c")
+[node name="glass_shards_clean" parent="." index="1" instance=ExtResource("2_3ei5b")]
+
+[node name="OnTriggerAudio" parent="." index="2"]
+stream = ExtResource("3_5r2ds")

@@ -1,9 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c7a6hkyf5nh4y"]
 
-[ext_resource type="Script" uid="uid://cxxed65jf23xe" path="res://scripts/objective_base.gd" id="1_82ciq"]
+[ext_resource type="Script" uid="uid://5fymrsclibl7" path="res://objectives/objective_base.gd" id="1_xm7ty"]
 
 [node name="ObjectiveBase" type="Node3D"]
-script = ExtResource("1_82ciq")
-
-[node name="DetectionArea" type="Area3D" parent="."]
-collision_mask = 524288
+script = ExtResource("1_xm7ty")

@@ -1,0 +1,50 @@
+[gd_scene load_steps=11 format=3 uid="uid://bx753cjs4touu"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_6w6np"]
+[ext_resource type="PackedScene" uid="uid://care5r0t3w75t" path="res://custom_scenes/fire_extinguisher_collision.tscn" id="2_av7im"]
+[ext_resource type="Script" uid="uid://m1xt5d5ptcbt" path="res://custom_scenes/fire_extinguisher.gd" id="3_dycgs"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4_av7im"]
+[ext_resource type="Resource" uid="uid://dd4sqdg8upblx" path="res://scenes/pickable_demo/poses/pose_hammer_left.tres" id="5_uc4am"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="6_jysju"]
+[ext_resource type="PackedScene" uid="uid://du1o83m8hny8i" path="res://vfx/vfx_smoke.tscn" id="7_uc4am"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dycgs"]
+size = Vector3(0.17, 0.565, 0.245)
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_av7im"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_av7im"]
+radius = 0.25
+height = 0.5
+
+[node name="FireExtinguisher" instance=ExtResource("1_6w6np")]
+collision_layer = 36
+collision_mask = 196644
+
+[node name="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.055, 0)
+shape = SubResource("BoxShape3D_dycgs")
+
+[node name="fire_extinguisher (1)" parent="." index="1" instance=ExtResource("2_av7im")]
+
+[node name="FireExtinguisherManager" type="Node3D" parent="." index="2"]
+script = ExtResource("3_dycgs")
+
+[node name="GrabPointHandLeft" parent="." index="3" instance=ExtResource("4_av7im")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0158191, -0.0210431, -0.0637154)
+mode = 1
+hand_pose = ExtResource("5_uc4am")
+
+[node name="GrabPointHandRight" parent="." index="4" instance=ExtResource("6_jysju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.214391, -0.0247515)
+mode = 2
+
+[node name="DebugLine" type="MeshInstance3D" parent="." index="5"]
+mesh = SubResource("ImmediateMesh_av7im")
+
+[node name="CircleDebug" type="MeshInstance3D" parent="." index="6"]
+visible = false
+mesh = SubResource("SphereMesh_av7im")
+
+[node name="VfxSmoke" parent="." index="7" instance=ExtResource("7_uc4am")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 0)

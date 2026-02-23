@@ -52,6 +52,8 @@ func _ready() -> void:
 	if not Engine.is_editor_hint():
 	# Make sure signals are connected.
 		for inventory_slot in get_children():
+			if inventory_slot != InventorySlot:
+				continue
 			inventory_slot.current_object_in_slot.connect(update_slot_item)
 			inventory_slot.position += local_transform_adjustment
 			print("[AVRE - Inventory] Slot "+inventory_slot.name+" initiated.")

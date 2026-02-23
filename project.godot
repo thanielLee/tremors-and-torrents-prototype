@@ -11,9 +11,11 @@ config_version=5
 [application]
 
 config/name="Tremors and Torrents Prototype"
-run/main_scene="res://prototype_staging.tscn"
+run/main_scene="uid://chbda4yq5m63w"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.462745, 0.345098, 0.92549, 1)
+boot_splash/image="uid://cpsxj44ur1jf"
+config/icon="uid://cpsxj44ur1jf"
 
 [autoload]
 
@@ -21,9 +23,12 @@ XRToolsUserSettings="*res://addons/godot-xr-tools/user_settings/user_settings.gd
 XRToolsRumbleManager="*res://addons/godot-xr-tools/rumble/rumble_manager.gd"
 XrSimulator="*res://addons/xr-simulator/XRSimulator.tscn"
 EventManager="*res://addons/ateneo-virtual-reality-escape/event-management-system/event_manager.gd"
+DialogueSingleton="res://ui/dialogue_singleton.gd"
 
 [display]
 
+window/size/viewport_width=1600
+window/size/viewport_height=900
 window/size/mode=3
 
 [dotnet]
@@ -34,13 +39,10 @@ project/assembly_name="Tremors and Torrents Prototype"
 
 enabled=PackedStringArray("res://addons/ateneo-virtual-reality-escape/plugin.cfg", "res://addons/godot-xr-tools/plugin.cfg")
 
-[filesystem]
-
-import/blender/enabled=false
-
 [global_group]
 
 can_break="Objects that interact with objects that have the Breakable script"
+dialogue_system=""
 
 [layer_names]
 
@@ -49,6 +51,7 @@ can_break="Objects that interact with objects that have the Breakable script"
 3d_physics/layer_3="Pickable Objects"
 3d_physics/layer_4="Wall Walking"
 3d_physics/layer_5="Grappling Target"
+3d_physics/layer_6="Hazards"
 3d_physics/layer_17="Held Objects"
 3d_physics/layer_18="Player Hands"
 3d_physics/layer_19="Grab Handles"
@@ -57,13 +60,8 @@ can_break="Objects that interact with objects that have the Breakable script"
 3d_physics/layer_22="Hand Pose Areas"
 3d_physics/layer_23="UI Objects"
 
-[rendering]
-
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
-
 [xr]
 
 openxr/enabled=true
-openxr/default_action_map="res://assets/openxr_action_map.tres"
+openxr/default_action_map="uid://decaeu4uxqekl"
 shaders/enabled=true

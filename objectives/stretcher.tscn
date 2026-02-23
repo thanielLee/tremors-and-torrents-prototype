@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8a6mjuwshh7e"]
+
+[ext_resource type="Script" uid="uid://5fymrsclibl7" path="res://objectives/objective_base.gd" id="1_cfopi"]
+
+[node name="Stretcher" type="Node3D"]
+script = ExtResource("1_cfopi")
+objective_name = "Stretcher"
+is_required = true

@@ -16,10 +16,23 @@ signal hazard_triggered
 @export var resolved_points: int = 0
 @export var damage_points: int = 0
 
+@onready var audio_player : AudioStreamPlayer3D = $OnTriggerAudio
+var scene_base: Level2
+
 var triggered: bool = false
+var is_active: bool = true
 
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
 func _on_detection_area_body_entered(body: Node3D) -> void:
-	hazard_triggered.emit(hazard_name)
+	if !is_active:
+		return
+	print(body)
+	hazard_triggered.emit()
+	audio_player.play()
+
+func _process(delta):
+	if !is_active:
+		$AmbientFireNoise.playing = false
+		$AmbientFireNoise.autoplay = false

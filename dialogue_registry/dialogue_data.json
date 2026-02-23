@@ -1,0 +1,372 @@
+{
+    "VictimRescue": {
+        "pre_rescue": [
+            { "text": "Help! I'm trapped under this rubble!", "duration": 2.8 },
+            { "text": "My leg's stuck... please help me move the debris.", "duration": 3.4 }
+        ],
+        "post_rescue": [
+            { "text": "Thank you for rescuing me!", "duration": 2.6 },
+            { "text": "I couldn't have made it without your help.", "duration": 3.0 }
+        ]
+    },
+
+    "TeamCaptain": {
+        "level_2_briefing": [
+            { 
+                "text": "All units, this is Captain Nhoy from the Municipal Disaster Risk Reduction and Management Operations Center.", 
+                "duration": 4.8 
+            },
+            { 
+                "text": "A strong magnitude 6.7 earthquake has affected multiple barangays in the municipality.", 
+                "duration": 4.4 
+            },
+            { 
+                "text": "Ground shaking was recorded at approximately 09:42 AM.", 
+                "duration": 3.3 
+            },
+            { 
+                "text": "Initial reports from the Barangay Committee indicate structural damage.", 
+                "duration": 5.2 
+            },
+            { 
+                "text": "Several houses have collapsed, fires have been reported, and residents are injured.", 
+                "duration": 4.8 
+            },
+            { 
+                "text": "Aftershocks are expected. All responders observe standard safety protocols.", 
+                "duration": 4.6 
+            },
+
+            { 
+                "text": "[b]Primary Objectives:[/b]", 
+                "duration": 2.5 
+            },
+            { 
+                "text": "All units please locate and rescue at least one trapped civilian in the affected barangay.", 
+                "duration": 4.6 
+            },
+            { 
+                "text": "Provide first aid by properly bandaging injured civilians.", 
+                "duration": 4.0 
+            },
+            { 
+                "text": "Transport stabilized victims to the evacuation center using a stretcher.", 
+                "duration": 4.8 
+            },
+            { 
+                "text": "Extinguish any active fires caused by structural damage or gas leaks.", 
+                "duration": 4.5 
+            },
+
+            { 
+                "text": "[b]Safety Protocol:[/b]", 
+                "duration": 2.3 
+            },
+            { 
+                "text": "During aftershocks, immediately perform duck, cover, and hold procedures.", 
+                "duration": 4.6 
+            },
+            { 
+                "text": "Stay alert for falling debris, unstable structures, and damaged electrical lines.", 
+                "duration": 4.8 
+            },
+
+            { 
+                "text": "[b]Operational Directives:[/b]", 
+                "duration": 2.5 
+            },
+            { 
+                "text": "Establish triage and treatment areas at designated evacuation centers.", 
+                "duration": 4.8 
+            },
+            { 
+                "text": "This is a full activation of earthquake response protocols. Prioritize life-saving operations.", 
+                "duration": 5.0 
+            },
+            { 
+                "text": "Operations Center standing by for updates. Execute response immediately.", 
+                "duration": 4.2 
+            }
+        ]
+    },
+
+    
+    "SandboxGuide": {
+        "sandbox_welcome": [
+            { 
+                "text": "Welcome, Lead Responder.", 
+                "duration": 5.0 
+            },
+            { 
+                "text": "You are now in the training sandbox environment.", 
+                "duration": 3.5 
+            },
+            { 
+                "text": "This space is designed for practice, experimentation, and mastery.", 
+                "duration": 4.0 
+            },
+            { 
+                "text": "There is no time limit here. No penalties. No mission failure.", 
+                "duration": 4.2 
+            },
+            { 
+                "text": "Around you are multiple chambers.", 
+                "duration": 3.5
+            },
+            { 
+                "text": "Each chamber contains a specific objective scenario from our disaster response operations.", 
+                "duration": 5.0 
+            },
+            { 
+                "text": "You may enter any chamber at any time.", 
+                "duration": 3.0 
+            },
+            { 
+                "text": "Inside, focus on completing the objective as instructed.", 
+                "duration": 3.5 
+            },
+            { 
+                "text": "Observe your environment carefully. Use the correct tools. Apply proper procedure.", 
+                "duration": 4.5 
+            },
+            {
+                "text": "Should you have any questions about the scenario or the tools at your disposal,\n feel free to ask the assigned guide per objective.",
+                "duration": 6.0
+            },
+            {
+                "text": "Interact with them by aiming at them and pressing the trigger on your right controller.",
+                "duration": 4.0
+            },
+            { 
+                "text": "If you wish to attempt the scenario again, locate the reset button on the chamber wall.", 
+                "duration": 4.8 
+            },
+            { 
+                "text": "Pressing the reset button will restore the chamber to its initial state.", 
+                "duration": 4.5 
+            },
+            { 
+                "text": "You may repeat each objective as many times as necessary.", 
+                "duration": 3.8 
+            },
+            { 
+                "text": "Use this opportunity to refine your technique and improve your response time.", 
+                "duration": 4.6 
+            },
+            { 
+                "text": "When you feel confident, proceed to the full mission scenarios.", 
+                "duration": 4.0 
+            },
+            { 
+                "text": "Training builds readiness. Readiness saves lives.", 
+                "duration": 3.5 
+            },
+            { 
+                "text": "You may begin whenever you are ready.", 
+                "duration": 3.0 
+            }
+        ],
+        "sandbox_repeat": [
+            { 
+                "text": "Back again, Lead Responder?", 
+                "duration": 2.8 
+            },
+            { 
+                "text": "This is the training sandbox environment.", 
+                "duration": 3.2 
+            },
+            { 
+                "text": "You are free to enter any chamber and practice its objective.", 
+                "duration": 4.2 
+            },
+            {
+                "text": "Interact with the assigned guide in each chamber using the trigger of the right\n controller for instructions and tips on how to complete the objective.",
+                "duration": 6.0
+            },
+            { 
+                "text": "There are no time limits or penalties here.", 
+                "duration": 3.6 
+            },
+            { 
+                "text": "Focus on proper procedure and situational awareness.", 
+                "duration": 3.8 
+            },
+            { 
+                "text": "If you want to retry a scenario, use the reset button inside the chamber.", 
+                "duration": 4.8 
+            },
+            { 
+                "text": "You may repeat each objective as many times as needed.", 
+                "duration": 3.8 
+            },
+            { 
+                "text": "Continue training until your actions become instinctive.", 
+                "duration": 4.0 
+            },
+            { 
+                "text": "Proceed when ready.", 
+                "duration": 2.5 
+            }
+        ]
+    },
+    "DuckCoverHoldGuide": {
+        "instructions": [
+            { 
+                "text": "Warning, aftershock detected.", 
+                "duration": 2.4 
+            },
+            { 
+                "text": "Immediately perform duck, cover, and hold.", 
+                "duration": 3.4 
+            },
+            { 
+                "text": "Crouch down to reduce exposure.", 
+                "duration": 2.6 
+            },
+            { 
+                "text": "Place both hands over your head for protection.", 
+                "duration": 3.4 
+            },
+            { 
+                "text": "Hold your position until the ground shaking stops.", 
+                "duration": 3.6 
+            },
+            { 
+                "text": "Stay alert and resume operations when safe.", 
+                "duration": 3.0 
+            }
+        ]
+    },
+    "AssistedWalkGuide": {
+        "instructions": [
+            { 
+                "text": "Assist this injured civilian to the safe area.", 
+                "duration": 3.6 
+            },
+            { 
+                "text": "Support the victim by grabbing their waist with one hand.", 
+                "duration": 3.8 
+            },
+            { 
+                "text": "Use your other hand to hold the victim's raised arm.", 
+                "duration": 3.6 
+            },
+            { 
+                "text": "Keep your hands close to these positions to support their movement.", 
+                "duration": 4.2 
+            },
+            { 
+                "text": "Guide the civilian carefully toward the evacuation area.", 
+                "duration": 3.8 
+            },
+            { 
+                "text": "Maintain steady assistance until the victim reaches safety.", 
+                "duration": 4.0 
+            }
+        ]
+    },
+    "FireExtinguishGuide": {
+        "instructions": [
+            { 
+                "text": "Seems like a fire broke out.", 
+                "duration": 3.8 
+            },
+            { 
+                "text": "Open your emergency kit and locate the fire extinguisher.", 
+                "duration": 4.0 
+            },
+            { 
+                "text": "Pick up the fire extinguisher.", 
+                "duration": 2.4 
+            },
+            { 
+                "text": "Aim at the base of the fire.", 
+                "duration": 2.8 
+            },
+            { 
+                "text": "Press the trigger on your controller to discharge the extinguisher.", 
+                "duration": 4.2 
+            },
+            { 
+                "text": "Continue spraying until the fire is fully extinguished.", 
+                "duration": 3.6 
+            }
+        ]
+    },
+    "StretcherGuide": {
+        "instructions": [
+            { 
+                "text": "Responder, the injured civilian must be transported to the evacuation area.", 
+                "duration": 4.2 
+            },
+            { 
+                "text": "Locate the stretcher nearby.", 
+                "duration": 2.6 
+            },
+            { 
+                "text": "Grab both stretcher handles by holding them with your controllers.", 
+                "duration": 4.2 
+            },
+            { 
+                "text": "Position the stretcher around the victim.", 
+                "duration": 3.4 
+            },
+            { 
+                "text": "Lift the stretcher carefully.", 
+                "duration": 2.4 
+            },
+            { 
+                "text": "Carry the victim to the designated safe area or evacuation zone.", 
+                "duration": 4.2 
+            },
+            { 
+                "text": "Lower the stretcher to safely drop the victim at the evac area.", 
+                "duration": 4.0 
+            }
+        ]
+    },
+    "BandagingGuide": {
+        "instructions": [
+            { 
+                "text": "Responder, this victim needs immediate first aid.", 
+                "duration": 3.0 
+            },
+            { 
+                "text": "Open your emergency kit by pressing the trigger on your left controller.", 
+                "duration": 4.2 
+            },
+            { 
+                "text": "Locate the bandage inside the emergency kit and pick it up.", 
+                "duration": 3.8 
+            },
+            { 
+                "text": "Find the wound on the injured victim.", 
+                "duration": 2.8 
+            },
+            { 
+                "text": "While holding the bandage, perform a circling motion around the wound.", 
+                "duration": 4.5 
+            },
+            { 
+                "text": "Continue wrapping until the wound is fully covered.", 
+                "duration": 3.6 
+            },
+            { 
+                "text": "Good work. Proper bandaging prevents further injury.", 
+                "duration": 3.4 
+            }
+        ]
+    },
+    "BlockedOffGuide": {
+        "instructions": [
+            { 
+                "text": "This area is currently inaccessible.", 
+                "duration": 3.0 
+            },
+            { 
+                "text": "Please proceed to the next available objective.", 
+                "duration": 3.0 
+            }
+        ]
+    }
+}

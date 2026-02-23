@@ -4,6 +4,9 @@ extends Node3D
 @export var shake_duration := 0.5
 @export var shake_intensity := 0.1
 var time_left = 0.0
+@onready var xr_tools_rumbler: XRToolsRumbler = $XRToolsRumbler
+@onready var xr_tools_rumbler_2: XRToolsRumbler = $XRToolsRumbler2
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -19,8 +22,20 @@ func _process(delta):
 	else:
 		global_position = Vector3.ZERO
 
-func shake_world():
-	time_left = shake_duration
-
-func on_shake_hazard_triggered(name: String):
-	shake_world()
+func shake_world(duration):
+	time_left = duration
+	
+	# make new rumble event dynamically
+	var rumble_event := XRToolsRumbleEvent.new()
+	rumble_event.magnitude = 0.8
+	rumble_event.active_during_pause = false
+	rumble_event.indefinite = false
+	rumble_event.duration_ms = int(duration * 1000)
+	
+	# set new rumble event as event of rumblers
+	xr_tools_rumbler.event = rumble_event
+	xr_tools_rumbler_2.event = rumble_event
+	
+	# rumble
+	xr_tools_rumbler.rumble()
+	xr_tools_rumbler_2.rumble()

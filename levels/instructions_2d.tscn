@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://occi6hsabsk1"]
+[gd_scene load_steps=2 format=3 uid="uid://occi6hsabsk1"]
+
+[ext_resource type="Texture2D" uid="uid://cpsxj44ur1jf" path="res://textures/Tremors and Torrents - Game Logo-02.png" id="1_siifh"]
 
 [node name="Instructions" type="Control"]
+custom_minimum_size = Vector2(1600, 900)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -9,20 +12,62 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1600, 900)
 layout_mode = 0
 offset_right = 400.0
 offset_bottom = 250.0
-color = Color(0, 0, 0, 0.87451)
+color = Color(0.171095, 0.0783635, 0.414204, 1)
 
-[node name="Description" type="RichTextLabel" parent="."]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 390.0
-offset_bottom = 240.0
+[node name="Logo" type="TextureRect" parent="."]
+layout_mode = 1
+offset_left = 400.0
+offset_top = -160.0
+offset_right = 6025.0
+offset_bottom = 4340.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_siifh")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -750.0
+offset_top = -500.0
+offset_right = 750.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 100
+
+[node name="Description" type="RichTextLabel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(700, 600)
+layout_mode = 2
 theme_override_constants/line_separation = -3
-theme_override_font_sizes/normal_font_size = 12
-text = "Main Menu 
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[font_size=30]
+[b]About the Experience[/b]
 
-You are in the main menu scene where you can choose a level to go to.
+You are stepping into a virtual disaster simulation designed to teach disaster preparedness and safe response practices.
+
+You will take on the role of a responder, where observation, decision-making, and proper procedure are critical.
+[/font_size]"
+
+[node name="Description2" type="RichTextLabel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(700, 600)
+layout_mode = 2
+theme_override_constants/line_separation = -3
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[font_size=30]
+[b]How to Begin[/b]
+
+You may freely move around the environment. Using the analog stick in the left controller
+
+When you are ready, walk into a [b]teleporter[/b] to enter a level. Each teleporter leads to a different disaster scenario.
+
+Follow all in-game instructions carefully and stay aware of your surroundings at all times.
+[/font_size]
 "

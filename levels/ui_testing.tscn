@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://m2m1s8sqtvgb"]
+
+[ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_w74nf"]
+[ext_resource type="Script" uid="uid://burw7xd2wdk36" path="res://scripts/ui_testing.gd" id="2_32mhu"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w74nf"]
+
+[sub_resource type="Sky" id="Sky_ff7d2"]
+sky_material = SubResource("ProceduralSkyMaterial_w74nf")
+
+[sub_resource type="Environment" id="Environment_32mhu"]
+background_mode = 2
+sky = SubResource("Sky_ff7d2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wt6rw"]
+albedo_color = Color(0.180005, 0.180005, 0.180005, 1)
+
+[node name="UITesting" instance=ExtResource("1_w74nf")]
+script = ExtResource("2_32mhu")
+
+[node name="Environment" type="Node3D" parent="." index="1"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" index="0"]
+transform = Transform3D(0.172856, 0.918606, -0.355364, 0.284139, 0.298949, 0.910986, 0.943073, -0.258442, -0.209337, -13.9411, 25.5031, -11.6588)
+light_energy = 2.0
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Environment" index="1"]
+transform = Transform3D(0.518685, -0.847034, 0.116183, 0.284139, 0.298949, 0.910986, -0.806369, -0.439502, 0.395736, 17.6631, 25.5031, 12.542)
+light_energy = 2.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" index="2"]
+environment = SubResource("Environment_32mhu")
+
+[node name="Floor" type="CSGBox3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.075, 4.2)
+use_collision = true
+size = Vector3(50, 0.15, 50)
+material = SubResource("StandardMaterial3D_wt6rw")

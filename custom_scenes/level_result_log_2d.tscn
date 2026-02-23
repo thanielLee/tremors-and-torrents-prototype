@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://culd7ukt6dcqw"]
+
+[ext_resource type="Script" uid="uid://bbvc7pviee5a7" path="res://custom_scenes/log.gd" id="1_x5ly5"]
+
+[node name="Log" type="CanvasLayer"]
+script = ExtResource("1_x5ly5")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+custom_minimum_size = Vector2(1600, 900)
+layout_mode = 0
+offset_right = 1603.0
+offset_bottom = 854.0
+color = Color(0, 0, 0, 0.87451)
+
+[node name="Description" type="RichTextLabel" parent="Control"]
+custom_minimum_size = Vector2(120, 800)
+layout_mode = 0
+offset_left = 24.0
+offset_top = 15.0
+offset_right = 1565.0
+offset_bottom = 877.0
+theme_override_constants/line_separation = -3
+theme_override_font_sizes/normal_font_size = 60
+bbcode_enabled = true
+text = "Level 1
+
+You are a disaster responder doing a Search and Rescue.
+
+Objective: Escort the victim safely before time runs out to complete the level
+
+Fail condition:
+- Unable to escort the victim on time
+- Triggered 2 hazards
+- Victim triggers a hazard
+
+Complete optional objectives to  gain more points"

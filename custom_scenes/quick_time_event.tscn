@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ct7rd3k27f5y6"]
+
+[ext_resource type="Script" uid="uid://16n6lf2wblpk" path="res://scripts/quick_time_event.gd" id="1_qem2i"]
+
+[node name="QuickTimeEvent" type="Node3D"]
+script = ExtResource("1_qem2i")
