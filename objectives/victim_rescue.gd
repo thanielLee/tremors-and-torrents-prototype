@@ -86,6 +86,8 @@ func next_state_dialogue():
 
 func _on_victim_safe():
 	complete_objective()
+	area_3d.collision_layer = 1
+	body.collision_layer = 3
 
 func _on_victim_hazard():
 	fail_objective()
@@ -96,18 +98,20 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	if not (left_hand_held and right_hand_held and player):
+		
 		return
 	
 	var pbasis := player.global_transform.basis
-	#var right := pbasis.x.normalized()
+	var right := pbasis.x.normalized()
 	var forward := pbasis.z.normalized()
 	#
+	var target_pos := player.global_position
 	#var target_pos := player.global_position + right*side_offset + forward*back_offset
-	##var target_pos := player.global_position + offset
+	#var target_pos := player.global_position + offset
 	#
-	#target_pos.y = body.global_position.y
+	target_pos.y = body.global_position.y
 	#
-	#body.global_position = target_pos
+	body.global_position = target_pos
 	body.global_transform.basis = Basis().looking_at(forward, Vector3.UP)
 	#body.look_at(body.global_position + Vector3(0, (player.global_position).length(), 0), Vector3.UP, true)
 
@@ -119,6 +123,8 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	
 	player = body.get_parent()
 	start_objective()
+	area_3d.collision_layer = 0
+	body.collision_layer = 0
 	walking_mesh.visible = true
 	lying_down_mesh.visible = false
 

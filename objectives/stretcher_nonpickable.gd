@@ -116,14 +116,16 @@ func _put_stretcher_on_ground():
 	var distance = (global_position-intersection_point).length()
 	stretcher_dropped.emit(distance)
 	
-	global_position = intersection_point + Vector3(0.0, 0.3, 0.0)
+	global_position = intersection_point + Vector3(0.0, 0.5, 0.0)
 	
 		
-	if ((global_position-Vector3(-3.5, 0.4, -14.6)).length() <= 5.0) and injured_node.completed:
+	if ((global_position-injured_node.global_position).length() <= 5.0) and injured_node.completed:
 		injured_mesh.visible = true
 		injured_node.visible = false
-		global_rotation.y = 0
-		global_position = Vector3(-1.605, 0.129, -11.615)
+		global_rotation.y = injured_node.global_rotation.y + deg_to_rad(90)
+		global_position = global_position + Vector3(2.222, 0, 0.834)
+		
+		
 		responder_collision.collision_layer = 1
 
 func _process(delta: float) -> void:
@@ -137,7 +139,7 @@ func _physics_process(delta):
 	if handle_one_hand != null and handle_two_hand != null:
 		
 		if not did_setup_info:
-			responder_mesh.visible = true
+			#responder_mesh.visible = true
 			_setup_player_info()
 			if injured_node.completed:
 				objective_script.start_objective()
@@ -183,11 +185,12 @@ func _physics_process(delta):
 		one_handed_keeping_track = false
 		one_handed_time = 0.0
 		setup_starting_vec = false
+		responder_mesh.global_position.y = 0.0
 		
 		if not is_on_ground:
 			_put_stretcher_on_ground()
 		
-		responder_mesh.visible = false
+		#responder_mesh.visible = false
 		did_setup_info = false
 		
 		

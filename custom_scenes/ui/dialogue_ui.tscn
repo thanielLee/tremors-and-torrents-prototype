@@ -22,6 +22,7 @@ resource_local_to_scene = true
 size = Vector3(16, 9, 0.02)
 
 [node name="DialogueUI" instance=ExtResource("1_dg6fo")]
+collision_layer = 268435456
 scene = ExtResource("2_khcm8")
 scene_properties_keys = PackedStringArray("dialogue_ui.gd", "json_path")
 json_path = "res://dialogue_registry/dialogue_data.json"
@@ -29,6 +30,9 @@ json_path = "res://dialogue_registry/dialogue_data.json"
 [node name="Screen" parent="." index="1"]
 mesh = SubResource("QuadMesh_c0b4f")
 surface_material_override/0 = SubResource("StandardMaterial3D_khcm8")
+
+[node name="StaticBody3D" parent="." index="2"]
+collision_layer = 268435456
 
 [node name="CollisionShape3D" parent="StaticBody3D" index="0"]
 shape = SubResource("BoxShape3D_2sylk")

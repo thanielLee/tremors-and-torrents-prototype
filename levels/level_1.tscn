@@ -120,6 +120,17 @@ script = ExtResource("2_aerfg")
 [node name="XROrigin3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.50691)
 
+[node name="ButtonInteract" type="Area3D" parent="XROrigin3D/LeftHand" index="3"]
+collision_layer = 2147483648
+collision_mask = 2147483648
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/LeftHand/ButtonInteract" index="0"]
+shape = SubResource("SphereShape3D_rf48r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/LeftHand/ButtonInteract" index="1"]
+visible = false
+mesh = SubResource("SphereMesh_tqj1w")
+
 [node name="FunctionPointer" parent="XROrigin3D/RightHand" index="4" instance=ExtResource("3_4knja")]
 distance = 1000.0
 show_laser = 2
@@ -135,6 +146,7 @@ collision_mask = 2147483648
 shape = SubResource("SphereShape3D_rf48r")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightHand/ButtonInteract" index="1"]
+visible = false
 mesh = SubResource("SphereMesh_tqj1w")
 
 [node name="Environment" type="Node3D" parent="." index="1"]

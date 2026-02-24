@@ -41,7 +41,7 @@ func _physics_process(delta):
 	if is_active:
 		send_raycast(delta)
 		debug_line.mesh.clear_surfaces()
-		_draw_line(Vector3(0,0.15,0), Vector3(0,0.15,0)+Vector3(0,0,-1)*3, Color.BLACK)
+		#_draw_line(Vector3(0,0.15,0), Vector3(0,0.15,0)+Vector3(0,0,-1)*3, Color.BLACK)
 		
 func _draw_line(start_point, end_point, color):
 	debug_line.mesh.surface_begin(Mesh.PRIMITIVE_LINES, line_material)
@@ -93,10 +93,11 @@ func send_raycast(delta):
 	space_state = get_world_3d().direct_space_state
 
 	var start = global_position + global_transform.basis.y * 0.15
-	var end = start + forward_vector * 3
+	var end = start + forward_vector * 5
 
 	var query = PhysicsRayQueryParameters3D.create(start, end)
 	query.collide_with_areas = true
+	query.collision_mask = (1<<5) # Collision layer 6
 
 	var result = space_state.intersect_ray(query)
 

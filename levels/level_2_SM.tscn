@@ -425,7 +425,7 @@ mesh = SubResource("BoxMesh_0x1rk")
 [node name="Objectives" type="Node3D" parent="." index="5"]
 
 [node name="VictimRescue" parent="Objectives" index="0" instance=ExtResource("27_m763p")]
-transform = Transform3D(-1, 0, -1.19209e-07, 0, 1, 0, 1.19209e-07, 0, -1, 1.48892, -0.0362523, -12.4165)
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 1.48892, -0.0362523, -12.4165)
 objective_name = "Save Evacuee"
 is_required = true
 completed_message = "Evacuee made it!"
