@@ -25,6 +25,8 @@ func _trigger_button_effect(button) -> void:
 			logic.reset_fire()
 		else:
 			print("fire ext missing!!")
+	else:
+		print("no fire ext, resetting " + objective.objective_name)
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:

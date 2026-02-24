@@ -105,8 +105,8 @@ func _physics_process(delta: float) -> void:
 	var right := pbasis.x.normalized()
 	var forward := pbasis.z.normalized()
 	#
-	var target_pos := player.global_position
-	#var target_pos := player.global_position + right*side_offset + forward*back_offset
+	#var target_pos := player.global_position
+	var target_pos := player.global_position + right*side_offset + forward*back_offset
 	#var target_pos := player.global_position + offset
 	#
 	target_pos.y = body.global_position.y
@@ -121,6 +121,9 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	if not enabled:
 		return
 	
+	if body is not XRToolsPlayerBody:
+		return
+	
 	player = body.get_parent()
 	start_objective()
 	area_3d.collision_layer = 0
@@ -130,7 +133,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 
 # detecting hazards or safe zone
 func _on_area_3d_area_entered(area: Area3D) -> void:
-	if area.name == "SafeArea":
+	if area.name == "SafeArea" or area.name == "SafeArea2":
 		emit_signal("victim_safe")
 		following = false
 	elif area.get_parent().get_script() == Hazard:

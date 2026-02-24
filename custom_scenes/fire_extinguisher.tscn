@@ -40,6 +40,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00125554, 1.49012e-08, 0.0
 
 [node name="FireExtinguisherManager" type="Node3D" parent="." index="2"]
 script = ExtResource("3_dycgs")
+extinguish_speed = 0.5
 
 [node name="GrabPointHandLeft" parent="." index="3" instance=ExtResource("4_av7im")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.057541, -0.0778927, -0.0637154)
