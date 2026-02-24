@@ -1,5 +1,7 @@
 extends Node3D
 
+#@export var reset_button: LevelButton
+
 @onready var parent_pickable = $".."
 @onready var debug_line = $"../DebugLine"
 @onready var circle_debug = $"../CircleDebug"
@@ -28,6 +30,8 @@ var object_parent: Node
 func _ready():
 	parent_pickable.connect("action_pressed", start_action)
 	parent_pickable.connect("action_released", end_action)
+	#if reset_button:
+		#reset_button.connect("reset_objective_button", reset_fire)
 	smoke_particles = smoke_node.get_child(0)
 	line_material = StandardMaterial3D.new()
 	line_material.vertex_color_use_as_albedo = true

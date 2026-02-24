@@ -211,9 +211,10 @@ objective = NodePath("../../Objectives/Injured")
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 40.2037, 1.335, 3.46562)
 objective = NodePath("../../Objectives/VictimRescue")
 
-[node name="Fire" parent="Buttons" index="2" node_paths=PackedStringArray("objective") instance=ExtResource("28_voubc")]
+[node name="Fire" parent="Buttons" index="2" node_paths=PackedStringArray("objective", "fire_extinguisher") instance=ExtResource("28_voubc")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 25.2037, 1.335, 3.46562)
 objective = NodePath("../../Objectives/ElectricalFire")
+fire_extinguisher = NodePath("../../Tools/FireExtinguisher")
 
 [node name="Door" parent="Buttons" index="3" instance=ExtResource("28_voubc")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 40.2037, 1.335, -10.7595)

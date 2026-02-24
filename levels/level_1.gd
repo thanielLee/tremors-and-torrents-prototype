@@ -58,8 +58,8 @@ func setup_objectives():
 		if obj.has_signal("pose"):
 			obj.pose.connect(_on_qte_update_status)
 			print("connected pose for %s" % obj.name)
-		#if obj.has_signal("shake_world"):
-			#obj.shake_world.connect(do_earthquake)
+		if obj.has_signal("shake_world"):
+			obj.shake_world.connect(do_earthquake)
 		if obj.get_node("ObjectiveLogic"):
 			var obj_logic = obj.get_node("ObjectiveLogic") as ObjectiveBase
 			obj_logic.objective_started.connect(_on_objective_started.bind(obj_logic))

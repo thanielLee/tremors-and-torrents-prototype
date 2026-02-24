@@ -2,7 +2,11 @@ extends Node3D
 class_name LevelButton
 
 @export var objective: Node3D
+@export var fire_extinguisher: Node3D
+
 @onready var interactable_area: XRToolsInteractableAreaButton = $XRToolsInteractableAreaButton
+
+#signal reset_objective_button(obj: ObjectiveBase)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,6 +18,13 @@ func _trigger_button_effect(button) -> void:
 		objective = obj_logic
 	print("reset Button Pressed! " + objective.objective_name)
 	objective.reset_objective()
+	#emit_signal("reset_objective_button", objective)
+	if fire_extinguisher:
+		var logic = fire_extinguisher.get_node("FireExtinguisherManager")
+		if logic:
+			logic.reset_fire()
+		else:
+			print("fire ext missing!!")
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:
