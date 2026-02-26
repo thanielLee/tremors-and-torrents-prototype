@@ -570,4 +570,8 @@ skeleton = NodePath("../../SafeArea2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.120645, 1.82675)
 scene = "uid://bcsf6fktx606t"
 
+[node name="Teleport2" parent="." index="13" instance=ExtResource("35_toluw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.7554, -0.120645, -3.7512)
+scene = "uid://bcsf6fktx606t"
+
 [connection signal="visibility_changed" from="InventorySystem" to="InventorySystem/MedkitSoundManager" method="_on_inventory_system_visibility_changed"]

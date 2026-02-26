@@ -18,7 +18,7 @@ func _trigger_button_effect(button) -> void:
 		objective = obj_logic
 	print("reset Button Pressed! " + objective.objective_name)
 	objective.reset_objective()
-	#emit_signal("reset_objective_button", objective)
+
 	if fire_extinguisher:
 		var logic = fire_extinguisher.get_node("FireExtinguisherManager")
 		if logic:

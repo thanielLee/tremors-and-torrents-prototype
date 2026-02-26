@@ -116,7 +116,7 @@ size = Vector3(5.69688, 3.14787, 0.04)
 [sub_resource type="BoxShape3D" id="BoxShape3D_lrvbd"]
 size = Vector3(5.95996, 1, 5.32568)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_amexo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1cuvt"]
 render_priority = 0
 shader = ExtResource("26_1cuvt")
 shader_parameter/base_color = Color(0.2, 1, 0.301961, 1)
@@ -126,7 +126,7 @@ shader_parameter/radius = 0.5
 shader_parameter/edge_softness = 0.5
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_inwr5"]
-material = SubResource("ShaderMaterial_amexo")
+material = SubResource("ShaderMaterial_1cuvt")
 size = Vector2(6, 6)
 
 [sub_resource type="SphereMesh" id="SphereMesh_udfhf"]
