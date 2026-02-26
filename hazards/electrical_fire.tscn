@@ -59,3 +59,5 @@ autoplay = true
 [node name="ObjectiveLogic" type="Node3D" parent="." index="5"]
 script = ExtResource("4_mkoei")
 objective_name = "Electrical Fire"
+completed_message = "Fire extinguished!"
+fail_message = "Fire is spreading!"
