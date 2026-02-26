@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://ckn5firtu6im3"]
+[gd_scene load_steps=56 format=3 uid="uid://ckn5firtu6im3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://dxrd1bf6mcajs" path="res://levels/level_1.gd" id="2_aerfg"]
@@ -34,6 +34,7 @@
 [ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="32_toluw"]
 [ext_resource type="Script" uid="uid://b4seunyy8fkyl" path="res://custom_scenes/ui/dialogue_manager.gd" id="33_rf48r"]
 [ext_resource type="PackedScene" uid="uid://bwvp4b0em2nh4" path="res://custom_scenes/ui/dialogue_ui.tscn" id="34_toluw"]
+[ext_resource type="Shader" uid="uid://m6krcam0qkt3" path="res://levels/level_2_SM.gdshader" id="35_dp1ib"]
 [ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="35_toluw"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rf48r"]
@@ -103,16 +104,21 @@ albedo_color = Color(0.937255, 0, 0.27451, 0.580392)
 material = SubResource("StandardMaterial3D_eyrqu")
 size = Vector3(1.5, 1.5, 0.155)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_rf48r"]
-size = Vector3(9, 1, 4)
+[sub_resource type="BoxShape3D" id="BoxShape3D_5t0se"]
+size = Vector3(5.95996, 1, 5.32568)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_voubc"]
-transparency = 1
-albedo_color = Color(0.164706, 0.992157, 0.992157, 0.188235)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_amexo"]
+render_priority = 0
+shader = ExtResource("35_dp1ib")
+shader_parameter/base_color = Color(0.2, 1, 0.301961, 1)
+shader_parameter/pulse_speed = 1.5
+shader_parameter/pulse_strength = 0.7
+shader_parameter/radius = 0.5
+shader_parameter/edge_softness = 0.5
 
-[sub_resource type="BoxMesh" id="BoxMesh_toluw"]
-material = SubResource("StandardMaterial3D_voubc")
-size = Vector3(9, 1, 4)
+[sub_resource type="PlaneMesh" id="PlaneMesh_tqj1w"]
+material = SubResource("ShaderMaterial_amexo")
+size = Vector2(6, 6)
 
 [node name="Level1" instance=ExtResource("1_lmdqw")]
 script = ExtResource("2_aerfg")
@@ -234,7 +240,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 14.488
 objective_name = "Bandage injured"
 
 [node name="VictimRescue" parent="Objectives" index="1" instance=ExtResource("15_06ecp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.403, 0.0379871, 6.60441)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.9725, 0.0379871, 7.23878)
 
 [node name="DuckCoverHoldQTE" parent="Objectives" index="2" instance=ExtResource("8_7nvrk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
@@ -536,27 +542,29 @@ stream = ExtResource("30_06ecp")
 volume_db = -5.2
 parameters/looping = true
 
-[node name="SafeArea" type="Area3D" parent="." index="10"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 22.2445, -9.53674e-07, -15.7488)
-collision_layer = 32
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SafeArea" index="0"]
-shape = SubResource("BoxShape3D_rf48r")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SafeArea" index="1"]
-mesh = SubResource("BoxMesh_toluw")
-
-[node name="SafeArea2" type="Area3D" parent="." index="11"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 36.9641, -9.53674e-07, 8.06839)
+[node name="SafeArea2" type="Area3D" parent="." index="10"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 49.2635, -9.53674e-07, 10.066)
 collision_layer = 32
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SafeArea2" index="0"]
-shape = SubResource("BoxShape3D_rf48r")
+shape = SubResource("BoxShape3D_5t0se")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SafeArea2" index="1"]
-mesh = SubResource("BoxMesh_toluw")
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="SafeArea2" index="1"]
+mesh = SubResource("PlaneMesh_tqj1w")
+skeleton = NodePath("../../SafeArea2")
+
+[node name="SafeArea3" type="Area3D" parent="." index="11"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 23.053, -9.53674e-07, -15.3913)
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SafeArea3" index="0"]
+shape = SubResource("BoxShape3D_5t0se")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="SafeArea3" index="1"]
+mesh = SubResource("PlaneMesh_tqj1w")
+skeleton = NodePath("../../SafeArea2")
 
 [node name="Teleport" parent="." index="12" instance=ExtResource("35_toluw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.120645, 1.82675)
