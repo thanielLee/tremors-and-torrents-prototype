@@ -361,13 +361,34 @@
       {
         "text": "Continue wrapping until the wound is fully covered.",
         "duration": 3.6
+      }
+    ]
+  },
+  "BreakableDoorGuide": {
+    "instructions": [
+      {
+        "text": "These doors are blocking your path.",
+        "duration": 3.0
       },
       {
-        "text": "Good work. Proper bandaging prevents further injury.",
+        "text": "Use the sledgehammer from your emergency kit to break it down.",
+        "duration": 4.2
+      },
+      {
+        "text": "Grab the sledgehammer and swing it at the door repeatedly.",
+        "duration": 4.5
+      },
+      {
+        "text": "Continue striking until the door breaks open.",
+        "duration": 3.8
+      },
+      {
+        "text": "Once the door is clear, proceed to the next objective.",
         "duration": 3.4
       }
     ]
   },
+
   "BlockedOffGuide": {
     "instructions": [
       {

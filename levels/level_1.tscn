@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://ckn5firtu6im3"]
+[gd_scene load_steps=61 format=3 uid="uid://ckn5firtu6im3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://dxrd1bf6mcajs" path="res://levels/level_1.gd" id="2_aerfg"]
@@ -36,6 +36,8 @@
 [ext_resource type="PackedScene" uid="uid://bwvp4b0em2nh4" path="res://custom_scenes/ui/dialogue_ui.tscn" id="34_toluw"]
 [ext_resource type="Shader" uid="uid://m6krcam0qkt3" path="res://levels/level_2_SM.gdshader" id="35_dp1ib"]
 [ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="35_toluw"]
+[ext_resource type="PackedScene" uid="uid://ciy4kh1na180s" path="res://custom_scenes/jammed_door_new.tscn" id="37_5t0se"]
+[ext_resource type="Texture2D" uid="uid://baiu0h3eyggc1" path="res://assets/warning-tape-and-police-line-black-and-yellow-line-striped.png" id="38_tqj1w"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rf48r"]
 radius = 0.05
@@ -119,6 +121,20 @@ shader_parameter/edge_softness = 0.5
 [sub_resource type="PlaneMesh" id="PlaneMesh_tqj1w"]
 material = SubResource("ShaderMaterial_amexo")
 size = Vector2(6, 6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tqj1w"]
+size = Vector3(1, 4, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gtrna"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("38_tqj1w")
+uv1_scale = Vector3(3, 3, 3)
+uv1_offset = Vector3(3.975, 1.155, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xapae"]
+material = SubResource("StandardMaterial3D_gtrna")
+size = Vector3(1, 4, 4)
 
 [node name="Level1" instance=ExtResource("1_lmdqw")]
 script = ExtResource("2_aerfg")
@@ -291,8 +307,8 @@ transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="Guide5" parent="NPCs" index="4" instance=ExtResource("8_oqlok")]
 transform = Transform3D(1, 0, -1.78814e-07, 0, 1, 0, 1.78814e-07, 0, 1, 40.7307, 0, -9.99232)
-registry_name = "BlockedOffGuide"
-display_name = "Guide"
+registry_name = "BreakableDoorGuide"
+display_name = "Breakable Door Guide"
 dialogue_states = Array[String](["instructions"])
 
 [node name="responder1" parent="NPCs/Guide5" index="2" instance=ExtResource("9_7nvrk")]
@@ -554,24 +570,47 @@ shape = SubResource("BoxShape3D_5t0se")
 mesh = SubResource("PlaneMesh_tqj1w")
 skeleton = NodePath("../../SafeArea2")
 
-[node name="SafeArea3" type="Area3D" parent="." index="11"]
+[node name="SafeArea" type="Area3D" parent="." index="11"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 23.053, -9.53674e-07, -15.3913)
 collision_layer = 32
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SafeArea3" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SafeArea" index="0"]
 shape = SubResource("BoxShape3D_5t0se")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="SafeArea3" index="1"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="SafeArea" index="1"]
 mesh = SubResource("PlaneMesh_tqj1w")
 skeleton = NodePath("../../SafeArea2")
 
-[node name="Teleport" parent="." index="12" instance=ExtResource("35_toluw")]
+[node name="JammedDoor" parent="." index="12" instance=ExtResource("37_5t0se")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 40, 1, -16)
+
+[node name="JammedDoor2" parent="." index="13" instance=ExtResource("37_5t0se")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 42, 1, -16)
+
+[node name="JammedDoor3" parent="." index="14" instance=ExtResource("37_5t0se")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 44, 1, -16)
+
+[node name="JammedDoor4" parent="." index="15" instance=ExtResource("37_5t0se")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 46, 1, -16)
+
+[node name="JammedDoor5" parent="." index="16" instance=ExtResource("37_5t0se")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 48, 1, -16)
+
+[node name="Wall" type="StaticBody3D" parent="." index="17"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.3315, 2.08849, -3.7512)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall" index="0"]
+shape = SubResource("BoxShape3D_tqj1w")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall" index="1"]
+mesh = SubResource("BoxMesh_xapae")
+
+[node name="Teleport" parent="." index="18" instance=ExtResource("35_toluw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.120645, 1.82675)
 scene = "uid://bcsf6fktx606t"
 
-[node name="Teleport2" parent="." index="13" instance=ExtResource("35_toluw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.7554, -0.120645, -3.7512)
-scene = "uid://bcsf6fktx606t"
+[node name="Teleport3" parent="." index="19" instance=ExtResource("35_toluw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.7554, -0.120645, -3.7512)
 
 [connection signal="visibility_changed" from="InventorySystem" to="InventorySystem/MedkitSoundManager" method="_on_inventory_system_visibility_changed"]
