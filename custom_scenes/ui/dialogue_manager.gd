@@ -6,7 +6,7 @@ class_name DialogueManager
 @export var ui_distance: float = 2.5
 @export var ui_height: float = -0.5
 @export var dialogue_button_hand : XRController3D
-@export_enum("ax_button", "by_button") var dialogue_button : String = "ax_button"
+@export_enum("ax_button", "by_button", "trigger_click") var dialogue_button : String = "trigger_click"
 @export var dialogue_toggler_hand : XRController3D
 @export var dialogue_toggler_button : String
 

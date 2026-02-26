@@ -79,7 +79,7 @@ func _show_line():
 	_fade_in_prompt_later()
 
 func _fade_in_prompt_later():
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(2.0).timeout
 	button_prompt_label.modulate = Color(1,1,1,1)
 
 func _advance():

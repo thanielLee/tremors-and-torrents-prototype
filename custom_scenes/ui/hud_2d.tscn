@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cg3e6vl8r45gh"]
+[gd_scene load_steps=4 format=3 uid="uid://cg3e6vl8r45gh"]
 
 [ext_resource type="Script" uid="uid://d0k5ctjwcylte" path="res://custom_scenes/ui/hud.gd" id="1_hsohv"]
+[ext_resource type="FontFile" uid="uid://m231uq8tiq88" path="res://assets/fonts/SourceSansPro-Regular.ttf" id="2_204x7"]
+[ext_resource type="FontFile" uid="uid://dfbg8ise6x0u8" path="res://assets/fonts/Inter-VariableFont_opsz,wght.ttf" id="3_a471s"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_hsohv")
@@ -8,9 +10,13 @@ script = ExtResource("1_hsohv")
 [node name="Control" type="Control" parent="."]
 custom_minimum_size = Vector2(1600, 900)
 layout_mode = 3
-anchors_preset = 0
-offset_right = 1600.0
-offset_bottom = 412.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -800.0
+offset_right = 800.0
+offset_bottom = 900.0
+grow_horizontal = 2
 
 [node name="TimerLabel" type="Label" parent="Control"]
 layout_mode = 0
@@ -18,6 +24,7 @@ offset_left = 1266.0
 offset_top = 48.0
 offset_right = 1381.0
 offset_bottom = 103.0
+theme_override_fonts/font = ExtResource("2_204x7")
 theme_override_font_sizes/font_size = 40
 text = "00:00"
 horizontal_alignment = 1
@@ -29,27 +36,37 @@ offset_left = 306.0
 offset_top = 469.0
 offset_right = 487.0
 offset_bottom = 538.0
+theme_override_fonts/font = ExtResource("2_204x7")
 theme_override_font_sizes/font_size = 30
 text = "Prompt"
 
 [node name="LevelLabel" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 444.0
-offset_top = 248.0
-offset_right = 1110.0
-offset_bottom = 358.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -333.0
+offset_top = 250.0
+offset_right = 333.0
+offset_bottom = 360.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_a471s")
 theme_override_font_sizes/font_size = 80
 text = "Level Completed!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ReasonLabel" type="Label" parent="Control"]
-visible = false
-layout_mode = 0
-offset_left = 488.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -302.0
 offset_top = 350.0
-offset_right = 1092.0
+offset_right = 302.0
 offset_bottom = 433.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_204x7")
 theme_override_font_sizes/font_size = 60
 text = "Rescue took too long"
 horizontal_alignment = 1
@@ -61,6 +78,7 @@ offset_left = 227.0
 offset_top = 38.0
 offset_right = 378.0
 offset_bottom = 93.0
+theme_override_fonts/font = ExtResource("2_204x7")
 theme_override_font_sizes/font_size = 40
 text = "Score: 0"
 
@@ -73,12 +91,14 @@ offset_bottom = 138.0
 
 [node name="QTENameLabel" type="Label" parent="Control/QTEContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_a471s")
 theme_override_font_sizes/font_size = 30
 text = "Duck Cover and Hold!"
 horizontal_alignment = 1
 
 [node name="QTEStatusLabel" type="Label" parent="Control/QTEContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_204x7")
 theme_override_font_sizes/font_size = 40
 text = "Hold that position!"
 horizontal_alignment = 1
@@ -86,6 +106,7 @@ vertical_alignment = 1
 
 [node name="QTEFeedbackLabel" type="Label" parent="Control/QTEContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_a471s")
 theme_override_font_sizes/font_size = 40
 text = "QTE completed!"
 horizontal_alignment = 1

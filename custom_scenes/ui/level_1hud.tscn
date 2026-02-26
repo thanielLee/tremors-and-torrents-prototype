@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dp2xb3fr3eafv"]
+[gd_scene load_steps=4 format=3 uid="uid://dp2xb3fr3eafv"]
 
 [ext_resource type="Script" uid="uid://bd0txl6ks1ss5" path="res://custom_scenes/ui/level_1hud.gd" id="1_5uhyo"]
+[ext_resource type="FontFile" uid="uid://m231uq8tiq88" path="res://assets/fonts/SourceSansPro-Regular.ttf" id="2_g2q2o"]
+[ext_resource type="FontFile" uid="uid://dfbg8ise6x0u8" path="res://assets/fonts/Inter-VariableFont_opsz,wght.ttf" id="3_paxql"]
 
 [node name="Level1HUD" type="CanvasLayer"]
 script = ExtResource("1_5uhyo")
@@ -18,7 +20,8 @@ offset_left = 306.0
 offset_top = 469.0
 offset_right = 487.0
 offset_bottom = 538.0
-theme_override_font_sizes/font_size = 30
+theme_override_fonts/font = ExtResource("2_g2q2o")
+theme_override_font_sizes/font_size = 35
 text = "Prompt"
 
 [node name="ReasonLabel" type="Label" parent="Control"]
@@ -28,18 +31,20 @@ offset_left = 488.0
 offset_top = 350.0
 offset_right = 1092.0
 offset_bottom = 433.0
-theme_override_font_sizes/font_size = 60
+theme_override_fonts/font = ExtResource("2_g2q2o")
+theme_override_font_sizes/font_size = 35
 text = "Rescue took too long"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TimerLabel" type="Label" parent="Control"]
 layout_mode = 2
-offset_left = 126.0
-offset_top = 37.0
-offset_right = 485.0
-offset_bottom = 92.0
-theme_override_font_sizes/font_size = 40
+offset_left = 161.0
+offset_top = 82.0
+offset_right = 520.0
+offset_bottom = 137.0
+theme_override_fonts/font = ExtResource("2_g2q2o")
+theme_override_font_sizes/font_size = 35
 text = "00:00"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -53,12 +58,14 @@ offset_bottom = 138.0
 
 [node name="ObjectiveNameLabel" type="Label" parent="Control/ObjectiveContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_paxql")
 theme_override_font_sizes/font_size = 30
 text = "Duck Cover and Hold!"
 horizontal_alignment = 1
 
 [node name="ObjectiveStatusLabel" type="Label" parent="Control/ObjectiveContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_g2q2o")
 theme_override_font_sizes/font_size = 40
 text = "Get into position!"
 horizontal_alignment = 1
@@ -66,6 +73,7 @@ vertical_alignment = 1
 
 [node name="ObjectiveFeedbackLabel" type="Label" parent="Control/ObjectiveContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_paxql")
 theme_override_font_sizes/font_size = 40
 text = "QTE completed!"
 horizontal_alignment = 1

@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://b4eeb7l2ouhdp"
-path="res://.godot/imported/Born2bSportyV10.ttf-52316102b89cd7c8814824a699fa7fad.fontdata"
+uid="uid://m231uq8tiq88"
+path="res://.godot/imported/SourceSansPro-Regular.ttf-bf74aab35bb0d01947b584137afec66c.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/Born2bSportyV10.ttf"
-dest_files=["res://.godot/imported/Born2bSportyV10.ttf-52316102b89cd7c8814824a699fa7fad.fontdata"]
+source_file="res://assets/fonts/SourceSansPro-Regular.ttf"
+dest_files=["res://.godot/imported/SourceSansPro-Regular.ttf-bf74aab35bb0d01947b584137afec66c.fontdata"]
 
 [params]
 
@@ -22,19 +22,14 @@ msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
 hinting=1
-subpixel_positioning=1
+subpixel_positioning=4
 keep_rounding_remainders=true
 oversampling=0.0
 Fallbacks=null
 fallbacks=[]
 Compress=null
 compress=true
-preload=[{
-"chars": [],
-"glyphs": [],
-"name": "New Configuration",
-"size": Vector2i(16, 0)
-}]
+preload=[]
 language_support={}
 script_support={}
 opentype_features={}

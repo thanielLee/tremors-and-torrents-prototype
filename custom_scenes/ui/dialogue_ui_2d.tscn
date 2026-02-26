@@ -1,9 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://dq001x5p05els"]
+[gd_scene load_steps=5 format=3 uid="uid://dq001x5p05els"]
 
 [ext_resource type="Script" uid="uid://ca0d5d7thhgo5" path="res://custom_scenes/ui/dialogue_ui.gd" id="1_guj16"]
+[ext_resource type="Texture2D" uid="uid://ctulx7depyns4" path="res://assets/dialogue_system/panel.png" id="2_2u3mh"]
+[ext_resource type="FontFile" uid="uid://dfbg8ise6x0u8" path="res://assets/fonts/Inter-VariableFont_opsz,wght.ttf" id="2_bwgys"]
+[ext_resource type="FontFile" uid="uid://m231uq8tiq88" path="res://assets/fonts/SourceSansPro-Regular.ttf" id="3_2b74u"]
 
 [node name="DialogueUI2D" type="CanvasLayer"]
 script = ExtResource("1_guj16")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -473.5
+offset_top = -463.0
+offset_right = 473.5
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("2_2u3mh")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="Control" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(1600, 300)
@@ -18,13 +36,15 @@ theme_override_constants/separation = 20
 
 [node name="NPCNameLabel" type="Label" parent="Control/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_bwgys")
 theme_override_font_sizes/font_size = 40
 text = "NPCName"
 horizontal_alignment = 1
 
 [node name="DialogueTextLabel" type="RichTextLabel" parent="Control/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 20
+theme_override_fonts/normal_font = ExtResource("3_2b74u")
+theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
 text = "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\""
 fit_content = true
@@ -32,8 +52,9 @@ horizontal_alignment = 1
 
 [node name="ButtonPromptLabel" type="Label" parent="Control/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_2b74u")
 theme_override_font_sizes/font_size = 20
-text = "Press (A) to continue."
+text = "Press (right trigger) to continue."
 horizontal_alignment = 1
 
 [node name="ProceedTimer" type="Timer" parent="Control"]
