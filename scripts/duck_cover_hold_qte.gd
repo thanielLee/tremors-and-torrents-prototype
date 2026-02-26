@@ -1,5 +1,6 @@
 extends QuickTimeEvent
 
+@export var show_texture = false
 @export var head_threshold_y := 1.2
 @export var hand_distance_threshold := 1.0
 @export var hold_duration := 5.0
@@ -8,6 +9,7 @@ extends QuickTimeEvent
 @onready var camera = xr_origin.get_node("XRCamera3D")
 @onready var left_hand = xr_origin.get_node("LeftHand")
 @onready var right_hand = xr_origin.get_node("RightHand")
+@onready var mesh_instance_3d: MeshInstance3D = $Area3D/MeshInstance3D
 
 var hold_timer: float = 0.0
 var is_holding_pose := false
@@ -17,6 +19,7 @@ signal pose(bool)
 
 func _ready():
 	super._ready()
+	mesh_instance_3d.visible = show_texture
 	set_process(false)
 
 func start_qte():

@@ -259,7 +259,9 @@ objective_name = "Bandage injured"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.9725, 0.0379871, 7.23878)
 
 [node name="DuckCoverHoldQTE" parent="Objectives" index="2" instance=ExtResource("8_7nvrk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.44677, 0, -6.07172)
+show_texture = true
+one_shot = true
 
 [node name="stretcher_nonpickable" parent="Objectives" index="3" instance=ExtResource("10_voubc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.2329, 0.239165, -14.7447)

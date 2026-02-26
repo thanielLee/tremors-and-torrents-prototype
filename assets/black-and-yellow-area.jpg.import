@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://briof8mrv72it"
-path.s3tc="res://.godot/imported/construction_pattern.jpg-92d25bdb213380294f787d32cc90ce68.s3tc.ctex"
+uid="uid://dhsjysmtvyrqa"
+path.s3tc="res://.godot/imported/black-and-yellow-area.jpg-c4ea1dedd449380fee1bdb0f7f701d9f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/construction_pattern.jpg"
-dest_files=["res://.godot/imported/construction_pattern.jpg-92d25bdb213380294f787d32cc90ce68.s3tc.ctex"]
+source_file="res://assets/black-and-yellow-area.jpg"
+dest_files=["res://.godot/imported/black-and-yellow-area.jpg-c4ea1dedd449380fee1bdb0f7f701d9f.s3tc.ctex"]
 
 [params]
 
