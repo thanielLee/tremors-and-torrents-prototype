@@ -32,6 +32,7 @@ var prev_completed_objectives: int = 0
 var failure_message: String = ""
 var teleported_player: bool = false
 var required_points: int = 100
+var should_update_seen_objectives: bool = true
 
 var hazards : Node
 var objectives : Node
@@ -497,6 +498,8 @@ func _get_next_state(delta: float):
 				exit_to_main_menu()
 
 func _update_seen_objectives():
+	if !should_update_seen_objectives:
+		return false
 	var return_val = false
 	for child in objectives.get_children():
 		var current_obj = child
@@ -607,7 +610,7 @@ func _has_seen_required_objective_left() -> bool:
 	return false
 
 func _prompt_player_to_finish_seen_objectives():
-	
+	should_update_seen_objectives = false
 	var incomplete_objectives: Array = []
 	if not player_prompted_with_unfinished_objs:
 		var objs = ""
