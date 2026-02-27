@@ -20,7 +20,7 @@ func _trigger_button_effect(button) -> void:
 	objective.reset_objective()
 
 	if fire_extinguisher:
-		var logic = fire_extinguisher.get_node("FireExtinguisherManager")
+		var logic = fire_extinguisher.get_node("FireExtinguisherManager") as FireExtinguisherManager
 		if logic:
 			logic.reset_fire()
 		else:

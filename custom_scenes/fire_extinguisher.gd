@@ -1,6 +1,5 @@
 extends Node3D
-
-#@export var reset_button: LevelButton
+class_name FireExtinguisherManager
 
 @onready var parent_pickable = $".."
 @onready var debug_line = $"../DebugLine"

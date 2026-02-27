@@ -118,6 +118,7 @@ func complete_level():
 	else:
 		disable_objectives()
 	log_results()
+	teleport_player(brief_pos)
 	hud_manager.end_level_prompt(true, score, "")
 	hud_manager.hide_timer()
 
@@ -281,7 +282,7 @@ func _on_objective_completed(obj: ObjectiveBase):
 		completed_objectives.append(obj)
 		completed_obj_times.append(obj_elapsed_time)
 		obj_active = false
-		
+		obj.completion_time = obj_elapsed_time
 		score += obj.completed_points
 		
 		# if obj.has_signal("qte_started"): # for qtes
@@ -304,6 +305,7 @@ func _on_objective_completed(obj: ObjectiveBase):
 			else:
 				current_state = State.ACTIVE_NO_OBJECTIVE
 		else:
+			required_objectives.append(current_objective)
 			current_state = State.ACTIVE_OBJECTIVE_DONE
 		current_objective = null
 		#check_level_end()
@@ -358,7 +360,7 @@ func log_results():
 	else:
 		for i in range(completed_objectives.size()):
 			var obj_name = completed_objectives[i].objective_name
-			var obj_time = completed_obj_times[i]
+			var obj_time = completed_objectives[i].completion_time
 			message += "%s: %.2f seconds\n" % [obj_name, obj_time]
 	
 	message += "\nTime Taken: %.2f seconds\n" % level_timer
@@ -460,15 +462,19 @@ func _get_next_state(delta: float):
 		State.ACTIVE_OBJECTIVE_DONE:
 			_update_timer(delta)
 			if level_timer >=level_time_limit:
-				
 				var state_changed = false
-				for objective in required_objectives:
-					if objective in seen_objectives and !objective.completed:
+				for objective in objectives.get_children():
+					if objective is not ObjectiveBase:
+						var script = objective.get_node("ObjectiveLogic") as ObjectiveBase
+						objective = script
+					if objective.is_required and objective in seen_objectives and !objective.completed:
 						current_state = State.ACTIVE_SEEN_OBJECTIVE
 						state_changed = true
 				
-				if !state_changed:
+				if !state_changed and level_timer < level_time_limit:
 					current_state = State.LEVEL_COMPLETE
+				elif !state_changed:
+					current_state = State.LEVEL_FAIL_TIME_FAILED
 			else:
 				current_state = State.ACTIVE_SEEN_OBJECTIVE
 		State.LEVEL_FAIL:
@@ -538,16 +544,20 @@ func _update_seen_objectives():
 	
 func _update_timer(delta: float) -> void:
 	level_timer += delta
-
-func _handle_level_active(delta: float) -> void:
-	level_timer += delta
 	
 	if obj_active:
 		obj_elapsed_time += delta
 		_on_obj_update_status(obj_elapsed_time)
 
-	if level_timer >= level_time_limit:
-		fail_level("Time limit exceeded")
+#func _handle_level_active(delta: float) -> void:
+	#level_timer += delta
+	#
+	#if obj_active:
+		#obj_elapsed_time += delta
+		#_on_obj_update_status(obj_elapsed_time)
+#
+	#if level_timer >= level_time_limit:
+		#fail_level("Time limit exceeded")
 
 
 func _handle_level_briefing(delta: float):
