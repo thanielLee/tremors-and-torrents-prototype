@@ -30,7 +30,8 @@ var seen_objectives: Array = []
 var required_objectives: Array = []
 var prev_completed_objectives: int = 0
 var failure_message: String = ""
-
+var teleported_player: bool = false
+var required_points: int = 100
 
 var hazards : Node
 var objectives : Node
@@ -142,6 +143,8 @@ func fail_level(message: String):
 		
 		await get_tree().create_timer(5.0).timeout
 		teleport_player(brief_pos)
+	
+	current_state = State.LEVEL_ENDED
 
 func check_level_end():
 	var required_done := false
@@ -295,7 +298,7 @@ func _on_objective_completed(obj: ObjectiveBase):
 		
 		enable_objectives()
 		if !obj.is_required:
-			if len(seen_objectives) > 0:
+			if _has_seen_required_objective_left():
 				current_state = State.ACTIVE_SEEN_OBJECTIVE
 			else:
 				current_state = State.ACTIVE_NO_OBJECTIVE
@@ -408,7 +411,7 @@ func _get_next_state(delta: float):
 				player_started = true
 				enable_objectives()
 			if level_timer > level_time_limit or len(triggered_hazards) >= 3:
-				current_state = State.LEVEL_FAIL
+				current_state = State.LEVEL_FAIL_TIME_FAILED
 			
 			if objective_seen:
 				current_state = State.ACTIVE_SEEN_OBJECTIVE
@@ -435,21 +438,26 @@ func _get_next_state(delta: float):
 			if len(triggered_hazards) >= 3:
 				current_state = State.LEVEL_FAIL
 			
-			if level_timer >= level_time_limit:
+			if level_timer >= level_time_limit and _has_seen_required_objective_left():
 				_prompt_player_to_finish_seen_objectives()
-			
+			elif level_timer >= level_time_limit and score > required_points:
+				current_state = State.LEVEL_COMPLETE
+			elif level_timer >= level_time_limit:
+				current_state = State.LEVEL_FAIL_TIME_FAILED
+				
 		State.OBJECTIVE_ACTIVE:
 			_update_timer(delta)
 			var objective_seen = _update_seen_objectives()
 			
-			if level_timer >= level_time_limit:
-				current_state = State.LEVEL_FAIL_TIME_FAILED
+			if level_timer >= level_time_limit and _has_seen_required_objective_left():
+				_prompt_player_to_finish_seen_objectives()
 			
 			#if prev_completed_objectives != len(completed_objectives):
 				#prev_completed_objectives = len(completed_objectives)
 				#current_state = State.ACTIVE_OBJECTIVE_DONE
 				
 		State.ACTIVE_OBJECTIVE_DONE:
+			_update_timer(delta)
 			if level_timer >=level_time_limit:
 				
 				var state_changed = false
@@ -463,6 +471,7 @@ func _get_next_state(delta: float):
 			else:
 				current_state = State.ACTIVE_SEEN_OBJECTIVE
 		State.LEVEL_FAIL:
+			_update_timer(delta)
 			if level_timer >= level_time_limit:
 				fail_level("You took too long!")
 			elif len(triggered_hazards) >= 3:
@@ -471,16 +480,18 @@ func _get_next_state(delta: float):
 				fail_level(failure_message)
 			
 			_reset_level_state()
-			current_state = State.LEVEL_ENDED
 		State.LEVEL_FAIL_TIME_FAILED:
+			_update_timer(delta)
 			fail_level("You took too long!")
 			_reset_level_state()
-			current_state = State.LEVEL_ENDED
 		State.LEVEL_COMPLETE:
+			_update_timer(delta)
 			complete_level()
 			_reset_level_state()
-			current_state = State.LEVEL_ENDED
 		State.LEVEL_ENDED:
+			if !teleported_player:
+				teleport_player(brief_pos)
+				teleported_player = true
 			_update_timer(delta)
 			if level_timer > 20.0:
 				exit_to_main_menu()
@@ -488,22 +499,21 @@ func _get_next_state(delta: float):
 func _update_seen_objectives():
 	var return_val = false
 	for child in objectives.get_children():
+		var current_obj = child
 		if child is not ObjectiveBase:
 			var obj_logic = child.get_node("ObjectiveLogic") as ObjectiveBase
-			child = obj_logic
+			current_obj = obj_logic
 
-		if child in seen_objectives:
+		if current_obj in seen_objectives:
 			continue
-		if child is AnimatableBody3D:
+		if current_obj.is_invisible:
 			continue
-		if child.is_invisible:
+		if !current_obj.is_required:
 			continue
-		if !child.is_required:
-			continue
-		var did_see = _check_player_seen(child)
-		print("DID SEE " + str(child.name) + ": " + str(did_see))
+		var did_see = _check_player_seen(current_obj)
+		print("DID SEE " + str(current_obj.name) + ": " + str(did_see))
 		if did_see:
-			seen_objectives.push_back(child)
+			seen_objectives.push_back(current_obj)
 			return_val = true
 	
 	return return_val
@@ -570,27 +580,35 @@ func _check_player_seen(check_node: Node3D):
 	check_position_1.global_position = camera_origin
 	
 	var result = space_state.intersect_ray(query)
-	#if result:
-		#var ray_position = result["position"]
-		#if check_node == injured:
-			#check_position_2.global_position = check_node.global_position
-			#raycast_check.global_position = (camera_origin+ray_position)/2
-			#raycast_check.look_at(ray_position, Vector3.UP)
-			#var raycast_mesh: MeshInstance3D = raycast_check.get_child(0)
-			#raycast_mesh.mesh.height = (check_node.global_position-camera_origin).length()
-			#hit_position.global_position = ray_position
-		#elif check_node == victim:
-			#check_position_3.global_position = check_node.global_position
+	if result:
+		var ray_position = result["position"]
+		if check_node.get_parent_node_3d() == $Objectives/stretcher_nonpickable:
+			check_position_2.global_position = check_node.global_position
+			raycast_check.global_position = (camera_origin+ray_position)/2
+			raycast_check.look_at(ray_position, Vector3.UP)
+			var raycast_mesh: MeshInstance3D = raycast_check.get_child(0)
+			raycast_mesh.mesh.height = (check_node.global_position-camera_origin).length()
+			hit_position.global_position = ray_position
+		
 	#print(result)
 	#print()
 	var theta = rad_to_deg(acos(camera_front.dot((check_node.global_position-camera_origin).normalized())))
 	#print(str(theta) + " " + str(xr_camera.global_position))
 	if result and theta <= 45:
 		var object: Node3D = result["collider"]
-		return check_node.is_ancestor_of(object) or object.is_ancestor_of(check_node)
+		return check_node.is_ancestor_of(object) or object.is_ancestor_of(check_node) or (check_node.get_parent() == object.get_parent())
 	return false
-	
+
+
+func _has_seen_required_objective_left() -> bool:
+	for objective in seen_objectives:
+		if objective.is_required and !objective.completed:
+			return true
+	return false
+
 func _prompt_player_to_finish_seen_objectives():
+	
+	var incomplete_objectives: Array = []
 	if not player_prompted_with_unfinished_objs:
 		var objs = ""
 		for required_objective in seen_objectives:

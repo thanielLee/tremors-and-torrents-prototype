@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://v4lnugtph4cp"]
+[gd_scene load_steps=32 format=3 uid="uid://v4lnugtph4cp"]
 
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="1_8ic3i"]
 [ext_resource type="Script" uid="uid://cvx3e1yr5tho7" path="res://objectives/stretcher_nonpickable.gd" id="1_yq2fn"]
@@ -83,6 +83,9 @@ albedo_color = Color(0.804493, 0.415365, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p7qsh"]
 size = Vector3(1, 1, 1.42896)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j7wee"]
+size = Vector3(1.672, 1.64307, 4.03586)
 
 [node name="stretcher_nonpickable" type="AnimatableBody3D"]
 script = ExtResource("1_yq2fn")
@@ -237,6 +240,8 @@ script = ExtResource("10_mdk2q")
 objective_name = "Stretcher"
 completed_points = 100
 is_required = true
+completed_message = "Injured successfully reached the safe area!"
+fail_message = "Injured did not make it to the safe area!"
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_mask = 32
@@ -244,5 +249,14 @@ collision_mask = 32
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.630737)
 shape = SubResource("BoxShape3D_p7qsh")
+
+[node name="VisibleArea" type="StaticBody3D" parent="."]
+collision_layer = 536870912
+collision_mask = 536870912
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VisibleArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0894165, 0.321533, -0.00382996)
+shape = SubResource("BoxShape3D_j7wee")
+debug_fill = false
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]

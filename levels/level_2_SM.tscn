@@ -205,7 +205,7 @@ albedo_color = Color(1, 0, 0, 1)
 
 [node name="Level2SM" instance=ExtResource("1_inwr5")]
 script = ExtResource("2_inwr5")
-level_time_limit = 120.0
+level_time_limit = 40.0
 briefing_time_limit = 5.0
 
 [node name="XROrigin3D" parent="." index="0"]
@@ -415,7 +415,7 @@ transform = Transform3D(0.992206, 0, 0.124606, 0, 1, 0, -0.124606, 0, 0.992206, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.14111, 0.191855, -13.0583)
 
 [node name="Shaker" parent="Hazards" index="3" instance=ExtResource("26_1xdl0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72634, 2.66731e-06, -15.744)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72634, 2.66731e-06, -22.5884)
 
 [node name="SafeArea" type="Area3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.21748, 0, 7.23512)
@@ -433,7 +433,9 @@ mesh = SubResource("PlaneMesh_inwr5")
 [node name="VictimRescue" parent="Objectives" index="0" instance=ExtResource("27_m763p")]
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 1.48892, -0.0362523, -12.4165)
 objective_name = "Save Evacuee"
+completed_points = 100
 is_required = true
+ideal_completion_time = 20.0
 completed_message = "Evacuee made it!"
 fail_message = "Evacuee did not make it!"
 
@@ -441,7 +443,7 @@ fail_message = "Evacuee did not make it!"
 transform = Transform3D(-6.09774e-08, 0, -1.395, 0, 1.395, 0, 1.395, 0, -6.09774e-08, -2.99386, 0.419616, -14.8445)
 objective_name = "Bandage Injured"
 is_required = true
-ideal_completion_time = 30.0
+ideal_completion_time = 15.0
 completed_message = "Evacuee was successfully bandaged!"
 fail_message = "Evacuee was not bandaged properly!"
 
@@ -449,6 +451,7 @@ fail_message = "Evacuee was not bandaged properly!"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.015, 0.25, -4.92273)
 one_shot = true
 objective_name = "Duck Cover and Hold"
+completed_points = 25
 is_invisible = true
 completed_message = "Rocks did not hit you head!"
 fail_message = "Failed to duck cover and hold!"
@@ -775,7 +778,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_1cuvt")
 
 [node name="CheckPosition2" type="MeshInstance3D" parent="." index="18"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.554445, 0.478631, 0)
-visible = false
 mesh = SubResource("BoxMesh_inwr5")
 surface_material_override/0 = SubResource("StandardMaterial3D_1cuvt")
 
@@ -787,13 +789,11 @@ surface_material_override/0 = SubResource("StandardMaterial3D_1cuvt")
 
 [node name="HitPosition1" type="MeshInstance3D" parent="." index="20"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.12203, 0.478631, 0)
-visible = false
 mesh = SubResource("BoxMesh_1cuvt")
 surface_material_override/0 = SubResource("StandardMaterial3D_inwr5")
 
 [node name="RayCheck" type="Node3D" parent="." index="21"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000123262, 0.806394, -0.00192928)
-visible = false
 
 [node name="RayCheckMesh" type="MeshInstance3D" parent="RayCheck" index="0"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)

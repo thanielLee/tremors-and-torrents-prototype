@@ -122,8 +122,9 @@ func _put_stretcher_on_ground():
 	if ((global_position-injured_node.global_position).length() <= 5.0) and injured_node.completed:
 		injured_mesh.visible = true
 		injured_node.visible = false
+		global_position = injured_node.global_position + Vector3(2.222, 0, 0.834)
 		global_rotation.y = injured_node.global_rotation.y + deg_to_rad(90)
-		global_position = global_position + Vector3(2.222, 0, 0.834)
+		
 		
 		
 		responder_collision.collision_layer = 1
