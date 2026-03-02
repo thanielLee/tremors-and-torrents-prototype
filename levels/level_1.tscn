@@ -139,6 +139,9 @@ size = Vector3(1, 4, 4)
 [node name="Level1" instance=ExtResource("1_lmdqw")]
 script = ExtResource("2_aerfg")
 
+[node name="XROrigin3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.6008, 0, -12.8597)
+
 [node name="XRCamera3D" parent="XROrigin3D" index="0"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.8, 0)
 
@@ -240,6 +243,7 @@ fire_extinguisher = NodePath("../../Tools/FireExtinguisher")
 
 [node name="Door" parent="Buttons" index="3" instance=ExtResource("28_voubc")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 40.2037, 1.335, -10.7595)
+door_button = true
 
 [node name="Stretcher" parent="Buttons" index="4" node_paths=PackedStringArray("objective") instance=ExtResource("28_voubc")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 31.2037, 1.335, -10.7595)

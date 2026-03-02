@@ -22,6 +22,8 @@ func _process(delta):
 			cooldown = 0.0
 
 func hit_process(requirement, total_progress):
+	if strike_receiver.hit_already:
+		return
 	is_emitting = true
 	set_emit_children(true)
 	

@@ -42,6 +42,20 @@ func _ready() -> void:
 		if "broken_door" in child.name:
 			door_mesh_children.push_back(child)
 
+func _reset_door():
+	for door_child in door_mesh_children:
+		door_child.visible = true
+		
+	for hit_point in hit_points.get_children():
+		for child in hit_point.get_children():
+			if child is OISStrikeReceiver:
+				print("RESETTING RECEIVER")
+				child.hit_already = false
+				child.total_progress = 0
+				child.completed = false
+	mesh.visible = true
+	hit_point_count = 4
+
 func check_finished():
 	if hit_point_count <= 0:
 		print("Door cleared")
@@ -61,7 +75,8 @@ func _on_hit_point_completed(requirement: Variant, total_progress: Variant, hit_
 	break_particles.position = hit_point.position
 	break_particles.emitting = true
 	
-	hit_point.queue_free()
+	var receiver: OISStrikeReceiver = hit_point.find_child("OISStrikeReceiver")
+	
 	hit_point_count -= 1
 	
 	door_mesh_children[hit_point.hitpoint_id].visible = false
@@ -83,4 +98,5 @@ func _on_rumble_hand(controller: XRController3D):
 		XRToolsRumbleManager.add("door_strike", strike_rumble_event, [last_controller])
 
 func _on_break_door_sound_finished() -> void:
-	queue_free()
+	pass
+	#queue_free()

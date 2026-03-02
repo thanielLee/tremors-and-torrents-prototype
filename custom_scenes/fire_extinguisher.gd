@@ -10,6 +10,8 @@ var is_active = false
 var forward_vector
 var space_state 
 var smoke_particles: GPUParticles3D
+var hazards_node: Node3D
+var objectives_node: Node3D
 @export var displace_vector: Vector3
 
 var original_particle_settings := {}
@@ -26,6 +28,7 @@ var completed: bool = false
 
 var object_parent: Node
 
+
 func _ready():
 	parent_pickable.connect("action_pressed", start_action)
 	parent_pickable.connect("action_released", end_action)
@@ -35,6 +38,13 @@ func _ready():
 	line_material = StandardMaterial3D.new()
 	line_material.vertex_color_use_as_albedo = true
 	line_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	
+	var cur_node = self
+	while cur_node is not XRToolsSceneBase:
+		cur_node = cur_node.get_parent_node_3d()
+		
+	hazards_node = cur_node.find_child("Hazards")
+	objectives_node = cur_node.find_child("Objectives")
 	
 	
 
@@ -177,21 +187,29 @@ func _finish_extinguish():
 	current_fire_vfx = null
 	object_parent.is_active = false
 
-func reset_fire():
+func reset_fire(): 
 	started = false
 	completed = false
 	fire_progress = 1.0
 	is_extinguishing_fire = false
 	
-	if current_fire_vfx:
-		for child in current_fire_vfx.get_children():
-			if child is GPUParticles3D and original_particle_settings.has(child):
-				var data = original_particle_settings[child]
-				child.amount_ratio = data["amount_ratio"]
-				child.speed_scale = data["speed_scale"]
-				child.emitting = data["emitting"]
-			elif child is AudioStreamPlayer3D:
-				child.play()
+	for objective in objectives_node.get_children():
+		if objective is Hazard and "ElectricalFire" in objective.name:
+			#print("HERE FOUND: " + str(objective))
+			for child in objective.get_children():
+				if child.name == "VfxFire02Red":
+					print("HERE FOUND:" +  str(child))
+					for grandchild in child.get_children():
+						print(grandchild.name)
+						if grandchild is GPUParticles3D and original_particle_settings.has(grandchild):
+							var data = original_particle_settings[grandchild]
+							grandchild.amount_ratio = data["amount_ratio"]
+							grandchild.speed_scale = data["speed_scale"]
+							grandchild.emitting = data["emitting"]
+						elif grandchild is AudioStreamPlayer3D:
+							grandchild.play()
+						elif grandchild is ObjectiveBase:
+							grandchild.reset_objective()
 
 	current_fire_vfx = null
 	obj_logic = null
