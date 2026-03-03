@@ -28,6 +28,7 @@ var is_on_ground: bool = false
 var physics_state_space: PhysicsDirectSpaceState3D
 var starting_vec: Vector3
 var setup_starting_vec: bool = false
+var rot_matrix: Transform3D
 
 
 # objective logic
@@ -148,7 +149,38 @@ func _physics_process(delta):
 			test_vec.y = 0.0
 			test_vec = test_vec.normalized()
 			starting_vec = test_vec
-		
+			
+			# For future stretcher implementation
+			#if test_vec == -xr_origin.basis.z:
+				#rot_matrix = Transform3D.IDENTITY
+			#else:
+				#var v: Vector3
+				#if test_vec == -(-xr_origin.basis.z):
+					#var mn_val
+					#mn_val = min(mn_val, abs(test_vec.x))
+					#mn_val = min(mn_val, abs(test_vec.y))
+					#mn_val = min(mn_val, abs(test_vec.z))
+					#
+					#if mn_val == test_vec.x:
+						#v.x = 0
+						#v.y = -test_vec.z
+						#v.z = test_vec.y
+					#elif mn_val == test_vec.y:
+						#v.x = -test_vec.z
+						#v.y = 0
+						#v.z = test_vec.x
+					#else:
+						#v.x = -test_vec.y
+						#v.y = test_vec.xW
+						#v.z = 0
+				#else:
+					#v = test_vec.cross(-xr_origin.basis.z)
+				#v = v.normalized()
+				#
+				#var skew_sym = Transform3D.IDENTITY
+				#skew_sym.
+				
+			
 		responder_mesh.global_position.y = 0.0
 			
 		var hands_midpoint = (handle_one_hand.global_position + handle_two_hand.global_position) / 2

@@ -23,7 +23,7 @@ func _trigger_button_effect(button) -> void:
 			if "JammedDoor" in child.name:
 				child._reset_door()
 		return
-	
+
 	if objective is not ObjectiveBase and objective != null:
 		var obj_logic = objective.get_node("ObjectiveLogic") as ObjectiveBase
 		objective = obj_logic
@@ -31,7 +31,7 @@ func _trigger_button_effect(button) -> void:
 	print("reset Button Pressed! " + objective.objective_name)
 	objective.reset_objective()
 
-	if fire_extinguisher and objective.name == "ElectricalFire":
+	if fire_extinguisher:
 		var logic = fire_extinguisher.get_node("FireExtinguisherManager") as FireExtinguisherManager
 		if logic:
 			logic.reset_fire()

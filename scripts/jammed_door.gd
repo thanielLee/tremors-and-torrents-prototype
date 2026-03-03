@@ -53,15 +53,12 @@ func _reset_door():
 				child.hit_already = false
 				child.total_progress = 0
 				child.completed = false
-	mesh.visible = true
+	enable_door()
 	hit_point_count = 4
 
 func check_finished():
 	if hit_point_count <= 0:
-		print("Door cleared")
-		emit_signal("door_cleared")
-		mesh.visible = false
-		break_door_sound.play()
+		disable_door()
 		# TODO: implement break door sound and particles
 
 func _on_hit_point_started(requirement: Variant, total_progress: Variant) -> void:
@@ -76,7 +73,10 @@ func _on_hit_point_completed(requirement: Variant, total_progress: Variant, hit_
 	break_particles.emitting = true
 	
 	var receiver: OISStrikeReceiver = hit_point.find_child("OISStrikeReceiver")
+	var receiver_area3d: Area3D = hit_point.find_child("Area3D")
 	
+	receiver_area3d.collision_layer = 0
+	receiver_area3d.collision_mask = 0
 	hit_point_count -= 1
 	
 	door_mesh_children[hit_point.hitpoint_id].visible = false
@@ -97,6 +97,36 @@ func _on_rumble_hand(controller: XRController3D):
 		print("rumbling")
 		XRToolsRumbleManager.add("door_strike", strike_rumble_event, [last_controller])
 
+func disable_door():
+	print("Door cleared")
+	emit_signal("door_cleared")
+	mesh.visible = false
+	break_door_sound.play()
+		
+	var static_body_node:StaticBody3D = get_child(0)
+	static_body_node.collision_layer = 0
+	for point in hit_points.get_children():
+		for child in point.get_children():
+			if child is OISStrikeReceiver:
+				for grandchild in child.get_children():
+					if grandchild is Area3D:
+						grandchild.collision_layer = 0
+						grandchild.collision_mask = 0
+
+func enable_door():
+	mesh.visible = true
+	var static_body_node:StaticBody3D = get_child(0)
+	static_body_node.collision_layer = (1<<0) | (1<<29)
+	for point in hit_points.get_children():
+		for child in point.get_children():
+			if child is OISStrikeReceiver:
+				for grandchild in child.get_children():
+					if grandchild is Area3D:
+						grandchild.collision_layer = (1<<29)
+						grandchild.collision_mask = (1<<29)
+
+
 func _on_break_door_sound_finished() -> void:
+	#disable_door()
 	pass
 	#queue_free()
