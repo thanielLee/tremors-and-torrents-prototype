@@ -18,8 +18,8 @@ func initialize_action_vars():
 
 
 func action_ongoing(delta: float) -> void:
-	var interacting_current_pos = interacting_object.position
-	var actor_receiver_dist = position.distance_to(interacting_current_pos)
+	var interacting_current_pos = interacting_object.global_position
+	var actor_receiver_dist = global_position.distance_to(interacting_current_pos)
 	var actor_start_end_dist = interacting_initial_pos.distance_to(interacting_current_pos)
 	
 	if (not hit_already and actor_receiver_dist < strike_range) and (actor_receiver_dist < actor_receiver_starting_dist):
