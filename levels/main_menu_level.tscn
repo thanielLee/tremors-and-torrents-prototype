@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bcsf6fktx606t"]
+[gd_scene load_steps=18 format=3 uid="uid://bcsf6fktx606t"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1_vnclu"]
 [ext_resource type="PackedScene" uid="uid://bx1xdisoqo1f6" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_tac_glove_low.tscn" id="2_82wxd"]
@@ -33,6 +33,9 @@ ambient_light_sky_contribution = 0.0
 sdfgi_enabled = true
 glow_enabled = true
 volumetric_fog_density = 0.0024
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f01vn"]
+size = Vector3(1, 15, 30)
 
 [node name="MainMenuLevel" instance=ExtResource("1_vnclu")]
 
@@ -71,6 +74,25 @@ mesh = SubResource("QuadMesh_j88c8")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Map" index="2"]
 environment = SubResource("Environment_aqtu6")
+
+[node name="WorldWall" type="StaticBody3D" parent="Map" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7404, 0, -4.2569)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/WorldWall" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 0)
+shape = SubResource("BoxShape3D_f01vn")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Map/WorldWall" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.4804, 7.5, -0.000100136)
+shape = SubResource("BoxShape3D_f01vn")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Map/WorldWall" index="2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12.7404, 7.5, -14.7321)
+shape = SubResource("BoxShape3D_f01vn")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Map/WorldWall" index="3"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12.7404, 7.5, 13.4609)
+shape = SubResource("BoxShape3D_f01vn")
 
 [node name="ToLevel1" parent="." index="2" instance=ExtResource("11_62yrx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -4.87699)
