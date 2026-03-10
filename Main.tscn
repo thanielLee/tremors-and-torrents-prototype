@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://btw7tecrcaihx"]
+[gd_scene load_steps=20 format=3 uid="uid://btw7tecrcaihx"]
 
 [ext_resource type="Script" uid="uid://ckwo4lkxkmnpp" path="res://main_start.gd" id="1_322hl"]
 [ext_resource type="PackedScene" uid="uid://dgya7syy32d8d" path="res://custom_scenes/floor.tscn" id="2_cw6rx"]
@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://bdc23valbh8gf" path="res://assets/meshes/ramps/ramps.tscn" id="12_46x6f"]
 [ext_resource type="PackedScene" uid="uid://dpjfart2qg8k7" path="res://assets/meshes/mound/mound.tscn" id="13_de8gu"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="14_71dao"]
-[ext_resource type="PackedScene" uid="uid://1wpnxscl70hc" path="res://scenes/ui_elements/game_ui.tscn" id="15_lvsjh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6nf43"]
 
@@ -159,7 +158,6 @@ skeleton = NodePath("../../..")
 [node name="Viewport2Din3D" parent="NPC/StaticBody3D/MeshInstance3D" instance=ExtResource("14_71dao")]
 transform = Transform3D(-0.001, 0, -1.74623e-10, 0, 0.001, 0, 1.74623e-10, 0, -0.001, -0.0342965, 0.127478, -0.642997)
 screen_size = Vector2(1600, 900)
-scene = ExtResource("15_lvsjh")
 viewport_size = Vector2(640, 360)
 unshaded = true
 scene_properties_keys = PackedStringArray("textbox.gd")
