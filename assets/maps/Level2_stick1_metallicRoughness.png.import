@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://duu3u6pwqm2ak"
+path.s3tc="res://.godot/imported/Level2_stick1_metallicRoughness.png-e1c451f8ff6125775f0289b0e2d9cd55.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "c9db4106381b80ea41ef500ff05bb283"
+}
+
+[deps]
+
+source_file="res://assets/maps/Level2_stick1_metallicRoughness.png"
+dest_files=["res://.godot/imported/Level2_stick1_metallicRoughness.png-e1c451f8ff6125775f0289b0e2d9cd55.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

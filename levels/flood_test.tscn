@@ -5,10 +5,10 @@
 [ext_resource type="Shader" uid="uid://bdt86532g8ud1" path="res://shaders/Terrain.gdshader" id="1_otxdf"]
 [ext_resource type="Script" uid="uid://c861i55er6pvs" path="res://levels/flood_plane.gd" id="3_nvv5k"]
 [ext_resource type="Texture2D" uid="uid://b3gq1qnf34ml1" path="res://textures/sky/belfast_sunset_puresky_4k.hdr" id="6_i7vql"]
-[ext_resource type="PackedScene" uid="uid://dy5os8ih8hrx7" path="res://assets/maps/Level2.glb" id="7_wqvpu"]
+[ext_resource type="PackedScene" uid="uid://b5owytcyy4iw7" path="res://assets/maps/Level2.glb" id="7_wqvpu"]
 [ext_resource type="Script" uid="uid://shi3k5e33gpx" path="res://levels/boat.gd" id="8_1w2j6"]
-[ext_resource type="Script" uid="uid://cdeohbkukf4m4" path="res://assets/boat_mesh.gd" id="9_k5os6"]
-[ext_resource type="PackedScene" uid="uid://ytgi1fiitnay" path="res://assets/Rescue_boat.glb" id="9_uoqdp"]
+[ext_resource type="Script" uid="uid://dqy82ql6a5mwx" path="res://assets/boat_mesh.gd" id="9_k5os6"]
+[ext_resource type="PackedScene" uid="uid://bddssw820yda1" path="res://assets/Rescue_boat.glb" id="9_uoqdp"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_nvv5k"]
 size = Vector2(20, 20)
@@ -155,7 +155,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3596, -0.298094, 1.5913)
 script = ExtResource("9_k5os6")
 
 [node name="RescueBoat" parent="Boat/BoatMeshContainer" instance=ExtResource("9_uoqdp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="H" type="Node3D" parent="Boat"]
 

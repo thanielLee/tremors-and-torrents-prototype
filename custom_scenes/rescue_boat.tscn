@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://c1umbrwy4i2g5"]
+
+[ext_resource type="PackedScene" uid="uid://bddssw820yda1" path="res://assets/Rescue_boat.glb" id="1_40naw"]
+[ext_resource type="Script" uid="uid://cv5l7ogofd6yv" path="res://addons/godot-xr-tools/objects/pickable.gd" id="2_h1uvq"]
+[ext_resource type="Script" uid="uid://b8c5kmchxkpto" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_redirect.gd" id="3_bpj58"]
+[ext_resource type="Script" uid="uid://d0qsu3k3jxw1f" path="res://custom_scenes/rescue_boat_manager.gd" id="4_3rw64"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="5_k28er"]
+[ext_resource type="Resource" uid="uid://c7lps5l5dj652" path="res://scenes/pickable_demo/poses/pose_hammer_right.tres" id="6_a813a"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3ril3"]
+radius = 0.03
+height = 0.3
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_67awi"]
+radius = 0.03
+height = 0.3
+
+[node name="RescueBoat" type="Node3D"]
+
+[node name="Rescue_boat" parent="." instance=ExtResource("1_40naw")]
+
+[node name="Handle" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.544688, 2.26662)
+
+[node name="XRToolsPickable" type="RigidBody3D" parent="Handle"]
+collision_layer = 4
+collision_mask = 196615
+freeze = true
+script = ExtResource("2_h1uvq")
+metadata/_custom_type_script = "uid://cv5l7ogofd6yv"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Handle/XRToolsPickable"]
+shape = SubResource("CapsuleShape3D_3ril3")
+
+[node name="XRToolsGrabPointRedirect" type="Marker3D" parent="Handle/XRToolsPickable" node_paths=PackedStringArray("target")]
+script = ExtResource("3_bpj58")
+target = NodePath("../../../GrabPointHandRight")
+metadata/_custom_type_script = "uid://b8c5kmchxkpto"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Handle/XRToolsPickable"]
+mesh = SubResource("CapsuleMesh_67awi")
+
+[node name="BoatManager" type="Node3D" parent="."]
+script = ExtResource("4_3rw64")
+
+[node name="GrabPointHandRight" parent="." instance=ExtResource("5_k28er")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00157356, 0.596852, 2.17183)
+visible = true
+hand_pose = ExtResource("6_a813a")
