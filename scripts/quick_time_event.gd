@@ -21,8 +21,10 @@ func _process(delta):
 	
 	timer += delta
 	if timer > duration:
-		fail_objective()
-		return
+		if current_progress >= required_progress:
+			complete_objective()
+		else:
+			fail_objective()
 
 func start_objective():
 	if one_shot and done > 0:
@@ -40,8 +42,8 @@ func add_progress(amount: float):
 	
 	current_progress = clamp(current_progress + amount, 0, required_progress)
 	#print("current_progress: ", current_progress)
-	if current_progress >= required_progress:
-		complete_objective()
+	# if current_progress >= required_progress:
+	# 	complete_objective()
 
 func reset_progress():
 	current_progress = 0

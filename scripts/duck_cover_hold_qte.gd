@@ -1,5 +1,6 @@
 extends QuickTimeEvent
 
+@export var show_texture = false
 @export var head_threshold_y := 1.2
 @export var hand_distance_threshold := 1.0
 @export var hold_duration := 5.0
@@ -8,6 +9,7 @@ extends QuickTimeEvent
 @onready var camera = xr_origin.get_node("XRCamera3D")
 @onready var left_hand = xr_origin.get_node("LeftHand")
 @onready var right_hand = xr_origin.get_node("RightHand")
+@onready var mesh_instance_3d: MeshInstance3D = $Area3D/MeshInstance3D
 
 var hold_timer: float = 0.0
 var is_holding_pose := false
@@ -17,6 +19,7 @@ signal pose(bool)
 
 func _ready():
 	super._ready()
+	mesh_instance_3d.visible = show_texture
 	set_process(false)
 
 func start_qte():
@@ -25,26 +28,17 @@ func start_qte():
 	super.start_objective()
 	set_process(true)
 	emit_signal("shake_world", duration)
-	print("started DUCKCOVERHOLD")
 
 func _process(delta):
 	if not active or not enabled:
 		return
 	
 	var head_y = camera.global_position.y
-	#var hand_distance = left_hand.global_position.distance_to(right_hand.global_position)
 	var left_hand_distance = camera.global_position.distance_to(left_hand.global_position)
 	var right_hand_distance = camera.global_position.distance_to(right_hand.global_position)
 	
 	var is_ducked = head_y < head_threshold_y
 	var is_holding = (left_hand_distance < hand_distance_threshold) and (right_hand_distance < hand_distance_threshold)
-	
-	#print("head_y: ", head_y)
-	#print("left_hand_distance: ", left_hand_distance)
-	#print("right_hand_distance: ", right_hand_distance)
-	#print("is_ducked: ", is_ducked)
-	#print("is_holding: ", is_holding)
-	#print("hand_distance_threshold: ", hand_distance_threshold)
 	
 	if is_ducked and is_holding:
 		if not is_holding_pose:

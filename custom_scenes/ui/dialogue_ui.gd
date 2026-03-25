@@ -16,6 +16,8 @@ var index = 0
 var show_button_prompt: bool = false
 var active = false
 
+signal dialogue_finished(npc_name)
+
 func _ready():
 	hide()
 	_load_json()
@@ -63,14 +65,21 @@ func _show_line():
 		_end_dialogue()
 		return
 	
-	dialogue_text_label.text = dialogue_lines[index]
-	button_prompt_label.modulate.a = 0
+	var line_data = dialogue_lines[index]
 	
-	proceed_timer.start() # auto advance
+	if typeof(line_data) == TYPE_DICTIONARY:
+		dialogue_text_label.text = line_data.get("text", "")
+		var duration = line_data.get("duration", 3.0)
+		proceed_timer.start(duration)
+	else:
+		dialogue_text_label.text = str(line_data)
+		proceed_timer.start() # auto advance
+	
+	button_prompt_label.modulate.a = 0
 	_fade_in_prompt_later()
 
 func _fade_in_prompt_later():
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(2.0).timeout
 	button_prompt_label.modulate = Color(1,1,1,1)
 
 func _advance():
@@ -89,3 +98,4 @@ func force_advance():
 func _end_dialogue():
 	active = false
 	hide()
+	emit_signal("dialogue_finished", current_npc)

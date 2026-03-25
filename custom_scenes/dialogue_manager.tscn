@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8e7ebkdguro8"]
+
+[ext_resource type="Script" uid="uid://b4seunyy8fkyl" path="res://custom_scenes/ui/dialogue_manager.gd" id="1_joyam"]
+[ext_resource type="PackedScene" uid="uid://bwvp4b0em2nh4" path="res://custom_scenes/ui/dialogue_ui.tscn" id="2_32wph"]
+
+[node name="DialogueManager" type="Node3D" groups=["dialogue_system"]]
+script = ExtResource("1_joyam")
+ui_distance = 2.0
+
+[node name="DialogueUI" parent="." instance=ExtResource("2_32wph")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
