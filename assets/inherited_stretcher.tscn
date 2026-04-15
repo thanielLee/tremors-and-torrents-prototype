@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddiyeu5irpm2i"]
+
+[ext_resource type="PackedScene" uid="uid://bsbm7h7llfan3" path="res://assets/stretcher.glb" id="1_s0o1b"]
+[ext_resource type="Shader" uid="uid://bx5nxwo6e7nx4" path="res://shaders/outline_shader.gdshader" id="2_dog55"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qjdnt"]
+render_priority = 0
+shader = ExtResource("2_dog55")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 5.0
+
+[node name="stretcher2" instance=ExtResource("1_s0o1b")]
+
+[node name="stretcher" parent="." index="0"]
+material_overlay = SubResource("ShaderMaterial_qjdnt")
