@@ -1,60 +1,97 @@
-[gd_scene load_steps=5 format=3 uid="uid://dq001x5p05els"]
+[gd_scene load_steps=7 format=3 uid="uid://dq001x5p05els"]
 
 [ext_resource type="Script" uid="uid://ca0d5d7thhgo5" path="res://custom_scenes/ui/dialogue_ui.gd" id="1_guj16"]
-[ext_resource type="Texture2D" uid="uid://ctulx7depyns4" path="res://assets/dialogue_system/panel.png" id="2_2u3mh"]
 [ext_resource type="FontFile" uid="uid://dfbg8ise6x0u8" path="res://assets/fonts/Inter-VariableFont_opsz,wght.ttf" id="2_bwgys"]
 [ext_resource type="FontFile" uid="uid://m231uq8tiq88" path="res://assets/fonts/SourceSansPro-Regular.ttf" id="3_2b74u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_main"]
+content_margin_left = 80.0
+content_margin_top = 0.0
+content_margin_right = 80.0
+content_margin_bottom = 32.0
+bg_color = Color(0.024, 0.039, 0.071, 0.88)
+border_width_top = 1
+border_color = Color(1, 1, 1, 0.1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tab"]
+content_margin_left = 18.0
+content_margin_top = 6.0
+content_margin_right = 18.0
+content_margin_bottom = 5.0
+bg_color = Color(0.031, 0.055, 0.102, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_color = Color(0.39, 0.63, 1, 0.35)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sep"]
 
 [node name="DialogueUI2D" type="CanvasLayer"]
 script = ExtResource("1_guj16")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-anchors_preset = 7
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(1600, 900)
+layout_mode = 3
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
+offset_left = -800.0
+offset_right = 800.0
+offset_bottom = 900.0
+grow_horizontal = 2
+
+[node name="DialoguePanel" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -473.5
-offset_top = -463.0
-offset_right = 473.5
+offset_top = -260.0
 grow_horizontal = 2
 grow_vertical = 0
-texture = ExtResource("2_2u3mh")
-expand_mode = 1
-stretch_mode = 6
+theme_override_styles/panel = SubResource("StyleBoxFlat_main")
 
-[node name="Control" type="MarginContainer" parent="."]
-custom_minimum_size = Vector2(1600, 300)
-offset_top = 550.0
-offset_right = 1600.0
-offset_bottom = 850.0
-theme_override_constants/margin_bottom = 40
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+[node name="VBox" type="VBoxContainer" parent="Control/DialoguePanel"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 0
 
-[node name="NPCNameLabel" type="Label" parent="Control/VBoxContainer"]
+[node name="SpeakerTab" type="PanelContainer" parent="Control/DialoguePanel/VBox"]
 layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_tab")
+
+[node name="NPCNameLabel" type="Label" parent="Control/DialoguePanel/VBox/SpeakerTab"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.75, 1, 0.95)
 theme_override_fonts/font = ExtResource("2_bwgys")
-theme_override_font_sizes/font_size = 40
-text = "NPCName"
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 22
+text = "NPC Name"
 
-[node name="DialogueTextLabel" type="RichTextLabel" parent="Control/VBoxContainer"]
+[node name="DialogueInner" type="VBoxContainer" parent="Control/DialoguePanel/VBox"]
 layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TopSep" type="HSeparator" parent="Control/DialoguePanel/VBox/DialogueInner"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_sep")
+
+[node name="DialogueTextLabel" type="RichTextLabel" parent="Control/DialoguePanel/VBox/DialogueInner"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.86, 0.89, 0.96, 0.92)
 theme_override_fonts/normal_font = ExtResource("3_2b74u")
 theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
-text = "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\""
 fit_content = true
 horizontal_alignment = 1
 
-[node name="ButtonPromptLabel" type="Label" parent="Control/VBoxContainer"]
+[node name="ButtonPromptLabel" type="Label" parent="Control/DialoguePanel/VBox/DialogueInner"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.61, 0.73, 0.55)
 theme_override_fonts/font = ExtResource("3_2b74u")
-theme_override_font_sizes/font_size = 20
-text = "Press (right trigger) to continue."
+theme_override_font_sizes/font_size = 18
+text = "[ right trigger ] to continue"
 horizontal_alignment = 1
 
 [node name="ProceedTimer" type="Timer" parent="Control"]
