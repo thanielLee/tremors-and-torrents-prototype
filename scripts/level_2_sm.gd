@@ -582,6 +582,17 @@ func _handle_level_failed(delta: float):
 		await get_tree().create_timer(5.0).timeout
 		teleport_player(brief_pos)
 
+func _handle_outline_mesh(outline_parent: Node3D):
+	for child in outline_parent.get_children():
+		if "OutlineMesh" in child.name:
+			for next_child in child.get_children():
+				if "OutlineMesh" in next_child.name:
+					var material = next_child.get_active_material(0)
+					var tween = create_tween().set_loops(15) 
+
+					tween.tween_property(material, "albedo_color:a", 1.0, 0.3).set_trans(Tween.TRANS_SINE)
+					tween.tween_property(material, "albedo_color:a", 0.0, 0.3).set_trans(Tween.TRANS_SINE)
+
 func _check_player_seen(check_node: Node3D):
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 	var xr_camera: XRCamera3D = xr_origin_3d.get_child(0)
@@ -609,7 +620,14 @@ func _check_player_seen(check_node: Node3D):
 	#print(str(theta) + " " + str(xr_camera.global_position))
 	if result and theta <= 45:
 		var object: Node3D = result["collider"]
-		return check_node.is_ancestor_of(object) or object.is_ancestor_of(check_node) or (check_node.get_parent() == object.get_parent())
+		var output = check_node.is_ancestor_of(object) or object.is_ancestor_of(check_node) or (check_node.get_parent() == object.get_parent())
+		
+		if output:
+			for mesh_node in get_tree().get_nodes_in_group("mesh_group"):
+				if mesh_node.get_parent() == object.get_parent():
+					_handle_outline_mesh(mesh_node)
+		
+		return output
 	return false
 
 

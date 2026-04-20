@@ -1,14 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://bp4qsothxd80g"]
+[gd_scene load_steps=20 format=3 uid="uid://bp4qsothxd80g"]
 
 [ext_resource type="Script" uid="uid://bbncc441ssy0o" path="res://objectives/injured.gd" id="1_heuca"]
 [ext_resource type="Script" uid="uid://3bi02tndcxdg" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/ois-receiver/ois_twist_receiver.gd" id="2_as5ff"]
 [ext_resource type="PackedScene" uid="uid://gsmvxsjmkje0" path="res://assets/(Lying Down)NPC_man.glb" id="2_k55h8"]
-[ext_resource type="PackedScene" uid="uid://dgq6b2sx7ssgm" path="res://test_lying_down.tscn" id="2_sjuo2"]
 [ext_resource type="AudioStream" uid="uid://dbgvfjvxpx0am" path="res://assets/freesound/bandage_sound_1.mp3" id="3_f8pag"]
-[ext_resource type="PackedScene" uid="uid://bo1qv7bkip7dn" path="res://assets/weighted_lying_down_mesh.glb" id="3_tmsnb"]
+[ext_resource type="PackedScene" uid="uid://cn8n3m6p3hobe" path="res://lying_down_npc_inherited.tscn" id="3_ystf7"]
 [ext_resource type="AudioStream" uid="uid://gtrjdh5pp8oi" path="res://assets/freesound/bandage_sound_2.mp3" id="4_k55h8"]
-[ext_resource type="PackedScene" uid="uid://0hw0ei6bvdwa" path="res://assets/inherited_lying_down_mesh.tscn" id="5_x0imi"]
-[ext_resource type="PackedScene" uid="uid://cfld3751dkihy" path="res://assets/weighted_lying_down_mesh_update.glb" id="6_om5kh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f8pag"]
 albedo_color = Color(1, 1, 0, 1)
@@ -67,22 +64,13 @@ size = Vector3(2.685, 2.66, 4.42)
 script = ExtResource("1_heuca")
 objective_name = "Injured"
 
-[node name="NewMesh" type="Node3D" parent="."]
-
-[node name="weighted_lying_down_mesh_update2" parent="NewMesh" instance=ExtResource("2_sjuo2")]
-
-[node name="weighted_lying_down_mesh" parent="NewMesh" instance=ExtResource("3_tmsnb")]
-visible = false
+[node name="NewMesh" type="Node3D" parent="." groups=["mesh_group"]]
 
 [node name="LyingDownMesh" parent="NewMesh" instance=ExtResource("2_k55h8")]
 transform = Transform3D(1.3, 0, 0, 0, 1.29136, 0.149621, 0, -0.149621, 1.29136, 0, -1.0925, 0.0627184)
-visible = false
 
-[node name="LyingDownMesh2" parent="NewMesh" instance=ExtResource("5_x0imi")]
-visible = false
-
-[node name="weighted_lying_down_mesh_update" parent="NewMesh" instance=ExtResource("6_om5kh")]
-visible = false
+[node name="OutlineMesh" parent="NewMesh" instance=ExtResource("3_ystf7")]
+transform = Transform3D(1.3, 0, 0, 0, 1.29136, 0.149621, 0, -0.149621, 1.29136, 0, -1.0925, 0.0627184)
 
 [node name="Mesh" type="Node3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, -8.74228e-08, 2, 0, -2, -8.74228e-08, 0, 0, 0)
