@@ -107,7 +107,7 @@ material = SubResource("StandardMaterial3D_eyrqu")
 size = Vector3(1.5, 1.5, 0.155)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5t0se"]
-size = Vector3(5.95996, 1, 5.32568)
+size = Vector3(1.90137, 1, 0.995727)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_amexo"]
 render_priority = 0
@@ -570,6 +570,7 @@ collision_layer = 32
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SafeArea2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.765137, 0, -0.784485)
 shape = SubResource("BoxShape3D_5t0se")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="SafeArea2" index="1"]
@@ -582,6 +583,7 @@ collision_layer = 32
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SafeArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.26416, 0, 1.38049)
 shape = SubResource("BoxShape3D_5t0se")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="SafeArea" index="1"]
