@@ -436,29 +436,32 @@ outline_size = 6
 
 [node name="VictimRescue" parent="Objectives" index="0" instance=ExtResource("27_m763p")]
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 1.48892, -0.0362523, -12.4165)
-objective_name = "Save Evacuee"
+objective_name = "Rescue the Victim"
 completed_points = 100
 is_required = true
 ideal_completion_time = 20.0
-completed_message = "Evacuee made it!"
-fail_message = "Evacuee did not make it!"
+on_start_message = "Lead the victim to the safe zone!"
+completed_message = "Victim is safe. Good work."
+failed_message = "The victim was lost to a hazard."
 
 [node name="Injured" parent="Objectives" index="1" instance=ExtResource("28_kvtuh")]
 transform = Transform3D(-6.09774e-08, 0, -1.395, 0, 1.395, 0, 1.395, 0, -6.09774e-08, -2.99386, 0.419616, -14.8445)
-objective_name = "Bandage Injured"
+objective_name = "Treat the Injured"
 is_required = true
 ideal_completion_time = 15.0
-completed_message = "Evacuee was successfully bandaged!"
-fail_message = "Evacuee was not bandaged properly!"
+on_start_message = "Someone is injured nearby — apply a bandage!"
+completed_message = "Wound bandaged. The victim is stable."
+failed_message = "The bandaging was interrupted."
 
 [node name="DuckCoverHoldQTE" parent="Objectives" index="2" instance=ExtResource("29_ngpef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.015, 0.25, -4.92273)
 one_shot = true
-objective_name = "Duck Cover and Hold"
+objective_name = "Duck, Cover & Hold"
 completed_points = 25
 is_invisible = true
-completed_message = "Rocks did not hit you head!"
-fail_message = "Failed to duck cover and hold!"
+on_start_message = "Earthquake! Duck, cover your head, and hold!"
+completed_message = "You held the position — well done!"
+failed_message = "You didn't hold the position in time."
 
 [node name="ElectricalFire" parent="Objectives" index="3" instance=ExtResource("24_rddgb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.41107, 0, -8.23519)

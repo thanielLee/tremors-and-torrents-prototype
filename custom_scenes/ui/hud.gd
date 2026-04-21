@@ -91,7 +91,7 @@ func _open_obj_panel(obj: ObjectiveBase):
 	obj_status_label.text = ""
 	status_dot.color = Color(0.39, 0.63, 1.0, 0.0) # hidden initially
 	_fade_in(obj_panel, 0.25)
-	show_prompt(obj.objective_name + " started!", 2.0)
+	#show_prompt(obj.objective_name + " started!", 2.0)
 
 func _close_obj_panel():
 	await get_tree().create_timer(2.0).timeout
@@ -101,27 +101,28 @@ func _close_obj_panel():
 # QTE
 # -----------------------
 func on_qte_started(obj: ObjectiveBase):
+	show_prompt(obj.on_start_message, 5.0)
 	_open_obj_panel(obj)
 
 func on_qte_completed(obj: ObjectiveBase):
-	obj_feedback_label.text = obj.completed_message
+	obj_feedback_label.text = "Success!"
 	obj_feedback_label.add_theme_color_override("font_color", Color(0.47, 0.87, 0.67))
-	show_prompt("Success!", 2.0)
+	show_prompt(obj.completed_message, 2.0)
 	await _close_obj_panel()
 
 func on_qte_failed(obj: ObjectiveBase):
-	obj_feedback_label.text = obj.fail_message
+	obj_feedback_label.text = "Failed!"
 	obj_feedback_label.add_theme_color_override("font_color", Color(0.90, 0.40, 0.40))
-	show_prompt("Failed!", 2.0)
+	show_prompt(obj.fail_message, 2.0)
 	await _close_obj_panel()
 
 func update_qte_status_label(status: bool):
 	if status:
-		obj_status_label.text = "Hold that position!"
+		obj_status_label.text = "Good — stay down and hold!"
 		obj_status_label.add_theme_color_override("font_color", Color(0.47, 0.87, 0.67))
 		status_dot.color = Color(0.47, 0.87, 0.67, 1.0)
 	else:
-		obj_status_label.text = "Get back into position!"
+		obj_status_label.text = "Get back down — duck and cover!"
 		obj_status_label.add_theme_color_override("font_color", Color(0.90, 0.40, 0.40))
 		status_dot.color = Color(0.90, 0.40, 0.40, 1.0)
 
@@ -129,18 +130,19 @@ func update_qte_status_label(status: bool):
 # OBJECTIVE
 # -----------------------
 func on_obj_started(obj: ObjectiveBase):
+	show_prompt(obj.on_start_message, 5.0)
 	_open_obj_panel(obj)
 
 func on_obj_completed(obj: ObjectiveBase):
-	obj_feedback_label.text = obj.completed_message
+	obj_feedback_label.text = "Success!"
 	obj_feedback_label.add_theme_color_override("font_color", Color(0.47, 0.87, 0.67))
-	show_prompt("Success!", 2.0)
+	show_prompt(obj.completed_message, 5.0)
 	await _close_obj_panel()
 
 func on_obj_failed(obj: ObjectiveBase):
-	obj_feedback_label.text = obj.fail_message
+	obj_feedback_label.text = "Failed!"
 	obj_feedback_label.add_theme_color_override("font_color", Color(0.90, 0.40, 0.40))
-	show_prompt("Failed!", 2.0)
+	show_prompt(obj.failed_message, 5.0)
 	await _close_obj_panel()
 
 func update_obj_status_label(time: float):
