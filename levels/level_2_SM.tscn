@@ -1,7 +1,7 @@
-[gd_scene load_steps=92 format=3 uid="uid://ckjbgxs7pcdii"]
+[gd_scene load_steps=94 format=3 uid="uid://ckjbgxs7pcdii"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_inwr5"]
-[ext_resource type="Script" uid="uid://dabt4rsi4n6s5" path="res://scripts/level_2_sm.gd" id="2_inwr5"]
+[ext_resource type="Script" uid="uid://dabt4rsi4n6s5" path="res://levels/level_2_sm.gd" id="2_inwr5"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_amexo"]
 [ext_resource type="Material" uid="uid://be0o818winf1k" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/misc-resources/collider_raycast_material.tres" id="4_6ktlq"]
 [ext_resource type="Texture2D" uid="uid://b3gq1qnf34ml1" path="res://textures/sky/belfast_sunset_puresky_4k.hdr" id="5_2xps4"]
@@ -27,7 +27,9 @@
 [ext_resource type="PackedScene" uid="uid://c5jkbtv57haa3" path="res://hazards/broken_glass.tscn" id="25_mg5to"]
 [ext_resource type="Shader" uid="uid://m6krcam0qkt3" path="res://levels/level_2_SM.gdshader" id="26_1cuvt"]
 [ext_resource type="PackedScene" uid="uid://c83bvn3hvunbw" path="res://hazards/shaker.tscn" id="26_1xdl0"]
+[ext_resource type="Script" uid="uid://dlear2vc5ck3b" path="res://custom_scenes/safe_area.gd" id="26_amexo"]
 [ext_resource type="PackedScene" uid="uid://dsaovvehgewyy" path="res://objectives/victim_rescue.tscn" id="27_m763p"]
+[ext_resource type="FontFile" uid="uid://m231uq8tiq88" path="res://assets/fonts/SourceSansPro-Regular.ttf" id="28_amexo"]
 [ext_resource type="PackedScene" uid="uid://bp4qsothxd80g" path="res://objectives/injured.tscn" id="28_kvtuh"]
 [ext_resource type="PackedScene" uid="uid://cexlre72hlkim" path="res://custom_scenes/duck_cover_hold_qte.tscn" id="29_ngpef"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="31_4wll4"]
@@ -113,7 +115,7 @@ size = Vector3(10.946, 3.15682, 0.04)
 size = Vector3(5.69688, 3.14787, 0.04)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lrvbd"]
-size = Vector3(4.75342, 1, 4.21155)
+size = Vector3(5.21167, 1, 4.75324)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1cuvt"]
 render_priority = 0
@@ -411,13 +413,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72634, 2.66731e-06, -22.58
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.21748, 0, 7.23512)
 collision_layer = 32
 collision_mask = 0
+script = ExtResource("26_amexo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SafeArea" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.603271, 0, 0.557066)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.374146, 0, 0.286223)
 shape = SubResource("BoxShape3D_lrvbd")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="SafeArea" index="1"]
 mesh = SubResource("PlaneMesh_inwr5")
+
+[node name="SafeZoneLabel" type="Label3D" parent="SafeArea/MeshInstance3D2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0554423, 3.17346, -0.412979)
+billboard = 1
+no_depth_test = true
+modulate = Color(0.301961, 1, 0.301961, 1)
+text = "SAFE ZONE"
+font = ExtResource("28_amexo")
+font_size = 48
+outline_size = 6
 
 [node name="Objectives" type="Node3D" parent="." index="5"]
 
@@ -706,7 +719,7 @@ transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -2, 0, -2)
 
 [node name="Timer" type="Timer" parent="." index="13"]
 
-[node name="HUDManager" type="Node3D" parent="." index="14" node_paths=PackedStringArray("xr_origin_3d", "xr_camera")]
+[node name="HUDManager" type="Node3D" parent="." index="14" node_paths=PackedStringArray("xr_origin_3d", "xr_camera") groups=["hud_manager"]]
 script = ExtResource("43_ewcfm")
 xr_origin_3d = NodePath("../XROrigin3D")
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
@@ -718,7 +731,8 @@ collision_layer = 0
 scene = ExtResource("46_1cuvt")
 viewport_size = Vector2(1600, 900)
 material = ExtResource("46_kbvrv")
-scene_properties_keys = PackedStringArray("hud.gd")
+scene_properties_keys = PackedStringArray("hud.gd", "prompt_duration")
+prompt_duration = 3.0
 
 [node name="ResultLog" parent="HUDManager" index="1" instance=ExtResource("44_t2pyv")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -112.474, 1.65946, -2.9876)

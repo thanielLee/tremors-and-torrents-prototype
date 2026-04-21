@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://ckn5firtu6im3"]
+[gd_scene load_steps=61 format=3 uid="uid://ckn5firtu6im3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://dxrd1bf6mcajs" path="res://levels/level_1.gd" id="2_aerfg"]
@@ -35,6 +35,7 @@
 [ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="32_toluw"]
 [ext_resource type="Shader" uid="uid://m6krcam0qkt3" path="res://levels/level_2_SM.gdshader" id="35_dp1ib"]
 [ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="35_toluw"]
+[ext_resource type="FontFile" uid="uid://m231uq8tiq88" path="res://assets/fonts/SourceSansPro-Regular.ttf" id="35_tqj1w"]
 [ext_resource type="PackedScene" uid="uid://ciy4kh1na180s" path="res://custom_scenes/jammed_door_new.tscn" id="37_5t0se"]
 [ext_resource type="Texture2D" uid="uid://baiu0h3eyggc1" path="res://assets/warning-tape-and-police-line-black-and-yellow-line-striped.png" id="38_tqj1w"]
 
@@ -350,7 +351,8 @@ collision_layer = 0
 scene = ExtResource("12_udfhf")
 viewport_size = Vector2(1600, 900)
 material = ExtResource("32_toluw")
-scene_properties_keys = PackedStringArray("level_1hud.gd")
+scene_properties_keys = PackedStringArray("level_1hud.gd", "prompt_duration")
+prompt_duration = 3.0
 
 [node name="DialogueManager" parent="." index="6" node_paths=PackedStringArray("xr_origin_3d", "xr_camera", "dialogue_button_hand", "dialogue_toggler_hand") instance=ExtResource("21_5t0se")]
 xr_origin_3d = NodePath("../XROrigin3D")
@@ -571,6 +573,16 @@ shape = SubResource("BoxShape3D_5t0se")
 mesh = SubResource("PlaneMesh_tqj1w")
 skeleton = NodePath("../../SafeArea2")
 
+[node name="SafeZoneLabel" type="Label3D" parent="SafeArea2/MeshInstance3D2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.875362, 3.16145, -0.106804)
+billboard = 1
+no_depth_test = true
+modulate = Color(0.301961, 1, 0.301961, 1)
+text = "SAFE ZONE"
+font = ExtResource("35_tqj1w")
+font_size = 48
+outline_size = 6
+
 [node name="SafeArea" type="Area3D" parent="." index="11"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 23.053, -9.53674e-07, -15.3913)
 collision_layer = 32
@@ -583,6 +595,16 @@ shape = SubResource("BoxShape3D_5t0se")
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="SafeArea" index="1"]
 mesh = SubResource("PlaneMesh_tqj1w")
 skeleton = NodePath("../../SafeArea2")
+
+[node name="SafeZoneLabel" type="Label3D" parent="SafeArea/MeshInstance3D2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.186944, 2.40964, 0.325327)
+billboard = 1
+no_depth_test = true
+modulate = Color(0.301961, 1, 0.301961, 1)
+text = "SAFE ZONE"
+font = ExtResource("35_tqj1w")
+font_size = 48
+outline_size = 6
 
 [node name="JammedDoor" parent="." index="12" instance=ExtResource("37_5t0se")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 40, 1, -16)
