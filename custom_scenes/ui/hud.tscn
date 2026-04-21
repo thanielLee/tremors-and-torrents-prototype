@@ -1,8 +1,23 @@
-[gd_scene load_steps=8 format=3 uid="uid://bpunjpmf5cvyy"]
+[gd_scene load_steps=11 format=3 uid="uid://d2ow3wh5h382t"]
 
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="1_snye4"]
-[ext_resource type="PackedScene" uid="uid://cg3e6vl8r45gh" path="res://custom_scenes/ui/hud_2d_old.tscn" id="2_ti8b0"]
+[ext_resource type="Script" uid="uid://d0k5ctjwcylte" path="res://custom_scenes/ui/hud.gd" id="2_qu4jo"]
+[ext_resource type="FontFile" uid="uid://m231uq8tiq88" path="res://assets/fonts/SourceSansPro-Regular.ttf" id="3_qh30a"]
 [ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="3_qu4jo"]
+[ext_resource type="FontFile" uid="uid://dfbg8ise6x0u8" path="res://assets/fonts/Inter-VariableFont_opsz,wght.ttf" id="4_scpnv"]
+
+[sub_resource type="PackedScene" id="PackedScene_0w8gy"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("HUD", "CanvasLayer", "script", "Control", "Control", "custom_minimum_size", "layout_mode", "anchors_preset", "anchor_left", "anchor_right", "offset_left", "offset_right", "offset_bottom", "grow_horizontal", "TimerLabel", "Label", "layout_mode", "offset_left", "offset_top", "offset_right", "offset_bottom", "theme_override_fonts/font", "theme_override_font_sizes/font_size", "text", "horizontal_alignment", "vertical_alignment", "PromptLabel", "Label", "layout_mode", "offset_left", "offset_top", "offset_right", "offset_bottom", "theme_override_fonts/font", "theme_override_font_sizes/font_size", "text", "LevelLabel", "Label", "layout_mode", "anchors_preset", "anchor_left", "anchor_right", "offset_left", "offset_top", "offset_right", "offset_bottom", "grow_horizontal", "theme_override_fonts/font", "theme_override_font_sizes/font_size", "text", "horizontal_alignment", "vertical_alignment", "ReasonLabel", "Label", "visible", "layout_mode", "anchors_preset", "anchor_left", "anchor_right", "offset_left", "offset_top", "offset_right", "offset_bottom", "grow_horizontal", "theme_override_fonts/font", "theme_override_font_sizes/font_size", "text", "horizontal_alignment", "vertical_alignment", "ScoreLabel", "Label", "layout_mode", "offset_left", "offset_top", "offset_right", "offset_bottom", "theme_override_fonts/font", "theme_override_font_sizes/font_size", "text", "QTEContainer", "VBoxContainer", "layout_mode", "offset_left", "offset_top", "offset_right", "offset_bottom", "QTENameLabel", "Label", "layout_mode", "theme_override_fonts/font", "theme_override_font_sizes/font_size", "text", "horizontal_alignment", "QTEStatusLabel", "Label", "layout_mode", "theme_override_fonts/font", "theme_override_font_sizes/font_size", "text", "horizontal_alignment", "vertical_alignment", "QTEFeedbackLabel", "Label", "layout_mode", "theme_override_fonts/font", "theme_override_font_sizes/font_size", "text", "horizontal_alignment", "vertical_alignment"),
+"node_count": 11,
+"node_paths": [NodePath("."), NodePath("./Control"), NodePath("./Control"), NodePath("./Control"), NodePath("./Control"), NodePath("./Control"), NodePath("./Control"), NodePath("./Control/QTEContainer"), NodePath("./Control/QTEContainer"), NodePath("./Control/QTEContainer")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 1, 2, 0, 0, 1073741824, 0, 4, 3, -1, 9, 5, 1, 6, 2, 7, 3, 8, 4, 9, 5, 10, 6, 11, 7, 12, 8, 13, 9, 0, 1073741825, 0, 15, 14, -1, 10, 16, 10, 17, 11, 18, 12, 19, 13, 20, 14, 21, 15, 22, 16, 23, 17, 24, 18, 25, 19, 0, 1073741826, 0, 27, 26, -1, 8, 28, 20, 29, 21, 30, 22, 31, 23, 32, 24, 33, 25, 34, 26, 35, 27, 0, 1073741827, 0, 37, 36, -1, 14, 38, 28, 39, 29, 40, 30, 41, 31, 42, 32, 43, 33, 44, 34, 45, 35, 46, 36, 47, 37, 48, 38, 49, 39, 50, 40, 51, 41, 0, 1073741828, 0, 53, 52, -1, 15, 54, 42, 55, 43, 56, 44, 57, 45, 58, 46, 59, 47, 60, 48, 61, 49, 62, 50, 63, 51, 64, 52, 65, 53, 66, 54, 67, 55, 68, 56, 0, 1073741829, 0, 70, 69, -1, 8, 71, 57, 72, 58, 73, 59, 74, 60, 75, 61, 76, 62, 77, 63, 78, 64, 0, 1073741830, 0, 80, 79, -1, 5, 81, 65, 82, 66, 83, 67, 84, 68, 85, 69, 0, 1073741831, 0, 87, 86, -1, 5, 88, 70, 89, 71, 90, 72, 91, 73, 92, 74, 0, 1073741832, 0, 94, 93, -1, 6, 95, 75, 96, 76, 97, 77, 98, 78, 99, 79, 100, 80, 0, 1073741833, 0, 102, 101, -1, 6, 103, 81, 104, 82, 105, 83, 106, 84, 107, 85, 108, 86, 0),
+"variants": [ExtResource("2_qu4jo"), Vector2(1600, 900), 3, 5, 0.5, 0.5, -800.0, 800.0, 900.0, 2, 0, 1266.0, 48.0, 1381.0, 103.0, ExtResource("3_qh30a"), 40, "00:00", 1, 1, 0, 306.0, 469.0, 487.0, 538.0, ExtResource("3_qh30a"), 30, "Prompt", 1, 5, 0.5, 0.5, -333.0, 250.0, 333.0, 360.0, 2, ExtResource("4_scpnv"), 80, "Level Completed!", 1, 1, false, 1, 5, 0.5, 0.5, -302.0, 350.0, 302.0, 433.0, 2, ExtResource("3_qh30a"), 60, "Rescue took too long", 1, 1, 0, 227.0, 38.0, 378.0, 93.0, ExtResource("3_qh30a"), 40, "Score: 0", 0, 651.0, 32.0, 1010.0, 138.0, 2, ExtResource("4_scpnv"), 30, "Duck Cover and Hold!", 1, 2, ExtResource("3_qh30a"), 40, "Hold that position!", 1, 1, 2, ExtResource("4_scpnv"), 40, "QTE completed!", 1, 1],
+"version": 3
+}
 
 [sub_resource type="QuadMesh" id="QuadMesh_qh30a"]
 resource_local_to_scene = true
@@ -11,7 +26,7 @@ size = Vector2(16, 9)
 [sub_resource type="ViewportTexture" id="ViewportTexture_snye4"]
 viewport_path = NodePath("Viewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ti8b0"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qu4jo"]
 render_priority = 60
 transparency = 1
 no_depth_test = true
@@ -25,7 +40,7 @@ size = Vector3(16, 9, 0.02)
 [node name="HUD" instance=ExtResource("1_snye4")]
 screen_size = Vector2(16, 9)
 collision_layer = 5242880
-scene = ExtResource("2_ti8b0")
+scene = SubResource("PackedScene_0w8gy")
 viewport_size = Vector2(1600, 900)
 material = ExtResource("3_qu4jo")
 scene_properties_keys = PackedStringArray("hud.gd")
@@ -35,7 +50,7 @@ size = Vector2i(1600, 900)
 
 [node name="Screen" parent="." index="1"]
 mesh = SubResource("QuadMesh_qh30a")
-surface_material_override/0 = SubResource("StandardMaterial3D_ti8b0")
+surface_material_override/0 = SubResource("StandardMaterial3D_qu4jo")
 
 [node name="StaticBody3D" parent="." index="2"]
 collision_layer = 5242880
