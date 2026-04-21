@@ -194,7 +194,7 @@ func _on_hazard_triggered(hazard: Variant):
 		score += hazard.penalty_points
 		triggered_hazards.append(hazard_name)
 		
-		var message = "Hazard: %s triggered! %d" % [hazard_name, hazard.penalty_points]
+		var message = "Hazard: %s triggered! %d" % [hazard_name, abs(hazard.penalty_points)]
 		hud_manager.show_prompt(message, 3.0)
 		hud_manager.update_score(score)
 		
