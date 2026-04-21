@@ -588,10 +588,10 @@ func _handle_outline_mesh(outline_parent: Node3D):
 			for next_child in child.get_children():
 				if "OutlineMesh" in next_child.name:
 					var material = next_child.get_active_material(0)
-					var tween = create_tween().set_loops(15) 
+					var tween = create_tween().set_loops(10) 
 
-					tween.tween_property(material, "albedo_color:a", 1.0, 0.3).set_trans(Tween.TRANS_SINE)
-					tween.tween_property(material, "albedo_color:a", 0.0, 0.3).set_trans(Tween.TRANS_SINE)
+					tween.tween_property(material, "albedo_color:a", 1.0, 0.6).set_trans(Tween.TRANS_SINE)
+					tween.tween_property(material, "albedo_color:a", 0.0, 0.6).set_trans(Tween.TRANS_SINE)
 
 func _check_player_seen(check_node: Node3D):
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
