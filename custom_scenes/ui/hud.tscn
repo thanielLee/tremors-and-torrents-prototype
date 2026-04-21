@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bpunjpmf5cvyy"]
 
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="1_snye4"]
-[ext_resource type="PackedScene" uid="uid://cg3e6vl8r45gh" path="res://custom_scenes/ui/hud_2d.tscn" id="2_ti8b0"]
+[ext_resource type="PackedScene" uid="uid://cg3e6vl8r45gh" path="res://custom_scenes/ui/hud_2d_old.tscn" id="2_ti8b0"]
 [ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="3_qu4jo"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_qh30a"]
@@ -28,8 +28,7 @@ collision_layer = 5242880
 scene = ExtResource("2_ti8b0")
 viewport_size = Vector2(1600, 900)
 material = ExtResource("3_qu4jo")
-scene_properties_keys = PackedStringArray("hud.gd", "prompt_duration")
-prompt_duration = 3.0
+scene_properties_keys = PackedStringArray("hud.gd")
 
 [node name="Viewport" parent="." index="0"]
 size = Vector2i(1600, 900)

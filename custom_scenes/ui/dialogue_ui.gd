@@ -86,11 +86,11 @@ func _show_line():
 
 	if typeof(line_data) == TYPE_DICTIONARY:
 		dialogue_text_label.text = line_data.get("text", "")
-		var duration = line_data.get("duration", 3.0)
-		proceed_timer.start(duration)
+		# var duration = line_data.get("duration", 3.0)
+		# proceed_timer.start(duration)
 	else:
 		dialogue_text_label.text = str(line_data)
-		proceed_timer.start()
+		# proceed_timer.start()
 
 	_fade_in_prompt_later()
 

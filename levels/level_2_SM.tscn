@@ -45,7 +45,7 @@
 [ext_resource type="PackedScene" uid="uid://41fv2ptcljjp" path="res://custom_scenes/team_captain.tscn" id="42_lm75o"]
 [ext_resource type="Script" uid="uid://mwkmv5yaqd6g" path="res://custom_scenes/ui/hud_manager.gd" id="43_ewcfm"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="44_t2pyv"]
-[ext_resource type="PackedScene" uid="uid://cg3e6vl8r45gh" path="res://custom_scenes/ui/hud_2d.tscn" id="45_6u3w4"]
+[ext_resource type="PackedScene" uid="uid://cg3e6vl8r45gh" path="res://custom_scenes/ui/hud_2d.tscn" id="46_1cuvt"]
 [ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="46_kbvrv"]
 [ext_resource type="PackedScene" uid="uid://culd7ukt6dcqw" path="res://custom_scenes/level_result_log_2d.tscn" id="47_uxogw"]
 [ext_resource type="Script" uid="uid://b4seunyy8fkyl" path="res://custom_scenes/ui/dialogue_manager.gd" id="48_00ufr"]
@@ -715,11 +715,10 @@ xr_camera = NodePath("../XROrigin3D/XRCamera3D")
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 screen_size = Vector2(16, 9)
 collision_layer = 0
-scene = ExtResource("45_6u3w4")
+scene = ExtResource("46_1cuvt")
 viewport_size = Vector2(1600, 900)
 material = ExtResource("46_kbvrv")
-scene_properties_keys = PackedStringArray("hud.gd", "prompt_duration")
-prompt_duration = 3.0
+scene_properties_keys = PackedStringArray("hud.gd")
 
 [node name="ResultLog" parent="HUDManager" index="1" instance=ExtResource("44_t2pyv")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -112.474, 1.65946, -2.9876)

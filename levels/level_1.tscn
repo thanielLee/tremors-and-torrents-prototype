@@ -351,8 +351,7 @@ collision_layer = 0
 scene = ExtResource("12_udfhf")
 viewport_size = Vector2(1600, 900)
 material = ExtResource("32_toluw")
-scene_properties_keys = PackedStringArray("level_1hud.gd", "prompt_duration")
-prompt_duration = 3.0
+scene_properties_keys = PackedStringArray("level_1hud.gd")
 
 [node name="DialogueManager" type="Node3D" parent="." index="6" node_paths=PackedStringArray("xr_origin_3d", "xr_camera", "dialogue_button_hand", "dialogue_toggler_hand") groups=["dialogue_system"]]
 script = ExtResource("33_rf48r")
