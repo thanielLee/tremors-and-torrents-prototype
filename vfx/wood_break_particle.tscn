@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c51r3lffd461c"]
+
+[ext_resource type="PackedScene" uid="uid://du0eqjbf2q2fp" path="res://vfx/broken_wooden_planks__game_ready.glb" id="1_atqib"]
+
+[node name="Sketchfab_Scene" instance=ExtResource("1_atqib")]
+
+[node name="Cube_004" parent="Sketchfab_model/Collada visual scene group" index="0"]
+transform = Transform3D(85.62, 0, 0, 0, -6e-06, 100, 0, -36.0072, -1.6e-05, -2.12525, -0.342568, -3.01056)
