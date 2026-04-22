@@ -57,3 +57,8 @@ func fail_objective():
 	super.fail_objective()
 	done += 1
 	set_process(false)
+
+
+func _on_reset():
+	done = 0
+	set_process(true)

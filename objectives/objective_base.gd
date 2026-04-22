@@ -22,8 +22,9 @@ signal objective_reset
 @export var ideal_completion_time: float = 10
 var elapsed_time: float = 0
 var completion_time: float = 0
+@export var on_start_message: String = "This objective has started!"
 @export var completed_message: String = "You have completed this objective!"
-@export var fail_message: String = "You have failed this objective!"
+@export var failed_message: String = "You have failed this objective!"
 
 
 var active: bool = false

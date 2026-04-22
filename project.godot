@@ -43,6 +43,7 @@ enabled=PackedStringArray("res://addons/ateneo-virtual-reality-escape/plugin.cfg
 
 can_break="Objects that interact with objects that have the Breakable script"
 dialogue_system=""
+hud_manager=""
 
 [layer_names]
 

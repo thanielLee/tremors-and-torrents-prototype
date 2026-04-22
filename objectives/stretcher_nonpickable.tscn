@@ -237,11 +237,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_2da2n")
 
 [node name="ObjectiveLogic" type="Node3D" parent="."]
 script = ExtResource("10_mdk2q")
-objective_name = "Stretcher"
+objective_name = "Stretcher Evacuation"
 completed_points = 100
 is_required = true
-completed_message = "Injured successfully reached the safe area!"
-fail_message = "Injured did not make it to the safe area!"
+on_start_message = "Carry the stretcher to the safe zone!"
+completed_message = "Evacuation complete. The victim is safe!"
+failed_message = "The stretcher was dropped too far away."
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_mask = 32
@@ -260,3 +261,4 @@ shape = SubResource("BoxShape3D_j7wee")
 debug_fill = false
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]
