@@ -127,7 +127,7 @@ dialogue_button_hand = NodePath("../XROrigin3D/RightHand")
 dialogue_toggler_hand = NodePath("../XROrigin3D/RightHand")
 
 [node name="TeamCaptain" parent="." index="3" instance=ExtResource("4_v6mhn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55765, 0, -4.82183)
+transform = Transform3D(0.872743, 0, 0.48818, 0, 1, 0, -0.48818, 0, 0.872743, -1.59599, 0, -3.432)
 registry_name = "TeamCaptain"
 display_name = "Captain"
 dialogue_states = Array[String](["briefing_recap"])

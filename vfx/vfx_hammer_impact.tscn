@@ -117,6 +117,7 @@ alpha_curve = SubResource("CurveTexture_o8dl8")
 [node name="VfxHammerImpact" type="Node3D"]
 
 [node name="Flash" type="GPUParticles3D" parent="."]
+visible = false
 material_override = SubResource("StandardMaterial3D_x1275")
 emitting = false
 amount = 1
@@ -137,6 +138,7 @@ process_material = SubResource("ParticleProcessMaterial_ib1wi")
 draw_pass_1 = SubResource("QuadMesh_3s6ch")
 
 [node name="Shockwave" type="GPUParticles3D" parent="."]
+visible = false
 material_override = SubResource("StandardMaterial3D_vwbqf")
 emitting = false
 amount = 1
@@ -147,6 +149,7 @@ process_material = SubResource("ParticleProcessMaterial_qgh0l")
 draw_pass_1 = SubResource("QuadMesh_3s6ch")
 
 [node name="Sparks" type="GPUParticles3D" parent="."]
+visible = false
 material_override = SubResource("StandardMaterial3D_vwbqf")
 emitting = false
 amount = 20

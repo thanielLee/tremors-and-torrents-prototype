@@ -239,6 +239,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_2da2n")
 script = ExtResource("10_mdk2q")
 objective_name = "Stretcher Evacuation"
 completed_points = 100
+is_required = true
 on_start_message = "Carry the stretcher to the safe zone!"
 completed_message = "Evacuation complete. The victim is safe!"
 failed_message = "The stretcher was dropped too far away."

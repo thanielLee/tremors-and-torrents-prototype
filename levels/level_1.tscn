@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://ckn5firtu6im3"]
+[gd_scene load_steps=62 format=3 uid="uid://ckn5firtu6im3"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_lmdqw"]
 [ext_resource type="Script" uid="uid://dxrd1bf6mcajs" path="res://levels/level_1.gd" id="2_aerfg"]
@@ -32,6 +32,7 @@
 [ext_resource type="AudioStream" uid="uid://c8gd8a548qysy" path="res://assets/audio/earthquake-consolidated.wav" id="29_pnpm1"]
 [ext_resource type="AudioStream" uid="uid://d0l6x7lhlm0f3" path="res://assets/audio/intense-horror-game-ambience-418842.mp3" id="30_06ecp"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="30_e5brb"]
+[ext_resource type="PackedScene" uid="uid://bwcpq6cuejbiy" path="res://assets/meshes/table/table.tscn" id="32_gtrna"]
 [ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="32_toluw"]
 [ext_resource type="Shader" uid="uid://m6krcam0qkt3" path="res://levels/level_2_SM.gdshader" id="35_dp1ib"]
 [ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="35_toluw"]
@@ -544,10 +545,37 @@ stream = ExtResource("9_voubc")
 
 [node name="Hammer" parent="Tools" index="0" instance=ExtResource("23_ntdhj")]
 
-[node name="Bandage" parent="Tools" index="1" instance=ExtResource("24_0fu15")]
+[node name="Hammer2" parent="Tools" index="1" instance=ExtResource("23_ntdhj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.272, 0.972659, -13.3198)
+
+[node name="Hammer3" parent="Tools" index="2" instance=ExtResource("23_ntdhj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.9607, 0.972659, -13.3198)
+
+[node name="Hammer4" parent="Tools" index="3" instance=ExtResource("23_ntdhj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6803, 0.972659, -13.3198)
+
+[node name="Bandage" parent="Tools" index="4" instance=ExtResource("24_0fu15")]
 collision_layer = 5
 
-[node name="FireExtinguisher" parent="Tools" index="2" instance=ExtResource("25_4knja")]
+[node name="Bandage2" parent="Tools" index="5" instance=ExtResource("24_0fu15")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.1949, 0.972659, -12.685)
+collision_layer = 5
+
+[node name="Bandage3" parent="Tools" index="6" instance=ExtResource("24_0fu15")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.8633, 0.972659, -12.6914)
+collision_layer = 5
+
+[node name="Bandage4" parent="Tools" index="7" instance=ExtResource("24_0fu15")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6118, 0.972659, -12.6902)
+collision_layer = 5
+
+[node name="FireExtinguisher" parent="Tools" index="8" instance=ExtResource("25_4knja")]
+
+[node name="FireExtinguisher2" parent="Tools" index="9" instance=ExtResource("25_4knja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.8073, 1.22063, -12.1279)
+
+[node name="Table" parent="Tools" index="10" instance=ExtResource("32_gtrna")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 19.6734, -0.0845561, -13.7699)
 
 [node name="GlobalAudioManager" type="Node3D" parent="." index="9"]
 

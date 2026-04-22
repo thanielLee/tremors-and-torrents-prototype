@@ -120,6 +120,12 @@ func _put_stretcher_on_ground():
 	
 	global_position = intersection_point + Vector3(0.0, 0.5, 0.0)
 	
+	if objective_script.active:
+		if injured_mesh.visible == true:
+			if in_safe_zone:
+				objective_script.complete_objective()
+			else:
+				objective_script.fail_objective()
 		
 	if ((global_position-injured_node.global_position).length() <= 5.0) and injured_node.completed:
 		injured_mesh.visible = true
@@ -131,11 +137,7 @@ func _put_stretcher_on_ground():
 		
 		responder_collision.collision_layer = 1
 	
-	if objective_script.active:
-		if in_safe_zone:
-			objective_script.complete_objective()
-		else:
-			objective_script.fail_objective()
+	
 
 func _process(delta: float) -> void:
 	pass

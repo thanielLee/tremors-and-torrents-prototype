@@ -177,6 +177,9 @@ func enable_hazards():
 		var hazard = h as Hazard
 		if hazard.has_signal("hazard_triggered"):
 			hazard.hazard_triggered.connect(_on_hazard_triggered.bind(hazard))
+	
+	var fire = $Objectives/ElectricalFire as Hazard
+	fire.hazard_triggered.connect(_on_hazard_triggered.bind(fire))
 
 func disable_hazards():
 	if not hazards: return
@@ -189,14 +192,9 @@ func disable_hazards():
 func _on_hazard_triggered(hazard: Variant):
 	var hazard_name = hazard.hazard_name
 	
-	if hazard_name == "Electrical Fire":
-		if hazard.is_active:
-			fail_level("Ran into fire")
-		return
-	
 	if hazard_name not in triggered_hazards:
 		score += hazard.penalty_points
-		triggered_hazards.append(hazard_name)
+		triggered_hazards.append(hazard.name)
 		
 		var message = "Hazard: %s triggered! %d" % [hazard_name, abs(hazard.penalty_points)]
 		hud_manager.show_prompt(message, 3.0)
@@ -205,6 +203,10 @@ func _on_hazard_triggered(hazard: Variant):
 		if triggered_hazards.size() >= HAZARD_LIMIT:
 			fail_level("Hazard limit reached")
 		
+	if hazard_name == "Electrical Fire":
+		if hazard.is_active:
+			fail_level("Ran into fire")
+		return
 	# TODO: display logged hazards for results
 
 
@@ -319,7 +321,7 @@ func _on_objective_failed(obj: ObjectiveBase):
 	# if obj.has_signal("qte_started"):
 	# 	hud_manager.on_qte_failed(obj)
 	# else:
-	hud_manager.show_prompt(obj.fail_message + " -%d" % obj.failed_points, 3.0)
+	hud_manager.show_prompt(obj.failed_message + " -%d" % obj.failed_points, 3.0)
 	hud_manager.on_obj_failed(obj)
 
 	if obj.failed_points != 0:
@@ -328,7 +330,7 @@ func _on_objective_failed(obj: ObjectiveBase):
 	
 	if obj.is_required:
 		current_state = State.LEVEL_FAIL
-		failure_message = obj.fail_message
+		failure_message = obj.failed_message
 	else:
 		if len(seen_objectives) > 0:
 			current_state = State.ACTIVE_SEEN_OBJECTIVE
