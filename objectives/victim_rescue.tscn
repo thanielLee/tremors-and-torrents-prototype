@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dsaovvehgewyy"]
+[gd_scene load_steps=17 format=3 uid="uid://dsaovvehgewyy"]
 
 [ext_resource type="Script" uid="uid://ccjy1q4ckumut" path="res://objectives/victim_rescue.gd" id="1_0qijs"]
 [ext_resource type="Script" uid="uid://bs8upadcj5xge" path="res://addons/godot-xr-tools/objects/interactable_area.gd" id="2_q5yrj"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="3_12ehe"]
 [ext_resource type="PackedScene" uid="uid://rwk0pv17cqvx" path="res://assets/NPC_Help1.glb" id="3_so1c5"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="4_1w5fe"]
+[ext_resource type="PackedScene" uid="uid://cs6thd4i3hf1d" path="res://victim_2_outline_inherited.tscn" id="4_2c2vd"]
 [ext_resource type="Resource" uid="uid://c5nxxsga5kesd" path="res://assets/meshes/interactables/pose_grab_ball_left.tres" id="4_5xjs5"]
 [ext_resource type="Resource" uid="uid://dvvw0k7tqagx" path="res://assets/meshes/interactables/pose_grab_ball_right.tres" id="6_dshul"]
 [ext_resource type="PackedScene" uid="uid://bddj5m7ull6g0" path="res://addons/godot-xr-tools/interactables/interactable_handle.tscn" id="7_j4ht5"]
@@ -21,12 +22,15 @@ size = Vector3(0.919833, 0.874084, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2c2vd"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_wdwv5"]
+size = Vector3(1.672, 1.64307, 4.03586)
+
 [node name="VictimRescue" type="Node3D"]
 script = ExtResource("1_0qijs")
 dialogue_states = Array[String](["pre_rescue", "post_rescue"])
 objective_name = "Victim"
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
+[node name="RigidBody3D" type="RigidBody3D" parent="." groups=["mesh_group"]]
 collision_layer = 0
 collision_mask = 32
 axis_lock_angular_x = true
@@ -37,6 +41,9 @@ transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, -0.195, 0, -0.12)
 visible = false
 
 [node name="LyingDownMesh" parent="RigidBody3D" instance=ExtResource("3_2c2vd")]
+transform = Transform3D(1.3, 0, 0, 0, 1.29136, 0.149621, 0, -0.149621, 1.29136, 0, -0.986063, 0.0627184)
+
+[node name="OutlineMesh" parent="RigidBody3D" instance=ExtResource("4_2c2vd")]
 transform = Transform3D(1.3, 0, 0, 0, 1.29136, 0.149621, 0, -0.149621, 1.29136, 0, -0.986063, 0.0627184)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
@@ -101,6 +108,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_12ehe")
 
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+
+[node name="VisibleArea" type="StaticBody3D" parent="."]
+collision_layer = 536870912
+collision_mask = 536870912
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VisibleArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0894165, 0.321533, -0.00382996)
+shape = SubResource("BoxShape3D_wdwv5")
+debug_fill = false
 
 [connection signal="area_entered" from="RigidBody3D/Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="body_entered" from="RigidBody3D/Area3D" to="." method="_on_area_3d_body_entered"]
