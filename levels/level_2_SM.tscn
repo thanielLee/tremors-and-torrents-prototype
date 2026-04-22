@@ -206,7 +206,7 @@ albedo_color = Color(1, 0, 0, 1)
 
 [node name="Level2SM" instance=ExtResource("1_inwr5")]
 script = ExtResource("2_inwr5")
-level_time_limit = 120.0
+level_time_limit = 1.0
 briefing_time_limit = 5.0
 
 [node name="XROrigin3D" parent="." index="0"]
@@ -739,12 +739,11 @@ prompt_duration = 3.0
 
 [node name="ResultLog" parent="HUDManager" index="1" instance=ExtResource("44_t2pyv")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -112.474, 1.65946, -2.9876)
-visible = false
 screen_size = Vector2(16, 9)
 collision_layer = 1
 scene = ExtResource("47_uxogw")
 viewport_size = Vector2(1600, 900)
-update_mode = 0
+material = ExtResource("46_kbvrv")
 unshaded = true
 scene_properties_keys = PackedStringArray("log.gd")
 

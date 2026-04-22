@@ -353,21 +353,61 @@ func teleport_player(new_position: Vector3):
 
 ### LOGGING
 
-func log_results():
-	var message: String = "Results:\n\n"
-	if completed_objectives.size() == 0:
-		message += "No objectives completed.\n"
-	else:
-		for i in range(completed_objectives.size()):
-			var obj_name = completed_objectives[i].objective_name
-			var obj_time = completed_objectives[i].completion_time
-			message += "%s: %.2f seconds\n" % [obj_name, obj_time]
+# func log_results():
+# 	var message: String = "Results:\n\n"
+# 	if completed_objectives.size() == 0:
+# 		message += "No objectives completed.\n"
+# 	else:
+# 		for i in range(completed_objectives.size()):
+# 			var obj_name = completed_objectives[i].objective_name
+# 			var obj_time = completed_objectives[i].completion_time
+# 			message += "%s: %.2f seconds\n" % [obj_name, obj_time]
 	
-	message += "\nTime Taken: %.2f seconds\n" % level_timer
-	message += "Total Score: %d\n" % score
-	message += "Hazards Triggered: %d / %d\n" % [triggered_hazards.size(), HAZARD_LIMIT]
+# 	message += "\nTime Taken: %.2f seconds\n" % level_timer
+# 	message += "Total Score: %d\n" % score
+# 	message += "Hazards Triggered: %d / %d\n" % [triggered_hazards.size(), HAZARD_LIMIT]
 
-	hud_manager.log_results(message)
+# 	hud_manager.log_results(message)
+
+func log_results():
+	var level_status: bool = (not level_ended == false) and level_failed_obj_active
+	var data := {
+		"success": level_status,
+		"score": score,
+		"level_timer": level_timer,
+		"hazards_triggered": triggered_hazards.size(),
+		"hazard_limit": HAZARD_LIMIT,
+		"objectives": []
+	}
+
+	# All known objectives for display — including ones not completed
+	var all_objectives: Array[ObjectiveBase] = []
+	for obj in objectives.get_children():
+		if obj is ObjectiveBase:
+			all_objectives.append(obj)
+		elif obj.get_node_or_null("ObjectiveLogic"):
+			all_objectives.append(obj.get_node("ObjectiveLogic") as ObjectiveBase)
+
+	for obj in all_objectives:
+		if obj == null:
+			continue
+		var status: String
+		if obj.completed:
+			status = "complete"
+		elif obj.failed:
+			status = "failed"
+		else:
+			status = "missed"
+
+		data["objectives"].append({
+			"name": obj.objective_name,
+			"required": obj.is_required,
+			"status": status,
+			"completion_time": obj.completion_time,
+			"points_earned": obj.completed_points if obj.completed else (obj.failed_points if obj.failed else 0)
+		})
+
+	hud_manager.log_results(data)
 
 ### PROCESS LOOP ###
 
@@ -500,8 +540,8 @@ func _get_next_state(delta: float):
 				teleport_player(brief_pos)
 				teleported_player = true
 			_update_timer(delta)
-			if level_timer > 20.0:
-				exit_to_main_menu()
+			#if level_timer > 20.0:
+				#exit_to_main_menu()
 
 func _update_seen_objectives():
 	if !should_update_seen_objectives:

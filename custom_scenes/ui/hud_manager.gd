@@ -104,7 +104,11 @@ func show_timer():
 func hide_timer():
 	hud_script.hide_timer()
 
-func log_results(message: String):
-	# print("logging results in hud manager")
-	result_log_script.log_results(message)
+# func log_results(message: String):
+# 	# print("logging results in hud manager")
+# 	result_log_script.log_results(message)
+# 	result_log.visible = true
+
+func log_results(data: Dictionary):
+	result_log_script.log_results(data)
 	result_log.visible = true
