@@ -12,6 +12,7 @@ class_name Level1
 @onready var dialogue_manager: DialogueManager = $DialogueManager
 @onready var world_shaker: Node3D = $Environment/WorldShaker
 @onready var earthquake_player: AudioStreamPlayer = $GlobalAudioManager/EarthquakePlayer
+@onready var objective_player: AudioStreamPlayer = $GlobalAudioManager/ObjectiveCompletedPlayer
 
 
 var current_objective: ObjectiveBase = null
@@ -95,6 +96,8 @@ func _on_objective_completed(obj: ObjectiveBase):
 	var message = "Objective: %s completed! +%d" % [obj.objective_name, obj.completed_points]
 	hud_manager.show_prompt(message, 3.0)
 	hud_manager.on_obj_completed(obj)
+	
+	objective_player.play(0.0)
 	
 	#hud_manager.update_score(score)
 	#
