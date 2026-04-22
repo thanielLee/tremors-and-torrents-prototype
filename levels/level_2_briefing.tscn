@@ -1,11 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://bqgo56wirqsy2"]
+[gd_scene load_steps=20 format=3 uid="uid://bqgo56wirqsy2"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_dyeri"]
 [ext_resource type="Script" uid="uid://dqba1ncoreeq4" path="res://levels/level_2_briefing.gd" id="2_a81k6"]
 [ext_resource type="PackedScene" uid="uid://dcr8tvptx5285" path="res://assets/buildings/army_tent.glb" id="2_e0ud1"]
 [ext_resource type="PackedScene" uid="uid://b8e7ebkdguro8" path="res://custom_scenes/dialogue_manager.tscn" id="3_0j5n4"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_ikgsk"]
 [ext_resource type="PackedScene" uid="uid://41fv2ptcljjp" path="res://custom_scenes/team_captain.tscn" id="4_v6mhn"]
+[ext_resource type="Material" uid="uid://be0o818winf1k" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/misc-resources/collider_raycast_material.tres" id="4_vi154"]
 [ext_resource type="Texture2D" uid="uid://b3gq1qnf34ml1" path="res://textures/sky/belfast_sunset_puresky_4k.hdr" id="4_xegxb"]
+[ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="7_8xt3a"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0j5n4"]
 size = Vector3(8, 0.2, 8)
@@ -54,6 +57,13 @@ script = ExtResource("2_a81k6")
 scene = "uid://ckjbgxs7pcdii"
 left_controller = NodePath("XROrigin3D/LeftHand")
 right_controller = NodePath("XROrigin3D/RightHand")
+
+[node name="FunctionPointer" parent="XROrigin3D/RightHand" index="4" instance=ExtResource("3_ikgsk")]
+distance = 100.0
+show_laser = 2
+laser_length = 1
+laser_material = ExtResource("4_vi154")
+collide_with_areas = true
 
 [node name="Environment" type="Node3D" parent="." index="1"]
 
@@ -117,6 +127,11 @@ dialogue_button_hand = NodePath("../XROrigin3D/RightHand")
 dialogue_toggler_hand = NodePath("../XROrigin3D/RightHand")
 
 [node name="TeamCaptain" parent="." index="3" instance=ExtResource("4_v6mhn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55765, 0, -4.82183)
+transform = Transform3D(0.872743, 0, 0.48818, 0, 1, 0, -0.48818, 0, 0.872743, -1.59599, 0, -3.432)
 registry_name = "TeamCaptain"
 display_name = "Captain"
+dialogue_states = Array[String](["briefing_recap"])
+
+[node name="Teleport" parent="." index="4" instance=ExtResource("7_8xt3a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14591, 0, -4.5551)
+scene = "uid://ckjbgxs7pcdii"

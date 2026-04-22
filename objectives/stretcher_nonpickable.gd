@@ -33,6 +33,7 @@ var rot_matrix: Transform3D
 
 # objective logic
 @onready var objective_script: ObjectiveBase = $"ObjectiveLogic"
+var in_safe_zone: bool = false
 
 
 signal strecher_one_handed(time: float)
@@ -119,6 +120,12 @@ func _put_stretcher_on_ground():
 	
 	global_position = intersection_point + Vector3(0.0, 0.5, 0.0)
 	
+	if objective_script.active:
+		if injured_mesh.visible == true:
+			if in_safe_zone:
+				objective_script.complete_objective()
+			else:
+				objective_script.fail_objective()
 		
 	if ((global_position-injured_node.global_position).length() <= 5.0) and injured_node.completed:
 		injured_mesh.visible = true
@@ -129,6 +136,8 @@ func _put_stretcher_on_ground():
 		
 		
 		responder_collision.collision_layer = 1
+	
+	
 
 func _process(delta: float) -> void:
 	pass
@@ -243,6 +252,10 @@ func _physics_process(delta):
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
 	if area.name == "SafeArea":
-		objective_script.complete_objective()
+		in_safe_zone = true
 	elif area.get_parent().get_script() == Hazard:
 		objective_script.fail_objective()
+
+func _on_area_3d_area_exited(area: Area3D) -> void:
+	if area.name == "SafeArea":
+		in_safe_zone = false

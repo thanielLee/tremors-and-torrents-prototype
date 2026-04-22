@@ -1,42 +1,206 @@
-[gd_scene load_steps=2 format=3 uid="uid://culd7ukt6dcqw"]
+[gd_scene load_steps=7 format=3 uid="uid://culd7ukt6dcqw"]
 
 [ext_resource type="Script" uid="uid://bbvc7pviee5a7" path="res://custom_scenes/log.gd" id="1_x5ly5"]
+[ext_resource type="FontFile" uid="uid://m231uq8tiq88" path="res://assets/fonts/SourceSansPro-Regular.ttf" id="2_log"]
+[ext_resource type="FontFile" uid="uid://dfbg8ise6x0u8" path="res://assets/fonts/Inter-VariableFont_opsz,wght.ttf" id="3_log"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.024, 0.039, 0.071, 0.93)
+border_width_top = 2
+border_color = Color(0.39, 0.63, 1, 0.35)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sep"]
+bg_color = Color(1, 1, 1, 0.06)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_obj_sep"]
+bg_color = Color(1, 1, 1, 0.04)
 
 [node name="Log" type="CanvasLayer"]
 script = ExtResource("1_x5ly5")
 
 [node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="ColorRect" type="ColorRect" parent="Control"]
 custom_minimum_size = Vector2(1600, 900)
-layout_mode = 0
-offset_right = 1603.0
-offset_bottom = 854.0
-color = Color(0, 0, 0, 0.87451)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Description" type="RichTextLabel" parent="Control"]
-custom_minimum_size = Vector2(120, 800)
-layout_mode = 0
-offset_left = 24.0
-offset_top = 15.0
-offset_right = 1565.0
-offset_bottom = 877.0
-theme_override_constants/line_separation = -3
-theme_override_font_sizes/normal_font_size = 60
-bbcode_enabled = true
-text = "Level 1
+[node name="BgPanel" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
 
-You are a disaster responder doing a Search and Rescue.
+[node name="HBox" type="HBoxContainer" parent="Control/BgPanel"]
+layout_mode = 2
+theme_override_constants/separation = 0
 
-Objective: Escort the victim safely before time runs out to complete the level
+[node name="LeftCol" type="VBoxContainer" parent="Control/BgPanel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.42
 
-Fail condition:
-- Unable to escort the victim on time
-- Triggered 2 hazards
-- Victim triggers a hazard
+[node name="LeftPad" type="MarginContainer" parent="Control/BgPanel/HBox/LeftCol"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 56
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 56
 
-Complete optional objectives to  gain more points"
+[node name="LeftInner" type="VBoxContainer" parent="Control/BgPanel/HBox/LeftCol/LeftPad"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ReportMicro" type="Label" parent="Control/BgPanel/HBox/LeftCol/LeftPad/LeftInner"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.39, 0.5, 0.78, 0.65)
+theme_override_fonts/font = ExtResource("2_log")
+theme_override_font_sizes/font_size = 25
+text = "AFTER-ACTION REPORT"
+
+[node name="LevelTitle" type="Label" parent="Control/BgPanel/HBox/LeftCol/LeftPad/LeftInner"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.86, 0.89, 0.96, 0.95)
+theme_override_fonts/font = ExtResource("3_log")
+theme_override_font_sizes/font_size = 50
+text = "Level 2 - Disaster Response"
+
+[node name="Spacer1" type="Control" parent="Control/BgPanel/HBox/LeftCol/LeftPad/LeftInner"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="OutcomeLabel" type="Label" parent="Control/BgPanel/HBox/LeftCol/LeftPad/LeftInner"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.31, 0.78, 0.49, 1)
+theme_override_fonts/font = ExtResource("2_log")
+theme_override_font_sizes/font_size = 25
+text = "MISSION COMPLETE"
+
+[node name="Spacer2" type="Control" parent="Control/BgPanel/HBox/LeftCol/LeftPad/LeftInner"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="ScoreMicro" type="Label" parent="Control/BgPanel/HBox/LeftCol/LeftPad/LeftInner"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.53, 0.6, 0.73, 0.55)
+theme_override_fonts/font = ExtResource("2_log")
+theme_override_font_sizes/font_size = 20
+text = "FINAL SCORE"
+
+[node name="ScoreValue" type="Label" parent="Control/BgPanel/HBox/LeftCol/LeftPad/LeftInner"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.31, 0.78, 0.49, 1)
+theme_override_fonts/font = ExtResource("3_log")
+theme_override_font_sizes/font_size = 100
+text = "0"
+
+[node name="Spacer3" type="Control" parent="Control/BgPanel/HBox/LeftCol/LeftPad/LeftInner"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="MetaGrid" type="GridContainer" parent="Control/BgPanel/HBox/LeftCol/LeftPad/LeftInner"]
+layout_mode = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="TimeMicro" type="Label" parent="Control/BgPanel/HBox/LeftCol/LeftPad/LeftInner/MetaGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.53, 0.6, 0.73, 0.55)
+theme_override_fonts/font = ExtResource("2_log")
+theme_override_font_sizes/font_size = 30
+text = "TIME"
+
+[node name="TimeValue" type="Label" parent="Control/BgPanel/HBox/LeftCol/LeftPad/LeftInner/MetaGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.82, 0.9, 1)
+theme_override_fonts/font = ExtResource("2_log")
+theme_override_font_sizes/font_size = 30
+text = "00:00"
+
+[node name="HazardMicro" type="Label" parent="Control/BgPanel/HBox/LeftCol/LeftPad/LeftInner/MetaGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.53, 0.6, 0.73, 0.55)
+theme_override_fonts/font = ExtResource("2_log")
+theme_override_font_sizes/font_size = 30
+text = "HAZARDS"
+
+[node name="HazardValue" type="Label" parent="Control/BgPanel/HBox/LeftCol/LeftPad/LeftInner/MetaGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.65, 0.8, 1)
+theme_override_fonts/font = ExtResource("2_log")
+theme_override_font_sizes/font_size = 30
+text = "□ □"
+
+[node name="VSep" type="PanelContainer" parent="Control/BgPanel/HBox"]
+custom_minimum_size = Vector2(1, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sep")
+
+[node name="RightCol" type="VBoxContainer" parent="Control/BgPanel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RightPad" type="MarginContainer" parent="Control/BgPanel/HBox/RightCol"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 56
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 56
+
+[node name="RightInner" type="VBoxContainer" parent="Control/BgPanel/HBox/RightCol/RightPad"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ObjMicro" type="Label" parent="Control/BgPanel/HBox/RightCol/RightPad/RightInner"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.39, 0.5, 0.78, 0.65)
+theme_override_fonts/font = ExtResource("2_log")
+theme_override_font_sizes/font_size = 25
+text = "OBJECTIVES"
+
+[node name="ObjSep" type="PanelContainer" parent="Control/BgPanel/HBox/RightCol/RightPad/RightInner"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_obj_sep")
+
+[node name="Spacer4" type="Control" parent="Control/BgPanel/HBox/RightCol/RightPad/RightInner"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="ObjList" type="VBoxContainer" parent="Control/BgPanel/HBox/RightCol/RightPad/RightInner"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ExitHint" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -48.0
+offset_right = 300.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 0.18)
+theme_override_fonts/font = ExtResource("2_log")
+theme_override_font_sizes/font_size = 18
+text = "hold both triggers to exit"
+horizontal_alignment = 1

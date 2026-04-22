@@ -13,6 +13,9 @@ class_name Level2SM
 @export var level_time_limit: float = 20.0
 @export var briefing_time_limit: float = 5.0
 
+@export var left_controller: XRController3D
+@export var right_controller: XRController3D
+var hold_time: float = 0.0
 @onready var xr_origin_3d = $XROrigin3D
 @onready var start_pos: Vector3 = $StartPos.position
 var brief_pos: Vector3
@@ -118,9 +121,10 @@ func complete_level():
 	else:
 		disable_objectives()
 	log_results()
-	teleport_player(brief_pos)
+	# teleport_player(brief_pos)
 	hud_manager.end_level_prompt(true, score, "")
 	hud_manager.hide_timer()
+	current_state = State.LEVEL_ENDED
 
 func fail_level(message: String):
 	level_ended = true
@@ -143,8 +147,8 @@ func fail_level(message: String):
 		hud_manager.hide_timer()
 		hud_manager.end_level_prompt(false, score, message)
 		
-		await get_tree().create_timer(5.0).timeout
-		teleport_player(brief_pos)
+		# await get_tree().create_timer(5.0).timeout
+		# teleport_player(brief_pos)
 	
 	current_state = State.LEVEL_ENDED
 
@@ -173,6 +177,9 @@ func enable_hazards():
 		var hazard = h as Hazard
 		if hazard.has_signal("hazard_triggered"):
 			hazard.hazard_triggered.connect(_on_hazard_triggered.bind(hazard))
+	
+	var fire = $Objectives/ElectricalFire as Hazard
+	fire.hazard_triggered.connect(_on_hazard_triggered.bind(fire))
 
 func disable_hazards():
 	if not hazards: return
@@ -185,22 +192,21 @@ func disable_hazards():
 func _on_hazard_triggered(hazard: Variant):
 	var hazard_name = hazard.hazard_name
 	
-	if hazard_name == "Electrical Fire":
-		if hazard.is_active:
-			fail_level("Ran into fire")
-		return
-	
 	if hazard_name not in triggered_hazards:
 		score += hazard.penalty_points
-		triggered_hazards.append(hazard_name)
+		triggered_hazards.append(hazard.name)
 		
-		var message = "Hazard: %s triggered! %d" % [hazard_name, hazard.penalty_points]
+		var message = "Hazard: %s triggered! %d" % [hazard_name, abs(hazard.penalty_points)]
 		hud_manager.show_prompt(message, 3.0)
 		hud_manager.update_score(score)
 		
 		if triggered_hazards.size() >= HAZARD_LIMIT:
 			fail_level("Hazard limit reached")
 		
+	if hazard_name == "Electrical Fire":
+		if hazard.is_active:
+			fail_level("Ran into fire")
+		return
 	# TODO: display logged hazards for results
 
 
@@ -315,7 +321,7 @@ func _on_objective_failed(obj: ObjectiveBase):
 	# if obj.has_signal("qte_started"):
 	# 	hud_manager.on_qte_failed(obj)
 	# else:
-	hud_manager.show_prompt(obj.fail_message + " -%d" % obj.failed_points, 3.0)
+	hud_manager.show_prompt(obj.failed_message + " -%d" % obj.failed_points, 3.0)
 	hud_manager.on_obj_failed(obj)
 
 	if obj.failed_points != 0:
@@ -324,7 +330,7 @@ func _on_objective_failed(obj: ObjectiveBase):
 	
 	if obj.is_required:
 		current_state = State.LEVEL_FAIL
-		failure_message = obj.fail_message
+		failure_message = obj.failed_message
 	else:
 		if len(seen_objectives) > 0:
 			current_state = State.ACTIVE_SEEN_OBJECTIVE
@@ -353,21 +359,61 @@ func teleport_player(new_position: Vector3):
 
 ### LOGGING
 
-func log_results():
-	var message: String = "Results:\n\n"
-	if completed_objectives.size() == 0:
-		message += "No objectives completed.\n"
-	else:
-		for i in range(completed_objectives.size()):
-			var obj_name = completed_objectives[i].objective_name
-			var obj_time = completed_objectives[i].completion_time
-			message += "%s: %.2f seconds\n" % [obj_name, obj_time]
+# func log_results():
+# 	var message: String = "Results:\n\n"
+# 	if completed_objectives.size() == 0:
+# 		message += "No objectives completed.\n"
+# 	else:
+# 		for i in range(completed_objectives.size()):
+# 			var obj_name = completed_objectives[i].objective_name
+# 			var obj_time = completed_objectives[i].completion_time
+# 			message += "%s: %.2f seconds\n" % [obj_name, obj_time]
 	
-	message += "\nTime Taken: %.2f seconds\n" % level_timer
-	message += "Total Score: %d\n" % score
-	message += "Hazards Triggered: %d / %d\n" % [triggered_hazards.size(), HAZARD_LIMIT]
+# 	message += "\nTime Taken: %.2f seconds\n" % level_timer
+# 	message += "Total Score: %d\n" % score
+# 	message += "Hazards Triggered: %d / %d\n" % [triggered_hazards.size(), HAZARD_LIMIT]
 
-	hud_manager.log_results(message)
+# 	hud_manager.log_results(message)
+
+func log_results():
+	var level_status: bool = (not level_ended == false) and level_failed_obj_active
+	var data := {
+		"success": level_status,
+		"score": score,
+		"level_timer": level_timer,
+		"hazards_triggered": triggered_hazards.size(),
+		"hazard_limit": HAZARD_LIMIT,
+		"objectives": []
+	}
+
+	# All known objectives for display — including ones not completed
+	var all_objectives: Array[ObjectiveBase] = []
+	for obj in objectives.get_children():
+		if obj is ObjectiveBase:
+			all_objectives.append(obj)
+		elif obj.get_node_or_null("ObjectiveLogic"):
+			all_objectives.append(obj.get_node("ObjectiveLogic") as ObjectiveBase)
+
+	for obj in all_objectives:
+		if obj == null:
+			continue
+		var status: String
+		if obj.completed:
+			status = "complete"
+		elif obj.failed:
+			status = "failed"
+		else:
+			status = "missed"
+
+		data["objectives"].append({
+			"name": obj.objective_name,
+			"required": obj.is_required,
+			"status": status,
+			"completion_time": obj.completion_time,
+			"points_earned": obj.completed_points if obj.completed else (obj.failed_points if obj.failed else 0)
+		})
+
+	hud_manager.log_results(data)
 
 ### PROCESS LOOP ###
 
@@ -386,6 +432,14 @@ func _process(delta: float) -> void:
 		#_handle_level_briefing(delta)
 	
 	camera_forward = $XROrigin3D/XRCamera3D.global_transform.basis.z * -1
+	
+	# exit to main menu catchfall
+	if _both_triggers_pressed():
+		hold_time += delta
+		if hold_time >= 10.0:
+			exit_to_main_menu()
+	else:
+		hold_time = 0.0
 	
 func _get_next_state(delta: float):
 	if current_state != prev_state:
@@ -478,7 +532,7 @@ func _get_next_state(delta: float):
 			else:
 				current_state = State.ACTIVE_SEEN_OBJECTIVE
 		State.LEVEL_FAIL:
-			_update_timer(delta)
+			# _update_timer(delta)
 			if level_timer >= level_time_limit:
 				fail_level("You took too long!")
 			elif len(triggered_hazards) >= 3:
@@ -488,20 +542,25 @@ func _get_next_state(delta: float):
 			
 			_reset_level_state()
 		State.LEVEL_FAIL_TIME_FAILED:
-			_update_timer(delta)
+			# _update_timer(delta)
 			fail_level("You took too long!")
 			_reset_level_state()
 		State.LEVEL_COMPLETE:
-			_update_timer(delta)
+			# _update_timer(delta)
 			complete_level()
 			_reset_level_state()
 		State.LEVEL_ENDED:
 			if !teleported_player:
-				teleport_player(brief_pos)
+				# teleport_player(brief_pos)
 				teleported_player = true
-			_update_timer(delta)
-			if level_timer > 20.0:
-				exit_to_main_menu()
+				_do_level_end_sequence()
+			# elif teleported_player:
+			# 	level_timer += delta
+			# 	if level_timer > 20.0 or _both_triggers_pressed():
+			# 		exit_to_main_menu()
+			# _update_timer(delta)
+			#if level_timer > 20.0:
+				#exit_to_main_menu()
 
 func _update_seen_objectives():
 	if !should_update_seen_objectives:
@@ -651,3 +710,14 @@ func _prompt_player_to_finish_seen_objectives():
 	
 	player_prompted_with_unfinished_objs = true
 	
+func _do_level_end_sequence():
+	await get_tree().create_timer(5.5).timeout
+	teleport_player(brief_pos)
+	level_timer = 0.0
+	# hud_manager.show_prompt("Hold both triggers to exit", 99.0)
+
+func _both_triggers_pressed() -> bool:
+	if not left_controller or not right_controller:
+		return false
+
+	return left_controller.is_button_pressed("trigger") and right_controller.is_button_pressed("trigger")

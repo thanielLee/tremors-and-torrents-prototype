@@ -1,7 +1,7 @@
-[gd_scene load_steps=93 format=3 uid="uid://ckjbgxs7pcdii"]
+[gd_scene load_steps=95 format=3 uid="uid://ckjbgxs7pcdii"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_inwr5"]
-[ext_resource type="Script" uid="uid://dabt4rsi4n6s5" path="res://scripts/level_2_sm.gd" id="2_inwr5"]
+[ext_resource type="Script" uid="uid://dabt4rsi4n6s5" path="res://levels/level_2_sm.gd" id="2_inwr5"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_amexo"]
 [ext_resource type="Material" uid="uid://be0o818winf1k" path="res://addons/ateneo-virtual-reality-escape/object-interaction-system/misc-resources/collider_raycast_material.tres" id="4_6ktlq"]
 [ext_resource type="Texture2D" uid="uid://b3gq1qnf34ml1" path="res://textures/sky/belfast_sunset_puresky_4k.hdr" id="5_2xps4"]
@@ -27,7 +27,9 @@
 [ext_resource type="PackedScene" uid="uid://c5jkbtv57haa3" path="res://hazards/broken_glass.tscn" id="25_mg5to"]
 [ext_resource type="Shader" uid="uid://m6krcam0qkt3" path="res://levels/level_2_SM.gdshader" id="26_1cuvt"]
 [ext_resource type="PackedScene" uid="uid://c83bvn3hvunbw" path="res://hazards/shaker.tscn" id="26_1xdl0"]
+[ext_resource type="Script" uid="uid://dlear2vc5ck3b" path="res://custom_scenes/safe_area.gd" id="26_amexo"]
 [ext_resource type="PackedScene" uid="uid://dsaovvehgewyy" path="res://objectives/victim_rescue.tscn" id="27_m763p"]
+[ext_resource type="FontFile" uid="uid://m231uq8tiq88" path="res://assets/fonts/SourceSansPro-Regular.ttf" id="28_amexo"]
 [ext_resource type="PackedScene" uid="uid://bp4qsothxd80g" path="res://objectives/injured.tscn" id="28_kvtuh"]
 [ext_resource type="PackedScene" uid="uid://cexlre72hlkim" path="res://custom_scenes/duck_cover_hold_qte.tscn" id="29_ngpef"]
 [ext_resource type="PackedScene" uid="uid://de0guxhrn5ouk" path="res://scenes/pickable_demo/objects/hammer.tscn" id="31_4wll4"]
@@ -45,12 +47,12 @@
 [ext_resource type="PackedScene" uid="uid://41fv2ptcljjp" path="res://custom_scenes/team_captain.tscn" id="42_lm75o"]
 [ext_resource type="Script" uid="uid://mwkmv5yaqd6g" path="res://custom_scenes/ui/hud_manager.gd" id="43_ewcfm"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="44_t2pyv"]
-[ext_resource type="PackedScene" uid="uid://cg3e6vl8r45gh" path="res://custom_scenes/ui/hud_2d.tscn" id="45_6u3w4"]
+[ext_resource type="PackedScene" uid="uid://cg3e6vl8r45gh" path="res://custom_scenes/ui/hud_2d.tscn" id="46_1cuvt"]
 [ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="46_kbvrv"]
 [ext_resource type="PackedScene" uid="uid://culd7ukt6dcqw" path="res://custom_scenes/level_result_log_2d.tscn" id="47_uxogw"]
-[ext_resource type="Script" uid="uid://b4seunyy8fkyl" path="res://custom_scenes/ui/dialogue_manager.gd" id="48_00ufr"]
-[ext_resource type="PackedScene" uid="uid://bwvp4b0em2nh4" path="res://custom_scenes/ui/dialogue_ui.tscn" id="49_cqa8e"]
+[ext_resource type="PackedScene" uid="uid://b8e7ebkdguro8" path="res://custom_scenes/dialogue_manager.tscn" id="49_inwr5"]
 [ext_resource type="AudioStream" uid="uid://c8gd8a548qysy" path="res://assets/audio/earthquake-consolidated.wav" id="50_idapo"]
+[ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="51_6ktlq"]
 [ext_resource type="AudioStream" uid="uid://d0l6x7lhlm0f3" path="res://assets/audio/intense-horror-game-ambience-418842.mp3" id="51_wpyop"]
 [ext_resource type="AudioStream" uid="uid://t17p4wyjbdm5" path="res://assets/audio/ambulance-siren-363656.mp3" id="52_nkgym"]
 
@@ -114,7 +116,7 @@ size = Vector3(10.946, 3.15682, 0.04)
 size = Vector3(5.69688, 3.14787, 0.04)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lrvbd"]
-size = Vector3(5.95996, 1, 5.32568)
+size = Vector3(5.21167, 1, 4.75324)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1cuvt"]
 render_priority = 0
@@ -203,10 +205,12 @@ bottom_radius = 0.02
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_amexo"]
 albedo_color = Color(1, 0, 0, 1)
 
-[node name="Level2SM" instance=ExtResource("1_inwr5")]
+[node name="Level2SM" node_paths=PackedStringArray("left_controller", "right_controller") instance=ExtResource("1_inwr5")]
 script = ExtResource("2_inwr5")
 level_time_limit = 120.0
 briefing_time_limit = 5.0
+left_controller = NodePath("XROrigin3D/LeftHand")
+right_controller = NodePath("XROrigin3D/RightHand")
 
 [node name="XROrigin3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.635, 0, -1.56167)
@@ -412,40 +416,55 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72634, 2.66731e-06, -22.58
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.21748, 0, 7.23512)
 collision_layer = 32
 collision_mask = 0
+script = ExtResource("26_amexo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SafeArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.374146, 0, 0.286223)
 shape = SubResource("BoxShape3D_lrvbd")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="SafeArea" index="1"]
 mesh = SubResource("PlaneMesh_inwr5")
 
+[node name="SafeZoneLabel" type="Label3D" parent="SafeArea/MeshInstance3D2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0554423, 3.17346, -0.412979)
+billboard = 1
+no_depth_test = true
+modulate = Color(0.301961, 1, 0.301961, 1)
+text = "SAFE ZONE"
+font = ExtResource("28_amexo")
+font_size = 48
+outline_size = 6
+
 [node name="Objectives" type="Node3D" parent="." index="5"]
 
 [node name="VictimRescue" parent="Objectives" index="0" instance=ExtResource("27_m763p")]
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 1.48892, -0.0362523, -12.4165)
-objective_name = "Save Evacuee"
+objective_name = "Rescue the Victim"
 completed_points = 100
 is_required = true
 ideal_completion_time = 20.0
-completed_message = "Evacuee made it!"
-fail_message = "Evacuee did not make it!"
+on_start_message = "Lead the victim to the safe zone!"
+completed_message = "Victim is safe. Good work."
+failed_message = "The victim was lost to a hazard."
 
 [node name="Injured" parent="Objectives" index="1" instance=ExtResource("28_kvtuh")]
 transform = Transform3D(-6.09774e-08, 0, -1.395, 0, 1.395, 0, 1.395, 0, -6.09774e-08, -2.99386, 0.419616, -14.8445)
-objective_name = "Bandage Injured"
+objective_name = "Treat the Injured"
 is_required = true
 ideal_completion_time = 15.0
-completed_message = "Evacuee was successfully bandaged!"
-fail_message = "Evacuee was not bandaged properly!"
+on_start_message = "Someone is injured nearby — apply a bandage!"
+completed_message = "Wound bandaged. The victim is stable."
+failed_message = "The bandaging was interrupted."
 
 [node name="DuckCoverHoldQTE" parent="Objectives" index="2" instance=ExtResource("29_ngpef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.015, 0.25, -4.92273)
 one_shot = true
-objective_name = "Duck Cover and Hold"
+objective_name = "Duck, Cover & Hold"
 completed_points = 25
 is_invisible = true
-completed_message = "Rocks did not hit you head!"
-fail_message = "Failed to duck cover and hold!"
+on_start_message = "Earthquake! Duck, cover your head, and hold!"
+completed_message = "You held the position — well done!"
+failed_message = "You didn't hold the position in time."
 
 [node name="ElectricalFire" parent="Objectives" index="3" instance=ExtResource("24_rddgb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.41107, 0, -8.23519)
@@ -703,10 +722,20 @@ material = SubResource("StandardMaterial3D_0fu15")
 
 [node name="TeamCaptain" parent="Box" index="6" instance=ExtResource("42_lm75o")]
 transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -2, 0, -2)
+visible = false
+
+[node name="Teleport" parent="Box" index="7" instance=ExtResource("51_6ktlq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.17185, -0.273963, 1.91533)
+visible = false
+scene = "uid://bcsf6fktx606t"
+
+[node name="ToLevel1" parent="Box" index="8" instance=ExtResource("51_6ktlq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.17185, -0.273963, 1.91533)
+scene = "uid://bcsf6fktx606t"
 
 [node name="Timer" type="Timer" parent="." index="13"]
 
-[node name="HUDManager" type="Node3D" parent="." index="14" node_paths=PackedStringArray("xr_origin_3d", "xr_camera")]
+[node name="HUDManager" type="Node3D" parent="." index="14" node_paths=PackedStringArray("xr_origin_3d", "xr_camera") groups=["hud_manager"]]
 script = ExtResource("43_ewcfm")
 xr_origin_3d = NodePath("../XROrigin3D")
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
@@ -715,33 +744,27 @@ xr_camera = NodePath("../XROrigin3D/XRCamera3D")
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 screen_size = Vector2(16, 9)
 collision_layer = 0
-scene = ExtResource("45_6u3w4")
+scene = ExtResource("46_1cuvt")
 viewport_size = Vector2(1600, 900)
 material = ExtResource("46_kbvrv")
 scene_properties_keys = PackedStringArray("hud.gd", "prompt_duration")
 prompt_duration = 3.0
 
 [node name="ResultLog" parent="HUDManager" index="1" instance=ExtResource("44_t2pyv")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -112.474, 1.65946, -2.9876)
-visible = false
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -112.474, 1.65946, -4.17186)
 screen_size = Vector2(16, 9)
 collision_layer = 1
 scene = ExtResource("47_uxogw")
 viewport_size = Vector2(1600, 900)
-update_mode = 0
+material = ExtResource("46_kbvrv")
 unshaded = true
 scene_properties_keys = PackedStringArray("log.gd")
 
-[node name="DialogueManager" type="Node3D" parent="." index="15" node_paths=PackedStringArray("xr_origin_3d", "xr_camera", "dialogue_button_hand", "dialogue_toggler_hand") groups=["dialogue_system"]]
-script = ExtResource("48_00ufr")
+[node name="DialogueManager" parent="." index="15" node_paths=PackedStringArray("xr_origin_3d", "xr_camera", "dialogue_button_hand", "dialogue_toggler_hand") instance=ExtResource("49_inwr5")]
 xr_origin_3d = NodePath("../XROrigin3D")
 xr_camera = NodePath("../XROrigin3D/XRCamera3D")
-ui_distance = 2.0
 dialogue_button_hand = NodePath("../XROrigin3D/RightHand")
 dialogue_toggler_hand = NodePath("../XROrigin3D/RightHand")
-
-[node name="DialogueUI" parent="DialogueManager" index="0" instance=ExtResource("49_cqa8e")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 
 [node name="GlobalAudioManager" type="Node3D" parent="." index="16"]
 
