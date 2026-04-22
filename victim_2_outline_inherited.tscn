@@ -4,7 +4,7 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oikp8"]
 transparency = 1
-albedo_color = Color(0.873, 0.97, 0, 0)
+albedo_color = Color(0.87451, 0.968627, 0, 0)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_qv2p6"]
 _surfaces = [{
@@ -159,3 +159,6 @@ material_override = SubResource("StandardMaterial3D_oikp8")
 mesh = SubResource("ArrayMesh_qv2p6")
 skin = SubResource("Skin_rbxfu")
 skeleton = NodePath("../NPC_man_001/Skeleton3D")
+
+[node name="NPC_man_001" parent="." index="1"]
+visible = false

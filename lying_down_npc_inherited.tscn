@@ -4,7 +4,7 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bqnae"]
 transparency = 1
-albedo_color = Color(0.873, 0.97, 0, 0)
+albedo_color = Color(0.87451, 0.968627, 0, 0)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_bqnae"]
 _surfaces = [{
@@ -162,3 +162,4 @@ skeleton = NodePath("../NPC_man_001/Skeleton3D")
 
 [node name="NPC_man_001" parent="." index="1"]
 transform = Transform3D(0.996428, 0.0478841, -0.0695523, 0.0645621, 0.0988679, 0.993004, 0.0544256, -0.993948, 0.0954233, -0.0360397, 0.789099, 0.780538)
+visible = false

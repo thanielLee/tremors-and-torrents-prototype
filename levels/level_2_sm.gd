@@ -208,7 +208,6 @@ func _on_hazard_triggered(hazard: Variant):
 		if hazard.is_active:
 			fail_level("Ran into fire")
 		return
-	# TODO: display logged hazards for results
 
 
 ### OBJECTIVES ###
@@ -583,7 +582,7 @@ func _update_seen_objectives():
 		if !current_obj.is_required:
 			continue
 		var did_see = _check_player_seen(current_obj)
-		print("DID SEE " + str(current_obj.name) + ": " + str(did_see))
+		#print("DID SEE " + str(current_obj.name) + ": " + str(did_see))
 		if did_see:
 			seen_objectives.push_back(current_obj)
 			return_val = true

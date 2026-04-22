@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=3 uid="uid://p6oqxo4jk8qs"]
+[gd_scene load_steps=102 format=3 uid="uid://p6oqxo4jk8qs"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_h05us"]
 [ext_resource type="Script" uid="uid://dabt4rsi4n6s5" path="res://levels/level_2_sm.gd" id="2_5s23m"]
@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://c83bvn3hvunbw" path="res://hazards/shaker.tscn" id="25_h1la1"]
 [ext_resource type="Shader" uid="uid://m6krcam0qkt3" path="res://levels/level_2_SM.gdshader" id="26_2d4ks"]
 [ext_resource type="PackedScene" uid="uid://dsaovvehgewyy" path="res://objectives/victim_rescue.tscn" id="27_lhyu0"]
+[ext_resource type="FontFile" uid="uid://m231uq8tiq88" path="res://assets/fonts/SourceSansPro-Regular.ttf" id="27_pxf73"]
 [ext_resource type="PackedScene" uid="uid://bp4qsothxd80g" path="res://objectives/injured.tscn" id="28_ws2nu"]
 [ext_resource type="PackedScene" uid="uid://cexlre72hlkim" path="res://custom_scenes/duck_cover_hold_qte.tscn" id="29_b0pvx"]
 [ext_resource type="PackedScene" uid="uid://crte44g8idacl" path="res://hazards/electrical_fire.tscn" id="30_rm3s7"]
@@ -44,6 +45,7 @@
 [ext_resource type="AudioStream" uid="uid://bu0n47pxg0f0k" path="res://assets/freesound/344548__dster777__button.wav" id="42_na6ag"]
 [ext_resource type="PackedScene" uid="uid://41fv2ptcljjp" path="res://custom_scenes/team_captain.tscn" id="43_j4xh8"]
 [ext_resource type="Script" uid="uid://mwkmv5yaqd6g" path="res://custom_scenes/ui/hud_manager.gd" id="44_qe5ug"]
+[ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="45_grw86"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="45_gtoqv"]
 [ext_resource type="PackedScene" uid="uid://cg3e6vl8r45gh" path="res://custom_scenes/ui/hud_2d.tscn" id="46_nasf3"]
 [ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="47_2ekaf"]
@@ -120,25 +122,22 @@ size = Vector3(2.93597, 2.97961, 0.04)
 size = Vector3(1.1091, 0.908875, 0.04)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cgp14"]
-size = Vector3(8.72702, 3.01596, 0.04)
+size = Vector3(9.59605, 3.01596, 0.04)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pxf73"]
-size = Vector3(2.49718, 2.96859, 0.04)
+size = Vector3(2.60336, 2.96859, 0.04)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_grw86"]
-size = Vector3(1.80604, 2.96859, 0.04)
+size = Vector3(1.83124, 2.96859, 0.04)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vie3y"]
-size = Vector3(1.23569, 2.96859, 0.04)
+size = Vector3(1.39946, 2.96859, 0.04)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g2oy5"]
 size = Vector3(1.67253, 2.96859, 0.04)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_1qxnm"]
-size = Vector3(0.494671, 2.96859, 0.04)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_lrvbd"]
-size = Vector3(4.75342, 1, 4.21155)
+size = Vector3(5.88892, 1, 5.30206)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1cuvt"]
 render_priority = 0
@@ -227,10 +226,12 @@ bottom_radius = 0.02
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_amexo"]
 albedo_color = Color(1, 0, 0, 1)
 
-[node name="Level3SM" instance=ExtResource("1_h05us")]
+[node name="Level3SM" node_paths=PackedStringArray("left_controller", "right_controller") instance=ExtResource("1_h05us")]
 script = ExtResource("2_5s23m")
 level_time_limit = 120.0
 briefing_time_limit = 5.0
+left_controller = NodePath("XROrigin3D/LeftHand")
+right_controller = NodePath("XROrigin3D/RightHand")
 
 [node name="XROrigin3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.635, 0, -1.56167)
@@ -263,7 +264,7 @@ environment = SubResource("Environment_4jcj5")
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -20.516, 0, -13.428)
 
 [node name="bricks_debris" parent="Environment" index="4" instance=ExtResource("7_g2oy5")]
-transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, -37.5685, -0.01, -3.63514)
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, -33.1181, -0.01, -2.98179)
 
 [node name="bricks_debris2" parent="Environment" index="5" instance=ExtResource("7_g2oy5")]
 transform = Transform3D(0.5625, 0, 0, 0, 0.5625, 0, 0, 0, 0.5625, -18.4118, -0.0175, -12.6128)
@@ -378,6 +379,7 @@ transform = Transform3D(-3.47506e-08, 0, -0.795, 0, 0.795, 0, 0.795, 0, -3.47506
 transform = Transform3D(-3.47506e-08, 0, -0.795, 0, 0.795, 0, 0.795, 0, -3.47506e-08, 4.65891, 1.00016, 0.415644)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WorldShaker/house_1" index="21"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.69296e-05, 3.68804e-07, -0.012454)
 collision_layer = 536870912
 collision_mask = 536870912
 
@@ -430,28 +432,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.33735, 2.55848, 4.98705)
 shape = SubResource("BoxShape3D_5s23m")
 
 [node name="CollisionShape3D13" type="CollisionShape3D" parent="WorldShaker/house_1/StaticBody3D" index="12"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.44856, 1.50493, 4.98705)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.88308, 1.50493, 4.98705)
 shape = SubResource("BoxShape3D_cgp14")
 
 [node name="CollisionShape3D14" type="CollisionShape3D" parent="WorldShaker/house_1/StaticBody3D" index="13"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.88889, 1.50838, 3.52638)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.93303, 1.50838, 3.52638)
 shape = SubResource("BoxShape3D_pxf73")
 
 [node name="CollisionShape3D15" type="CollisionShape3D" parent="WorldShaker/house_1/StaticBody3D" index="14"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0460609, 1.50838, 2.99496)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0334596, 1.50838, 2.99496)
 shape = SubResource("BoxShape3D_grw86")
 
 [node name="CollisionShape3D16" type="CollisionShape3D" parent="WorldShaker/house_1/StaticBody3D" index="15"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.61291, 1.50838, 4.13392)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.61291, 1.50838, 4.22019)
 shape = SubResource("BoxShape3D_vie3y")
 
 [node name="CollisionShape3D17" type="CollisionShape3D" parent="WorldShaker/house_1/StaticBody3D" index="16"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0548851, 1.50838, 3.94026)
 shape = SubResource("BoxShape3D_g2oy5")
-
-[node name="CollisionShape3D18" type="CollisionShape3D" parent="WorldShaker/house_1/StaticBody3D" index="17"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.14095, 1.50838, 3.27268)
-shape = SubResource("BoxShape3D_1qxnm")
 
 [node name="Hazards" type="Node3D" parent="." index="3"]
 
@@ -464,7 +462,10 @@ transform = Transform3D(0.992206, 0, 0.124606, 0, 1, 0, -0.124606, 0, 0.992206, 
 [node name="BrokenGlass3" parent="Hazards" index="2" instance=ExtResource("24_oiohj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.13901, 0.0310602, -13.0583)
 
-[node name="Shaker" parent="Hazards" index="3" instance=ExtResource("25_h1la1")]
+[node name="BrokenGlass4" parent="Hazards" index="3" instance=ExtResource("24_oiohj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.88473, 0.0310602, -13.0583)
+
+[node name="Shaker" parent="Hazards" index="4" instance=ExtResource("25_h1la1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72634, 2.66731e-06, -22.5884)
 
 [node name="SafeArea" type="Area3D" parent="." index="4"]
@@ -473,11 +474,21 @@ collision_layer = 32
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SafeArea" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.603271, 0, 0.557066)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0355225, 0, 0.0118093)
 shape = SubResource("BoxShape3D_lrvbd")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="SafeArea" index="1"]
 mesh = SubResource("PlaneMesh_inwr5")
+
+[node name="SafeZoneLabel" type="Label3D" parent="SafeArea/MeshInstance3D2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0554423, 3.17346, -0.412979)
+billboard = 1
+no_depth_test = true
+modulate = Color(0.301961, 1, 0.301961, 1)
+text = "SAFE ZONE"
+font = ExtResource("27_pxf73")
+font_size = 48
+outline_size = 6
 
 [node name="Objectives" type="Node3D" parent="." index="5"]
 
@@ -487,14 +498,18 @@ objective_name = "Save Evacuee"
 completed_points = 100
 is_required = true
 ideal_completion_time = 20.0
-completed_message = "Evacuee made it!"
+on_start_message = "Lead the victim to the safe zone!"
+completed_message = "Victim is safe. Good work."
+failed_message = "The victim was lost to a hazard."
 
 [node name="Injured" parent="Objectives" index="1" instance=ExtResource("28_ws2nu")]
 transform = Transform3D(1.395, 0, -1.42109e-14, 0, 1.395, 0, 1.42109e-14, 0, 1.395, 4.77215, 0.615343, -12.8747)
 objective_name = "Bandage Injured"
 is_required = true
 ideal_completion_time = 15.0
-completed_message = "Evacuee was successfully bandaged!"
+on_start_message = "Someone is injured nearby — apply a bandage!"
+completed_message = "Wound bandaged. The victim is stable."
+failed_message = "The bandaging was interrupted."
 
 [node name="DuckCoverHoldQTE" parent="Objectives" index="2" instance=ExtResource("29_b0pvx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.58006, 0.081985, -6.52269)
@@ -502,7 +517,9 @@ one_shot = true
 objective_name = "Duck Cover and Hold"
 completed_points = 25
 is_invisible = true
-completed_message = "Rocks did not hit you head!"
+on_start_message = "Earthquake! Duck, cover your head, and hold!"
+completed_message = "You held the position — well done!"
+failed_message = "You didn't hold the position in time."
 
 [node name="ElectricalFire" parent="Objectives" index="3" instance=ExtResource("30_rm3s7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.09316, 0, -9.71424)
@@ -761,6 +778,10 @@ material = SubResource("StandardMaterial3D_0fu15")
 [node name="TeamCaptain" parent="Box" index="6" instance=ExtResource("43_j4xh8")]
 transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -2, 0, -2)
 
+[node name="Teleport" parent="Box" index="7" instance=ExtResource("45_grw86")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.17185, -0.273963, 1.91533)
+scene = "uid://bcsf6fktx606t"
+
 [node name="Timer" type="Timer" parent="." index="13"]
 
 [node name="HUDManager" type="Node3D" parent="." index="14" node_paths=PackedStringArray("xr_origin_3d", "xr_camera")]
@@ -785,7 +806,6 @@ screen_size = Vector2(16, 9)
 collision_layer = 1
 scene = ExtResource("48_q4ky4")
 viewport_size = Vector2(1600, 900)
-update_mode = 0
 unshaded = true
 scene_properties_keys = PackedStringArray("log.gd")
 

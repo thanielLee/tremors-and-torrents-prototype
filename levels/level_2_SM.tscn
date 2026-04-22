@@ -117,7 +117,7 @@ size = Vector3(10.946, 3.15682, 0.04)
 size = Vector3(5.69688, 3.14787, 0.04)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lrvbd"]
-size = Vector3(5.21167, 1, 4.75324)
+size = Vector3(6.23425, 1, 5.2526)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1cuvt"]
 render_priority = 0
@@ -420,7 +420,7 @@ collision_mask = 0
 script = ExtResource("26_amexo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SafeArea" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.374146, 0, 0.286223)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.137146, 0, 0.0365448)
 shape = SubResource("BoxShape3D_lrvbd")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="SafeArea" index="1"]
@@ -726,11 +726,6 @@ transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -2, 0, -2)
 visible = false
 
 [node name="Teleport" parent="Box" index="7" instance=ExtResource("51_6ktlq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.17185, -0.273963, 1.91533)
-visible = false
-scene = "uid://bcsf6fktx606t"
-
-[node name="ToLevel1" parent="Box" index="8" instance=ExtResource("51_6ktlq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.17185, -0.273963, 1.91533)
 scene = "uid://bcsf6fktx606t"
 

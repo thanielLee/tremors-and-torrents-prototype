@@ -6,6 +6,7 @@ class_name Level2Briefing
 @onready var teleport: Teleport = $Teleport
 
 @export_file('*.tscn') var scene : String
+@export_file('*.tscn') var scene2 : String
 
 @export var left_controller: XRController3D
 @export var right_controller: XRController3D
@@ -19,7 +20,12 @@ func _ready() -> void:
 	_start_briefing()
 	dialogue_ui.dialogue_finished.connect(_on_briefing_finished)
 	set_process(true)
-
+	
+	var randomint = randi_range(0, 0)
+	if randomint == 0:
+		teleport.scene = scene
+	elif randomint == 1:
+		teleport.scene = scene2
 
 func _start_briefing():
 	dialogue_manager.start_dialogue("TeamCaptain", "briefing", "Captain")
@@ -45,7 +51,7 @@ func _process(delta):
 	if _both_triggers_pressed():
 		hold_time += delta
 		if hold_time >= required_hold_time:
-			to_level()
+			exit_to_main_menu()
 	else:
 		hold_time = 0.0
 
@@ -55,7 +61,3 @@ func _both_triggers_pressed() -> bool:
 		return false
 
 	return left_controller.is_button_pressed("trigger") and right_controller.is_button_pressed("trigger")
-
-
-func to_level():
-	load_scene(scene)

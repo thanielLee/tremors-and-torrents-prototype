@@ -88,6 +88,10 @@ func _on_victim_safe():
 	complete_objective()
 	area_3d.collision_layer = 1
 	body.collision_layer = 3
+	walking_mesh.visible = false
+	interactable_handle_left.enabled = false
+	interactable_handle_right.enabled = false
+	
 
 func _on_victim_hazard():
 	fail_objective()
@@ -160,6 +164,10 @@ func _on_reset():
 	# Reset grab state
 	left_hand_held = false
 	right_hand_held = false
+	
+	interactable_handle_left.enabled = true
+	interactable_handle_right.enabled = true
+	
 	
 	# Reset dialogue state
 	state_index = 0

@@ -24,6 +24,7 @@ _surfaces = [{
 [node name="stretcher2" instance=ExtResource("1_s0o1b")]
 
 [node name="stretcher" parent="." index="0"]
+visible = false
 material_overlay = SubResource("ShaderMaterial_qjdnt")
 
 [node name="OutlineMesh" type="MeshInstance3D" parent="." index="1"]

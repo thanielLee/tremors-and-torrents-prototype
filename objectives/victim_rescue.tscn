@@ -23,7 +23,7 @@ size = Vector3(0.919833, 0.874084, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_2c2vd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wdwv5"]
-size = Vector3(1.672, 1.64307, 4.03586)
+size = Vector3(0.742325, 0.561402, 1.73785)
 
 [node name="VictimRescue" type="Node3D"]
 script = ExtResource("1_0qijs")
@@ -114,7 +114,7 @@ collision_layer = 536870912
 collision_mask = 536870912
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="VisibleArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0894165, 0.321533, -0.00382996)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0662763, 0.177918, 0.13023)
 shape = SubResource("BoxShape3D_wdwv5")
 debug_fill = false
 
