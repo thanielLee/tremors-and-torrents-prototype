@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://ckjbgxs7pcdii"]
+[gd_scene load_steps=96 format=3 uid="uid://ckjbgxs7pcdii"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_inwr5"]
 [ext_resource type="Script" uid="uid://dabt4rsi4n6s5" path="res://levels/level_2_sm.gd" id="2_inwr5"]
@@ -55,6 +55,7 @@
 [ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="51_6ktlq"]
 [ext_resource type="AudioStream" uid="uid://d0l6x7lhlm0f3" path="res://assets/audio/intense-horror-game-ambience-418842.mp3" id="51_wpyop"]
 [ext_resource type="AudioStream" uid="uid://t17p4wyjbdm5" path="res://assets/audio/ambulance-siren-363656.mp3" id="52_nkgym"]
+[ext_resource type="AudioStream" uid="uid://e7nbvvdi0k8k" path="res://assets/audio/objective_completed.mp3" id="56_2xps4"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4knja"]
 panorama = ExtResource("5_2xps4")
@@ -783,6 +784,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.42127, 3.04527, 7.74581)
 stream = ExtResource("52_nkgym")
 volume_db = -12.735
 autoplay = true
+
+[node name="ObjectiveCompletedPlayer" type="AudioStreamPlayer" parent="GlobalAudioManager" index="3"]
+stream = ExtResource("56_2xps4")
 
 [node name="CheckPosition1" type="MeshInstance3D" parent="." index="17"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.478631, 0)

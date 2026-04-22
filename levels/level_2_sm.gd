@@ -63,6 +63,7 @@ const HAZARD_LIMIT := 2
 # Global Audio Nodes
 @onready var earthquake_rumble: AudioStreamPlayer = $GlobalAudioManager/EarthquakePlayer
 @onready var background_music: AudioStreamPlayer = $GlobalAudioManager/BGMPlayer
+@onready var objective_player: AudioStreamPlayer = $GlobalAudioManager/ObjectiveCompletedPlayer
 
 var current_objective: ObjectiveBase = null
 var obj_elapsed_time: float = 0.0
@@ -303,6 +304,9 @@ func _on_objective_completed(obj: ObjectiveBase):
 		hud_manager.on_obj_completed(obj)
 		
 		hud_manager.update_score(score)
+		
+		objective_player.play(0.0)
+		
 		
 		enable_objectives()
 		if !obj.is_required:

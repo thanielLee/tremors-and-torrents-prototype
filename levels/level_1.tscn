@@ -34,6 +34,7 @@
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="30_e5brb"]
 [ext_resource type="PackedScene" uid="uid://bwcpq6cuejbiy" path="res://assets/meshes/table/table.tscn" id="32_gtrna"]
 [ext_resource type="Material" uid="uid://bjwhn1k2hwar6" path="res://levels/ui_material.tres" id="32_toluw"]
+[ext_resource type="AudioStream" uid="uid://e7nbvvdi0k8k" path="res://assets/audio/objective_completed.mp3" id="34_gtrna"]
 [ext_resource type="Shader" uid="uid://m6krcam0qkt3" path="res://levels/level_2_SM.gdshader" id="35_dp1ib"]
 [ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="35_toluw"]
 [ext_resource type="FontFile" uid="uid://m231uq8tiq88" path="res://assets/fonts/SourceSansPro-Regular.ttf" id="35_tqj1w"]
@@ -589,6 +590,9 @@ volume_db = 3.033
 stream = ExtResource("30_06ecp")
 volume_db = -5.2
 parameters/looping = true
+
+[node name="ObjectiveCompletedPlayer" type="AudioStreamPlayer" parent="GlobalAudioManager" index="2"]
+stream = ExtResource("34_gtrna")
 
 [node name="SafeArea2" type="Area3D" parent="." index="10"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 49.2635, -9.53674e-07, 10.066)
