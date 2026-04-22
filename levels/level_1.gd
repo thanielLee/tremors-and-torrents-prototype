@@ -13,6 +13,9 @@ class_name Level1
 @onready var world_shaker: Node3D = $Environment/WorldShaker
 @onready var earthquake_player: AudioStreamPlayer = $GlobalAudioManager/EarthquakePlayer
 
+@export var left_controller: XRController3D
+@export var right_controller: XRController3D
+var hold_time: float = 0.0
 
 var current_objective: ObjectiveBase = null
 var obj_elapsed_time: float = 0.0
@@ -29,6 +32,13 @@ func _process(delta: float) -> void:
 	if obj_active:
 		obj_elapsed_time += delta
 		_on_obj_update_status(obj_elapsed_time)
+	
+	if _both_triggers_pressed():
+		hold_time += delta
+		if hold_time >= 10.0:
+			exit_to_main_menu()
+	else:
+		hold_time = 0.0
 
 func _start_briefing():
 	dialogue_manager.start_dialogue("SandboxGuide", "sandbox_welcome", "Guide")
@@ -127,3 +137,9 @@ func do_earthquake(duration):
 	
 	#earthquake_triggered = true # for e.quake on time
 	world_shaker.shake_world(duration)
+
+func _both_triggers_pressed() -> bool:
+	if not left_controller or not right_controller:
+		return false
+
+	return left_controller.is_button_pressed("trigger") and right_controller.is_button_pressed("trigger")
