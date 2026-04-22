@@ -13,6 +13,9 @@ class_name Level2SM
 @export var level_time_limit: float = 20.0
 @export var briefing_time_limit: float = 5.0
 
+@export var left_controller: XRController3D
+@export var right_controller: XRController3D
+var hold_time: float = 0.0
 @onready var xr_origin_3d = $XROrigin3D
 @onready var start_pos: Vector3 = $StartPos.position
 var brief_pos: Vector3
@@ -118,9 +121,10 @@ func complete_level():
 	else:
 		disable_objectives()
 	log_results()
-	teleport_player(brief_pos)
+	# teleport_player(brief_pos)
 	hud_manager.end_level_prompt(true, score, "")
 	hud_manager.hide_timer()
+	current_state = State.LEVEL_ENDED
 
 func fail_level(message: String):
 	level_ended = true
@@ -143,8 +147,8 @@ func fail_level(message: String):
 		hud_manager.hide_timer()
 		hud_manager.end_level_prompt(false, score, message)
 		
-		await get_tree().create_timer(5.0).timeout
-		teleport_player(brief_pos)
+		# await get_tree().create_timer(5.0).timeout
+		# teleport_player(brief_pos)
 	
 	current_state = State.LEVEL_ENDED
 
@@ -427,6 +431,14 @@ func _process(delta: float) -> void:
 	
 	camera_forward = $XROrigin3D/XRCamera3D.global_transform.basis.z * -1
 	
+	# exit to main menu catchfall
+	if _both_triggers_pressed():
+		hold_time += delta
+		if hold_time >= 10.0:
+			exit_to_main_menu()
+	else:
+		hold_time = 0.0
+	
 func _get_next_state(delta: float):
 	if current_state != prev_state:
 		print("CURRENT STATE: " + str(State.find_key(current_state)))
@@ -518,7 +530,7 @@ func _get_next_state(delta: float):
 			else:
 				current_state = State.ACTIVE_SEEN_OBJECTIVE
 		State.LEVEL_FAIL:
-			_update_timer(delta)
+			# _update_timer(delta)
 			if level_timer >= level_time_limit:
 				fail_level("You took too long!")
 			elif len(triggered_hazards) >= 3:
@@ -528,18 +540,23 @@ func _get_next_state(delta: float):
 			
 			_reset_level_state()
 		State.LEVEL_FAIL_TIME_FAILED:
-			_update_timer(delta)
+			# _update_timer(delta)
 			fail_level("You took too long!")
 			_reset_level_state()
 		State.LEVEL_COMPLETE:
-			_update_timer(delta)
+			# _update_timer(delta)
 			complete_level()
 			_reset_level_state()
 		State.LEVEL_ENDED:
 			if !teleported_player:
-				teleport_player(brief_pos)
+				# teleport_player(brief_pos)
 				teleported_player = true
-			_update_timer(delta)
+				_do_level_end_sequence()
+			# elif teleported_player:
+			# 	level_timer += delta
+			# 	if level_timer > 20.0 or _both_triggers_pressed():
+			# 		exit_to_main_menu()
+			# _update_timer(delta)
 			#if level_timer > 20.0:
 				#exit_to_main_menu()
 
@@ -673,3 +690,14 @@ func _prompt_player_to_finish_seen_objectives():
 	
 	player_prompted_with_unfinished_objs = true
 	
+func _do_level_end_sequence():
+	await get_tree().create_timer(5.5).timeout
+	teleport_player(brief_pos)
+	level_timer = 0.0
+	# hud_manager.show_prompt("Hold both triggers to exit", 99.0)
+
+func _both_triggers_pressed() -> bool:
+	if not left_controller or not right_controller:
+		return false
+
+	return left_controller.is_button_pressed("trigger") and right_controller.is_button_pressed("trigger")

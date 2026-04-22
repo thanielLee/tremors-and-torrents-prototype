@@ -576,7 +576,6 @@ skeleton = NodePath("../../SafeArea2")
 [node name="SafeZoneLabel" type="Label3D" parent="SafeArea2/MeshInstance3D2" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.875362, 3.16145, -0.106804)
 billboard = 1
-no_depth_test = true
 modulate = Color(0.301961, 1, 0.301961, 1)
 text = "SAFE ZONE"
 font = ExtResource("35_tqj1w")
@@ -599,7 +598,6 @@ skeleton = NodePath("../../SafeArea2")
 [node name="SafeZoneLabel" type="Label3D" parent="SafeArea/MeshInstance3D2" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.186944, 2.40964, 0.325327)
 billboard = 1
-no_depth_test = true
 modulate = Color(0.301961, 1, 0.301961, 1)
 text = "SAFE ZONE"
 font = ExtResource("35_tqj1w")
@@ -636,5 +634,6 @@ scene = "uid://bcsf6fktx606t"
 
 [node name="Teleport3" parent="." index="19" instance=ExtResource("35_toluw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.7554, -0.120645, -3.7512)
+scene = "uid://bcsf6fktx606t"
 
 [connection signal="visibility_changed" from="InventorySystem" to="InventorySystem/MedkitSoundManager" method="_on_inventory_system_visibility_changed"]

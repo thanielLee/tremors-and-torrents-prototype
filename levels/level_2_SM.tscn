@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=3 uid="uid://ckjbgxs7pcdii"]
+[gd_scene load_steps=95 format=3 uid="uid://ckjbgxs7pcdii"]
 
 [ext_resource type="PackedScene" uid="uid://cpnfo7hdx0oxg" path="res://default_scene_base.tscn" id="1_inwr5"]
 [ext_resource type="Script" uid="uid://dabt4rsi4n6s5" path="res://levels/level_2_sm.gd" id="2_inwr5"]
@@ -52,6 +52,7 @@
 [ext_resource type="PackedScene" uid="uid://culd7ukt6dcqw" path="res://custom_scenes/level_result_log_2d.tscn" id="47_uxogw"]
 [ext_resource type="PackedScene" uid="uid://b8e7ebkdguro8" path="res://custom_scenes/dialogue_manager.tscn" id="49_inwr5"]
 [ext_resource type="AudioStream" uid="uid://c8gd8a548qysy" path="res://assets/audio/earthquake-consolidated.wav" id="50_idapo"]
+[ext_resource type="PackedScene" uid="uid://3a6wjr3a13vd" path="res://assets/meshes/teleport/teleport.tscn" id="51_6ktlq"]
 [ext_resource type="AudioStream" uid="uid://d0l6x7lhlm0f3" path="res://assets/audio/intense-horror-game-ambience-418842.mp3" id="51_wpyop"]
 [ext_resource type="AudioStream" uid="uid://t17p4wyjbdm5" path="res://assets/audio/ambulance-siren-363656.mp3" id="52_nkgym"]
 
@@ -204,10 +205,12 @@ bottom_radius = 0.02
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_amexo"]
 albedo_color = Color(1, 0, 0, 1)
 
-[node name="Level2SM" instance=ExtResource("1_inwr5")]
+[node name="Level2SM" node_paths=PackedStringArray("left_controller", "right_controller") instance=ExtResource("1_inwr5")]
 script = ExtResource("2_inwr5")
 level_time_limit = 1.0
 briefing_time_limit = 5.0
+left_controller = NodePath("XROrigin3D/LeftHand")
+right_controller = NodePath("XROrigin3D/RightHand")
 
 [node name="XROrigin3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.635, 0, -1.56167)
@@ -719,6 +722,16 @@ material = SubResource("StandardMaterial3D_0fu15")
 
 [node name="TeamCaptain" parent="Box" index="6" instance=ExtResource("42_lm75o")]
 transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -2, 0, -2)
+visible = false
+
+[node name="Teleport" parent="Box" index="7" instance=ExtResource("51_6ktlq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.17185, -0.273963, 1.91533)
+visible = false
+scene = "uid://bcsf6fktx606t"
+
+[node name="ToLevel1" parent="Box" index="8" instance=ExtResource("51_6ktlq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.17185, -0.273963, 1.91533)
+scene = "uid://bcsf6fktx606t"
 
 [node name="Timer" type="Timer" parent="." index="13"]
 
@@ -738,7 +751,7 @@ scene_properties_keys = PackedStringArray("hud.gd", "prompt_duration")
 prompt_duration = 3.0
 
 [node name="ResultLog" parent="HUDManager" index="1" instance=ExtResource("44_t2pyv")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -112.474, 1.65946, -2.9876)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -112.474, 1.65946, -4.17186)
 screen_size = Vector2(16, 9)
 collision_layer = 1
 scene = ExtResource("47_uxogw")
