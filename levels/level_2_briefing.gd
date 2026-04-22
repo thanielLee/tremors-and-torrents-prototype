@@ -22,7 +22,7 @@ func _ready() -> void:
 
 
 func _start_briefing():
-	dialogue_manager.start_dialogue("TeamCaptain", "level_2_briefing", "Captain")
+	dialogue_manager.start_dialogue("TeamCaptain", "briefing", "Captain")
 
 
 func _on_briefing_finished(npc_name: String):
