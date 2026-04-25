@@ -117,7 +117,7 @@ size = Vector3(10.946, 3.15682, 0.04)
 size = Vector3(5.69688, 3.14787, 0.04)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lrvbd"]
-size = Vector3(6.23425, 1, 5.2526)
+size = Vector3(10.5305, 1, 7.84764)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1cuvt"]
 render_priority = 0
@@ -420,7 +420,7 @@ collision_mask = 0
 script = ExtResource("26_amexo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SafeArea" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.137146, 0, 0.0365448)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45964, 0, -0.183783)
 shape = SubResource("BoxShape3D_lrvbd")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="SafeArea" index="1"]

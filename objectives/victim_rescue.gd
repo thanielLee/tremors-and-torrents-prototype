@@ -17,6 +17,8 @@ signal victim_triggered_hazard
 @onready var walking_mesh: Node3D = $RigidBody3D/WalkingMesh
 @onready var lying_down_mesh: Node3D = $RigidBody3D/LyingDownMesh
 
+var area_original_col_layer
+var body_original_col_layer
 var initial_transform: Transform3D
 
 var dialogue_sys
@@ -55,6 +57,9 @@ func _ready():
 	
 	var notif: VisibleOnScreenNotifier3D = $VisibleOnScreenNotifier3D
 	notif.screen_entered.connect(_check_entered)
+	
+	area_original_col_layer = area_3d.collision_layer
+	body_original_col_layer = body.collision_layer
 
 func _check_entered():
 	victim_seen = true
@@ -124,14 +129,17 @@ func _physics_process(delta: float) -> void:
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if not enabled:
 		return
+		
+	if active:
+		return
 	
 	if body is not XRToolsPlayerBody:
 		return
 	
 	player = body.get_parent()
 	start_objective()
-	area_3d.collision_layer = 0
-	body.collision_layer = 0
+	#area_3d.collision_layer = 0
+	#body.collision_layer = 0
 	walking_mesh.visible = true
 	lying_down_mesh.visible = false
 
@@ -186,3 +194,6 @@ func _on_reset():
 	
 	# Reset detection flags
 	victim_seen = false
+	
+	#area_3d.collision_layer = area_original_col_layer
+	#body.collision_layer = body_original_col_layer

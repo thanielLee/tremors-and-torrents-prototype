@@ -23,6 +23,11 @@ func _trigger_button_effect(button) -> void:
 			if "JammedDoor" in child.name:
 				child._reset_door()
 		return
+	
+	if objective.has_method("on_reset"):
+		print(objective.name + " has on_reset")
+		objective.on_reset()
+
 
 	if objective is not ObjectiveBase and objective != null:
 		var obj_logic = objective.get_node("ObjectiveLogic") as ObjectiveBase

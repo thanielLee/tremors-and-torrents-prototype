@@ -1,5 +1,6 @@
 extends ObjectiveBase
 
+@export var debug_injured: bool = false
 @onready var mesh: Node3D = $Mesh
 @onready var bandage_stages := [
 	$BandageStage0,
@@ -16,10 +17,14 @@ var sounds
 
 var injured_seen: bool = false
 
+var initial_transform: Transform3D
+
 func _ready() -> void:
-	for stage in bandage_stages:
-		stage.visible = false
-	current_stage = -1
+	initial_transform = global_transform
+	if not debug_injured:
+		for stage in bandage_stages:
+			stage.visible = false
+		current_stage = -1
 	
 	sounds = [bandage_sound_1, bandage_sound_2]
 	$VisibleOnScreenNotifier3D
@@ -75,7 +80,11 @@ func play_bandage_sound():
 
 func turn_off():
 	$Mesh.visible = false
-	bandage_stages[2].visible = false
+	$BandageStage2.visible = false
+
+func turn_on_bandage_mesh():
+	$BandageStage2.visible = true
+
 
 func _on_reset():
 	# reset bandage stages
@@ -87,5 +96,7 @@ func _on_reset():
 	ois_twist_receiver.total_progress = 0
 	ois_twist_receiver.past_progress = 0
 	ois_twist_receiver.total_angle = 0
+
+	global_transform = initial_transform
 
 	

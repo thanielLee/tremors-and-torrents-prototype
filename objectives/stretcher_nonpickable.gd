@@ -10,6 +10,8 @@ class_name StretcherNonPickable
 @onready var responder_mesh: Node3D = $responder1
 @onready var injured_node: ObjectiveBase = $"../Injured"
 @onready var responder_collision: StaticBody3D = $responder1/StaticBody3D
+var debug_injured: Node3D
+
 var handle_one_transform: Transform3D
 var handle_two_transform: Transform3D
 var handle_one_position: Vector3
@@ -30,6 +32,7 @@ var starting_vec: Vector3
 var setup_starting_vec: bool = false
 var rot_matrix: Transform3D
 
+var initial_transform: Transform3D
 
 # objective logic
 @onready var objective_script: ObjectiveBase = $"ObjectiveLogic"
@@ -40,6 +43,18 @@ signal strecher_one_handed(time: float)
 signal stretcher_dropped(distance: float)
 
 func _ready() -> void:
+	
+	if $"../debugInjured":
+		debug_injured = $"../debugInjured"
+	
+	if debug_injured:
+		injured_node = debug_injured as ObjectiveBase
+		injured_node.completed = true
+		# print("debug injured:")
+		# print(injured_node.completed)
+		injured_node.turn_on_bandage_mesh()
+		
+	initial_transform = global_transform
 	handle_one_transform = global_transform.affine_inverse() * handle_one.global_transform
 	handle_two_transform = global_transform.affine_inverse() * handle_two.global_transform
 	handle_one_position = handle_one.global_position-global_position
@@ -154,6 +169,7 @@ func _physics_process(delta):
 			_setup_player_info()
 			if injured_node.completed:
 				objective_script.start_objective()
+				print("starting obj")
 			var test_vec = -xr_camera.basis.z
 			test_vec.y = 0.0
 			test_vec = test_vec.normalized()
@@ -259,3 +275,24 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 func _on_area_3d_area_exited(area: Area3D) -> void:
 	if area.name == "SafeArea":
 		in_safe_zone = false
+
+func on_reset():
+	print("resetting stretcher objective")
+	global_transform = initial_transform
+	handle_one_hand = null
+	handle_two_hand = null
+	# did_setup_info = false
+	one_handed_keeping_track = false
+	one_handed_time = 0.0
+	is_on_ground = false
+	in_safe_zone = false
+	handle_one.global_transform = global_transform * handle_one_transform
+	handle_two.global_transform = global_transform * handle_two_transform
+	responder_collision.collision_layer = 0
+	responder_mesh.global_position.y = 0.0
+
+	injured_mesh.visible = false
+	injured_node.visible = true
+	objective_script.reset_objective()
+	
+	
